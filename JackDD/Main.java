@@ -67,7 +67,6 @@ public class Main {
 		SpecialItem ring=new SpecialItem("Ring",0,5,1,1);
 		Potion potion=new Potion("Potion",4);
 		
-		//So I got a OutOfMemoryError when I add this code.... it's late anyway, I'm out of memory myself
 		console.println("\n>>user finds a Ring and types 'equip 'ring'");
 		player.equip(ring);
 		console.println(player);
