@@ -6,7 +6,7 @@ public class Item {
 	private Stats StatModifyer;
 	
 	//parent class initializes only a name
-	public item(String name) {
+	public Item(String name) {
 		}
 	
 	//sets the stat modifyer for each item
@@ -30,7 +30,7 @@ public class Item {
 }
 //classes for items that equip to different parts of the player each are a subclass of item
 //Weapon class can only equip to player's hands, and can only increase the attack
-class Weapon extends item{
+class Weapon extends Item{
 	//boolean field used to distinguish whether the weapon requires two hands to equip
 	private boolean isTwoHanded;
 	
@@ -46,28 +46,28 @@ class Weapon extends item{
 }
 
 //Shield class can only be equipped to player's hand, and can only increase defense
-class Shield extends item{
+class Shield extends Item{
 	//@invariant defenseGain>0
 	public Shield(String name,int defenseGain){
 	}
 }
 
 //Suit class can only be equipped to player's suit, and can only increase defense
-class Suit extends item{
+class Suit extends Item{
 	//@invariant defenseGain>0
 	public Armour(String name,int defenseGain){
 	}
 }
 
 //Potion class can only be held in player's inventory, or used.  It does not alter stats until used
-class Potion extends item{
+class Potion extends Item{
 	//@invariant healthGain>0
 	public Potion(String name,int healthGain){
 	}
 }
 
 //Artifact class can only be held in the player's inventory, and it can increase any stat
-class Artifact extends item{
+class Artifact extends Item{
 	//@invariant healthGain>0
 	//@invariant maxHealthGain>0
 	//@invariant attackGain>0
