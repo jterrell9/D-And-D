@@ -5,7 +5,14 @@ import javafx.scene.Scene;
 //in game screen
 public interface GameScene : Scene{
     GameSceneManager manager;
-    void setup();
+    
+    //Called immediately after the
+    //GameScene is created
+    void init(Object objs[]);
+
+    //Called whenever the GameScene
+    //becomes active
+    void setup(Object objs[]);
 }
 
 public interface GameSceneManager{

@@ -16,7 +16,7 @@ public class GameRunner extends Application implements GameSceneManager{
     //Used to load save states and settings as
     //well as a wrapper for the JavaFX launch method
     public void runGame(String[] args){
-        //luanch(args);
+        //launch(args);
     }
 
     //Used to setup the various annonymous classes that

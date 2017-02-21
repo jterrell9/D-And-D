@@ -21,5 +21,11 @@ public class CommandParser{
 }
 
 public interface CommandHandler{
+    //Called immediately after the handler
+    //is registered
+    public void init(Object objs[]);
+
+    //Called whenever an appropriate command
+    //has been requested
     public void handleCommand(String args[]);
 }
