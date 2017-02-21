@@ -123,16 +123,16 @@ public class Main {
 		m.addRoom(room00, p);
 		
 		Room room01=new Room();
-		m.addRoomSouth(room01, p);
+		m.addRoomDir(room01, p,Map.DIR.SOUTH);
 		
 		Room room11=new Room();
-		m.addRoomEast(room11, p);
+		m.addRoomDir(room11, p,Map.DIR.EAST);
 		
 		Room room21=new Room();
-		m.addRoomEast(room21, p);
+		m.addRoomDir(room21, p,Map.DIR.EAST);
 		
 		Room room31=new Room();
-		m.addRoomSouth(room31, p);
+		m.addRoomDir(room31, p,Map.DIR.SOUTH);
 		
 		return m;
 	}

@@ -48,28 +48,28 @@ public class Player {
 	public Point move(Map.DIR direction,Map map){		//move command
 		switch(direction){
 		case NORTH:										//move north
-			if(map.getNorth(position)!=null)
+			if(map.getRoomDir(position,direction)!=null)
 				position.translate(0,-1);
 			else
 				break;
 			System.out.println(getName()+" has moved North");
 			return position;
 		case SOUTH:										//move south
-			if(map.getSouth(position)!=null)
+			if(map.getRoomDir(position,direction)!=null)
 				position.translate(0,1);
 			else
 				break;
 			System.out.println(getName()+" has moved South");
 			return position;
 		case EAST:										//move east
-			if(map.getEast(position)!=null)
+			if(map.getRoomDir(position,direction)!=null)
 				position.translate(1,0);
 			else
 				break;
 			System.out.println(getName()+" has moved East");
 			return position;
 		case WEST:										//move west
-			if(map.getWest(position)!=null)
+			if(map.getRoomDir(position,direction)!=null)
 				position.translate(-1,0);
 			else
 				break;
