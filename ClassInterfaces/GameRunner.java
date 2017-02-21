@@ -39,7 +39,7 @@ public class GameRunner extends Application implements GameSceneManager{
 
     //This will add a GameScene to the exisitng Map
     //of GameScenes
-    private void addGameScene(String name, GameScene, gameScene){
+    private void addGameScene(String name, GameScene gameScene){
     
     }
 }
