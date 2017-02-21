@@ -1,15 +1,40 @@
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Scanner;
+
+import com.google.gson.Gson;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		PrintStream console=new PrintStream(System.out);
+		
+		manualGame();
+		
+		Player player=loadGame();
 		Map map=newMap();
-		Player player=newPlayer("Jack");
 		
 		console.println(player);
 		map.drawPlayer(player);
+	}
+	public static void manualGame() throws FileNotFoundException{
+		//simulated new game procedure
+		PrintStream console=new PrintStream(System.out);
+		console.println("NEWGAME SELECTED");
+		Scanner scan=new Scanner(System.in);
+		System.out.print("Enter name of player: ");
+		Player player=newPlayer(scan.nextLine());
+		Map map=newMap();
 		
+		//print out starting game stats.
+		//this will go to the stats board and the map
+		console.println(player);
+		map.drawPlayer(player);
+		
+		//here the user enter's commands into the command console
+		//notice that each command calls a single method, 
+		//and then prints the stats to the statboard, and the map to map
 		console.println("\n>>user types 'move north'");
 		player.move(Map.DIR.NORTH,map);
 		console.println(player);
@@ -79,9 +104,8 @@ public class Main {
 		player.usePotion(potion);
 		console.println(player);
 		
-		console.println("\n>>user types 'drop ring");
-		player.drop(ring);
-		console.println(player);
+		console.println("\n>>user types 'save");
+		save(player);
 	}
 
 	
@@ -111,5 +135,25 @@ public class Main {
 		m.addRoomSouth(room31, p);
 		
 		return m;
+	}
+	public static void save(Player player) throws FileNotFoundException{
+		File gsonFile=new File(player.getName()+".json");
+		PrintStream toGsonFile=new PrintStream(gsonFile);
+		toGsonFile.println(new Gson().toJson(player));
+		toGsonFile.close();	
+	}
+	public static Player loadGame() throws FileNotFoundException{
+		Scanner scan=new Scanner(System.in);
+		System.out.print("Enter name of player: ");
+		File file=new File(scan.nextLine()+".json");
+		scan.close();
+		if(file.exists()){
+			Scanner scanJsonFile=new Scanner(file);
+			String avatarJson=scanJsonFile.nextLine();
+			scanJsonFile.close();
+			return new Gson().fromJson(avatarJson,Player.class);
+		}
+		System.out.println("ERROR file does not exit");
+		return null;
 	}
 }
