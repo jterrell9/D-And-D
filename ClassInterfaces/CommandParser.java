@@ -7,7 +7,7 @@ public class CommandParser{
     
     }
 
-    public registerCommand(String command, CommandHandler cmdHandler){
+    public void registerCommand(String command, CommandHandler cmdHandler){
 
     }
 
