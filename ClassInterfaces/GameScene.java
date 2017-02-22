@@ -3,7 +3,7 @@ import javafx.scene.Scene;
 //Defines a view within the game
 //such as the start menu or the
 //in game screen
-public interface GameScene : Scene{
+public interface GameScene extends Scene{
     GameSceneManager manager;
     
     //Called immediately after the
@@ -16,5 +16,5 @@ public interface GameScene : Scene{
 }
 
 public interface GameSceneManager{
-    setActiveGameScene(String name);
+    void setActiveGameScene(String name);
 }
