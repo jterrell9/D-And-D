@@ -10,7 +10,7 @@ public class Dragon implements Monster{
         //to player
     }
 
-    Public void die(){
+    public void die(){
         //set health to 0 and other logic to ensure the battle is over
     }
 }

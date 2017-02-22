@@ -1,20 +1,20 @@
 public class Item {
 	//name field to name the item
 	private String name;
-	//stat modifyer for adding stat gains when item is equipped or used, or dropped
-	private Stats StatModifyer;
+	//stat modifier for adding stat gains when item is equipped or used, or dropped
+	private Stats statModifier;
 	
 	//parent class initializes only a name
 	public Item(String name);
 	
-	//sets the stat modifyer for each item
-	//@post StatModifyer=new Stats(health,maxHealth,attack,defense);
-	public void setStatModifyer(int health,int maxHealth,int attack,int defense);
-	//returns the stat modifyer
+	//sets the stat modifier for each item
+	//@post StatModifier=new Stats(health,maxHealth,attack,defense);
+	public void setStatModifier(int health,int maxHealth,int attack,int defense);
+	//returns the stat modifier
 	public Stats getStatModifier();
-	//returns a version of the stat modifyer that is negative
+	//returns a version of the stat modifier that is negative
 	//used to negatively modify the stats of a player when an item is dropped
-	//@invariant the statModifyer will not be changed
+	//@invariant the statModifier will not be changed
 	public Stats getNegStatModifier();
 	
 	//returns the name field
