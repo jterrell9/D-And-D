@@ -33,9 +33,10 @@ public class Player {
 	private Item[] inventory;
 	//the isAlive boolean will be true when the health stat is above zero
 	private boolean isAlive;
+	//isInFight boolean will be true if the player is engaged in a fight
+	private boolean isInFight;
 	//A constructor to initialize a new player
 	//@pre if(map.isRoom(Point p))
-	private boolean isInFight;
 	public Player(String name,Point p,Stats s);
 	//the move method will translate the player's position point based on the direction
 	//@pre if(map.isRoom(Point p))
