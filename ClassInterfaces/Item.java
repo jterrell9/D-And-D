@@ -1,5 +1,3 @@
-package interfaces;
-
 public class Item {
 	
 	private String name;
