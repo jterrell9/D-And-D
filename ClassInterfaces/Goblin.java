@@ -1,8 +1,4 @@
-public class Goblin implements Monster{
-    // Stats is used to hold the Goblin's stats
-    private Stats stats;
-    private boolean alive;
-    private boolean fight;
+public class Goblin extends Monster{
 
     //Constructor used when Goblin is created for specific rooms when rooms are generated
     public Goblin (int health, int attack, int defense){
@@ -30,35 +26,5 @@ public class Goblin implements Monster{
     // post: alive = false
     public void die(){
         //set health to 0 and other logic to ensure the battle is over
-    }
-
-    // returns stats
-    public Stat getStats(){
-        return stats;
-    }
-
-    // returns if the Goblin is alive
-    public boolean isAlive() {
-        return alive;
-    }
-
-    //returns if the Goblin is in a fight
-    public boolean isFight() {
-        return fight;
-    }
-
-    //sets the variable alive
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    //sets the variable fight
-    public void setFight(boolean fight) {
-        this.fight = fight;
-    }
-
-    //sets the stats
-    public void setStats(Stats stats) {
-        this.stats = stats;
     }
 }

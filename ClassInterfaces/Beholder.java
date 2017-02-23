@@ -1,8 +1,4 @@
-public class Beholder implements Monster{
-    // Stats is used to hold the Beholder's stats
-    private Stats stats;
-    private boolean isAlive;
-    private boolean isInFight;
+public class Beholder extends Monster{
 
     //Constructor used when Beholder is created for specific rooms when rooms are generated
     public Beholder (int health, int attack, int defense){
@@ -37,35 +33,5 @@ public class Beholder implements Monster{
     // post: isAlive = false
     public void die(){
         //set health to 0 and other logic to ensure the battle is over
-    }
-
-    // returns stats
-    public Stat getStats(){
-        return stats;
-    }
-
-    // returns if the Beholder is alive
-    public boolean isAlive() {
-        return alive;
-    }
-
-    //returns if the Beholder is in a fight
-    public boolean isInFight() {
-        return fight;
-    }
-
-    //sets the variable alive
-    public void setIsAlive(boolean alive) {
-        this.isAlive = alive;
-    }
-
-    //sets the variable fight
-    public void setFight(boolean fight) {
-        this.fight = fight;
-    }
-
-    //sets the stats
-    public void setStats(Stats stats) {
-        this.stats = stats;
     }
 }

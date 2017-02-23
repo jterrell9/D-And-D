@@ -1,8 +1,4 @@
-public class Dragon implements Monster{
-    // Stats is used to hold the Dragon's stats
-    private Stats stats;
-    private boolean alive;
-    private boolean fight;
+public class Dragon extends Monster{
 
     //Constructor used when Dragon is created for specific rooms when rooms are generated
     public Dragon (int health, int attack, int defense){
@@ -31,35 +27,5 @@ public class Dragon implements Monster{
     // post: alive = false
     public void die(){
         //set health to 0 and other logic to ensure the battle is over
-    }
-
-    // returns stats
-    public Stat getStats(){
-        return stats;
-    }
-
-    // returns if the dragon is alive
-    public boolean isAlive() {
-        return alive;
-    }
-
-    //returns if the dragon is in a fight
-    public boolean isFight() {
-        return fight;
-    }
-
-    //sets the variable alive
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    //sets the variable fight
-    public void setFight(boolean fight) {
-        this.fight = fight;
-    }
-
-    //sets the stats
-    public void setStats(Stats stats) {
-        this.stats = stats;
     }
 }

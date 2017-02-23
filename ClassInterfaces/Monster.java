@@ -1,15 +1,34 @@
-public interface Monster{
+public abstract class Monster{
     private Stats stats;
-    private boolean alive;
-    private boolean fight;
+    private boolean isAlive;
+    private boolean isInFight;
 
-    public void attack(Player p1); // basic attack method which all monsters will use
-    public void die(); // basic die method which all monsters will use
-    public void takeDamage(int damage); // reduces health when a monster takes damage
-    public Stats getStats(); // returns the stats of the Monster
-    public boolean isAlive(); // returns if the monster is alive
-    public boolean isFight(); // returns if the monser is in a fight
-    public void setStats(Stats stats); // sets the mosnters stats
-    public void setAlive(boolean alive); // sets if the monser is alive
-    public void setFight(boolean fight); // sets if the monser is in a fight
+    public abstract void attack(Player p1); // basic attack method which all monsters will use
+    public abstract void die(); // basic die method which all monsters will use
+    public abstract void takeDamage(int damage); // reduces health when a monster takes damage
+    
+    // returns stats
+    public Stats getStats(){
+        return stats;
+    }
+
+    // returns if the monster is alive
+    public boolean isAlive(){
+        return isAlive;
+    }
+
+    //returns if the monster is in a fight
+    public boolean isInFight(){
+        return isInFight;
+    }
+    
+    //sets the stats
+    public void setStats(Stats stats){
+        this.stats = stats;
+    }
+
+    //sets the variable fight
+    public void setFight(boolean fight){
+        this.isInFight = fight;
+    }
 }
