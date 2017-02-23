@@ -1,8 +1,8 @@
 public class Goblin implements Monster{
     // Stats is used to hold the Goblin's stats
-    Stats stats;
-    boolean alive;
-    boolean fight;
+    private Stats stats;
+    private boolean alive;
+    private boolean fight;
 
     //Constructor used when Goblin is created for specific rooms when rooms are generated
     public Goblin (int health, int attack, int defense){

@@ -1,8 +1,8 @@
 public class Zombie implements Monster{
     // Stats is used to hold the Zombie's stats
-    Stats stats;
-    boolean alive;
-    boolean fight;
+    private Stats stats;
+    private boolean alive;
+    private boolean fight;
 
     //Constructor used when Zombie is created for specific rooms when rooms are generated
     public Zombie (int health, int attack, int defense){

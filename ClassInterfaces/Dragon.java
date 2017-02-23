@@ -1,8 +1,8 @@
 public class Dragon implements Monster{
     // Stats is used to hold the Dragon's stats
-    Stats stats;
-    boolean alive;
-    boolean fight;
+    private Stats stats;
+    private boolean alive;
+    private boolean fight;
 
     //Constructor used when Dragon is created for specific rooms when rooms are generated
     public Dragon (int health, int attack, int defense){

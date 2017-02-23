@@ -1,7 +1,7 @@
 public interface Monster{
-    Stats stats;
-    boolean alive;
-    boolean fight;
+    private Stats stats;
+    private boolean alive;
+    private boolean fight;
 
     public void attack(Player p1); // basic attack method which all monsters will use
     public void die(); // basic die method which all monsters will use
