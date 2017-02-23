@@ -18,37 +18,44 @@ public class Stats {
 	}
 	
 	/**
-	 * Increases all of the stats.
-	 */
-	public Stats increaseStats(Stats amount) {
-		
-	}
-	
-	/**
 	 * Increases the maximum health stat.
 	 */
-	public int increaseMaxHealth(int amount) {
+	public int modifyMaxHealth(int amount) {
 		
 	}
 	
 	/**
 	 * Increases the health stat.
 	 */
-	public int increaseHealth(int amount) {
+	public int modifyHealth(int amount) {
 		
 	}
 	
 	/**
 	 * Increases the attack stat.
 	 */
-	public int increaseAttack(int amount) {
+	public int modifyAttack(int amount) {
 		
 	}
 	
 	/**
 	 * Increases the defense stat.
 	 */
-	public int increaseDefense(int amount) {
+	public int modifyDefense(int amount) {
+		
+	}
+	
+	/**
+	 * Adds a stats object to another stats object.
+	 */
+	public Stats add(Stats stats) {
+		
+	}
+	
+	/**
+	 * Subtracts a stats object to another stats object.
+	 */
+	public Stats subtract(Stats stats) {
 		
 	}
 	
