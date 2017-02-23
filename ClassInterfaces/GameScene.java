@@ -1,20 +1,13 @@
 import javafx.scene.Scene;
 
-//Defines a view within the game
-//such as the start menu or the
-//in game screen
 public interface GameScene extends Scene{
-    GameSceneManager manager;
-    
-    //Called immediately after the
-    //GameScene is created
+    //Used to initialize the GameScene with
+    //      any data it may need. This should
+    //      be called immediatley after its created.
     void init(Object objs[]);
 
-    //Called whenever the GameScene
-    //becomes active
+    //Used to setup anything that the GameScene
+    //      may need to prepare each time it becomes
+    //      active.
     void setup(Object objs[]);
-}
-
-public interface GameSceneManager{
-    void setActiveGameScene(String name);
 }

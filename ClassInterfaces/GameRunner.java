@@ -4,42 +4,66 @@ import java.util.Map;
 import javafx.application.Application;
 
 public class GameRunner extends Application implements GameSceneManager{
-    private List<GameState> gameStateList;
-    private GameState activeGameState;
-    private Map<String, GameScene> gameSceneMap;
-    private CommandParser commandParser;
+    //List of all GameStates found
+    private static List<GameState> gameStateList;
+    //Currently active GameState
+    private static GameState activeGameState;
+    //Map of all registered GameScenes
+    private static Map<String, GameScene> gameSceneMap;
+    //CommandParser to handle all necessary commands
+    private static CommandParser commandParser;
 
-    public GameRunner(){
-    
-    }
-
-    //Used to load save states and settings as
-    //well as a wrapper for the JavaFX launch method
-    public void runGame(String[] args){
+    //Used to start the game
+    public static void main(String[] args){
         //launch(args);
     }
 
     //Used to setup the various annonymous classes that
-    //will be the GameScenes. They should all be appended
-    //to the gameSceneList, and the start scene should be
-    //set as the scene of the primaryStage
+    //      will be the GameScenes. They should all be 
+    //      appended to the gameSceneList, and the start 
+    //      scene should be set as the scene of the primaryStage
+    //pre: The JavaFX launch method has been called with
+    //      the appropiate arguments
+    //post: The game, as a JavaFX application, is setup
     @Override
-    private void start(Stage primaryStage){
-    
+    private static void start(Stage primaryStage){    
     }
 
-    //This will change the currently active scene
-    //in JavaFX. Before doing so however it will
-    //verify that the named scene exists and then
-    //it will call the respective GameScenes setup
-    //method
-    private void setActiveGameScene(String name){
-    
+    //Used to add a GameScene to the existing Map of
+    //      GameScenes
+    //pre: !gameSceneMap.keySet().contains(name)
+    //      && !gameSceneMap.values().contains(gameState)
+    //post: Key/Value pair name/gameState is added to
+    //      gameSceneMap
+    private static void addGameScene(String name, GameScene gameScene){
     }
 
-    //This will add a GameScene to the exisitng Map
-    //of GameScenes
-    private void addGameScene(String name, GameScene gameScene){
-    
+    //Used to set activeGameScene
+    //pre: gameScene.keySet().contains(name)
+    //post: activeGameScene = gameScene.get(name)
+    public static void setActiveGameScene(String name){   
+    }
+
+    //Used to get the list of GameStates that the game 
+    //      was able to find
+    public static List<GameState> getGameStateList(){
+    }
+
+    //Used to get the currently active GameState
+    public static GameState getActiveGameState(){
+    }
+
+    //Use to set the currently active GameState
+    //pre: gameStateList.contains(gState)
+    //post: activeGameScene = gState
+    public static void setActiveGameState(GameState gState){
+    }
+
+    //Used to serialize the activeGameState and save
+    //it to a file
+    //pre: activeGameState != null
+    //post: activeGameState serialized and
+    //      written to file
+    public static void saveGame(){
     }
 }
