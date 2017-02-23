@@ -1,8 +1,8 @@
-public class Map{
+public class GameMap{
     Room[][] rooms;
     int seed;
 
-    public Map(int seed){
+    public GameMap(int seed){
         //logic to make the array of rooms through a seed number
         //i.e. procedural generation
     }

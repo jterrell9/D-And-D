@@ -3,12 +3,12 @@ import java.util.List;
 public class GameState{
     private List<Player> playerList;
     private Player activePlayer;
-    private Map map;
+    private GameMap map;
     private Console console;
 
     public GameState(ArrayList<Player> playerList,
                             Player activePlayer,
-                            Map map.
+                            GameMap map,
                             Console console){
     }
 
@@ -20,7 +20,7 @@ public class GameState{
     
     }
 
-    public Map getMap(){
+    public GameMap getMap(){
     
     }
 
