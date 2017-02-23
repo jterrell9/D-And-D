@@ -1,36 +1,35 @@
-public class Dragon implements Monster{
-    // Stats is used to hold the Dragon's stats
+public class Zombie implements Monster{
+    // Stats is used to hold the Zombie's stats
     private Stats stats;
     private boolean alive;
     private boolean fight;
 
-    //Constructor used when Dragon is created for specific rooms when rooms are generated
-    public Dragon (int health, int attack, int defense){
+    //Constructor used when Zombie is created for specific rooms when rooms are generated
+    public Zombie (int health, int attack, int defense){
         //set stats, set alive to true, set fight to false
     }
 
-    //used when dragon attacks the player
+    //used when Zombie attacks the player
     //pre: if(isFight && isAlive)
     //post: p1.getStats().getHealth() != 0
     public void attack(Player p1){
-        //decides on which attack to do, either breath attack or claws, and deal damage
-        //to player
+        // Zombie will deal damage and do a basic attack to the player
     }
 
-    //used when the dragon takes damage
+    //used when the Zombie takes damage
     //pre: if(alive && fight)
     //post: if(stats.getHealth() == 0) => die()
     public void takeDamage(int damage){
         //logic for taking damage
     }
 
-    // used when dragon health reaches 0
+    // used when Zombie's health reaches 0
     // pre: if(getStats().getHealth() == 0)
     // pre: if(alive)
     // post: fight = false
     // post: alive = false
     public void die(){
-        //set health to 0 and other logic to ensure the battle is over
+        //25% chance the zombie comes back to life, increasing as the zombie dies more
     }
 
     // returns stats
@@ -38,12 +37,12 @@ public class Dragon implements Monster{
         return stats;
     }
 
-    // returns if the dragon is alive
+    // returns if the Zombie is alive
     public boolean isAlive() {
         return alive;
     }
 
-    //returns if the dragon is in a fight
+    //returns if the Zombie is in a fight
     public boolean isFight() {
         return fight;
     }

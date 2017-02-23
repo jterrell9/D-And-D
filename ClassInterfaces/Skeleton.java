@@ -1,30 +1,29 @@
-public class Dragon implements Monster{
-    // Stats is used to hold the Dragon's stats
+public class Skeleton implements Monster{
+    // Stats is used to hold the Skeleton's stats
     private Stats stats;
     private boolean alive;
     private boolean fight;
 
-    //Constructor used when Dragon is created for specific rooms when rooms are generated
-    public Dragon (int health, int attack, int defense){
+    //Constructor used when Skeleton is created for specific rooms when rooms are generated
+    public Skeleton (int health, int attack, int defense){
         //set stats, set alive to true, set fight to false
     }
 
-    //used when dragon attacks the player
+    //used when skeleton attacks the player
     //pre: if(isFight && isAlive)
     //post: p1.getStats().getHealth() != 0
     public void attack(Player p1){
-        //decides on which attack to do, either breath attack or claws, and deal damage
-        //to player
+        // deal damage to player on basic attacks
     }
 
-    //used when the dragon takes damage
+    //used when the skeleton takes damage
     //pre: if(alive && fight)
     //post: if(stats.getHealth() == 0) => die()
     public void takeDamage(int damage){
         //logic for taking damage
     }
 
-    // used when dragon health reaches 0
+    // used when skeletons health reaches 0
     // pre: if(getStats().getHealth() == 0)
     // pre: if(alive)
     // post: fight = false
@@ -38,12 +37,12 @@ public class Dragon implements Monster{
         return stats;
     }
 
-    // returns if the dragon is alive
+    // returns if the skeleton is alive
     public boolean isAlive() {
         return alive;
     }
 
-    //returns if the dragon is in a fight
+    //returns if the skeleton is in a fight
     public boolean isFight() {
         return fight;
     }

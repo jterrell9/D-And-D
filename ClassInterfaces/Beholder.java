@@ -1,30 +1,35 @@
-public class Dragon implements Monster{
-    // Stats is used to hold the Dragon's stats
+public class Beholder implements Monster{
+    // Stats is used to hold the Beholder's stats
     private Stats stats;
     private boolean alive;
     private boolean fight;
 
-    //Constructor used when Dragon is created for specific rooms when rooms are generated
-    public Dragon (int health, int attack, int defense){
+    //Constructor used when Beholder is created for specific rooms when rooms are generated
+    public Beholder (int health, int attack, int defense){
         //set stats, set alive to true, set fight to false
     }
 
-    //used when dragon attacks the player
+    //used when Beholder attacks the player
     //pre: if(isFight && isAlive)
     //post: p1.getStats().getHealth() != 0
     public void attack(Player p1){
-        //decides on which attack to do, either breath attack or claws, and deal damage
-        //to player
+        // Will use the Beholder's attackHelper method to help decide which attack it is using
     }
 
-    //used when the dragon takes damage
+    //used only when attack method calls it
+    public void attackHelper(Player p1){
+        // Logic to determine 1 of 10 different ray attack and then help with damage dealt
+        // After determining that attack, will deal one more eye beam from main eye
+    }
+
+    //used when the Beholder takes damage
     //pre: if(alive && fight)
     //post: if(stats.getHealth() == 0) => die()
     public void takeDamage(int damage){
         //logic for taking damage
     }
 
-    // used when dragon health reaches 0
+    // used when Beholder's health reaches 0
     // pre: if(getStats().getHealth() == 0)
     // pre: if(alive)
     // post: fight = false
@@ -38,12 +43,12 @@ public class Dragon implements Monster{
         return stats;
     }
 
-    // returns if the dragon is alive
+    // returns if the Beholder is alive
     public boolean isAlive() {
         return alive;
     }
 
-    //returns if the dragon is in a fight
+    //returns if the Beholder is in a fight
     public boolean isFight() {
         return fight;
     }
