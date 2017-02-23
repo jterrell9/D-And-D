@@ -8,6 +8,7 @@ public class GameMap{
     }
     //returns the room at the Point P
     public Room getRoom(Point p){
+        return rooms[p.x][p.y];
     }
 
     public Room getNextRoon(int x, int y, String direction){
