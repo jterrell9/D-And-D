@@ -66,4 +66,13 @@ public class GameRunner extends Application implements GameSceneManager{
     //      written to file
     public static void saveGame(){
     }
+
+    //Used to load all serialized save files
+    //      and put them into the gameStateList
+    public static void loadSavedGames(){
+    }
+
+    //Used to join a non-local network game
+    public static void joinGame(GameState gState){
+    }
 }
