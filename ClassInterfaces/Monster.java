@@ -13,10 +13,12 @@ public abstract class Monster{
 
     // returns if the monster is alive
     public boolean isAlive(){
+        return isAlive;
     }
 
     //returns if the monster is in a fight
     public boolean isInFight(){
+        return isInFight;
     }
     
     //sets the stats
