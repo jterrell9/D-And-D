@@ -12,11 +12,13 @@ public class Room {
 	}
 	
 	//this method adds an item to the room
+	//@post items.add(item)
 	public void addItem(Item item) {
 
 	}
 	
 	//this method adds a monster to room
+	//@post this.monster=monster
 	public void addMonster(Monster monster) {
 
 	}
