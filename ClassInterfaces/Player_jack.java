@@ -41,42 +41,42 @@ public class Player {
 	//the move method will translate the player's position point based on the direction
 	//@pre if(map.isRoom(Point p))
 	//@post position.translate(x,y);
-	public Point move(DIR direction,Map map);
+	public Point move(DIR direction,GameMap map);
 	//the equip method assigns an item to a player's suit, left hand, or right hand
 	//@pre if(i1 instanceof <ITEM SUBCLASS>)
 	//@pre if(<AREA FIELD>==null)
-	//@post <AREA FIED>=i1
+	//@post <AREA FIED>=item
 	//@post stats.modifyStats(item.getStatModifyer())
-	public void equip(Item i1);
+	public void equip(Item item);
 	//The drop method allows the player to drop whatever is assigned to that area.
 	//@pre if(<AREA FIELD>!=null)
 	//@post <AREA FIELD>=null
 	//@post stats.modifyStats(item.getNegStatModifyer())
 	public void drop(EQUIP E);
 	//the addtoInventory(Potion potion) method will add a potion to the player's inventory
-	//@pre if(p1 instanceof Potion)
+	//@pre if(potion instanceof Potion)
 	//@pre if(inventory[i]==null)
-	//@post inventory[i]=p1
-	public void addtoInventory(Potion p1);
+	//@post inventory[i]=potion
+	public void addtoInventory(Potion potion);
 	//the addtoInventory(Artifact) method will add an artifact to the player's inventory
-	//@pre if(a1 instanceof Artifact)
+	//@pre if(artifact instanceof Artifact)
 	//@pre if(inventory[i]==null)
-	//@post equip(a1)
-	public void addtoInventory(Artifact a1);
+	//@post equip(artifact)
+	public void addtoInventory(Artifact artifact);
 	//the removefromInventory method will remove an item from the inventory
-	//@pre if(inventory[i]=i1)
+	//@pre if(inventory[i]=item)
 	//@post inventory[i]=null
-	//@post if(i1 instaceof Artifact){ stats.modifyStats(item.getNegStatModifyer()) }
-	public void removefromInventory(Item i1);
+	//@post if(item instaceof Artifact){ stats.modifyStats(item.getNegStatModifyer()) }
+	public void removefromInventory(Item item);
 	//the usePotion method will use a potion found in the player's inventory
-	//@pre if(inventory[i].equals(p1))
+	//@pre if(inventory[i].equals(potion))
 	//@post stats.modifyStats(p1.getNegStatModifyer())
-	//@post removefromInventory(p1)
-	public void usePotion(Potion p1);
+	//@post removefromInventory(potion)
+	public void usePotion(Potion potion);
 	//the attack method is used to deal damage to a monster, and calculate whether the attack is landed
 	//@pre if(isInFight())
-	//@post m1.takeDamage(attack)
-	public void attack(Monster m1)
+	//@post monster.takeDamage(attack)
+	public void attack(Monster monster)
 	//the isInFight method returns the isInFight boolean field
 	public boolean isInFight()
 	//the isAlive method returns the value of the isAlive boolean field
@@ -104,8 +104,8 @@ public class Player {
 	//the getStat method returns the player's current stats
 	public Stats getStat();
 	//the setStat method updates the stat field
-	//@post stats=s
-	public void setStat(Stats s);
+	//@post stats=stats
+	public void setStat(Stats stats);
 	//the getInventory method returns the inventory array
 	public Item[] getInventory();
 	//the toString method overrides the superclass's toString method. 
