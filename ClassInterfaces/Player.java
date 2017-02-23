@@ -8,12 +8,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Player {
-	//the DIR enum will be used for the switch cases in the move method
-	public enum DIR{
+	//the Direction enum will be used for the switch cases in the move method
+	public enum Direction{
 		NORTH,SOUTH,EAST,WEST
 	}
-	//the EQUIP enum will be used as the switch cases in the drop method
-	public enum EQUIP{
+	//the Equip enum will be used as the switch cases in the drop method
+	public enum Equip{
 		LEFTHAND,RIGHTHAND,HANDS,SUIT
 	}
 	//a name field to be used when the gameRunner will address the player
@@ -35,79 +35,142 @@ public class Player {
 	private boolean isAlive;
 	//isInFight boolean will be true if the player is engaged in a fight
 	private boolean isInFight;
+	
 	//A constructor to initialize a new player
 	//@pre if(map.isRoom(Point p))
-	public Player(String name,Point p,Stats s);
+	public Player(String name,Point point,Stats stats){
+		
+	}
+	
 	//the move method will translate the player's position point based on the direction
 	//@pre if(map.isRoom(Point p))
 	//@post position.translate(x,y);
-	public Point move(DIR direction,GameMap map);
+	public Point move(Direction direction,GameMap map){
+		
+	}
+	
 	//the equip method assigns an item to a player's suit, left hand, or right hand
 	//@pre if(i1 instanceof <ITEM SUBCLASS>)
 	//@pre if(<AREA FIELD>==null)
 	//@post <AREA FIED>=item
 	//@post stats.modifyStats(item.getStatModifyer())
-	public void equip(Item item);
+	public void equip(Item item){
+		
+	}
+	
 	//The drop method allows the player to drop whatever is assigned to that area.
 	//@pre if(<AREA FIELD>!=null)
 	//@post <AREA FIELD>=null
 	//@post stats.modifyStats(item.getNegStatModifyer())
-	public void drop(EQUIP E);
+	public void drop(Equip E){
+		
+	}
+	
 	//the addtoInventory(Potion potion) method will add a potion to the player's inventory
 	//@pre if(potion instanceof Potion)
 	//@pre if(inventory[i]==null)
 	//@post inventory[i]=potion
-	public void addtoInventory(Potion potion);
+	public void addtoInventory(Potion potion){
+		
+	}
+	
 	//the addtoInventory(Artifact) method will add an artifact to the player's inventory
 	//@pre if(artifact instanceof Artifact)
 	//@pre if(inventory[i]==null)
 	//@post equip(artifact)
-	public void addtoInventory(Artifact artifact);
+	public void addtoInventory(Artifact artifact){
+		
+	}
+	
 	//the removefromInventory method will remove an item from the inventory
 	//@pre if(inventory[i]=item)
 	//@post inventory[i]=null
 	//@post if(item instaceof Artifact){ stats.modifyStats(item.getNegStatModifyer()) }
-	public void removefromInventory(Item item);
+	public void removefromInventory(Item item){
+		
+	}
+	
 	//the usePotion method will use a potion found in the player's inventory
 	//@pre if(inventory[i].equals(potion))
 	//@post stats.modifyStats(p1.getNegStatModifyer())
 	//@post removefromInventory(potion)
-	public void usePotion(Potion potion);
+	public void usePotion(Potion potion){
+		
+	}
+	
 	//the attack method is used to deal damage to a monster, and calculate whether the attack is landed
 	//@pre if(isInFight())
 	//@post monster.takeDamage(attack)
-	public void attack(Monster monster)
+	public void attack(Monster monster){
+		
+	}
+	
 	//the isInFight method returns the isInFight boolean field
-	public boolean isInFight()
+	public boolean isInFight(){
+		
+	}
+	
 	//the isAlive method returns the value of the isAlive boolean field
-	public boolean isAlive();
+	public boolean isAlive(){
+		
+	}
+	
 	//the die method sets the isAlive boolean to false
-	public void die();
+	public void die(){
+		
+	}
+	
 	//the take damage method is used to change a player's health stat during a fight
 	//@pre monster.attack(player) called in gameRunner
 	//@post health-=damage
 	//@post if(health<=0){ die() }
-	public void takeDamage(int damage);
+	public void takeDamage(int damage){
+		
+	}
+	
 	//the save method creates a json formatted database file used to serialize the player object
 	//@pre File gsonFile=new File(getName()+".json");
 	//@pre PrintStream toGsonFile=new PrintStream(gsonFile);
 	//@post toGsonFile.println(new Gson().toJson(player));
-	public void save();
+	public void save(){
+		
+	}
+	
 	//the getName method returns the player's name
-	public String getName();
+	public String getName(){
+		
+	}
+	
 	//the getPostion method returns the player's current postion on the map
-	public Point getPostion();
+	public Point getPostion(){
+		
+	}
+	
 	//the setPostion method updates the player's postion field
 	//@pre if(map.isRoom(Point p))
 	//@post postion=p
-	public void setPosition(Point p);
+	public void setPosition(Point point){
+		
+	}
+	
 	//the getStat method returns the player's current stats
-	public Stats getStat();
+	public Stats getStat(){
+		
+	}
+	
 	//the setStat method updates the stat field
 	//@post stats=stats
-	public void setStat(Stats stats);
+	public void setStat(Stats stats){
+		
+	}
+	
 	//the getInventory method returns the inventory array
-	public Item[] getInventory();
+	public Item[] getInventory(){
+		
+	}
+	
 	//the toString method overrides the superclass's toString method. 
-	public String toString();
+	public String toString(){
+		
+	}
 }
