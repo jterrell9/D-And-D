@@ -1,3 +1,10 @@
+package com.dd;
+
+import com.dd.entities.Player;
+import com.dd.levels.DungeonMap;
+import com.dd.levels.MapPosition;
+import com.dd.levels.Maze5x5;
+
 public class GameState {
 	public Player player;
 	public DungeonMap dungeon;

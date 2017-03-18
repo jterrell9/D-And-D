@@ -1,4 +1,19 @@
+package com.dd.entities;
+
 import java.util.ArrayList;
+
+import com.dd.DIR;
+import com.dd.GameRunner;
+import com.dd.Stats;
+import com.dd.items.Armour;
+import com.dd.items.Artifact;
+import com.dd.items.Item;
+import com.dd.items.Potion;
+import com.dd.items.Shield;
+import com.dd.items.Weapon;
+import com.dd.levels.DungeonMap;
+import com.dd.levels.MapPosition;
+import com.dd.levels.Room;
 
 public class Player extends Entity{
 

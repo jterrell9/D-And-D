@@ -1,3 +1,6 @@
+package com.dd.levels;
+
+import com.dd.DIR;
 
 public class MapPosition {
 	int col;

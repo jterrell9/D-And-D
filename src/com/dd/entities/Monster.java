@@ -1,4 +1,4 @@
-
+package com.dd.entities;
 
 public class Monster extends Entity{
 	public static final String COLOR_RESET = "\u001B[0m";
@@ -23,9 +23,4 @@ public class Monster extends Entity{
 				+"\nAttack/Defense:\t"+stats.getAttack()+"/"+stats.getDefense();
 	}
 	
-}
-class Dragon extends Monster{
-	public Dragon(String name,int health,int attack,int defense){
-		super(name,health,attack,defense);
-	}
 }

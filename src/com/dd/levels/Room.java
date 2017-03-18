@@ -1,5 +1,9 @@
+package com.dd.levels;
 
 import java.util.ArrayList;
+
+import com.dd.entities.Monster;
+import com.dd.items.Item;
 
 public class Room {
 	

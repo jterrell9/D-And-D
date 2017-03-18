@@ -1,3 +1,7 @@
+package com.dd.entities;
+
+import com.dd.Stats;
+
 public class Entity {
 	
 	public static final String COLOR_RESET = "\u001B[0m";
