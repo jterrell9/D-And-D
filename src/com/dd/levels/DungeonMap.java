@@ -11,7 +11,6 @@ import com.dd.items.Weapon;
 
 public class DungeonMap {
 	
-	
 	public Room[][] rooms;
 	public int maxRow;
 	public int maxCol;
