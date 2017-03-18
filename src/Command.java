@@ -20,7 +20,7 @@ public class Command {
 	String cmd=new String();
 	String opt=new String();
 	String[] opts=new String[10];
-	int optInt;
+	int optNum;
 	
 	int itemIndex;
 	
@@ -44,7 +44,7 @@ public class Command {
 				opt+=input[i]+" ";
 				opts[i-1]=input[i];
 				if(isInteger(input[i])){
-					optInt=Integer.parseInt(input[i]);
+					optNum=Integer.parseInt(input[i]);
 				}
 				
 			}
@@ -78,15 +78,19 @@ public class Command {
 				switch(opts[0]){
 				case "north": 
 					active.player.move(DIR.NORTH);
+					active.player.getRoom().examine();
 					return;
 				case "south": 
 					active.player.move(DIR.SOUTH);
+					active.player.getRoom().examine();
 					return;
 				case "east": 
 					active.player.move(DIR.EAST);
+					active.player.getRoom().examine();
 					return;
 				case "west": 
 					active.player.move(DIR.WEST);
+					active.player.getRoom().examine();
 					return;
 				}
 			}
@@ -94,39 +98,38 @@ public class Command {
 			return;
 				
 		case "examine":
-			if(opt!=null){
-				switch(opts[0]){
-				case "room":
-					active.player.getRoom().examine();
-					return;
-				case "monster":
-					active.player.getRoom().getMonster().examine();
-					return;
-				}
+			switch(opts[0]){
+			case "room":
+				active.player.getRoom().examine();
+				return;
+			case "monster":
+				active.player.getRoom().getMonster().examine();
+				return;
+			default:
+				break;
 			}
 			System.out.println("ERROR enter room, object, or monster to examine");
 			return;
 				
 		case "equip":
-			itemIndex=parseOptNum("item");
-			if(itemIndex<0){
-				return;
+			if(opts[0].equals("item")){
+				if(optNum<0){
+					return;
+				}
+				item=active.player.getRoom().getItem(itemIndex);
+				if(item instanceof Potion){
+					System.out.println("ERROR cannot equip a potion. You must pickup a potion");
+					return;
+				}
+				active.player.equip(item);
+				active.player.getRoom().examine();
 			}
-			item=active.player.getRoom().getItem(itemIndex);
-			if(item instanceof Potion){
-				System.out.println("ERROR cannot equip a potion. You must pickup a potion");
-				return;
-			}
-			active.player.equip(item);
-			active.player.getRoom().examine();
 			return;	
 				
 		case "drop":
 			if(opt!=null){
-				String[] opts=opt.split(" ");
 				if(opts[0].equals("inventory")){
-					itemIndex=parseOptNum("inventory");
-					if(itemIndex<0){
+					if(optNum<0){
 						return;
 					}
 					active.player.drop(active.player.getInventoryItem(itemIndex));
@@ -158,8 +161,7 @@ public class Command {
 			return;
 				
 		case "pickup":	
-			itemIndex=parseOptNum("item");
-			if(itemIndex<0){
+			if(optNum<0){
 				return;
 			}
 			item=active.player.getRoom().getItem(itemIndex);
@@ -175,18 +177,16 @@ public class Command {
 			return;
 		
 		case "use":
-			switch(parseOpt1()){
+			switch(opts[0]){
 			case "inventory":
-				itemIndex=parseOptNum("inventory");
-				if(itemIndex<0){
+				if(optNum<0){
 					return;
 				}
 				item=active.player.getInventoryItem(itemIndex);
 				active.player.usePotionFromInv(item);
 				return;
 			case "item":
-				itemIndex=parseOptNum("item");
-				if(itemIndex<0){
+				if(optNum<0){
 					return;
 				}
 				item=active.player.getRoom().getItem(itemIndex);
@@ -198,33 +198,6 @@ public class Command {
 			System.out.println("ERROR command not recognized");
 			break;
 		}
-	}
-	
-	public String parseOpt1(){
-		if(opt!=null){
-			String opts[]=opt.split(" ");
-			return opts[0];
-		}else{
-			System.out.println("ERROR no option present");
-			return null;
-		}
-	}
-	public int parseOptNum(String opt1){
-		int num=-1;
-		if(opt!=null){
-			if(parseOpt1().equals(opt1)){
-				try{
-					num=Integer.parseInt(opt.replaceAll("[\\D]", ""))-1;	
-				}catch(NumberFormatException nfe){
-					System.out.println("ERROR enter '"+cmd+" "+opt1+"', followed by the "+opt1+" number");
-				}
-			}else{
-				System.out.println("ERROR enter '"+cmd+" "+opt1+"', followed by the "+opt1+" number");
-			}
-		}else{
-			System.out.println("ERROR enter '"+cmd+" "+opt1+"', followed by the "+opt1+" number");
-		}
-		return num;
 	}
 	
 	public void save(){
