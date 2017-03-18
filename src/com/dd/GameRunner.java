@@ -76,6 +76,6 @@ public class GameRunner {
 		System.out.println();
 	}
 	public static void ErrorMsg(String classLocation,String method,String msg){
-		System.out.println(Command.COLOR_RED+"!e:"+classLocation+"."+method+"-"+msg+Command.COLOR_RESET);
+		System.out.println("!e:"+classLocation+"."+method+"-"+msg);
 	}
 }
