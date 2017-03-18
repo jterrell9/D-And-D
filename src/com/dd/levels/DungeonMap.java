@@ -37,7 +37,7 @@ public class DungeonMap {
 		for(int y=0;y<maxRow;y++){
 			for(int x=0;x<maxCol;x++){
 				if(x==0)
-					System.out.print("\t	|");
+					System.out.print("\t|");
 				if(pos.x==x && pos.y==y)
 					System.out.print("#");
 				else if(rooms[y][x]!=null)
