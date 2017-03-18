@@ -1,13 +1,6 @@
 
 public class DungeonMap {
-	public static final String COLOR_RESET = "\u001B[0m";
-	public static final String COLOR_BLACK = "\u001B[30m";
-	public static final String COLOR_RED = "\u001B[31m";
-	public static final String COLOR_GREEN = "\u001B[32m";
-	public static final String COLOR_YELLOW = "\u001B[33m";
-	public static final String COLOR_BLUE = "\u001B[34m";
-	public static final String COLOR_PURPLE = "\u001B[35m";
-	public static final String COLOR_CYAN = "\u001B[36m";
+	
 	
 	public Room[][] rooms;
 	public int maxRow;
@@ -20,7 +13,7 @@ public class DungeonMap {
 	
 	public boolean isRoom(MapPosition p){
 		if(isOutOfBounds(p)){
-			System.out.println(COLOR_RED+"!e.DungeounMap.isRoom():out of bounds"+COLOR_RESET);
+			System.out.println("!e.DungeounMap.isRoom():out of bounds");
 			return false;
 		}
 		if(rooms[p.y][p.x]==null){
@@ -37,7 +30,7 @@ public class DungeonMap {
 				if(x==0)
 					System.out.print("\t	|");
 				if(pos.x==x && pos.y==y)
-					System.out.print(COLOR_CYAN+"X"+COLOR_RESET);
+					System.out.print("#");
 				else if(rooms[y][x]!=null)
 					System.out.print("X");
 				else
@@ -49,11 +42,11 @@ public class DungeonMap {
 	
 	public void addRoom(Room room,MapPosition position){
 		if(isOutOfBounds(position)){
-			System.out.println(COLOR_RED+"!e:DungeonMap.addRoom():out of bounds of map"+COLOR_RESET);
+			System.out.println("!e:DungeonMap.addRoom():out of bounds of map");
 			return;
 		}
 		if(rooms[position.y][position.x]!=null){
-			System.out.println(COLOR_RED+"!e:DungeonMap.addRoom():room already exitsts at MapPosition "+position.x+","+position.y+COLOR_RESET);
+			System.out.println("!e:DungeonMap.addRoom():room already exitsts at MapPosition "+position.x+","+position.y);
 			return;
 		}
 		rooms[position.y][position.x]=room;
@@ -76,11 +69,11 @@ public class DungeonMap {
 			break;
 		}
 		if(isOutOfBounds(p)){
-			System.out.println(COLOR_RED+"!e:DungeonMap.addRoomDir():out of bounds of map"+COLOR_RESET);
+			System.out.println("!e:DungeonMap.addRoomDir():out of bounds of map");
 			return p;
 		}
 		if(rooms[p.y][p.x]!=null){
-			System.out.println(COLOR_RED+"!e:DungeonMap.addRoomDir():room already exitsts at MapPosition "+p.x+","+p.y+COLOR_RESET);
+			System.out.println("!e:DungeonMap.addRoomDir():room already exitsts at MapPosition "+p.x+","+p.y);
 			return p;
 		}
 		rooms[p.y][p.x]=room;
@@ -89,7 +82,7 @@ public class DungeonMap {
 	
 	public Room getRoom(MapPosition p){
 		if(isOutOfBounds(p)){
-			System.out.println(COLOR_RED+"e:DungeonMap.getRoom():out of bounds of map"+COLOR_RESET);
+			System.out.println("e:DungeonMap.getRoom():out of bounds of map");
 			return null;
 		}
 		return rooms[p.y][p.x];
@@ -115,7 +108,7 @@ public class DungeonMap {
 			break;
 		}
 		if(isOutOfBounds(p)){
-			System.out.println(COLOR_RED+"!e:DungeonMap.addRoomDir():out of bounds of map"+COLOR_RESET);
+			System.out.println("!e:DungeonMap.addRoomDir():out of bounds of map");
 			return null;
 		}
 		return rooms[p.y][p.x];

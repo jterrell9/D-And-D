@@ -7,15 +7,6 @@ import com.google.gson.Gson;
 
 public class Command {
 	
-	public static final String COLOR_RESET = "\u001B[0m";
-	public static final String COLOR_BLACK = "\u001B[30m";
-	public static final String COLOR_RED = "\u001B[31m";
-	public static final String COLOR_GREEN = "\u001B[32m";
-	public static final String COLOR_YELLOW = "\u001B[33m";
-	public static final String COLOR_BLUE = "\u001B[34m";
-	public static final String COLOR_PURPLE = "\u001B[35m";
-	public static final String COLOR_CYAN = "\u001B[36m";
-	
 	GameState active;
 	String cmd=new String();
 	String opt=new String();
@@ -33,7 +24,7 @@ public class Command {
 	
 	public void promptParse(){
 		Scanner user=new Scanner(System.in);
-		System.out.print(COLOR_BLUE+active.player.name+">> "+COLOR_RESET);
+		System.out.print(active.player.name+">> ");
 		String userInput=user.nextLine();
 		String[] input=userInput.toLowerCase().split(" ");
 		cmd=input[0];
@@ -123,7 +114,7 @@ public class Command {
 				active.player.getRoom().examine();
 			}
 			else{
-				System.out.println(COLOR_RED+"e:Command(equip):not followed by 'item'"+COLOR_RESET);
+				System.out.println("e:Command(equip):not followed by 'item'");
 			}
 			return;	
 				
