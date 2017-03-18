@@ -13,8 +13,8 @@ public class Weapon extends Item{
 	@Override
 	public String toString(){
 		if(isTwoHanded()){
-			return "("+getClass().toString().substring(6)+") "+getName()+" [+"+super.getStatChange().getAttack()+" Attack] (two-handed)";
+			return "("+typeToString()+") "+getName()+" [+"+super.getStatChange().getAttack()+" Attack] (two-handed)";
 		}
-		return "("+getClass().toString().substring(6)+") "+getName()+" [+"+super.getStatChange().getAttack()+" Attack]";
+		return "("+typeToString()+") "+getName()+" [+"+super.getStatChange().getAttack()+" Attack]";
 	}
 }
