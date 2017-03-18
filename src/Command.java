@@ -22,8 +22,6 @@ public class Command {
 	String[] opts=new String[10];
 	int optNum;
 	
-	int itemIndex;
-	
 	public Command(){
 		active=GameRunner.game;
 	}
@@ -116,13 +114,16 @@ public class Command {
 				if(optNum<0){
 					return;
 				}
-				item=active.player.getRoom().getItem(itemIndex);
+				item=active.player.getRoom().getItem(optNum);
 				if(item instanceof Potion){
 					System.out.println("ERROR cannot equip a potion. You must pickup a potion");
 					return;
 				}
 				active.player.equip(item);
 				active.player.getRoom().examine();
+			}
+			else{
+				System.out.println(COLOR_RED+"e:Command(equip):not followed by 'item'"+COLOR_RESET);
 			}
 			return;	
 				
@@ -132,7 +133,7 @@ public class Command {
 					if(optNum<0){
 						return;
 					}
-					active.player.drop(active.player.getInventoryItem(itemIndex));
+					active.player.drop(active.player.getInventoryItem(optNum));
 					active.player.getRoom().examine();
 					return;
 				}
@@ -164,7 +165,7 @@ public class Command {
 			if(optNum<0){
 				return;
 			}
-			item=active.player.getRoom().getItem(itemIndex);
+			item=active.player.getRoom().getItem(optNum);
 			if(item==null){
 				return;
 			}
@@ -182,14 +183,14 @@ public class Command {
 				if(optNum<0){
 					return;
 				}
-				item=active.player.getInventoryItem(itemIndex);
+				item=active.player.getInventoryItem(optNum);
 				active.player.usePotionFromInv(item);
 				return;
 			case "item":
 				if(optNum<0){
 					return;
 				}
-				item=active.player.getRoom().getItem(itemIndex);
+				item=active.player.getRoom().getItem(optNum);
 				active.player.usePotion(item);
 				return;
 			}
