@@ -15,25 +15,25 @@ public class MapPosition {
 	public MapPosition getPosition(DIR direction){
 		switch(direction){
 		case NORTH:
-			return new MapPosition(x,y--);
+			return new MapPosition(x,y-1);
 		case SOUTH:
-			return new MapPosition(x,y++);
+			return new MapPosition(x,y+1);
 		case EAST:
-			return new MapPosition(x++,y);
+			return new MapPosition(x+1,y);
 		case WEST:
-			return new MapPosition(x--,y);
+			return new MapPosition(x-1,y);
 		default:
 			return null;
 		}
 	}
 	public MapPosition getNorth(){
-		return new MapPosition(x,y--);
+		return new MapPosition(x,y+1);
 	}public MapPosition getSouth(){
-		return new MapPosition(x,y++);
+		return new MapPosition(x,y-1);
 	}public MapPosition getEast(){
-		return new MapPosition(x++,y);
+		return new MapPosition(x+1,y);
 	}public MapPosition getWest(){
-		return new MapPosition(x--,y);
+		return new MapPosition(x-1,y);
 	}
 	public void translate(DIR direction){
 		switch(direction){
