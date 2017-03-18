@@ -1,78 +1,76 @@
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import javafx.application.Application;
+import java.util.Scanner;
 
-public class GameRunner extends Application implements GameSceneManager{
-    //List of all GameStates found
-    private static List<GameState> gameStateList;
-    //Currently active GameState
-    private static GameState activeGameState;
-    //Map of all registered GameScenes
-    private static Map<String, GameScene> gameSceneMap;
-    //CommandParser to handle all necessary commands
-    private static CommandParser commandParser;
-
-    //Used to start the game
-    public static void main(String[] args){
-        //launch(args);
-    }
-
-    //Used to setup the various annonymous classes that
-    //      will be the GameScenes. They should all be 
-    //      appended to the gameSceneList, and the start 
-    //      scene should be set as the scene of the primaryStage
-    //pre: The JavaFX launch method has been called with
-    //      the appropiate arguments
-    //post: The game, as a JavaFX application, is setup
-    @Override
-    private static void start(Stage primaryStage){    
-    }
-
-    //Used to add a GameScene to the existing Map of
-    //      GameScenes
-    //pre: !gameSceneMap.keySet().contains(name)
-    //      && !gameSceneMap.values().contains(gameState)
-    //post: Key/Value pair name/gameState is added to
-    //      gameSceneMap
-    private static void addGameScene(String name, GameScene gameScene){
-    }
-
-    //Used to set activeGameScene
-    //pre: gameScene.keySet().contains(name)
-    //post: activeGameScene = gameScene.get(name)
-    public static void setActiveGameScene(String name){   
-    }
-
-    //Used to get the list of GameStates that the game 
-    //      was able to find
-    public static List<GameState> getGameStateList(){
-    }
-
-    //Used to get the currently active GameState
-    public static GameState getActiveGameState(){
-    }
-
-    //Use to set the currently active GameState
-    //pre: gameStateList.contains(gState)
-    //post: activeGameScene = gState
-    public static void setActiveGameState(GameState gState){
-    }
-
-    //Used to serialize the activeGameState and save
-    //it to a file
-    //pre: activeGameState != null
-    //post: activeGameState serialized and
-    //      written to file
-    public static void saveGame(){
-    }
-
-    //Used to load all serialized save files
-    //      and put them into the gameStateList
-    public static void loadSavedGames(){
-    }
-
-    //Used to join a non-local network game
-    public static void joinGame(GameState gState){
-    }
+public class GameRunner {
+	public static GameState game;
+	
+	public static void main(String[] args){
+		lnBreak("Dungeons and D&D",32);
+		go();
+	}
+	public static void go(){
+		mainMenu();
+		printStats();
+		cmdLoop();
+	
+	}
+	public static void cmdLoop() {
+		Command parser=new Command();
+		while(true){
+			parser.enterCommand();
+			printStats();
+		}
+	}
+	public static void mainMenu(){
+		System.out.println("Please select from the following:"
+				+"\n1: New Game"
+				+"\n2: Resume Game"
+				+"\n3: Quit");
+		System.out.print("Enter Selection >>");
+		Scanner scan=new Scanner(System.in);
+		int selection=scan.nextInt();
+		String name;
+		if(selection==1){		//new game
+			System.out.print("Enter Player's Name: ");
+			name=scan.next();
+			game=new GameState(new Player(name));
+		}else if(selection==2){		//load game
+			System.out.print("Enter Player's Name: ");
+			name=scan.nextLine();
+			//playerSelect=loadPlayer(name);
+			///map=loadMap(name);
+			//map=playerSelect.getMap();
+			//map=newMap();
+			//playerSelect.setMap(map);
+		}else if(selection==3){		//quit
+			System.out.println("Thank you for playing! GoodBye!");
+			System.exit(0);
+		}else{
+			System.out.println("Invalid entry, please try again.");
+			mainMenu();
+		}
+	}
+	
+	public static void printStats(){
+		lnBreak(game.player.name+"'s Stats Board",40);
+		System.out.println(game.player.statboardToString());
+		lnBreak("Map",40);
+		game.dungeon.drawDungeon(game.player);
+		lnBreak("",40);
+	}
+	public static void lnBreak(String str,int width){
+		int strLength=str.length();
+		int startIndex=(width/2)-(strLength/2);
+		for(int i=0;i<=width;i++){
+			if(i==startIndex){
+				System.out.print(str);
+				i+=strLength;
+			}else{
+				System.out.print("-");
+			}
+		}
+		System.out.println();
+	}
+	public static void ErrorMsg(String classLocation,String method,String msg){
+		System.out.println(Command.COLOR_RED+"!e:"+classLocation+"."+method+"-"+msg+Command.COLOR_RESET);
+	}
 }
