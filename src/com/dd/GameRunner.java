@@ -1,4 +1,8 @@
+package com.dd;
+
 import java.util.Scanner;
+
+import com.dd.entities.Player;
 
 public class GameRunner {
 	public static GameState game;

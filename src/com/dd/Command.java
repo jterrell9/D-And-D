@@ -1,8 +1,13 @@
+package com.dd;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import com.dd.entities.Player;
+import com.dd.items.Item;
+import com.dd.items.Potion;
 import com.google.gson.Gson;
 
 public class Command {

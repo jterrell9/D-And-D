@@ -1,3 +1,4 @@
+package com.dd;
 
 public class Stats {
 	private int health;
