@@ -7,7 +7,7 @@ public class Potion extends Item{
 	}
 	@Override
 	public String toString(){
-		return "("+getClass().toString().substring(6)+") "+getName()+" [+"+super.getStatChange().getHealth()+" Health]";
+		return "("+typeToString()+") "+getName()+" [+"+super.getStatChange().getHealth()+" Health]";
 	}
 	
 }

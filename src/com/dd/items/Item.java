@@ -28,6 +28,10 @@ public class Item {
 		return negStats;
 	}
 	
+	public String typeToString(){
+		return getClass().toString().substring(19);
+	}
+	
 	@Override
 	public String toString(){
 		return name;

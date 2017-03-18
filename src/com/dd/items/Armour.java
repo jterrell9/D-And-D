@@ -7,6 +7,6 @@ public class Armour extends Item{
 	}
 	@Override
 	public String toString(){
-		return "("+getClass().toString().substring(6)+") "+getName()+" [+"+super.getStatChange().getDefense()+" Defense]";
+		return "("+typeToString()+") "+getName()+" [+"+super.getStatChange().getDefense()+" Defense]";
 	}
 }

@@ -24,6 +24,6 @@ public class Artifact extends Item{
 	}
 	@Override
 	public String toString(){
-		return "("+getClass().toString().substring(6)+") "+getName()+" "+getModStr();
+		return "("+typeToString()+") "+getName()+" "+getModStr();
 	}
 }
