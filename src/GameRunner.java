@@ -17,6 +17,7 @@ public class GameRunner {
 		Command parser=new Command();
 		while(true){
 			parser.enterCommand();
+			System.out.println();
 			printStats();
 		}
 	}
