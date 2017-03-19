@@ -1,9 +1,6 @@
 package com.dd.entities;
 
 public class Monster extends Entity{
-	public static final String COLOR_RESET = "\u001B[0m";
-	public static final String COLOR_BLACK = "\u001B[30m";
-	public static final String COLOR_RED = "\u001B[31m";
 	
 	public Monster(String name,int health,int attack,int defense) {
 		super(name,health,health,attack,defense);
