@@ -2,14 +2,11 @@ package com.dd.levels;
 
 import java.util.ArrayList;
 
+import com.dd.GameRunner;
 import com.dd.entities.Monster;
 import com.dd.items.Item;
 
 public class Room {
-	
-	public static final String COLOR_RESET = "\u001B[0m";
-	public static final String COLOR_BLACK = "\u001B[30m";
-	public static final String COLOR_RED = "\u001B[31m";
 	
 	private ArrayList<Item> itemList;
 	private Monster monster;
@@ -28,7 +25,7 @@ public class Room {
 		if(monster!=null){
 			System.out.println("There is a "+monster.name+" in this room!");
 		}
-		System.out.println("This room has the following items:\n");
+		System.out.println("This room has the following items:");
 		for(int i=0;i<itemList.size();i++){
 			if(itemList.get(i)!=null){
 				System.out.println("Item "+(i+1)+": "+itemList.get(i).toString());
@@ -47,12 +44,14 @@ public class Room {
 	}
 	public void removeItem(Item item){
 		if(!itemList.remove(item)){
-			System.out.println(COLOR_RED+"!e:removeItem() - item not found in inventory"+COLOR_RESET);
+			GameRunner.printLnTitle(' ',"ERROR",24);
+			System.out.println("Room.removeItem() - item not found");
 		}
 	}
 	public void removeItem(int index){
 		if(!itemList.remove(itemList.get(index))){
-			System.out.println(COLOR_RED+"!e:removeItem - item index not found in inventory"+COLOR_RESET);
+			GameRunner.printLnTitle(' ',"ERROR",24);
+			System.out.println("Room.removeItem() - item index not found");
 		}
 	}
 	public void removeMonster(){
@@ -63,10 +62,12 @@ public class Room {
 	}
 	
 	public Item getItem(int index){
+		index--;
 		if(index>=0 && index<itemList.size()){
 			return itemList.get(index);
 		}
-		System.out.println(COLOR_RED+"!e:getItem - item not found in inventory"+COLOR_RESET);
+		GameRunner.printLnTitle(' ',"ERROR",24);
+		System.out.println("Room.getItem() - item not found");
 		return null;
 	}
 	public void setMonster(Monster monster){

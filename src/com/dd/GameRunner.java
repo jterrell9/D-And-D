@@ -15,6 +15,8 @@ public class GameRunner {
 	public static void go(){
 		mainMenu();
 		printStats();
+		printMap();
+		System.out.println("*Type help for a list of commands*");
 		cmdLoop();
 	
 	}
@@ -24,6 +26,7 @@ public class GameRunner {
 			parser.enterCommand();
 			System.out.println();
 			printStats();
+			printMap();
 		}
 	}
 	public static void mainMenu(){
@@ -65,6 +68,8 @@ public class GameRunner {
 	public static void printStats(){
 		printLnTitle('~',GameState.player.name+"'s Stats Board",40);
 		System.out.println(GameState.player.statboardToString());
+	}
+	public static void printMap(){
 		printLnTitle('-',"Map",40);
 		GameState.dungeon.drawDungeon(GameState.player);
 		printLnTitle('-',"",40);
