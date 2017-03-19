@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.dd.entities.Player;
+import com.dd.levels.Maze5x5;
 
 public class GameRunner {
 	public static GameState game;
@@ -38,17 +39,21 @@ public class GameRunner {
 				+"\n3: Quit");
 		System.out.print("Enter Selection >>");
 		try{
-			Scanner scan=new Scanner(System.in);
-			int selection=scan.nextInt();
+			Scanner scanInt=new Scanner(System.in);
+			int selection=scanInt.nextInt();
 			String name;
 			if(selection==1){		//new game
+				Scanner scanName=new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
-				name=scan.next();
-				game=new GameState(new Player(name));
+				name=scanName.next();
+				GameState.dungeon=new Maze5x5();
+				GameState.player=new Player(name);
 			}else if(selection==2){		//load game
+				Scanner scanName=new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
-				name=scan.nextLine();
-				game=new GameState(new Player(name));
+				name=scanName.nextLine();
+				GameState.dungeon=GameState.loadMap(name);
+				GameState.player=GameState.loadPlayer(name);
 			}else if(selection==3){		//quit
 				System.out.println("Thank you for playing! GoodBye!");
 				System.exit(0);
