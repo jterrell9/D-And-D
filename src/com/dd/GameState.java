@@ -35,7 +35,7 @@ public class GameState {
 			toGsonPlayerFile.close();	
 			
 			
-			File gsonMapFile=new File(player.name+".Map.json");
+			File gsonMapFile=new File(player.name+".map.json");
 			PrintStream toGsonMapFile=new PrintStream(gsonMapFile);
 			toGsonMapFile.println(new Gson().toJson(dungeon));
 			toGsonMapFile.close();	
@@ -51,6 +51,16 @@ public class GameState {
 			Scanner scanJsonFile=new Scanner(file);
 			String playerJson=scanJsonFile.nextLine();
 			return new Gson().fromJson(playerJson,Player.class);
+		}
+		System.out.println("ERROR file does not exit");
+		return null;
+	}
+	public static DungeonMap loadMap(String name) throws FileNotFoundException{
+		File file=new File(name+".map.json");
+		if(file.exists()){
+			Scanner scanJsonFile=new Scanner(file);
+			String playerJson=scanJsonFile.nextLine();
+			return new Gson().fromJson(playerJson,DungeonMap.class);
 		}
 		System.out.println("ERROR file does not exit");
 		return null;
