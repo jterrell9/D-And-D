@@ -63,10 +63,10 @@ public class GameRunner {
 	}
 	
 	public static void printStats(){
-		printLnTitle('~',game.player.name+"'s Stats Board",40);
-		System.out.println(game.player.statboardToString());
+		printLnTitle('~',GameState.player.name+"'s Stats Board",40);
+		System.out.println(GameState.player.statboardToString());
 		printLnTitle('-',"Map",40);
-		game.dungeon.drawDungeon(game.player);
+		GameState.dungeon.drawDungeon(GameState.player);
 		printLnTitle('-',"",40);
 	}
 	public static void printLnTitle(char c,String str,int width){

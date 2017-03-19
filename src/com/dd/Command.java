@@ -12,14 +12,13 @@ import com.google.gson.Gson;
 
 public class Command {
 	
-	GameState active;
 	String cmd=new String();
 	String opt=new String();
 	String[] opts=new String[10];
 	int optNum;
 	
 	public Command(){
-		active=GameRunner.game;
+		super();
 	}
 	
 	public void enterCommand(){
@@ -29,7 +28,7 @@ public class Command {
 	
 	public void promptParse(){
 		Scanner user=new Scanner(System.in);
-		System.out.print(active.player.name+">> ");
+		System.out.print(GameState.player.name+">> ");
 		String userInput=user.nextLine();
 		String[] input=userInput.toLowerCase().split(" ");
 		cmd=input[0];
@@ -59,7 +58,7 @@ public class Command {
 			return;
 		
 		case "save":
-			save();
+			GameState.save();
 			GameRunner.mainMenu();
 			return;
 		
@@ -71,20 +70,20 @@ public class Command {
 			if(opts[0]!=null){
 				switch(opts[0]){
 				case "north": 
-					active.player.move(DIR.NORTH);
-					active.player.getRoom().examine();
+					GameState.player.move(DIR.NORTH);
+					GameState.player.getRoom().examine();
 					return;
 				case "south": 
-					active.player.move(DIR.SOUTH);
-					active.player.getRoom().examine();
+					GameState.player.move(DIR.SOUTH);
+					GameState.player.getRoom().examine();
 					return;
 				case "east": 
-					active.player.move(DIR.EAST);
-					active.player.getRoom().examine();
+					GameState.player.move(DIR.EAST);
+					GameState.player.getRoom().examine();
 					return;
 				case "west": 
-					active.player.move(DIR.WEST);
-					active.player.getRoom().examine();
+					GameState.player.move(DIR.WEST);
+					GameState.player.getRoom().examine();
 					return;
 				}
 			}
@@ -94,10 +93,10 @@ public class Command {
 		case "examine":
 			switch(opts[0]){
 			case "room":
-				active.player.getRoom().examine();
+				GameState.player.getRoom().examine();
 				return;
 			case "monster":
-				active.player.getRoom().getMonster().examine();
+				GameState.player.getRoom().getMonster().examine();
 				return;
 			default:
 				break;
@@ -110,13 +109,13 @@ public class Command {
 				if(optNum<0){
 					return;
 				}
-				item=active.player.getRoom().getItem(optNum);
+				item=GameState.player.getRoom().getItem(optNum);
 				if(item instanceof Potion){
 					System.out.println("ERROR cannot equip a potion. You must pickup a potion");
 					return;
 				}
-				active.player.equip(item);
-				active.player.getRoom().examine();
+				GameState.player.equip(item);
+				GameState.player.getRoom().examine();
 			}
 			else{
 				System.out.println("e:Command(equip):not followed by 'item'");
@@ -129,8 +128,8 @@ public class Command {
 					if(optNum<0){
 						return;
 					}
-					active.player.drop(active.player.getInventoryItem(optNum));
-					active.player.getRoom().examine();
+					GameState.player.drop(GameState.player.getInventoryItem(optNum));
+					GameState.player.getRoom().examine();
 					return;
 				}
 			}
@@ -138,20 +137,20 @@ public class Command {
 			switch(opt){
 			
 			case "left hand":
-				active.player.drop(Player.EQUIP.LEFTHAND);
-				active.player.getRoom().examine();
+				GameState.player.drop(Player.EQUIP.LEFTHAND);
+				GameState.player.getRoom().examine();
 				return;
 			case "right hand":
-				active.player.drop(Player.EQUIP.RIGHTHAND);
-				active.player.getRoom().examine();
+				GameState.player.drop(Player.EQUIP.RIGHTHAND);
+				GameState.player.getRoom().examine();
 				return;
 			case "hands":
-				active.player.drop(Player.EQUIP.HANDS);
-				active.player.getRoom().examine();
+				GameState.player.drop(Player.EQUIP.HANDS);
+				GameState.player.getRoom().examine();
 				return; 
 			case "suit":
-				active.player.drop(Player.EQUIP.SUIT);
-				active.player.getRoom().examine();
+				GameState.player.drop(Player.EQUIP.SUIT);
+				GameState.player.getRoom().examine();
 				return;
 			}
 			System.out.println("ERROR enter 'drop followed by 'left hand','right hand','hands','suit', or 'inventory #'");
@@ -161,7 +160,7 @@ public class Command {
 			if(optNum<0){
 				return;
 			}
-			item=active.player.getRoom().getItem(optNum);
+			item=GameState.player.getRoom().getItem(optNum);
 			if(item==null){
 				return;
 			}
@@ -169,8 +168,8 @@ public class Command {
 				System.out.println("ERROR you can only pickup potions");
 				return;
 			}
-			active.player.pickup(item);
-			active.player.getRoom().examine();
+			GameState.player.pickup(item);
+			GameState.player.getRoom().examine();
 			return;
 		
 		case "use":
@@ -179,15 +178,15 @@ public class Command {
 				if(optNum<0){
 					return;
 				}
-				item=active.player.getInventoryItem(optNum);
-				active.player.usePotionFromInv(item);
+				item=GameState.player.getInventoryItem(optNum);
+				GameState.player.usePotionFromInv(item);
 				return;
 			case "item":
 				if(optNum<0){
 					return;
 				}
-				item=active.player.getRoom().getItem(optNum);
-				active.player.usePotion(item);
+				item=GameState.player.getRoom().getItem(optNum);
+				GameState.player.usePotion(item);
 				return;
 			}
 			return;
@@ -199,9 +198,9 @@ public class Command {
 	
 	public void save(){
 		try{
-			File gsonPlayerFile=new File(active.player.name+".json");
+			File gsonPlayerFile=new File(GameState.player.name+".json");
 			PrintStream toGsonPlayerFile=new PrintStream(gsonPlayerFile);
-			toGsonPlayerFile.println(new Gson().toJson(active.player));
+			toGsonPlayerFile.println(new Gson().toJson(GameState.player));
 			toGsonPlayerFile.close();	
 			
 			/*
