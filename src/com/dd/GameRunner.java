@@ -1,5 +1,6 @@
 package com.dd;
 
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,11 +9,11 @@ import com.dd.entities.Player;
 public class GameRunner {
 	public static GameState game;
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws FileNotFoundException{
 		printLnTitle('~',"Dungeons and D&D",40);
 		go();
 	}
-	public static void go(){
+	public static void go() throws FileNotFoundException{
 		mainMenu();
 		printStats();
 		printMap();
@@ -20,7 +21,7 @@ public class GameRunner {
 		cmdLoop();
 	
 	}
-	public static void cmdLoop() {
+	public static void cmdLoop() throws FileNotFoundException {
 		Command parser=new Command();
 		while(true){
 			parser.enterCommand();
@@ -29,7 +30,7 @@ public class GameRunner {
 			printMap();
 		}
 	}
-	public static void mainMenu(){
+	public static void mainMenu() throws FileNotFoundException{
 		printLnTitle('*',"Main Menu",40);
 		System.out.println("Please select from the following:"
 				+"\n1: New Game"
@@ -47,11 +48,7 @@ public class GameRunner {
 			}else if(selection==2){		//load game
 				System.out.print("Enter Player's Name: ");
 				name=scan.nextLine();
-				//playerSelect=loadPlayer(name);
-				///map=loadMap(name);
-				//map=playerSelect.getMap();
-				//map=newMap();
-				//playerSelect.setMap(map);
+				game=new GameState(new Player(name));
 			}else if(selection==3){		//quit
 				System.out.println("Thank you for playing! GoodBye!");
 				System.exit(0);

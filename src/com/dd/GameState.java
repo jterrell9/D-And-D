@@ -3,6 +3,7 @@ package com.dd;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
@@ -33,15 +34,25 @@ public class GameState {
 			toGsonPlayerFile.println(new Gson().toJson(player));
 			toGsonPlayerFile.close();	
 			
-			/*
-			File gsonMapFile=new File(active.player.getName()+".Map.json");
+			
+			File gsonMapFile=new File(player.name+".Map.json");
 			PrintStream toGsonMapFile=new PrintStream(gsonMapFile);
-			toGsonMapFile.println(new Gson().toJson(activeMap.getRooms()));
+			toGsonMapFile.println(new Gson().toJson(dungeon));
 			toGsonMapFile.close();	
-			*/
+			
 			
 		}catch(FileNotFoundException FNFE){
 			System.out.println("ERROR file not found");
 		}
+	}
+	public static Player loadPlayer(String name) throws FileNotFoundException{
+		File file=new File(name+".json");
+		if(file.exists()){
+			Scanner scanJsonFile=new Scanner(file);
+			String playerJson=scanJsonFile.nextLine();
+			return new Gson().fromJson(playerJson,Player.class);
+		}
+		System.out.println("ERROR file does not exit");
+		return null;
 	}
 }

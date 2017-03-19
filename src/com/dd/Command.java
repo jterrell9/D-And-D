@@ -1,5 +1,6 @@
 package com.dd;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import com.dd.entities.Player;
@@ -17,7 +18,7 @@ public class Command {
 		super();
 	}
 	
-	public void enterCommand(){
+	public void enterCommand() throws FileNotFoundException{
 		promptParse();
 		mapCmd();
 	}
@@ -40,7 +41,7 @@ public class Command {
 		}
 	}
 	
-	public void mapCmd() {
+	public void mapCmd() throws FileNotFoundException {
 		Item item;
 		
 		switch(cmd){
