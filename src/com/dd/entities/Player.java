@@ -309,10 +309,19 @@ public class Player extends Entity{
 		this.name = name;
 	}
 
+	public String inventoryToString(){
+		StringBuilder sb=new StringBuilder("\tInventory:\n");
+		Item[] inventoryList=(Item[]) inventory.keySet().toArray();
+		for(int i=0;i<inventoryList.length;i++){
+			sb.append("\t\t\t"+(i+1)+". "+inventoryList[i]+"\n");
+		}	
+		return sb.toString();
+	}
+	
 	public String statboardToString(){
 		return	stats.toString()
-				+"\n\n"+equipToString()
-				+"\n"+inventoryToString();
+				+"\n\n"+equipToString();
+				//+"\n"+inventoryToString();
 				
 	}
 
