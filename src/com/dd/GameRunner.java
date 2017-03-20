@@ -3,6 +3,8 @@ package com.dd;
 import com.dd.GameState;
 import com.dd.gamescene_util.GameScene;
 import com.dd.gamescene_util.gamescene.*;
+import com.dd.tester.Tester;
+
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public class GameRunner extends Application {
     private static int screenHeight;
 
     public static void main(String[] args) {
-        launch(args);
+        Tester.go();
     }
 
     @Override
