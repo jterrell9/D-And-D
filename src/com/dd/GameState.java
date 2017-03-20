@@ -1,68 +1,82 @@
 package com.dd;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.Scanner;
-
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
-import com.dd.levels.MapPosition;
-import com.dd.levels.Maze5x5;
-import com.google.gson.Gson;
+import java.lang.IllegalArgumentException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameState {
-	public static Player player;
-	public static DungeonMap dungeon;
+    protected String name;
+	protected Player activePlayer;
+	protected int maxNumPlayers;
+    protected List<Player> allActivePlayers = new ArrayList<Player>();
+	protected DungeonMap map;
 	
-	public GameState(Player p1,DungeonMap dm1){
-		dungeon=dm1;
-		player=p1;
+	public GameState(String name, Player activePlayer, DungeonMap map, int maxNumPlayers) {
+	    this.name = name;
+        this.activePlayer = activePlayer;
+        this.maxNumPlayers = maxNumPlayers;
+        allActivePlayers = new ArrayList<Player>();
+        this.map = map;
 	}
-	public GameState(Player p1){
-		dungeon=new Maze5x5();
-		player=p1;
-	}
-	public GameState(){
-		dungeon=new Maze5x5();
-		player=new Player("Player",new MapPosition(),new Stats());
-	}
-	public static void save(){
-		try{
-			File gsonPlayerFile=new File(player.name+".json");
-			PrintStream toGsonPlayerFile=new PrintStream(gsonPlayerFile);
-			toGsonPlayerFile.println(new Gson().toJson(player));
-			toGsonPlayerFile.close();	
-			
-			
-			File gsonMapFile=new File(player.name+".map.json");
-			PrintStream toGsonMapFile=new PrintStream(gsonMapFile);
-			toGsonMapFile.println(new Gson().toJson(dungeon));
-			toGsonMapFile.close();	
-			
-			
-		}catch(FileNotFoundException FNFE){
-			System.out.println("ERROR file not found");
-		}
-	}
-	public static Player loadPlayer(String name) throws FileNotFoundException{
-		File file=new File(name+".json");
-		if(file.exists()){
-			Scanner scanJsonFile=new Scanner(file);
-			String playerJson=scanJsonFile.nextLine();
-			return new Gson().fromJson(playerJson,Player.class);
-		}
-		System.out.println("ERROR file does not exit");
-		return null;
-	}
-	public static DungeonMap loadMap(String name) throws FileNotFoundException{
-		File file=new File(name+".map.json");
-		if(file.exists()){
-			Scanner scanJsonFile=new Scanner(file);
-			String playerJson=scanJsonFile.nextLine();
-			return new Gson().fromJson(playerJson,DungeonMap.class);
-		}
-		System.out.println("ERROR file does not exit");
-		return null;
-	}
+
+	public GameState(String name, Player activePlayer, DungeonMap map){
+        this.name = name;
+        this.activePlayer = activePlayer;
+        this.maxNumPlayers = 1;
+        allActivePlayers = new ArrayList<Player>();
+        this.map = map;
+    }
+
+    public Player getActivePlayer(){
+        return activePlayer;
+    }
+
+    public List<Player> getPlayerList(){
+        return allActivePlayers;
+    }
+
+    public DungeonMap getMap(){
+        return map;
+    }
+
+    public void setMap(DungeonMap map){
+        this.map = map;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public int getMaxNumPlayers(){
+        return maxNumPlayers;
+    }
+
+    public void setMaxNumPlayers(int maxNumPlayers){
+        this.maxNumPlayers = maxNumPlayers;
+    }
+
+    public void addActivePlayer(Player player) {
+        if(player == null)
+            throw new IllegalArgumentException("Player passed to GameState is null. Addition failed.");
+        if(allActivePlayers.contains(player))
+            throw new IllegalArgumentException("Player \""
+                                                + player.getName()
+                                                + "is already active in this GameState. Addition failed.");
+        allActivePlayers.add(player);
+    }
+
+    public void removeActivePlayer(Player player) {
+        if(player == null)
+            throw new IllegalArgumentException("Player passed to GameState is null. Removal failed.");
+        if(!allActivePlayers.remove(player))
+            throw new IllegalArgumentException("Player \""
+                                                + player.getName()
+                                                + "is not active in this GameState. Removal failed.");
+    }
 }

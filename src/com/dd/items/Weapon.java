@@ -1,20 +1,10 @@
 package com.dd.items;
 
-public class Weapon extends Item{
-	private boolean isTwoHanded;
-	public Weapon(String name,int attackGain,boolean isTwoHanded){
+public abstract class Weapon extends Item{
+	public Weapon(String name,int attackGain){
 		super(name);
-		super.setStatChange(0,0,attackGain,0);
-		this.isTwoHanded=isTwoHanded;
+		super.setStatChange(0, 0, attackGain, 0);
 	}
-	public boolean isTwoHanded(){
-		return isTwoHanded;
-	}
-	@Override
-	public String toString(){
-		if(isTwoHanded()){
-			return "("+typeToString()+") "+getName()+" [+"+super.getStatChange().getAttack()+" Attack] (two-handed)";
-		}
-		return "("+typeToString()+") "+getName()+" [+"+super.getStatChange().getAttack()+" Attack]";
-	}
+
+	//Rewrite toString code if needed
 }

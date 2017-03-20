@@ -1,90 +1,87 @@
 package com.dd.levels;
 
-import java.util.ArrayList;
-
-import com.dd.GameRunner;
 import com.dd.entities.Monster;
 import com.dd.items.Item;
+import com.dd.dd_util.ConflictHandlingMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Room {
-	
-	private ArrayList<Item> itemList;
-	private Monster monster;
-	
+	private Map<String, Item> itemMap;
+	private Map<String, Monster> monsterMap;
 	
 	public Room() {
-		monster=null;
-		itemList=new ArrayList<Item>();
+		itemMap = new ConflictHandlingMap<Item>();
+		monsterMap = new ConflictHandlingMap<Monster>();
 	}
-	
-	public void examine(){
-		if(isEmpty()){
-			System.out.println("This room is empty");
-			return;
-		}
-		if(monster!=null){
-			System.out.println("There is a "+monster.name+" in this room!");
-		}
-		System.out.println("This room has the following items:");
-		for(int i=0;i<itemList.size();i++){
-			if(itemList.get(i)!=null){
-				System.out.println("Item "+(i+1)+": "+itemList.get(i).toString());
-			}
-		}
-	}
+
 	public boolean isEmpty(){
-		return itemList.isEmpty();
+		return itemMap.isEmpty() && monsterMap.isEmpty();
 	}
-	public int getItemIndex(){
-		return itemList.size()-1;
-	}
-	
+
 	public void addItem(Item item){
-		itemList.add(item);
+		itemMap.put(item.getName(), item);
 	}
-	public void removeItem(Item item){
-		if(!itemList.remove(item)){
-			GameRunner.printLnTitle(' ',"ERROR",24);
-			System.out.println("Room.removeItem() - item not found");
+
+	public Item removeItem(String itemName) throws UnknownItemException{
+		Item retItem;
+		if(!itemMap.containsKey(itemName))
+			throw new UnknownItemException("The item \""
+											+ itemName
+											+ "\" does not exist in this room. Removal failed.");
+		retItem = itemMap.get(itemName);
+		itemMap.remove(itemName);
+		return retItem;
+	}
+
+	public void discardItem(String itemName) throws UnknownItemException{
+		if(itemMap.remove(itemName) != null)
+			throw new UnknownItemException("The item \""
+											+ itemName
+											+ "\" does not exist in this room. Discard failed.");
+	}
+
+	public void addMonster(Monster monster){
+		monsterMap.put(monster.name,monster);
+	}
+
+	public Monster removeMonster(String monsterName) throws UnknownMonsterException{
+		Monster retMonster;
+		if(!monsterMap.containsKey(monsterName))
+			throw new UnknownMonsterException("The monster \""
+												+ monsterName
+												+ "\" does not exist in this room. Removal failed.");
+		retMonster = monsterMap.get(monsterName);
+		monsterMap.remove(monsterName);
+		return retMonster;
+	}
+
+	public void discardMonster(String monsterName) throws UnknownMonsterException{
+		if(monsterMap.remove(monsterName) != null)
+			throw new UnknownMonsterException("The monster \""
+												+ monsterName
+												+ "\" does not exist in this room. Removal failed.");
+	}
+
+	public Set<String> getItemList(){
+		return itemMap.keySet();
+	}
+
+	public Set<String> getMosterList(){
+		return monsterMap.keySet();
+	}
+
+	//Write new toString stuff if needed
+
+	public class UnknownItemException extends Exception{
+		public UnknownItemException(String message){
+			super(message);
 		}
 	}
-	public void removeItem(int index){
-		if(!itemList.remove(itemList.get(index))){
-			GameRunner.printLnTitle(' ',"ERROR",24);
-			System.out.println("Room.removeItem() - item index not found");
+
+	public class UnknownMonsterException extends Exception{
+		public UnknownMonsterException(String message){
+			super(message);
 		}
-	}
-	public void removeMonster(){
-		monster=null;
-	}
-	public boolean hasMonster(){
-		return monster!=null;
-	}
-	
-	public Item getItem(int index){
-		index--;
-		if(index>=0 && index<itemList.size()){
-			return itemList.get(index);
-		}
-		GameRunner.printLnTitle(' ',"ERROR",24);
-		System.out.println("Room.getItem() - item not found");
-		return null;
-	}
-	public void setMonster(Monster monster){
-		this.monster=monster;
-	}
-	public Monster getMonster(){
-		return monster;
-	}
-	
-	public String itemsToString(){
-		StringBuilder itemStr=new StringBuilder();
-		for(int i=0;i<itemList.size() && itemList.get(i)!=null;i++){
-			itemStr.append(itemList.get(i).toString()+"\n");
-		}
-		return itemStr.toString();
-	}
-	public String toString(){
-		return "Items:\n"+itemsToString()+"Monster: "+monster.toString();
 	}
 }
