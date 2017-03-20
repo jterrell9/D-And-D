@@ -309,7 +309,12 @@ public class Player extends Entity{
 		this.name = name;
 	}
 
-	//Add back toString code if needed
+	public String statboardToString(){
+		return	stats.toString()
+				+"\n\n"+equipToString()
+				+"\n"+inventoryToString();
+				
+	}
 
 	public class InventoryException extends Exception{
 		public InventoryException(String message){
