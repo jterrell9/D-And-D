@@ -1,95 +1,111 @@
 package com.dd;
 
-import java.io.FileNotFoundException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import com.dd.GameState;
+import com.dd.gamescene_util.GameScene;
+import com.dd.gamescene_util.gamescene.*;
+import java.lang.IllegalArgumentException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javafx.application.Application;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-import com.dd.entities.Player;
-import com.dd.levels.Maze5x5;
+public class GameRunner extends Application {
+    private static Stage stage;
+    private static List<GameState> gameStateList = new ArrayList<GameState>();
+    private static GameState activeGameState;
+    private static Map<String, GameScene> gameSceneMap = new HashMap<String, GameScene>();
+    private static int screenWidth;
+    private static int screenHeight;
 
-public class GameRunner {
-	public static GameState game;
-	
-	public static void main(String[] args) throws FileNotFoundException{
-		printLnTitle('~',"Dungeons and D&D",40);
-		go();
-	}
-	public static void go() throws FileNotFoundException{
-		mainMenu();
-		printStats();
-		printMap();
-		System.out.println("*Type help for a list of commands*");
-		cmdLoop();
-	
-	}
-	public static void cmdLoop() throws FileNotFoundException {
-		Command parser=new Command();
-		while(true){
-			parser.enterCommand();
-			System.out.println();
-			printStats();
-			printMap();
-		}
-	}
-	public static void mainMenu() throws FileNotFoundException{
-		printLnTitle('*',"Main Menu",40);
-		System.out.println("Please select from the following:"
-				+"\n1: New Game"
-				+"\n2: Resume Game"
-				+"\n3: Quit");
-		System.out.print("Enter Selection >>");
-		try{
-			Scanner scanInt=new Scanner(System.in);
-			int selection=scanInt.nextInt();
-			String name;
-			if(selection==1){		//new game
-				Scanner scanName=new Scanner(System.in);
-				System.out.print("Enter Player's Name: ");
-				name=scanName.next();
-				GameState.dungeon=new Maze5x5();
-				GameState.player=new Player(name);
-			}else if(selection==2){		//load game
-				Scanner scanName=new Scanner(System.in);
-				System.out.print("Enter Player's Name: ");
-				name=scanName.nextLine();
-				GameState.dungeon=GameState.loadMap(name);
-				GameState.player=GameState.loadPlayer(name);
-			}else if(selection==3){		//quit
-				System.out.println("Thank you for playing! GoodBye!");
-				System.exit(0);
-			}else{
-				System.out.println("\n!e:Invalid entry, please try again.\n");
-				mainMenu();
-			}
-		}catch(InputMismatchException ime){
-			System.out.println("\n!e:Invalid entry, please try again.\n");
-			mainMenu();
-		}
-	}
-	
-	public static void printStats(){
-		printLnTitle('~',GameState.player.name+"'s Stats Board",40);
-		System.out.println(GameState.player.statboardToString());
-	}
-	public static void printMap(){
-		printLnTitle('-',"Map",40);
-		GameState.dungeon.drawDungeon(GameState.player);
-		printLnTitle('-',"",40);
-	}
-	public static void printLnTitle(char c,String str,int width){
-		int strLength=str.length();
-		int startIndex=(width/2)-(strLength/2);
-		for(int i=0;i<=width;i++){
-			if(i==startIndex){
-				System.out.print(str);
-				i+=strLength;
-			}else{
-				System.out.print(c);
-			}
-		}
-		System.out.println();
-	}
-	public static void ErrorMsg(String classLocation,String method,String msg){
-		System.out.println("!e:"+classLocation+"."+method+"-"+msg);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+
+        screenWidth = 1920;
+        screenHeight = 1080;
+
+        GameScene mainMenuScene =  new MainMenuScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene newGameScene = new NewGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene loadGameScene = new LoadGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene joinGameScene = new JoinGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene addServerScene = new AddServerScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene characterCreationScene = new CharacterCreationScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene runningGameScene = new RunningGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+
+        addGameScene("MainMenuScene", mainMenuScene);
+        addGameScene("NewGameScene", newGameScene);
+        addGameScene("LoadGameScene", loadGameScene);
+        addGameScene("JoinGameScene", joinGameScene);
+        addGameScene("AddServerScene", addServerScene);
+        addGameScene("CharacterCreationScene", characterCreationScene);
+        addGameScene("RunningGameScene", runningGameScene);
+
+        setActiveGameScene("MainMenuScene", null);
+        primaryStage.show();
+    }
+
+    private static void addGameScene(String name, GameScene gameScene) {
+        if(gameSceneMap.containsKey(name))
+            throw new IllegalArgumentException("GameScene \""
+                                                + name
+                                                + "\" is already registered with the GameRunner. Registration failed.");
+        gameSceneMap.put(name, gameScene);
+    }
+
+    public static void setActiveGameScene(String name, Object[] args) {
+        GameScene gameScene = gameSceneMap.get(name);
+        if(gameScene == null)
+            throw new IllegalArgumentException("GameScene \""
+                                                + name
+                                                + "\" is not registered with the GameRunner. GameScene unchanged.");
+        gameScene.setup(args);
+        stage.setScene(gameScene);
+    }
+
+    public static void registerGameState(GameState gameState) {
+        gameStateList.add(gameState);
+    }
+
+    public static GameState getActiveGameState() {
+        return activeGameState;
+    }
+
+    public static void setActiveGameState(GameState gameState) {
+        if(!gameStateList.contains(gameState))
+            throw new IllegalArgumentException("GameState \""
+                                                + gameState.getName()
+                                                + "\"  is not registered with the GameRunner. Activation failed.");
+        activeGameState = gameState;
+    }
+
+    public static List<GameState> getGameStateList() {
+        return gameStateList;
+    }
+
+    public static void saveGame() {
+    }
+
+    public static void loadSavedGames() {
+    }
 }

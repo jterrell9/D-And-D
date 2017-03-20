@@ -2,7 +2,7 @@ package com.dd.items;
 
 import com.dd.Stats;
 
-public class Item {
+public class Item{
 	private String name;
 	private Stats StatModifyer;
 	public Item(String name) {
@@ -27,9 +27,11 @@ public class Item {
 		Stats negStats=new Stats(negHealth,negMaxHealth,negAttack,negDefense);
 		return negStats;
 	}
+	
 	public String typeToString(){
 		return getClass().toString().substring(19);
 	}
+	
 	@Override
 	public String toString(){
 		return name;
