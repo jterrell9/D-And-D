@@ -107,17 +107,20 @@ public class Command {
 					System.out.println("Item "+(i+1)+": "+itemList[i].getName());
 				}
 				return;
+			/*
 			case "monster":
 				Tester.printLnTitle('~',"Examine Monster",40);
 				GameState.player.getRoom().getMonster().examine();
 				return;
+			*/
 			default:
 				break;
 			}
 			System.out.println("Type 'examine' followed by 'room' or 'monster'");
 			return;
-				
+		/*		
 		case "equip":
+			
 			if(opts[0].equals("item")){
 				if(optNum<0){
 					return;
@@ -228,6 +231,7 @@ public class Command {
 					+"'attack'");
 					
 			return;
+		*/
 		default:
 			System.out.println("This command not recognized\nType help for a list of commands");
 			break;
