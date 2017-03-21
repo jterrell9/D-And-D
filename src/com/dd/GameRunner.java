@@ -15,7 +15,7 @@ import javafx.application.Application;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class GameRunner extends Application {
+public class GameRunner {//extends Application {
     private static Stage stage;
     private static List<GameState> gameStateList = new ArrayList<GameState>();
     private static GameState activeGameState;
@@ -26,8 +26,10 @@ public class GameRunner extends Application {
     public static void main(String[] args) throws FileNotFoundException {
         Tester.go();
     	//launch(args);
+    	
+    	
     }
-
+/*
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -68,6 +70,7 @@ public class GameRunner extends Application {
         setActiveGameScene("MainMenuScene", null);
         primaryStage.show();
     }
+    */
 
     private static void addGameScene(String name, GameScene gameScene) {
         if(gameSceneMap.containsKey(name))
