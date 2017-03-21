@@ -3,24 +3,28 @@ package com.dd.tester;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import com.dd.GameRunner;
 import com.dd.GameState;
 import com.dd.entities.Player;
 import com.dd.items.Item;
 import com.dd.items.Potion;
+import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
 public class Command {
 	
-	GameState activeGame;
+	Player player;
+	DungeonMap map;
 	
 	String cmd=new String();
 	String opt=new String();
 	String[] opts=new String[10];
 	int optNum;
 	
-	public Command(GameState activeGame){
-		this.activeGame=activeGame;
+	public Command(){
+		this.player=GameRunner.getActiveGameState().getActivePlayer();
+		this.map=GameRunner.getActiveGameState().getMap();
 	}
 	
 	public void enterCommand() throws FileNotFoundException{
@@ -30,7 +34,7 @@ public class Command {
 	
 	public void promptParse(){
 		Scanner user=new Scanner(System.in);
-		System.out.print(activeGame.getActivePlayer().getName()+">> ");
+		System.out.print(player.getName()+">> ");
 		String userInput=user.nextLine();
 		String[] input=userInput.toLowerCase().split(" ");
 		cmd=input[0];
@@ -69,20 +73,19 @@ public class Command {
 			return;
 			
 		case "move":
-			MapPosition currPos=activeGame.getActivePlayer().getPostion();
 			if(opts[0]!=null){
 				switch(opts[0]){
 				case "north": 
-					activeGame.getActivePlayer().setMapPosition(currPos.getNorth());
+					player.mapPosition.moveNorth();
 					return;
 				case "south": 
-					activeGame.getActivePlayer().setMapPosition(currPos.getSouth());
+					player.mapPosition.moveSouth();
 					return;
 				case "east": 
-					activeGame.getActivePlayer().setMapPosition(currPos.getEast());
+					player.mapPosition.moveNorth();
 					return;
 				case "west": 
-					activeGame.getActivePlayer().setMapPosition(currPos.getWest());
+					player.mapPosition.moveNorth();
 					return;
 				}
 			}
@@ -90,11 +93,10 @@ public class Command {
 			return;
 				
 		case "examine":
-			Room currRoom=activeGame.getMap().getRoom(activeGame.getActivePlayer().getPostion());
 			switch(opts[0]){
 			case "room":
 				Tester.printLnTitle('~',"Examine Room",40);
-				if(currRoom.isEmpty()){
+				if(map.getRoom(player.getPostion()).isEmpty()){
 					System.out.println("This room is empty");
 					return;
 				}
@@ -102,9 +104,10 @@ public class Command {
 					System.out.println("There is a "+currRoom.getMosterList().+" in this room!");
 				}*/
 				System.out.println("This room has the following items:");
-				Item[] itemList=(Item[]) currRoom.getItemList().toArray();
-				for(int i=0;i<itemList.length;i++){
-					System.out.println("Item "+(i+1)+": "+itemList[i].getName());
+				int i=1;
+				for(String itemName:map.getRoom(player.getPostion()).getItemList()){
+					System.out.println("Item "+i+": "+itemName);
+					i++;
 				}
 				return;
 			/*
