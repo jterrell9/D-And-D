@@ -31,21 +31,24 @@ public class DungeonMap {
 	}
 	public boolean isRoomInDir(MapPosition p,DIR direction){
 		boolean retCode = true;
+		MapPosition mp;
 		switch(direction){
 		case NORTH:
-			p.translate(DIR.NORTH);
+			mp=p.translate(DIR.NORTH);
 			break;
 		case SOUTH:
-			p.translate(DIR.SOUTH);
+			mp=p.translate(DIR.SOUTH);
 			break;
 		case EAST:
-			p.translate(DIR.EAST);
+			mp=p.translate(DIR.EAST);
 			break;
 		case WEST:
-			p.translate(DIR.WEST);
+			mp=p.translate(DIR.WEST);
 			break;
+		default:
+			mp=p;
 		}
-		if(isOutOfBounds(p) || rooms[p.getY()][p.getX()]==null)
+		if(isOutOfBounds(mp) || rooms[mp.getY()][mp.getX()]==null)
 			retCode = false;
 		return retCode;
 	}
