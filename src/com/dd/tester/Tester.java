@@ -59,9 +59,10 @@ public class Tester {
 				Scanner scanName=new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name=scanName.next();
-				GameState game=new GameState(name,new Player(name),new5x5());
+				GameState game=new GameState(name,new Player(name),new DungeonMap(5,5));
 				GameRunner.registerGameState(game);
 				GameRunner.setActiveGameState(game);
+				populate5x5(); //adds rooms to map;
 			}else if(selection==2){		//load game
 				Scanner scanName=new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
@@ -148,18 +149,27 @@ public class Tester {
 			switch(opts[0]){
 			case "room":
 				Tester.printLnTitle('~',"Examine Room",40);
-				if(getRunnerMap().getRoom(getRunnerPlayer().getPostion()).isEmpty()){
-					System.out.println("This room is empty");
-					return;
-				}
-				/*if(currRoom.getMosterList()!=null){
-					System.out.println("There is a "+currRoom.getMosterList().+" in this room!");
-				}*/
-				System.out.println("This room has the following items:");
-				int i=1;
-				for(String itemName:getRunnerMap().getRoom(getRunnerPlayer().getPostion()).getItemList()){
-					System.out.println("Item "+i+": "+itemName);
-					i++;
+				if(getRunnerMap().isRoom(getRunnerPosition())){
+					if(!getRunnerRoom().getMosterList().isEmpty()){
+						System.out.println("This Room Has A Monster:");
+						for(String monsterName:getRunnerRoom().getMosterList()){
+							System.out.println(monsterName);
+						}
+					}
+					if(!getRunnerRoom().getItemList().isEmpty()){
+						System.out.println("This room has the following items:");
+						int i=1;
+						for(String itemName:getRunnerRoom().getItemList()){
+							System.out.println("Item "+i+": "+itemName);
+							i++;
+						}
+						return;
+					}else{
+						System.out.println("This room is empty.");
+						return;
+					}
+				}else{
+					System.out.println("ERROR no room here!");
 				}
 				return;
 			/*
@@ -353,7 +363,31 @@ public class Tester {
 		}
 		System.out.println();
 	}
-	public static DungeonMap new5x5(){
+	
+	public static void populate5x5(){
+		MapPosition buildPos=new MapPosition();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveEast();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveEast();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveSouth();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveSouth();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveEast();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveSouth();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveSouth();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		buildPos.moveEast();
+		getRunnerMap().addRoom(new Room(),buildPos);
+		
+		
+	}
+	
+	public static DungeonMap old5x5(){
 		DungeonMap maze=new DungeonMap(5,5);
 		MapPosition buildPosition=new MapPosition();
 		
@@ -369,12 +403,8 @@ public class Tester {
 		maze.addRoom(room00, buildPosition);
 		
 		Room room01=new Room();
-		TwoHandedWeapon twoHandedSword=new TwoHandedWeapon("2-Handed Sword",5);
-		room01.addItem(twoHandedSword);
 		Armour breastPlate=new Armour("Breast Plate",2);
 		room01.addItem(breastPlate);
-		Monster dragon=new Monster("Dragon",8,3,2);
-		room01.addMonster(dragon);
 		buildPosition.moveSouth();
 		maze.addRoom(room01, buildPosition);
 		
@@ -384,16 +414,16 @@ public class Tester {
 		room11.addItem(potion);
 		buildPosition.moveEast();
 		maze.addRoom(room11, buildPosition);
-		addRoom(maze,buildPosition,DIR.EAST);
-		addRoom(maze,buildPosition,DIR.SOUTH);
-		addRoom(maze,buildPosition,DIR.SOUTH);
-		addRoom(maze,buildPosition,DIR.SOUTH);
-		addRoom(maze,buildPosition,DIR.EAST);
-		addRoom(maze,buildPosition,DIR.EAST);
+		addRoom(buildPosition,DIR.EAST);
+		addRoom(buildPosition,DIR.SOUTH);
+		addRoom(buildPosition,DIR.SOUTH);
+		addRoom(buildPosition,DIR.SOUTH);
+		addRoom(buildPosition,DIR.EAST);
+		addRoom(buildPosition,DIR.EAST);
 		
 		return maze;
 	}
-	public static void addRoom(DungeonMap map,MapPosition startPos,DIR dir){
+	public static void addRoom(MapPosition startPos,DIR dir){
 		Room room=new Room();
 		switch(dir){
 		case NORTH:
@@ -409,7 +439,7 @@ public class Tester {
 			startPos.moveWest();
 			break;
 		}
-		map.addRoom(room, startPos);
+		getRunnerMap().addRoom(room, startPos);
 	}
 
 	public static Player getRunnerPlayer(){
