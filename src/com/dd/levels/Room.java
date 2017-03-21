@@ -70,6 +70,14 @@ public class Room {
 	public Set<String> getMosterList(){
 		return monsterMap.keySet();
 	}
+	
+	public Monster getMonster(String name){
+		return monsterMap.get(name);
+	}
+	
+	public Item getItem(String name){
+		return itemMap.get(name);
+	}
 
 	//Write new toString stuff if needed
 
