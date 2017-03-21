@@ -4,9 +4,9 @@ import com.dd.Stats;
 
 public class Entity{
 	
-	public String name;
-	public Stats stats;
-	public boolean isAlive = true;
+	protected String name;
+	protected Stats stats;
+	protected boolean isAlive = true;
 	
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		this.name = name;
@@ -48,5 +48,11 @@ public class Entity{
 	}
 	public void attack(Entity entity){
 		entity.takeDamage(stats.getAttack());
+	}
+	public String getName(){
+		return name;
+	}
+	public Stats getStats(){
+		return stats;
 	}
 }

@@ -42,7 +42,7 @@ public class Room {
 	}
 
 	public void addMonster(Monster monster){
-		monsterMap.put(monster.name,monster);
+		monsterMap.put(monster.getName(),monster);
 	}
 
 	public Monster removeMonster(String monsterName) throws UnknownMonsterException{
@@ -69,6 +69,14 @@ public class Room {
 
 	public Set<String> getMosterList(){
 		return monsterMap.keySet();
+	}
+	
+	public Monster getMonster(String name){
+		return monsterMap.get(name);
+	}
+	
+	public Item getItem(String name){
+		return itemMap.get(name);
 	}
 
 	//Write new toString stuff if needed
