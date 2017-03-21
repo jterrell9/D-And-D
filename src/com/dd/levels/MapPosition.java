@@ -63,22 +63,24 @@ public class MapPosition {
 		this.x--;
 	}
 	
-	public void translate(DIR direction){
+	public MapPosition translate(DIR direction){
+		MapPosition mp=new MapPosition(getX(),getY());
 		switch(direction){
 		case NORTH:
-			y--;
+			mp.moveNorth();
 			break;
 		case SOUTH:
-			y++;
+			mp.moveSouth();
 			break;
 		case EAST:
-			x++;
+			mp.moveEast();
 			break;
 		case WEST:
-			x--;
+			mp.moveWest();
 			break;
 		default:
 			break;
 		}
+		return mp;
 	}
 }
