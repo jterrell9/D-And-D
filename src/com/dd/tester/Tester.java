@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.dd.GameRunner;
 import com.dd.GameState;
 import com.dd.entities.Monster;
 import com.dd.entities.Player;
@@ -20,7 +21,6 @@ import com.dd.levels.Room;
 
 public class Tester {
 	
-	private static GameState game;
 	public static void go() throws FileNotFoundException{
 		
 		mainMenu();
@@ -31,7 +31,7 @@ public class Tester {
 	
 	}
 	public static void cmdLoop() throws FileNotFoundException {
-		Command parser=new Command(game);
+		Command parser=new Command();
 		while(true){
 			parser.enterCommand();
 			System.out.println();
@@ -54,8 +54,9 @@ public class Tester {
 				Scanner scanName=new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name=scanName.next();
-				game.setMap(new5x5());
-				game.addActivePlayer(new Player(name));
+				GameState game=new GameState(name,new Player(name),new5x5());
+				GameRunner.registerGameState(game);
+				GameRunner.setActiveGameState(game);
 			}else if(selection==2){		//load game
 				Scanner scanName=new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
@@ -76,8 +77,8 @@ public class Tester {
 	}
 	
 	public static void printStats(){
-		printLnTitle('~',game.getActivePlayer().getName()+"'s Stats Board",40);
-		System.out.println(game.getActivePlayer().statboardToString());
+		printLnTitle('~',getRunnerPlayer().getName()+"'s Stats Board",40);
+		System.out.println(getRunnerPlayer().statboardToString());
 	}
 	public static void printMap(){
 		printLnTitle('-',"Map",40);
@@ -143,8 +144,8 @@ public class Tester {
 		map.addRoom(room, startPos);
 	}
 	public static void drawDungeon(){
-		MapPosition playerPos=game.getActivePlayer().getPostion();
-		DungeonMap map=game.getMap();
+		MapPosition playerPos=getRunnerPlayer().getPostion();
+		DungeonMap map=getRunnerMap();
 		for(int y=0;y<map.getMaxRow();y++){
 			for(int x=0;x<map.getMaxCol();x++){
 				if(x==0)
@@ -160,4 +161,10 @@ public class Tester {
 		}
 	}
 
+	public static Player getRunnerPlayer(){
+		return GameRunner.getActiveGameState().getActivePlayer();
+	}
+	public static DungeonMap getRunnerMap(){
+		return GameRunner.getActiveGameState().getMap();
+	}
 }
