@@ -74,13 +74,13 @@ public class DungeonMap {
 			System.out.println("e:DungeonMap.getRoom():out of bounds of map");
 			return null;
 		}
-		return rooms[pos.getX()][pos.getY()];
+		return rooms[pos.getY()][pos.getX()];
 	}
 
 	public boolean isOutOfBounds(MapPosition pos) {
 		return pos.getX() < 0
 				|| pos.getX() > rooms.length - 1
 				|| pos.getY() < 0
-				|| pos.getY() > rooms[pos.getX()].length - 1;
+				|| pos.getY() > rooms[pos.getY()].length - 1;
 	}
 }
