@@ -86,24 +86,6 @@ public class Tester {
 		mapCmd();
 	}
 	
-	public static void promptParse(){
-		Scanner user=new Scanner(System.in);
-		System.out.print(getRunnerPlayer().getName()+">> ");
-		String userInput=user.nextLine();
-		String[] input=userInput.toLowerCase().split(" ");
-		cmd=input[0];
-		if(input.length>1 && input.length<11){
-			for(int i=1;i<input.length;i++){
-				opt+=input[i]+" ";
-				opts[i-1]=input[i];
-				if(isInteger(input[i])){
-					optNum=Integer.parseInt(input[i]);
-				}
-				
-			}
-		}
-	}
-	
 	public static void mapCmd() throws FileNotFoundException {
 		Item item;
 		
@@ -130,16 +112,32 @@ public class Tester {
 			if(opts[0]!=null){
 				switch(opts[0]){
 				case "north": 
-					getRunnerPlayer().mapPosition.moveNorth();
+					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.NORTH)){
+						getRunnerPosition().moveNorth();
+					}else{
+						System.out.println("No Door in that Direction!");
+					}
 					return;
 				case "south": 
-					getRunnerPlayer().mapPosition.moveSouth();
+					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.SOUTH)){
+						getRunnerPosition().moveSouth();
+					}else{
+						System.out.println("No Door in that Direction!");
+					}
 					return;
 				case "east": 
-					getRunnerPlayer().mapPosition.moveNorth();
+					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.EAST)){
+						getRunnerPosition().moveEast();
+					}else{
+						System.out.println("No Door in that Direction!");
+					}
 					return;
 				case "west": 
-					getRunnerPlayer().mapPosition.moveNorth();
+					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.WEST)){
+						getRunnerPosition().moveWest();
+					}else{
+						System.out.println("No Door in that Direction!");
+					}
 					return;
 				}
 			}
@@ -294,6 +292,24 @@ public class Tester {
 			break;
 		}
 	}
+	
+	public static void promptParse(){
+		Scanner user=new Scanner(System.in);
+		System.out.print(getRunnerPlayer().getName()+">> ");
+		String userInput=user.nextLine();
+		String[] input=userInput.toLowerCase().split(" ");
+		cmd=input[0];
+		if(input.length>1 && input.length<11){
+			for(int i=1;i<input.length;i++){
+				opt+=input[i]+" ";
+				opts[i-1]=input[i];
+				if(isInteger(input[i])){
+					optNum=Integer.parseInt(input[i]);
+				}
+				
+			}
+		}
+	}
 	public static boolean isInteger(String str) {
 		try {
 			Integer.parseInt(str);
@@ -302,7 +318,6 @@ public class Tester {
 			return false;
 		}
 	}
-	
 	public static void printStats(){
 		printLnTitle('~',getRunnerPlayer().getName()+"'s Stats Board",40);
 		System.out.println(getRunnerPlayer().statboardToString());
@@ -360,14 +375,14 @@ public class Tester {
 		room01.addItem(breastPlate);
 		Monster dragon=new Monster("Dragon",8,3,2);
 		room01.addMonster(dragon);
-		buildPosition.translate(DIR.SOUTH);
+		buildPosition.moveSouth();
 		maze.addRoom(room01, buildPosition);
 		
 		Room room11=new Room();
 		Artifact ring2=new Artifact("Ring",0,5,1,1);
 		room11.addItem(ring2);
 		room11.addItem(potion);
-		buildPosition.translate(DIR.EAST);
+		buildPosition.moveEast();
 		maze.addRoom(room11, buildPosition);
 		addRoom(maze,buildPosition,DIR.EAST);
 		addRoom(maze,buildPosition,DIR.SOUTH);
@@ -380,7 +395,20 @@ public class Tester {
 	}
 	public static void addRoom(DungeonMap map,MapPosition startPos,DIR dir){
 		Room room=new Room();
-		startPos.translate(dir);
+		switch(dir){
+		case NORTH:
+			startPos.moveNorth();
+			break;
+		case SOUTH:
+			startPos.moveSouth();
+			break;
+		case EAST:
+			startPos.moveEast();
+			break;
+		case WEST:
+			startPos.moveWest();
+			break;
+		}
 		map.addRoom(room, startPos);
 	}
 
@@ -389,5 +417,11 @@ public class Tester {
 	}
 	public static DungeonMap getRunnerMap(){
 		return GameRunner.getActiveGameState().getMap();
+	}
+	public static MapPosition getRunnerPosition(){
+		return getRunnerPlayer().getPostion();
+	}
+	public static Room getRunnerRoom(){
+		return getRunnerMap().getRoom(getRunnerPosition());
 	}
 }
