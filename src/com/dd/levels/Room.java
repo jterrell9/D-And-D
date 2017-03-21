@@ -42,7 +42,7 @@ public class Room {
 	}
 
 	public void addMonster(Monster monster){
-		monsterMap.put(monster.name,monster);
+		monsterMap.put(monster.getName(),monster);
 	}
 
 	public Monster removeMonster(String monsterName) throws UnknownMonsterException{
