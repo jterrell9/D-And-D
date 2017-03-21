@@ -4,10 +4,6 @@ import com.dd.Stats;
 
 public class Entity{
 	
-	public static final String COLOR_RESET = "\u001B[0m";
-	public static final String COLOR_BLACK = "\u001B[30m";
-	public static final String COLOR_RED = "\u001B[31m";
-	
 	public String name;
 	public Stats stats;
 	public boolean isAlive = true;

@@ -3,6 +3,9 @@ package com.dd;
 import com.dd.GameState;
 import com.dd.gamescene_util.GameScene;
 import com.dd.gamescene_util.gamescene.*;
+import com.dd.tester.Tester;
+
+import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +15,7 @@ import javafx.application.Application;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class GameRunner extends Application {
+public class GameRunner {//extends Application {
     private static Stage stage;
     private static List<GameState> gameStateList = new ArrayList<GameState>();
     private static GameState activeGameState;
@@ -20,10 +23,13 @@ public class GameRunner extends Application {
     private static int screenWidth;
     private static int screenHeight;
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) throws FileNotFoundException {
+        Tester.go();
+    	//launch(args);
+    	
+    	
     }
-
+/*
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -64,6 +70,7 @@ public class GameRunner extends Application {
         setActiveGameScene("MainMenuScene", null);
         primaryStage.show();
     }
+    */
 
     private static void addGameScene(String name, GameScene gameScene) {
         if(gameSceneMap.containsKey(name))

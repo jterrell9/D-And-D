@@ -2,6 +2,8 @@ package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
 
+import com.dd.tester.DIR;
+
 public class DungeonMap {
 
 	public Room[][] rooms;
@@ -24,6 +26,29 @@ public class DungeonMap {
 	public boolean isRoom(MapPosition p){
 		boolean retCode = true;
 		if(isOutOfBounds(p) || rooms[p.getY()][p.getX()]==null)
+			retCode = false;
+		return retCode;
+	}
+	public boolean isRoomInDir(MapPosition p,DIR direction){
+		boolean retCode = true;
+		MapPosition mp;
+		switch(direction){
+		case NORTH:
+			mp=p.translate(DIR.NORTH);
+			break;
+		case SOUTH:
+			mp=p.translate(DIR.SOUTH);
+			break;
+		case EAST:
+			mp=p.translate(DIR.EAST);
+			break;
+		case WEST:
+			mp=p.translate(DIR.WEST);
+			break;
+		default:
+			mp=p;
+		}
+		if(isOutOfBounds(mp) || rooms[mp.getY()][mp.getX()]==null)
 			retCode = false;
 		return retCode;
 	}

@@ -1,5 +1,7 @@
 package com.dd.levels;
 
+import com.dd.tester.DIR;
+
 public class MapPosition {
 	private int x;
 	private int y;
@@ -14,11 +16,11 @@ public class MapPosition {
 	}
 
 	public MapPosition getNorth(){
-		return new MapPosition(x,y+1);
+		return new MapPosition(x,y-1);
 	}
 
 	public MapPosition getSouth(){
-		return new MapPosition(x,y-1);
+		return new MapPosition(x,y+1);
 	}
 
 	public MapPosition getEast(){
@@ -43,5 +45,42 @@ public class MapPosition {
 
 	public void setY(int y){
 		this.y = y;
+	}
+	
+	public void moveNorth(){
+		this.y--;
+	}
+	
+	public void moveSouth(){
+		this.y++;
+	}
+	
+	public void moveEast(){
+		this.x++;
+	}
+	
+	public void moveWest(){
+		this.x--;
+	}
+	
+	public MapPosition translate(DIR direction){
+		MapPosition mp=new MapPosition(getX(),getY());
+		switch(direction){
+		case NORTH:
+			mp.moveNorth();
+			break;
+		case SOUTH:
+			mp.moveSouth();
+			break;
+		case EAST:
+			mp.moveEast();
+			break;
+		case WEST:
+			mp.moveWest();
+			break;
+		default:
+			break;
+		}
+		return mp;
 	}
 }

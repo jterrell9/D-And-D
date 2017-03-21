@@ -309,7 +309,22 @@ public class Player extends Entity{
 		this.name = name;
 	}
 
-	//Add back toString code if needed
+	public String inventoryToString(){
+		StringBuilder sb=new StringBuilder("\tInventory:\n");
+		int i=1;
+		for(String itemName:inventory.keySet()){
+			sb.append("\t\t\t"+(i+1)+". "+itemName+"\n");
+			i++;
+		}	
+		return sb.toString();
+	}
+	
+	public String statboardToString(){
+		return	stats.toString()
+				+"\n\n"+equipToString()
+				+"\n"+inventoryToString();
+				
+	}
 
 	public class InventoryException extends Exception{
 		public InventoryException(String message){
