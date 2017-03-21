@@ -33,22 +33,20 @@ public class DungeonMap {
 		boolean retCode = true;
 		switch(direction){
 		case NORTH:
-			if(isOutOfBounds(p) || rooms[p.getY()-1][p.getX()]==null)
-				retCode = false;
+			p.translate(DIR.NORTH);
 			break;
 		case SOUTH:
-			if(isOutOfBounds(p) || rooms[p.getY()+1][p.getX()]==null)
-				retCode = false;
+			p.translate(DIR.SOUTH);
 			break;
 		case EAST:
-			if(isOutOfBounds(p) || rooms[p.getY()][p.getX()+1]==null)
-				retCode = false;
+			p.translate(DIR.EAST);
 			break;
 		case WEST:
-			if(isOutOfBounds(p) || rooms[p.getY()][p.getX()-1]==null)
-				retCode = false;
+			p.translate(DIR.WEST);
 			break;
 		}
+		if(isOutOfBounds(p) || rooms[p.getY()][p.getX()]==null)
+			retCode = false;
 		return retCode;
 	}
 	
