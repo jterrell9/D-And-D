@@ -8,6 +8,7 @@ import com.dd.GameRunner;
 import com.dd.GameState;
 import com.dd.entities.Monster;
 import com.dd.entities.Player;
+import com.dd.entities.monsters.Dragon;
 import com.dd.items.Armour;
 import com.dd.items.Artifact;
 import com.dd.items.Item;
@@ -115,6 +116,7 @@ public class Tester {
 				case "north": 
 					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.NORTH)){
 						getRunnerPosition().moveNorth();
+						System.out.println(getRunnerPlayer().getName()+" has moved North");
 					}else{
 						System.out.println("No Door in that Direction!");
 					}
@@ -122,6 +124,7 @@ public class Tester {
 				case "south": 
 					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.SOUTH)){
 						getRunnerPosition().moveSouth();
+						System.out.println(getRunnerPlayer().getName()+" has moved South");
 					}else{
 						System.out.println("No Door in that Direction!");
 					}
@@ -129,6 +132,7 @@ public class Tester {
 				case "east": 
 					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.EAST)){
 						getRunnerPosition().moveEast();
+						System.out.println(getRunnerPlayer().getName()+" has moved East");
 					}else{
 						System.out.println("No Door in that Direction!");
 					}
@@ -136,6 +140,7 @@ public class Tester {
 				case "west": 
 					if(getRunnerMap().isRoomInDir(getRunnerPosition(),DIR.WEST)){
 						getRunnerPosition().moveWest();
+						System.out.println(getRunnerPlayer().getName()+" has moved West");
 					}else{
 						System.out.println("No Door in that Direction!");
 					}
@@ -172,12 +177,19 @@ public class Tester {
 					System.out.println("ERROR no room here!");
 				}
 				return;
-			/*
+			
 			case "monster":
 				Tester.printLnTitle('~',"Examine Monster",40);
-				GameState.player.getRoom().getMonster().examine();
+				
+				for(String monsterName:getRunnerRoom().getMosterList()){
+					System.out.println(monsterName
+							+"\nHealth:\t\t"+getRunnerRoom().getMonster(monsterName).getStats().getHealth()
+							+"\nAttack/Defense:\t"
+							+getRunnerRoom().getMonster(monsterName).getStats().getAttack()
+							+"/"+getRunnerRoom().getMonster(monsterName).getStats().getDefense());
+				}
 				return;
-			*/
+			
 			default:
 				break;
 			}
@@ -365,10 +377,25 @@ public class Tester {
 	}
 	
 	public static void populate5x5(){
+		OneHandedWeapon sword=new OneHandedWeapon("Sword",2);
+		Shield shield=new Shield("shield",4);
+		Artifact ring=new Artifact("Ring",0,5,1,1);
+		Potion potion=new Potion("Health Elixer",10);
+		Armour breastPlate=new Armour("Breast Plate",2);
+		
+		Dragon dragon=new Dragon("Dragon",10,5,5);
+		
+		
 		MapPosition buildPos=new MapPosition();
 		getRunnerMap().addRoom(new Room(),buildPos);
+		getRunnerMap().getRoom(buildPos).addItem(sword);
+		getRunnerMap().getRoom(buildPos).addItem(shield);
 		buildPos.moveEast();
 		getRunnerMap().addRoom(new Room(),buildPos);
+		getRunnerMap().getRoom(buildPos).addItem(breastPlate);
+		getRunnerMap().getRoom(buildPos).addItem(ring);
+		getRunnerMap().getRoom(buildPos).addItem(potion);
+		getRunnerMap().getRoom(buildPos).addMonster(dragon);
 		buildPos.moveEast();
 		getRunnerMap().addRoom(new Room(),buildPos);
 		buildPos.moveSouth();
