@@ -16,11 +16,11 @@ public class MapPosition {
 	}
 
 	public MapPosition getNorth(){
-		return new MapPosition(x,y+1);
+		return new MapPosition(x,y-1);
 	}
 
 	public MapPosition getSouth(){
-		return new MapPosition(x,y-1);
+		return new MapPosition(x,y+1);
 	}
 
 	public MapPosition getEast(){
@@ -48,11 +48,11 @@ public class MapPosition {
 	}
 	
 	public void moveNorth(){
-		this.y++;
+		this.y--;
 	}
 	
 	public void moveSouth(){
-		this.y--;
+		this.y++;
 	}
 	
 	public void moveEast(){
