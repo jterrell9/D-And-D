@@ -82,7 +82,20 @@ public class Tester {
 	}
 	public static void printMap(){
 		printLnTitle('-',"Map",40);
-		drawDungeon();
+		MapPosition playerPos=getRunnerPlayer().getPostion();
+		for(int y=0;y<getRunnerMap().getMaxRow();y++){
+			for(int x=0;x<getRunnerMap().getMaxCol();x++){
+				if(x==0)
+					System.out.print("\t|");
+				if(playerPos.getX()==x && playerPos.getY()==y)
+					System.out.print("#");
+				else if(getRunnerMap().isRoom(new MapPosition(x,y)))
+					System.out.print("X");
+				else
+					System.out.print(" ");
+			}
+			System.out.print("|\n");
+		}
 		printLnTitle('-',"",40);
 	}
 	public static void printLnTitle(char c,String str,int width){
@@ -142,23 +155,6 @@ public class Tester {
 		Room room=new Room();
 		startPos.translate(dir);
 		map.addRoom(room, startPos);
-	}
-	public static void drawDungeon(){
-		MapPosition playerPos=getRunnerPlayer().getPostion();
-		DungeonMap map=getRunnerMap();
-		for(int y=0;y<map.getMaxRow();y++){
-			for(int x=0;x<map.getMaxCol();x++){
-				if(x==0)
-					System.out.print("\t|");
-				if(playerPos.getX()==x && playerPos.getY()==y)
-					System.out.print("#");
-				else if(map.isRoom(new MapPosition(x,y)))
-					System.out.print("X");
-				else
-					System.out.print(" ");
-			}
-			System.out.print("|\n");
-		}
 	}
 
 	public static Player getRunnerPlayer(){
