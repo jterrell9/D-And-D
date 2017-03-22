@@ -2,7 +2,7 @@ package com.dd.entities;
 
 import com.dd.Stats;
 
-public class Entity{
+public class Entity {
 	
 	protected String name;
 	protected Stats stats;
@@ -14,65 +14,65 @@ public class Entity{
 		isAlive = true;
 	}
 	
-	public Entity(String name, Stats stats){
+	public Entity(String name, Stats stats) {
 		setName(name);
 		setStats(stats);
 		isAlive = true;
 	}
 	
-	public Entity(String name){
+	public Entity(String name) {
 		setName(name);
 		setStats(new Stats());
 		isAlive = true;
 	}
 	
-	public Entity(){
+	public Entity() {
 		setName("player");
 		setStats(new Stats());
 		isAlive = true;
 	}
 	
-	public boolean survives(){
-		if(stats.getHealth() <= 0){
+	public boolean survives() {
+		if(stats.getHealth() <= 0) {
 			die();
 			return false;
 		}
 		return true;
 	}
 	
-	public void die(){
+	public void die() {
 		stats.setHealth(0);
 		isAlive = false;
 	}
 	
-	public int attackDamage(){
+	public int attackDamage() {
 		return stats.getAttack();
 	}
 	
-	public void takeDamage(int damage){
+	public void takeDamage(int damage) {
 		stats.setHealth(stats.getHealth() - damage);
-		if(!survives()){
+		if(!survives()) {
 			System.out.println(getName() + "died!");
 		}
 	}
 	
-	public void attack(Entity entity){
+	public void attack(Entity entity) {
 		entity.takeDamage(stats.getAttack());
 	}
 	
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 	
-	public void setName(String name){
+	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public Stats getStats(){
+	public Stats getStats() {
 		return stats;
 	}
 	
-	public void setStats(Stats stats){
+	public void setStats(Stats stats) {
 		this.stats = stats;
 	}
 }
