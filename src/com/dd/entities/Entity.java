@@ -4,9 +4,9 @@ import com.dd.Stats;
 
 public class Entity {
 	
-	private String name;
-	private Stats stats;
-	private boolean isAlive;
+	protected String name;
+	protected Stats stats;
+	protected boolean isAlive;
 	
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
