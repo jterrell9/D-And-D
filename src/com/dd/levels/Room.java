@@ -15,79 +15,81 @@ public class Room {
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
 
-	public boolean isEmpty(){
+	public boolean isEmpty() {
 		return itemMap.isEmpty() && monsterMap.isEmpty();
 	}
 
-	public void addItem(Item item){
+	public void addItem(Item item) {
 		itemMap.put(item.getName(), item);
 	}
 
-	public Item removeItem(String itemName) throws UnknownItemException{
+	public Item removeItem(String itemName) throws UnknownItemException {
 		Item retItem;
-		if(!itemMap.containsKey(itemName))
+		if(!itemMap.containsKey(itemName)) {
 			throw new UnknownItemException("The item \""
 											+ itemName
 											+ "\" does not exist in this room. Removal failed.");
+		}
 		retItem = itemMap.get(itemName);
 		itemMap.remove(itemName);
 		return retItem;
 	}
 
-	public void discardItem(String itemName) throws UnknownItemException{
-		if(itemMap.remove(itemName) != null)
+	public void discardItem(String itemName) throws UnknownItemException {
+		if(itemMap.remove(itemName) != null){
 			throw new UnknownItemException("The item \""
 											+ itemName
 											+ "\" does not exist in this room. Discard failed.");
+		}
 	}
 
-	public void addMonster(Monster monster){
+	public void addMonster(Monster monster) {
 		monsterMap.put(monster.getName(),monster);
 	}
 
-	public Monster removeMonster(String monsterName) throws UnknownMonsterException{
+	public Monster removeMonster(String monsterName) throws UnknownMonsterException {
 		Monster retMonster;
-		if(!monsterMap.containsKey(monsterName))
+		if(!monsterMap.containsKey(monsterName)){
 			throw new UnknownMonsterException("The monster \""
 												+ monsterName
 												+ "\" does not exist in this room. Removal failed.");
+		}
 		retMonster = monsterMap.get(monsterName);
 		monsterMap.remove(monsterName);
 		return retMonster;
 	}
 
-	public void discardMonster(String monsterName) throws UnknownMonsterException{
-		if(monsterMap.remove(monsterName) != null)
+	public void discardMonster(String monsterName) throws UnknownMonsterException {
+		if(monsterMap.remove(monsterName) != null) {
 			throw new UnknownMonsterException("The monster \""
 												+ monsterName
 												+ "\" does not exist in this room. Removal failed.");
+		}
 	}
 
-	public Set<String> getItemList(){
+	public Set<String> getItemList() {
 		return itemMap.keySet();
 	}
 
-	public Set<String> getMosterList(){
+	public Set<String> getMosterList() {
 		return monsterMap.keySet();
 	}
 	
-	public Monster getMonster(String name){
+	public Monster getMonster(String name) {
 		return monsterMap.get(name);
 	}
 	
-	public Item getItem(String name){
+	public Item getItem(String name) {
 		return itemMap.get(name);
 	}
 
-	//Write new toString stuff if needed
-
-	public class UnknownItemException extends Exception{
-		public UnknownItemException(String message){
+	public class UnknownItemException extends Exception {
+		public UnknownItemException(String message) {
 			super(message);
 		}
 	}
 
-	public class UnknownMonsterException extends Exception{
+	public class UnknownMonsterException extends Exception {
 		public UnknownMonsterException(String message){
 			super(message);
 		}
