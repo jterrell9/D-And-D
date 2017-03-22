@@ -20,6 +20,22 @@ public class Tester {
 	private static String[] opts = new String[10];
 	private static int optNum;
 	
+	public static Player getRunnerPlayer(){
+		return GameRunner.getActiveGameState().getActivePlayer();
+	}
+	
+	public static DungeonMap getRunnerMap(){
+		return GameRunner.getActiveGameState().getMap();
+	}
+	
+	public static MapPosition getRunnerPosition(){
+		return getRunnerPlayer().getPostion();
+	}
+	
+	public static Room getRunnerRoom(){
+		return getRunnerMap().getRoom(getRunnerPosition());
+	}
+	
 	public static void go() throws FileNotFoundException{
 		mainMenu();
 		printStats();
@@ -421,21 +437,5 @@ public class Tester {
 		getRunnerMap().addRoom(new Room(), buildPos);
 		buildPos.moveEast();
 		getRunnerMap().addRoom(new Room(), buildPos);
-	}
-
-	public static Player getRunnerPlayer(){
-		return GameRunner.getActiveGameState().getActivePlayer();
-	}
-	
-	public static DungeonMap getRunnerMap(){
-		return GameRunner.getActiveGameState().getMap();
-	}
-	
-	public static MapPosition getRunnerPosition(){
-		return getRunnerPlayer().getPostion();
-	}
-	
-	public static Room getRunnerRoom(){
-		return getRunnerMap().getRoom(getRunnerPosition());
 	}
 }
