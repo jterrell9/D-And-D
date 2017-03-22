@@ -62,7 +62,7 @@ public class Dragon extends Monster{
     }
 
     public void attack(Entity entity){
-        Random random = new Random;
+        Random random = new Random();
         if(breathAttack){
             entity.takeDamage(5);
             breathAttack = false;
