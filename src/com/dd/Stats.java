@@ -2,10 +2,10 @@ package com.dd;
 
 public class Stats {
 	
-	protected int health;
-	protected int maxHealth;
-	protected int attack;
-	protected int defense;
+	private int health;
+	private int maxHealth;
+	private int attack;
+	private int defense;
 	
 	public Stats(int health, int maxHealth, int attack, int defense) {
 		setHealth(health);
