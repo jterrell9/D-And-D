@@ -45,6 +45,10 @@ public class Entity{
 		isAlive = false;
 	}
 	
+	public int attackDamage(){
+		return stats.getAttack();
+	}
+	
 	public void takeDamage(int damage){
 		stats.setHealth(stats.getHealth() - damage);
 		if(!survives()){
