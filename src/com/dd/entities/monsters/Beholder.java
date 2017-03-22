@@ -1,11 +1,15 @@
 package com.dd.entities.monsters;
 
+import com.dd.entities.Entity;
 import com.dd.entities.Monster;
 import com.dd.entities.Player;
 
 import java.util.Random;
 
 public class Beholder extends Monster {
+
+    private boolean revieved = false;
+
     //Starting health should be between 15 and 20
     //Constructor used when Beholder is created for specific rooms when rooms are generated
     public Beholder (String name, int health, int attack, int defense) {
@@ -25,20 +29,23 @@ public class Beholder extends Monster {
     //used when Beholder attacks the player
     //pre: if(isInFight && isAlive)
     //post: player.takeDamage(attack)
-    public void attack(Player player) {
+    public void attack(Entity entity) {
         // Will use the Beholder's attackHelper method to help decide which attack it is using
         Random random = new Random();
         int attackPatern = random.nextInt(9) + 1;
+        // Determines which attack the beholder does
+        // TODO: Description for attack and death
         switch(attackPatern){
-            case 1, 3, 5, 7, 9:
-                player.takeDamage(2 + attackPatern);
+            case 1: case 3:case 5:case 7: case 9:
+                entity.takeDamage(2 + attackPatern);
                 break;
-            case 2, 4, 6, 8, 10:
-                player.takeDamage(4 + attackPatern/2);
+            case 2:case 4:case 6:case 8:case 10:
+                entity.takeDamage(4 + attackPatern/2);
                 break;
         }
+        //Critical hit by the Beholder
         if(attackPatern == 10) {
-            player.takeDamage(10);
+            entity.takeDamage(10);
         }
     }
 
@@ -50,8 +57,10 @@ public class Beholder extends Monster {
     public void die(){
         Random random = new Random();
         int diePercentage = random.nextInt(19) + 1;
-        if (diePercentage == 20) {
+        // Being beings of supreme intelect, the beholder can
+        if (diePercentage == 20 && !revieved) {
             this.stats.addHealth(4);
+            revieved = true;
         }
         else {
             super.die();
