@@ -3,7 +3,7 @@ package com.dd.entities;
 import com.dd.Stats;
 
 public class Entity {
-	
+
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
@@ -55,8 +55,8 @@ public class Entity {
 			System.out.println(getName() + "died!");
 		}
 	}
-	
-	public void attack(Entity entity) {
+
+	public void attack(Entity entity){
 		entity.takeDamage(stats.getAttack());
 	}
 	
