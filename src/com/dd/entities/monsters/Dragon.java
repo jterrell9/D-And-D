@@ -5,19 +5,19 @@ import com.dd.entities.Monster;
 
 import java.util.Random;
 
-public class Dragon extends Monster{
+public class Dragon extends Monster {
 
     private String dragColor;
     private boolean breathAttack;
 
     //Constructor used when Dragon is created for specific rooms when rooms are generated
-    public Dragon (String name, int health, int attack, int defense){
+    public Dragon (String name, int health, int attack, int defense) {
         //set stats, set alive to true, set fight to false
     	super(name,health,attack,defense);
         initDescription();
     }
 
-    public void initDescription(){
+    public void initDescription() {
         Random random = new Random();
         int color = random.nextInt(8) + 1;
         switch (color) {
@@ -52,24 +52,32 @@ public class Dragon extends Monster{
     // pre: if(alive)
     // post: fight = false
     // post: alive = false
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
         //set health to 0 and other logic to ensure the battle is over
         stats.setHealth(stats.getHealth() - damage);
         if(!survives()){
-            System.out.println("You just killed " + name + " the "+ dragColor +" dragon!");
+            System.out.println("You take your sword and ask for a blessing from any god that will hear. You leap up and" +
+                    " with a solid heave take " + name + " the " + dragColor + " dragon! The battle is won!");
         }
     }
 
-    public void attack(Entity entity){
+    public void attack(Entity entity) {
         Random random = new Random();
         if(breathAttack){
+            // name + the + dragColor + dragon breathes at you with a fiery breath. It's lungs look as if they collapse a bit
             entity.takeDamage(5);
             breathAttack = false;
         }else{
             if(random.nextInt(5) + 1 == 6){
+                //Before it attack you, it regains composure in its lungs, readying its breath attack
                 breathAttack = true;
             }
         }
         entity.takeDamage(stats.getAttack());
+        //It takes its claws out to slash at you, a fiery passion in its eyes.
+    }
+
+    public void examine() {
+        // name + the + dragColor + dragon. The sound of the name vibrates the air. The name itself causes you to tremble in fear.
     }
 }
