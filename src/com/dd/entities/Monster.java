@@ -10,6 +10,15 @@ public class Monster extends Entity {
 		super(name, health, health, attack, defense);
 	}
 
+	public int attackDamage(){
+		return stats.getAttack();
+	}
+	public void examine(){
+		System.out.println(name
+				+"\nHealth:\t\t"+stats.getHealth()
+				+"\nAttack/Defense:\t"+stats.getAttack()+"/"+stats.getDefense());
+	}
+
 	@Override
 	public String toString(){
 		return name

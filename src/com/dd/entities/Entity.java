@@ -6,8 +6,8 @@ public class Entity {
 
 	protected String name;
 	protected Stats stats;
-	protected boolean isAlive;
-	
+	public boolean isAlive = true;
+
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
 		setStats(new Stats(health, maxHealth, attack, defense));
@@ -63,16 +63,16 @@ public class Entity {
 		}
 	}
 
-	public void attack(Entity entity){
-		entity.takeDamage(stats.getAttack());
-	}
-	
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void attack(Entity entity){
+		entity.takeDamage(stats.getAttack());
 	}
 	
 	public Stats getStats() {
