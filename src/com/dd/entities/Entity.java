@@ -48,7 +48,7 @@ public class Entity {
 	public int attackDamage() {
 		return stats.getAttack();
 	}
-	
+
 	public void takeDamage(int damage){
         int newDamage;
         if(damage - stats.getDefense() <= 0){
