@@ -44,15 +44,22 @@ public class Entity {
 		stats.setHealth(0);
 		isAlive = false;
 	}
-	
+
 	public int attackDamage() {
 		return stats.getAttack();
 	}
 	
-	public void takeDamage(int damage) {
-		stats.setHealth(stats.getHealth() - damage);
-		if(!survives()) {
-			System.out.println(getName() + "died!");
+	public void takeDamage(int damage){
+        int newDamage;
+        if(damage - stats.getDefense() <= 0){
+            newDamage = 1;
+        }
+        else {
+            newDamage = damage - stats.getDefense();
+        }
+		stats.setHealth(stats.getHealth() - newDamage);
+		if(!survives()){
+			System.out.println("You just killed a " + name + "!");
 		}
 	}
 
