@@ -41,10 +41,14 @@ public class Zombie extends Monster{
         Random random = new Random();
         if(!conSave) {
             entity.takeDamage(2);
+            // "The stench of the zombie causes you to lower your defenses slightly."
             if(random.nextInt(3) + 1 == 4) {
                 conSave = true;
+                // "However you find the strength to power through it."
             }
         }
+        // "The zombie lunges at you and slashes with its claws"
+        // "The zombie lunges at you and sinks its teeth into your skin"
         entity.takeDamage(this.stats.getAttack());
     }
 
@@ -60,11 +64,19 @@ public class Zombie extends Monster{
         while(deathCounterCopy != 0) {
             int roll = random.nextInt(3) + 1;
             if(roll == 4) {
+                // "As you deal a fatal blow, the zombie's eyes breath undead life once again"
                 this.stats.setHealth(3);
                 deathCounter++;
                 return;
             }
             deathCounterCopy--;
         }
+        // WIZARD "As you cast your final spell, exhausted by the fight, you find the zombie moves no more. The battle is won."
+        // FIGHTER "You raise your weapon and take to the zombie's head. As it rolls onto the ground, you breath a sigh
+        // of relief. The battle is won."
+    }
+
+    public void examine(){
+        //name + " a zombie who looks hungry. The smell is awful eminating from the creature.";
     }
 }
