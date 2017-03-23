@@ -15,12 +15,6 @@ public class MapPosition {
 		setX(xPos);
 	}
 
-	public MapPosition getNorth() {
-		return new MapPosition(x, y-1);
-	}
-
-	public MapPosition getSouth() {
-		return new MapPosition(x, y+1);
 	public MapPosition getNorth(){
 		return new MapPosition(x,y+1);
 	}
@@ -60,7 +54,6 @@ public class MapPosition {
 		}
 		this.y = y;
 	}
-<<<<<<< HEAD
 	
 	public void moveNorth() {
 		this.y--;
