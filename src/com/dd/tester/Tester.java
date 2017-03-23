@@ -9,6 +9,7 @@ import com.dd.GameState;
 import com.dd.entities.Player;
 import com.dd.entities.monsters.*;
 import com.dd.items.*;
+import com.dd.levels.DIR;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
