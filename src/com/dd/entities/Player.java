@@ -346,7 +346,7 @@ public class Player extends Entity {
 				+ "\n"+inventoryToString();
 				
 	}
-
+	
 	public class InventoryException extends Exception {
 		public InventoryException(String message){
 			super(message);

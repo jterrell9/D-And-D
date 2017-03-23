@@ -2,8 +2,6 @@ package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
 
-import com.dd.tester.DIR;
-
 public class DungeonMap {
 
 	private Room[][] rooms;

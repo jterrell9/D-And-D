@@ -1,7 +1,5 @@
 package com.dd.levels;
 
-import com.dd.tester.DIR;
-
 public class MapPosition {
 	
 	private int x;
@@ -23,6 +21,12 @@ public class MapPosition {
 
 	public MapPosition getSouth() {
 		return new MapPosition(x, y+1);
+	public MapPosition getNorth(){
+		return new MapPosition(x,y+1);
+	}
+
+	public MapPosition getSouth(){
+		return new MapPosition(x,y-1);
 	}
 
 	public MapPosition getEast() {
@@ -56,6 +60,7 @@ public class MapPosition {
 		}
 		this.y = y;
 	}
+<<<<<<< HEAD
 	
 	public void moveNorth() {
 		this.y--;
