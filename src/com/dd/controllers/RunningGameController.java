@@ -23,6 +23,9 @@ public class RunningGameController {
 	@FXML private Button saveGame;
 	@FXML private Button exitGame;
 	
+	/**
+	 * Event handler for "Enter" key.
+	 */
 	@FXML
 	private void handleEnterPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
@@ -30,11 +33,17 @@ public class RunningGameController {
 	    }
 	}
 	
+	/**
+	 * Event handler for "Save" button.
+	 */
 	@FXML
 	private void saveGameAction(ActionEvent event) throws IOException {
 		System.out.println("Save game clicked!");
 	}
 	
+	/**
+	 * Event handler for "Exit" button.
+	 */
 	@FXML
 	private void exitGameAction(ActionEvent event) throws IOException {
 		Parent mainMenu = FXMLLoader.load(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
@@ -44,6 +53,9 @@ public class RunningGameController {
 		primaryStage.setScene(scene);
 	}
 	
+	/**
+	 * Called when fxml document is loaded.
+	 */
 	public void initialize() {
 		
 	}
