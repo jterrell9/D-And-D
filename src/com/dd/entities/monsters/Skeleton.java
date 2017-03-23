@@ -5,10 +5,10 @@ import com.dd.entities.Player;
 
 import java.util.Random;
 
-public class Skeleton extends Monster{
+public class Skeleton extends Monster {
 
     //Constructor used when Skeleton is created for specific rooms when rooms are generated
-    public Skeleton (String name, int health, int attack, int defense){
+    public Skeleton (String name, int health, int attack, int defense) {
         //set stats, set alive to true, set fight to false
     	super(name,health,attack,defense);
         initDescription();
@@ -26,18 +26,26 @@ public class Skeleton extends Monster{
     // pre: if(alive)
     // post: fight = false
     // post: alive = false
-    public void die(){
+    public void die() {
         //set health to 0 and other logic to ensure the battle is over
         Random random = new Random();
         if(random.nextInt(5) + 1 == 5
                 || this.stats.getAttack() == 1
-                || this.stats.getDefense() == 1){
+                || this.stats.getDefense() == 1) {
             this.stats.setHealth(1);
             this.stats.setAttack(this.stats.getAttack() - 1);
             this.stats.setDefense(this.stats.getDefense() - 1);
+            //As you deal a deadly blow, the skeleton hastily tries to keep itself together, losing some pieces in the process
         }
         else {
             super.die();
+            //The skeleton falls into a pile of ash at your feet.
         }
+    }
+
+    // Attack: The skeleton throws itself at you.
+
+    public void examine() {
+        //A skeleton who has a bone to pick with you.
     }
 }
