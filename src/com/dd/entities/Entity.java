@@ -6,7 +6,7 @@ public class Entity {
 
 	protected String name;
 	protected Stats stats;
-	public boolean isAlive = true;
+	protected boolean isAlive;
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
