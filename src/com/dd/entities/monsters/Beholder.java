@@ -2,7 +2,6 @@ package com.dd.entities.monsters;
 
 import com.dd.entities.Entity;
 import com.dd.entities.Monster;
-import com.dd.entities.Player;
 
 import java.util.Random;
 
