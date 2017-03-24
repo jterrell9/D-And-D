@@ -21,15 +21,12 @@ public class MainMenuController {
 	 */
 	@FXML
 	private void newGameAction(ActionEvent event) throws IOException {		
-		Parent runningGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/NewGame.fxml"));
-		Scene scene = new Scene(runningGame);
+		Parent newGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/NewGame.fxml"));
+		Scene scene = new Scene(newGame);
 		
-		// This is one way to get the stage and set a scene to it
+		// Get the stage and set the scene to it
 		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		primaryStage.setScene(scene);
-		
-		// Another way is to make it public and do it directly
-		//MainController.stage.setScene(scene);
 	}
 	
 	/**
@@ -44,8 +41,13 @@ public class MainMenuController {
 	 * Event handler for "Load Game" button.
 	 */
 	@FXML
-	private void loadGameAction(ActionEvent event) {
-		System.out.println("Clicked load game!");
+	private void loadGameAction(ActionEvent event) throws IOException {
+		Parent loadGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/LoadGame.fxml"));
+		Scene scene = new Scene(loadGame);
+		
+		// Get the stage and set the scene to it
+		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		primaryStage.setScene(scene);
 	}
 	
 	/**

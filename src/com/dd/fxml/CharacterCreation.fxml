@@ -48,6 +48,6 @@
       </HBox>
    </children>
    <padding>
-      <Insets bottom="100.0" left="100.0" right="100.0" top="100.0" />
+      <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
    </padding>
 </GridPane>
