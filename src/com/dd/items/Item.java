@@ -9,7 +9,7 @@ public class Item {
 	
 	public Item(String name) {
 		this.name=name;
-		StatModifyer=new Stats(0,0,0,0);
+		StatModifyer=new Stats();
 	}
 	
 	public String getName() {
