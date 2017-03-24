@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import com.dd.GameRunner;
 import com.dd.GameState;
+import com.dd.command_util.CommandParser;
+import com.dd.command_util.command.*;
 import com.dd.entities.Player;
 import com.dd.entities.monsters.*;
 import com.dd.items.*;
@@ -16,6 +18,7 @@ import com.dd.levels.Room;
 
 public class Tester {
 	
+	private static CommandParser commander=new CommandParser();
 	private static String cmd = new String();
 	private static String opt = new String();
 	private static String[] opts = new String[10];
@@ -42,16 +45,26 @@ public class Tester {
 		printStats();
 		printMap();
 		System.out.println("*Type help for a list of commands*");
+		registerCommands();
 		cmdLoop();
 	}
 	
 	public static void cmdLoop() throws FileNotFoundException {
 		while(true){
-			enterCommand();
+			promptAndParse();
+			commander.parseCommand(cmd, opts);
 			System.out.println();
 			printStats();
 			printMap();
 		}
+	}
+	
+	public static void registerCommands(){
+		commander.registerCommand("quit", new QuitCommand());
+		commander.registerCommand("move", new MoveCommand());
+		commander.registerCommand("examine", new ExamineCommand());
+		commander.registerCommand("save", new SaveCommand());
+		
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
@@ -96,7 +109,6 @@ public class Tester {
 	}
 	
 	public static void enterCommand() throws FileNotFoundException{
-		promptParse();
 		mapCmd();
 	}
 	
@@ -105,11 +117,11 @@ public class Tester {
 		Item item;
 		
 		switch(cmd){
-		
+		/*
 		case "quit":
 			System.exit(0);
 			return;
-		
+		*/
 		case "menu":
 			Tester.mainMenu();
 			return;
@@ -122,7 +134,7 @@ public class Tester {
 		case "attack":
 			
 			return;
-			
+		/*	
 		case "move":
 			if(opts[0] != null){
 				switch(opts[0]){
@@ -170,7 +182,7 @@ public class Tester {
 			}
 			System.out.println("Type 'move' followed by north, south, east, or west");
 			return;
-				
+		*/	
 		case "examine":
 			switch(opts[0]){
 			case "room":
@@ -341,7 +353,7 @@ public class Tester {
 		}
 	}
 	
-	public static void promptParse(){
+	public static void promptAndParse(){
 		Scanner user=new Scanner(System.in);
 		System.out.print(getRunnerPlayer().getName() + ">> ");
 		String userInput=user.nextLine();
