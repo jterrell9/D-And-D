@@ -7,6 +7,6 @@ public class QuitCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args){
-
+    	System.exit(0);
     }
 }
