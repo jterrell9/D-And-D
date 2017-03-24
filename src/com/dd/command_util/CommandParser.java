@@ -6,11 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
-    private Map<String, CommandHandler> commandMap;
+    private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
+    private CommandOutputLog outputLog;
 
-    public CommandParser() {
-        commandMap = new HashMap<String, CommandHandler>();
-    };
+    public CommandParser(){}
+
+    public CommandParser(CommandOutputLog outputLog) {
+        this.outputLog = outputLog;
+    }
 
     public void registerCommand(String commandName, CommandHandler commandHandler) {
         if(commandMap.containsKey(commandName))
@@ -31,12 +34,20 @@ public class CommandParser {
                                                 + "\" has not been registered with this CommandParser. Unregistration failed.");
     }
 
-    public void parseCommand(String command, String[] args) {
+    public void setOutputLog(CommandOutputLog outputLog){
+        this.outputLog = outputLog;
+    }
+
+    public void parseCommand(String command, String[] args) throws CommandHandler.CommandHandlerException {
         CommandHandler handler = commandMap.get(command);
         if(handler == null)
             throw new IllegalArgumentException("The command \""
                                                     + command
                                                     + "\" is invalid.");
-        handler.handleCommand(args);
+        try{
+            handler.handleCommand(args, outputLog);
+        }
+        catch(CommandHandler.CommandHandlerException e){
+            throw e;}
     }
 }
