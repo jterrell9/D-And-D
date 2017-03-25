@@ -22,9 +22,9 @@ public class LoadGameController {
 	 * Event handler for "Load Game" button.
 	 */
 	@FXML
-	private void loadGameAction(ActionEvent event) throws IOException {		
-		Parent runningGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/RunningGame.fxml"));
-		Scene scene = new Scene(runningGame);
+	private void loadGameAction(ActionEvent event) throws IOException {				
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/RunningGame.fxml"));
+		Scene scene = new Scene(loader.load());
 		
 		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		primaryStage.setScene(scene);
@@ -35,8 +35,8 @@ public class LoadGameController {
 	 */
 	@FXML
 	private void backAction(ActionEvent event) throws IOException {
-		Parent runningGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
-		Scene scene = new Scene(runningGame);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
+		Scene scene = new Scene(loader.load());
 		
 		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		primaryStage.setScene(scene);

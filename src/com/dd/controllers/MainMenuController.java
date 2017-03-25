@@ -21,10 +21,9 @@ public class MainMenuController {
 	 */
 	@FXML
 	private void newGameAction(ActionEvent event) throws IOException {		
-		Parent newGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/NewGame.fxml"));
-		Scene scene = new Scene(newGame);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/NewGame.fxml"));
+		Scene scene = new Scene(loader.load());
 		
-		// Get the stage and set the scene to it
 		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		primaryStage.setScene(scene);
 	}
@@ -42,10 +41,9 @@ public class MainMenuController {
 	 */
 	@FXML
 	private void loadGameAction(ActionEvent event) throws IOException {
-		Parent loadGame = FXMLLoader.load(getClass().getResource("/com/dd/fxml/LoadGame.fxml"));
-		Scene scene = new Scene(loadGame);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/LoadGame.fxml"));
+		Scene scene = new Scene(loader.load());
 		
-		// Get the stage and set the scene to it
 		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		primaryStage.setScene(scene);
 	}

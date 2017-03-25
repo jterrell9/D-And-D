@@ -23,6 +23,9 @@ public class RunningGameController {
 	@FXML private Button saveGame;
 	@FXML private Button exitGame;
 	
+	private String seed;
+	private String name;
+	
 	/**
 	 * Event handler for "Enter" key.
 	 */
@@ -46,8 +49,8 @@ public class RunningGameController {
 	 */
 	@FXML
 	private void exitGameAction(ActionEvent event) throws IOException {
-		Parent mainMenu = FXMLLoader.load(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
-		Scene scene = new Scene(mainMenu);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
+		Scene scene = new Scene(loader.load());
 		
 		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		primaryStage.setScene(scene);
@@ -58,5 +61,13 @@ public class RunningGameController {
 	 */
 	public void initialize() {
 		
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setSeed(String seed) {
+		this.seed = seed;
 	}
 }

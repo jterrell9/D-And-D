@@ -14,9 +14,8 @@ public class MainController extends Application {
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
         
-        Parent mainMenu =  FXMLLoader.load(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
-        
-        Scene scene = new Scene(mainMenu);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
+		Scene scene = new Scene(loader.load());
         
         primaryStage.setTitle("D&D");
         primaryStage.setScene(scene);

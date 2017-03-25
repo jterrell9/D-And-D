@@ -37,8 +37,8 @@
             <Label text="Character Name: " />
          </children>
       </HBox>
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="seedNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="characterName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
             <Button fx:id="back" mnemonicParsing="false" onAction="#backAction" text="Back" />
