@@ -20,7 +20,7 @@ public class MoveCommand extends CommandHandler {
 				else{
 					System.out.println("No Door in that Direction!");
 				}
-				return;
+				break;
 			case "south": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.SOUTH)){
 					getRunnerPosition().moveSouth();
@@ -30,7 +30,7 @@ public class MoveCommand extends CommandHandler {
 				else{
 					System.out.println("No Door in that Direction!");
 				}
-				return;
+				break;
 			case "east": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.EAST)){
 					getRunnerPosition().moveEast();
@@ -40,7 +40,7 @@ public class MoveCommand extends CommandHandler {
 				else{
 					System.out.println("No Door in that Direction!");
 				}
-				return;
+				break;
 			case "west": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.WEST)){
 					getRunnerPosition().moveWest();
@@ -50,10 +50,14 @@ public class MoveCommand extends CommandHandler {
 				else{
 					System.out.println("No Door in that Direction!");
 				}
-				return;
+				break;
+			default:
+				System.out.println("The argument \"" + args[0] + "\" is invalid.\n"
+        			+ "Type \"move\" followed by north, south, east, or west");
+				break;
+					
 			}
 		}
-		System.out.println("Type 'move' followed by north, south, east, or west");
 		return;
     }
 }
