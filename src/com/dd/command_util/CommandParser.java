@@ -32,11 +32,17 @@ public class CommandParser {
     }
 
     public void parseCommand(String command, String[] args) {
-        CommandHandler handler = commandMap.get(command);
-        if(handler == null)
-            throw new IllegalArgumentException("The command \""
-                                                    + command
-                                                    + "\" is invalid.");
-        handler.handleCommand(args);
+    	try {
+    		CommandHandler handler = commandMap.get(command);
+        	handler.handleCommand(args);
+        }
+        catch(IllegalArgumentException IAE) {
+        	System.out.println("The argument \"" + args[0] + "\" is invalid.\n"
+        			+ "type 'help' for a list of commands.");
+        }
+    	catch(NullPointerException NPE) {
+    		System.out.println("The command \"" + command + "\" is invalid.\n"
+        			+ "type 'help' for a list of commands.");
+    	}
     }
 }
