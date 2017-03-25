@@ -10,12 +10,8 @@ import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
 public abstract class CommandHandler {
-<<<<<<< Upstream, based on origin/CommandParserUpdate
-    public abstract void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException;
-=======
-	
-    public abstract void handleCommand(String[] args);
->>>>>>> 32a44cf style and import scanner to CommandHandler
+
+	public abstract void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException;
 
     public class CommandHandlerException extends Exception {
         public CommandHandlerException(String message) {
