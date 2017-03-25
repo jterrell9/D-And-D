@@ -1,5 +1,8 @@
 package com.dd.command_util;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import com.dd.GameRunner;
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
@@ -7,6 +10,7 @@ import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
 public abstract class CommandHandler {
+	
     public abstract void handleCommand(String[] args);
 
     public class CommandHandlerException extends Exception {
@@ -14,6 +18,7 @@ public abstract class CommandHandler {
             super(message);
         }
     }
+    
     public static Player getRunnerPlayer(){
 		return GameRunner.getActiveGameState().getActivePlayer();
 	}
