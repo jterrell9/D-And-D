@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.dd.GameRunner;
 import com.dd.GameState;
+import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
 import com.dd.entities.Player;
@@ -18,7 +19,7 @@ import com.dd.levels.Room;
 
 public class Tester {
 	
-	private static CommandParser commander=new CommandParser();
+	private static CommandParser parser = new CommandParser();
 	private static String cmd = new String();
 	private static String opt = new String();
 	private static String[] opts = new String[10];
@@ -52,18 +53,37 @@ public class Tester {
 	public static void cmdLoop() throws FileNotFoundException {
 		while(true){
 			promptAndParse();
-			commander.parseCommand(cmd, opts);
+			parser.parseCommand(cmd, opts);
 			System.out.println();
 			printStats();
 			printMap();
 		}
 	}
 	
+	public static void promptAndParse(){
+		Scanner user=new Scanner(System.in);
+		System.out.print(getRunnerPlayer().getName() + ">> ");
+		String userInput=user.nextLine();
+		String[] input=userInput.toLowerCase().split(" ");
+		cmd=input[0];
+		if(input.length > 1 && input.length < 11){
+			for(int i = 1; i < input.length; i++){
+				opt += input[i] + " ";
+				opts[i-1] = input[i];
+				if(isInteger(input[i])){
+					optNum = Integer.parseInt(input[i]);
+				}
+			}
+		}
+	}
+	
 	public static void registerCommands(){
-		commander.registerCommand("quit", new QuitCommand());
-		commander.registerCommand("move", new MoveCommand());
-		commander.registerCommand("examine", new ExamineCommand());
-		commander.registerCommand("save", new SaveCommand());
+		parser.registerCommand("help", new HelpCommand());
+		parser.registerCommand("quit", new QuitCommand());
+		parser.registerCommand("move", new MoveCommand());
+		parser.registerCommand("examine", new ExamineCommand());
+		parser.registerCommand("save", new SaveCommand());
+		
 		
 	}
 	
@@ -108,8 +128,42 @@ public class Tester {
 		}
 	}
 	
-	public static void enterCommand() throws FileNotFoundException{
-		mapCmd();
+	public static void printStats() {
+		printLnTitle('~', getRunnerPlayer().getName() + "'s Stats Board", 40);
+		System.out.println(getRunnerPlayer().statboardToString());
+	}
+	
+	public static void printMap() {
+		printLnTitle('-', "Map", 40);
+		MapPosition playerPos = getRunnerPlayer().getPostion();
+		for(int y = 0; y < getRunnerMap().getMaxRow(); y++){
+			for(int x = 0; x < getRunnerMap().getMaxCol(); x++){
+				if(x == 0)
+					System.out.print("\t|");
+				if(playerPos.getX() == x && playerPos.getY() == y)
+					System.out.print("#");
+				else if(getRunnerMap().isRoom(new MapPosition(x, y)))
+					System.out.print("X");
+				else
+					System.out.print(" ");
+			}
+			System.out.print("|\n");
+		}
+		printLnTitle('-', "", 40);
+	}
+	
+    public static void printLnTitle(char c, String str, int width) {
+		int strLength = str.length();
+		int startIndex = (width / 2) - (strLength / 2);
+		for(int i = 0; i <= width; i++){
+			if(i == startIndex){
+				System.out.print(str);
+				i += strLength;
+			}else{
+				System.out.print(c);
+			}
+		}
+		System.out.println();
 	}
 	
 	public static void mapCmd() throws FileNotFoundException {
@@ -117,11 +171,7 @@ public class Tester {
 		Item item;
 		
 		switch(cmd){
-		/*
-		case "quit":
-			System.exit(0);
-			return;
-		*/
+
 		case "menu":
 			Tester.mainMenu();
 			return;
@@ -131,107 +181,9 @@ public class Tester {
 			Tester.mainMenu();
 			return;
 		
-		case "attack":
-			
+		case "attack":	
 			return;
-		/*	
-		case "move":
-			if(opts[0] != null){
-				switch(opts[0]){
-				case "north": 
-					if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.NORTH)){
-						getRunnerPosition().moveNorth();
-						System.out.println(getRunnerPlayer().getName()
-								+ " has moved North");
-					}
-					else{
-						System.out.println("No Door in that Direction!");
-					}
-					return;
-				case "south": 
-					if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.SOUTH)){
-						getRunnerPosition().moveSouth();
-						System.out.println(getRunnerPlayer().getName()
-								+ " has moved South");
-					}
-					else{
-						System.out.println("No Door in that Direction!");
-					}
-					return;
-				case "east": 
-					if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.EAST)){
-						getRunnerPosition().moveEast();
-						System.out.println(getRunnerPlayer().getName()
-								+ " has moved East");
-					}
-					else{
-						System.out.println("No Door in that Direction!");
-					}
-					return;
-				case "west": 
-					if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.WEST)){
-						getRunnerPosition().moveWest();
-						System.out.println(getRunnerPlayer().getName()
-								+ " has moved West");
-					}
-					else{
-						System.out.println("No Door in that Direction!");
-					}
-					return;
-				}
-			}
-			System.out.println("Type 'move' followed by north, south, east, or west");
-			return;
-		*/	
-		case "examine":
-			switch(opts[0]){
-			case "room":
-				Tester.printLnTitle('~',"Examine Room", 40);
-				if(getRunnerMap().isRoom(getRunnerPosition())){
-					if(!getRunnerRoom().getMosterList().isEmpty()){
-						System.out.println("This Room Has A Monster:");
-						for(String monsterName:getRunnerRoom().getMosterList()){
-							System.out.println(monsterName);
-						}
-					}
-					if(!getRunnerRoom().getItemList().isEmpty()){
-						System.out.println("This room has the following items:");
-						int i=1;
-						for(String itemName:getRunnerRoom().getItemList()){
-							System.out.println("Item "+i+": "+itemName);
-							i++;
-						}
-						return;
-					}
-					else{
-						System.out.println("This room is empty.");
-						return;
-					}
-				}
-				else{
-					System.out.println("ERROR no room here!");
-				}
-				return;
-			
-			case "monster":
-				Tester.printLnTitle('~',"Examine Monster",40);
-				
-				for(String monsterName:getRunnerRoom().getMosterList()){
-					System.out.println(monsterName
-							+"\nHealth:\t\t"
-							+getRunnerRoom().getMonster(monsterName).getStats().getHealth()
-							+"\nAttack/Defense:\t"
-							+getRunnerRoom().getMonster(monsterName).getStats().getAttack()
-							+"/"+getRunnerRoom().getMonster(monsterName).getStats().getDefense());
-				}
-				return;
-			
-			default:
-				break;
-			}
-			System.out.println("Type 'examine' followed by 'room' or 'monster'");
-			return;
-		/*		
+		/*
 		case "equip":
 			
 			if(opts[0].equals("item")){
@@ -330,7 +282,6 @@ public class Tester {
 				return;
 			}
 			return;
-		*/
 		case "help":
 			Tester.printLnTitle('*',"Commands",40);
 			System.out.println("'quit' to quit\n"
@@ -345,28 +296,11 @@ public class Tester {
 					+"'attack'");
 					
 			return;
-		
+		*/
 		default:
 			System.out.println("This command not recognized\n"
 					+ "Type help for a list of commands");
 			break;
-		}
-	}
-	
-	public static void promptAndParse(){
-		Scanner user=new Scanner(System.in);
-		System.out.print(getRunnerPlayer().getName() + ">> ");
-		String userInput=user.nextLine();
-		String[] input=userInput.toLowerCase().split(" ");
-		cmd=input[0];
-		if(input.length > 1 && input.length < 11){
-			for(int i = 1; i < input.length; i++){
-				opt += input[i] + " ";
-				opts[i-1] = input[i];
-				if(isInteger(input[i])){
-					optNum = Integer.parseInt(input[i]);
-				}
-			}
 		}
 	}
 	
@@ -377,44 +311,6 @@ public class Tester {
 		}catch (NumberFormatException ex){
 			return false;
 		}
-	}
-	
-	public static void printStats(){
-		printLnTitle('~', getRunnerPlayer().getName() + "'s Stats Board", 40);
-		System.out.println(getRunnerPlayer().statboardToString());
-	}
-	
-	public static void printMap(){
-		printLnTitle('-', "Map", 40);
-		MapPosition playerPos = getRunnerPlayer().getPostion();
-		for(int y = 0; y < getRunnerMap().getMaxRow(); y++){
-			for(int x = 0; x < getRunnerMap().getMaxCol(); x++){
-				if(x == 0)
-					System.out.print("\t|");
-				if(playerPos.getX() == x && playerPos.getY() == y)
-					System.out.print("#");
-				else if(getRunnerMap().isRoom(new MapPosition(x, y)))
-					System.out.print("X");
-				else
-					System.out.print(" ");
-			}
-			System.out.print("|\n");
-		}
-		printLnTitle('-', "", 40);
-	}
-	
-	public static void printLnTitle(char c, String str, int width){
-		int strLength = str.length();
-		int startIndex = (width / 2) - (strLength / 2);
-		for(int i = 0; i <= width; i++){
-			if(i == startIndex){
-				System.out.print(str);
-				i += strLength;
-			}else{
-				System.out.print(c);
-			}
-		}
-		System.out.println();
 	}
 	
 	public static void populate5x5(){
