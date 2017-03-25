@@ -58,8 +58,7 @@ public class Item {
 		return getClass().toString().substring(19);
 	}
 	
-	@Override
-	public String toString(){
+	public String toExamineString(){
 		return "("+typeToString()+") " + getName() + " " + statModToString();
 	}
 }
