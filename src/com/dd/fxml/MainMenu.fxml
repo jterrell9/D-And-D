@@ -5,8 +5,8 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controllers.MainMenuController">
    <children>
-      <Button fx:id="newGame" mnemonicParsing="false" onAction="#newGameAction" text="New Game" />
-      <Button fx:id="loadGame" mnemonicParsing="false" onAction="#joinGameAction" text="Join Game" />
-      <Button fx:id="loadGame" mnemonicParsing="false" onAction="#loadGameAction" text="Load Game" />
+      <Button fx:id="newGame" mnemonicParsing="false" onAction="#handleNewGameAction" text="New Game" />
+      <Button fx:id="loadGame" mnemonicParsing="false" onAction="#handleJoinGameAction" text="Join Game" />
+      <Button fx:id="loadGame" mnemonicParsing="false" onAction="#handleLoadGameAction" text="Load Game" />
    </children>
 </VBox>

@@ -42,12 +42,12 @@
       </TextArea>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="saveGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveGameAction" text="Save" HBox.hgrow="ALWAYS">
+            <Button fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Save" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="exitGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitGameAction" text="Exit" HBox.hgrow="ALWAYS">
+            <Button fx:id="exitButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleExitButtonAction" text="Exit" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

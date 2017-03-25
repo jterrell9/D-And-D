@@ -20,7 +20,7 @@ public class MainMenuController {
 	 * Event handler for "New Game" button.
 	 */
 	@FXML
-	private void newGameAction(ActionEvent event) throws IOException {		
+	private void handleNewGameAction(ActionEvent event) throws IOException {		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/NewGame.fxml"));
 		Scene scene = new Scene(loader.load());
 		
@@ -32,7 +32,7 @@ public class MainMenuController {
 	 * Event handler for "Join Game" button.
 	 */
 	@FXML
-	private void joinGameAction(ActionEvent event) {
+	private void handleJoinGameAction(ActionEvent event) {
 		System.out.println("Clicked join game!");
 	}
 	
@@ -40,7 +40,7 @@ public class MainMenuController {
 	 * Event handler for "Load Game" button.
 	 */
 	@FXML
-	private void loadGameAction(ActionEvent event) throws IOException {
+	private void handleLoadGameAction(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/LoadGame.fxml"));
 		Scene scene = new Scene(loader.load());
 		

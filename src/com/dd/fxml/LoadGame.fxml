@@ -27,8 +27,8 @@
    <children>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
-            <Button fx:id="back" mnemonicParsing="false" onAction="#backAction" text="Back" />
-            <Button fx:id="loadGame" mnemonicParsing="false" onAction="#loadGameAction" text="Load Game" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
+            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadButtonAction" text="Load Game" />
          </children>
       </HBox>
       <ListView fx:id="savefiles" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="5" />

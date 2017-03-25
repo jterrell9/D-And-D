@@ -20,8 +20,8 @@ public class RunningGameController {
 	@FXML private TextArea output;
 	@FXML private TextArea map;
 	@FXML private TextArea stats;
-	@FXML private Button saveGame;
-	@FXML private Button exitGame;
+	@FXML private Button saveButton;
+	@FXML private Button exitButton;
 	
 	private String seed;
 	private String name;
@@ -40,7 +40,7 @@ public class RunningGameController {
 	 * Event handler for "Save" button.
 	 */
 	@FXML
-	private void saveGameAction(ActionEvent event) throws IOException {
+	private void handleSaveButtonAction(ActionEvent event) throws IOException {
 		System.out.println("Save game clicked!");
 	}
 	
@@ -48,7 +48,7 @@ public class RunningGameController {
 	 * Event handler for "Exit" button.
 	 */
 	@FXML
-	private void exitGameAction(ActionEvent event) throws IOException {
+	private void handleExitButtonAction(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
 		Scene scene = new Scene(loader.load());
 		

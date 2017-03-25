@@ -15,14 +15,14 @@ import javafx.stage.Stage;
 public class LoadGameController {
 	
 	@FXML ListView savefiles;
-	@FXML Button loadGame;
-	@FXML Button back;
+	@FXML Button loadButton;
+	@FXML Button backButton;
 	
 	/**
 	 * Event handler for "Load Game" button.
 	 */
 	@FXML
-	private void loadGameAction(ActionEvent event) throws IOException {				
+	private void handleLoadButtonAction(ActionEvent event) throws IOException {				
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/RunningGame.fxml"));
 		Scene scene = new Scene(loader.load());
 		
@@ -34,7 +34,7 @@ public class LoadGameController {
 	 * Event handler for "Back" button.
 	 */
 	@FXML
-	private void backAction(ActionEvent event) throws IOException {
+	private void handleBackButtonAction(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
 		Scene scene = new Scene(loader.load());
 		
