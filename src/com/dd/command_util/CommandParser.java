@@ -34,7 +34,6 @@ public class CommandParser {
                                                 + "\" has not been registered with this CommandParser. Unregistration failed.");
     }
 
-<<<<<<< Upstream, based on origin/CommandParserUpdate
     public void setOutputLog(CommandOutputLog outputLog){
         this.outputLog = outputLog;
     }
@@ -50,20 +49,5 @@ public class CommandParser {
         }
         catch(CommandHandler.CommandHandlerException e){
             throw e;}
-=======
-    public void parseCommand(String command, String[] args) {
-    	try {
-    		CommandHandler handler = commandMap.get(command);
-        	handler.handleCommand(args);
-        }
-        catch(IllegalArgumentException IAE) {
-        	System.out.println("The argument \"" + args[0] + "\" is invalid.\n"
-        			+ "type 'help' for a list of commands.");
-        }
-    	catch(NullPointerException NPE) {
-    		System.out.println("The command \"" + command + "\" is invalid.\n"
-        			+ "type 'help' for a list of commands.");
-    	}
->>>>>>> 3fc740d add try/catch block to parseCommand in CommandParser class
     }
 }
