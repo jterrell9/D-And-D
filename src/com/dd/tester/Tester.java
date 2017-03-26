@@ -93,7 +93,7 @@ public class Tester {
 	
 	public static void registerCommands(){
 		parser.registerCommand("help", new HelpCommand());
-		parser.registerCommand("menu", new MainMenuCommand());
+		parser.registerCommand("menu", new MenuCommand());
 		parser.registerCommand("quit", new QuitCommand());
 		parser.registerCommand("move", new MoveCommand());
 		parser.registerCommand("examine", new ExamineCommand());
