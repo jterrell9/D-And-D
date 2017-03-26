@@ -43,10 +43,13 @@ public class Tester {
 	}
 	
 	public static void go() throws FileNotFoundException{
+		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
+		System.out.println("\n*Type help for a list of commands*\n");
 		printStats();
 		printMap();
-		System.out.println("*Type help for a list of commands*");
+		printToLog(getRunnerRoom().examineString());
+		System.out.println();
 		registerCommands();
 		cmdLoop();
 	}
@@ -90,6 +93,7 @@ public class Tester {
 	
 	public static void registerCommands(){
 		parser.registerCommand("help", new HelpCommand());
+		parser.registerCommand("menu", new MainMenuCommand());
 		parser.registerCommand("quit", new QuitCommand());
 		parser.registerCommand("move", new MoveCommand());
 		parser.registerCommand("examine", new ExamineCommand());
@@ -99,12 +103,13 @@ public class Tester {
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
+		System.out.println();
 		printLnTitle('*', "Main Menu", 40);
-		System.out.println("Please select from the following:"
-				+"\n1: New Game"
-				+"\n2: Resume Game"
-				+"\n3: Quit");
-		System.out.print("Enter Selection >>");
+		System.out.println(
+				"1: New Game"
+				+ "\n2: Resume Game"
+				+ "\n3: Quit");
+		System.out.print("\nEnter Selection >> ");
 		try{
 			Scanner scanInt = new Scanner(System.in);
 			int selection = scanInt.nextInt();
@@ -126,7 +131,7 @@ public class Tester {
 				//game.addActivePlayer(loadPlayer(name));
 			}
 			else if(selection == 3){		//quit
-				System.out.println("Thank you for playing! GoodBye!");
+				System.out.println("\nThank you for playing! GoodBye!\n");
 				System.exit(0);
 			}
 			else{
@@ -139,13 +144,18 @@ public class Tester {
 		}
 	}
 	
+	public static void printToLog(String output) {
+		Tester.printLnTitle('~', "LOG", 40);
+    	System.out.println(output);
+    }
+	
 	public static void printStats() {
 		printLnTitle('~', getRunnerPlayer().getName() + "'s Stats Board", 40);
 		System.out.println(getRunnerPlayer().statboardToString());
 	}
 	
 	public static void printMap() {
-		printLnTitle('-', "Map", 40);
+		printLnTitle('~', "Map", 40);
 		MapPosition playerPos = getRunnerPlayer().getPostion();
 		for(int y = 0; y < getRunnerMap().getMaxRow(); y++){
 			for(int x = 0; x < getRunnerMap().getMaxCol(); x++){
@@ -160,7 +170,7 @@ public class Tester {
 			}
 			System.out.print("|\n");
 		}
-		printLnTitle('-', "", 40);
+		printLnTitle('~', "", 40);
 	}
 	
     public static void printLnTitle(char c, String str, int width) {
@@ -326,7 +336,7 @@ public class Tester {
 	
 	public static void populate5x5(){
 		OneHandedWeapon sword = new OneHandedWeapon("Sword", 2);
-		Shield shield = new Shield("shield", 4);
+		Shield shield = new Shield("Shield", 4);
 		Artifact ring = new Artifact("Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
 		Armour breastPlate = new Armour("Breast Plate", 2);
