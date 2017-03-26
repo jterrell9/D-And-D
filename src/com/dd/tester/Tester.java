@@ -339,7 +339,7 @@ public class Tester {
 		Shield shield = new Shield("Wooden Shield", 4);
 		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
-		Armour breastPlate = new Armour("Brass Breast Plate", 2);
+		Suit breastPlate = new Suit("Brass Breast Plate", 2);
 		
 		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
 		
