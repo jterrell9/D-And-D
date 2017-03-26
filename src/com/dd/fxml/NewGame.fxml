@@ -40,12 +40,6 @@
       </HBox>
       <TextField fx:id="seedNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="characterName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
-            <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartButtonAction" text="Start Game" />
-         </children>
-      </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <children>
             <RadioButton fx:id="fighterRadio" mnemonicParsing="false" text="Fighter">
@@ -61,6 +55,12 @@
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <Label fx:id="errorLabel" textFill="RED" />
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartButtonAction" text="Start Game" />
          </children>
       </HBox>
    </children>

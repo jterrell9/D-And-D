@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -31,20 +32,23 @@
          </children>
       </HBox>
       <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <children>
+            <RadioButton mnemonicParsing="false" text="Fighter">
+               <toggleGroup>
+                  <ToggleGroup fx:id="characterClass" />
+               </toggleGroup></RadioButton>
+            <RadioButton mnemonicParsing="false" text="Wizard" toggleGroup="$characterClass" />
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </HBox>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <Button mnemonicParsing="false" text="Back" />
             <Button mnemonicParsing="false" text="Start Game" />
          </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-         <children>
-            <RadioButton mnemonicParsing="false" text="Fighter" />
-            <RadioButton mnemonicParsing="false" text="Wizard" />
-         </children>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
       </HBox>
    </children>
    <padding>
