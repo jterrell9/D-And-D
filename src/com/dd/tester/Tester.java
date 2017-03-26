@@ -7,6 +7,7 @@ import java.util.Scanner;
 import com.dd.GameRunner;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
+import com.dd.command_util.CommandHandler.CommandHandlerException;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
 import com.dd.entities.Player;
@@ -53,7 +54,11 @@ public class Tester {
 	public static void cmdLoop() throws FileNotFoundException {
 		while(true){
 			promptAndParse();
-			parser.parseCommand(cmd, opts);
+			try {
+				parser.parseCommand(cmd, opts);
+			} catch (CommandHandlerException e) {
+				e.printStackTrace();
+			}
 			System.out.println();
 			printStats();
 			printMap();
