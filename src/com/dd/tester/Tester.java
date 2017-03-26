@@ -335,11 +335,11 @@ public class Tester {
 	}
 	
 	public static void populate5x5(){
-		OneHandedWeapon sword = new OneHandedWeapon("Sword", 2);
-		Shield shield = new Shield("Shield", 4);
-		Artifact ring = new Artifact("Ring", 0, 5, 1, 1);
+		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
+		Shield shield = new Shield("Wooden Shield", 4);
+		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
-		Armour breastPlate = new Armour("Breast Plate", 2);
+		Armour breastPlate = new Armour("Brass Breast Plate", 2);
 		
 		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
 		
