@@ -15,9 +15,9 @@ public class Stats {
 	}
 	
 	public Stats(){
-		setHealth(20);
-		setMaxHealth(20);
-		setAttack(1);
+		setHealth(0);
+		setMaxHealth(0);
+		setAttack(0);
 		setDefense(0);
 	}
 	
