@@ -78,8 +78,8 @@ public class Tester {
 		Scanner user=new Scanner(System.in);
 		System.out.print(getRunnerPlayer().getName() + ">> ");
 		String userInput=user.nextLine();
-		String[] input=userInput.toLowerCase().split(" ");
-		cmd=input[0];
+		String[] input=userInput.split(" ");
+		cmd=input[0].toLowerCase();
 		if(input.length > 1 && input.length < 11){
 			for(int i = 1; i < input.length; i++){
 				opt += input[i] + " ";
