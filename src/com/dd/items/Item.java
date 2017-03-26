@@ -9,7 +9,6 @@ public abstract class Item {
 	
 	public Item(String name) {
 		this.name=name;
-		StatModifyer=new Stats();
 	}
 	
 	public String getName() {
@@ -29,27 +28,27 @@ public abstract class Item {
 	}
 	
 	public Stats getNegStatChange() {
-		int negHealth = -1*StatModifyer.getHealth();
-		int negMaxHealth = -1*StatModifyer.getMaxHealth();
-		int negAttack = -1*StatModifyer.getAttack();
-		int negDefense = -1*StatModifyer.getDefense();
+		int negHealth = -1 * StatModifyer.getHealth();
+		int negMaxHealth = -1 * StatModifyer.getMaxHealth();
+		int negAttack = -1 * StatModifyer.getAttack();
+		int negDefense = -1 * StatModifyer.getDefense();
 		Stats negStats = new Stats(negHealth, negMaxHealth, negAttack, negDefense);
 		return negStats;
 	}
 	
 	public String statModToString() {
 		StringBuilder modStr=new StringBuilder();
-		if(getStatChange().getHealth()>0){
-			modStr.append("[+" + getStatChange().getHealth() + " Health]");
+		if(getStatChange().getHealth() > 0){
+			modStr.append("+" + getStatChange().getHealth() + " Health");
 		}
-		if(getStatChange().getMaxHealth()>0){
-			modStr.append("[+" + getStatChange().getMaxHealth() + " Max Health]");
+		if(getStatChange().getMaxHealth() > 0){
+			modStr.append("+" + getStatChange().getMaxHealth() + " Max Health");
 		}
-		if(getStatChange().getAttack()>0) {
-			modStr.append("[+" + getStatChange().getAttack() + " Attack]");
+		if(getStatChange().getAttack() > 0) {
+			modStr.append("+" + getStatChange().getAttack() + " Attack");
 		}
-		if(getStatChange().getDefense()>0){
-			modStr.append("[+" + getStatChange().getDefense() + " Defense]");
+		if(getStatChange().getDefense() > 0){
+			modStr.append("+" + getStatChange().getDefense() + " Defense");
 		}
 		return modStr.toString();
 	}
@@ -59,6 +58,6 @@ public abstract class Item {
 	}
 	
 	public String examineToString(){
-		return "("+typeToString()+") " + getName() + " " + statModToString();
+		return "[" + statModToString() + ", " + typeToString() + "]";
 	}
 }
