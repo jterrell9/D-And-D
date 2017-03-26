@@ -19,11 +19,9 @@ public abstract class CommandHandler {
     
     public String unsplitArgs(String[] arguments) {
     	String arg = arguments[0];
-    	//if(arguments[1] != null) {
-	    	for(int i = 1; i < arguments.length && arguments[i] != null; i++) {
-	    		arg = arg + " " + arguments[i];
-	    	}
-    	//}
+	    for(int i = 1; i < arguments.length && arguments[i] != null; i++) {
+	    	arg = arg + " " + arguments[i];
+	    }
     	return arg;
     }
     
