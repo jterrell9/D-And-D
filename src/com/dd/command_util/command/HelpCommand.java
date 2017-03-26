@@ -9,16 +9,16 @@ public class HelpCommand extends CommandHandler {
 	
 	@Override
 	public void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException {
-		Tester.printLnTitle('*',"Commands",40);
-		System.out.println("'quit' to quit\n"
-					+ "'menu'\n"
-					+ "'save'\n"
-					+ "'move' followed by a direction\n"
-					+ "'examine ' followed by either 'room' or 'monster'\n"
-					+ "'equip' followed by 'item' or 'inventory' followed by a valid number\n"
-					+ "'drop' followed by player equip area, or 'inventory' followed by a valid number\n"
-					+ "'pickup' followed by 'item' followed by a valid number representing a potion\n"
-					+ "'use' followed by 'item' or 'inventory' followed by a valid number representing a potion\n"
-					+ "'attack'"	);
+		Tester.printToLog("\tCommands"
+				+ "'quit' to quit\n"
+				+ "'menu'\n"
+				+ "'save'\n"
+				+ "'move' followed by a direction\n"
+				+ "'examine ' followed by either 'room' or 'monster'\n"
+				+ "'equip' followed by 'item' or 'inventory' followed by a valid number\n"
+				+ "'drop' followed by player equip area, or 'inventory' followed by a valid number\n"
+				+ "'pickup' followed by 'item' followed by a valid number representing a potion\n"
+				+ "'use' followed by 'item' or 'inventory' followed by a valid number representing a potion\n"
+				+ "'attack'");
 	}
 }
