@@ -26,8 +26,8 @@ public class Room {
 				getMonsterList().forEach((k) -> examineStr.append(k + "\n"));
 			}
 			else {
-				examineStr.append("This room has multiple monsters:\n");
-				getMonsterList().forEach((k) -> examineStr.append("\t" + k + "\n"));
+				examineStr.append("This room has multiple monsters:");
+				getMonsterList().forEach((k) -> examineStr.append("\n~" + k + "\n"));
 			}
 			examineStr.append("Time to fight!\n");
 		}
@@ -38,7 +38,7 @@ public class Room {
 			}
 			else if(getItemList().size() > 1) {
 				examineStr.append("This room has multiple items:");
-				getItemList().forEach((k) -> examineStr.append("\n\t" + k));
+				getItemList().forEach((k) -> examineStr.append("\n~" + k));
 			}
 		}
 		else {
