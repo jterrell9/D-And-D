@@ -14,9 +14,48 @@ public class Room {
 		itemMap = new ConflictHandlingMap<Item>();
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
+	
+	public String examineString() {
+		StringBuilder examineStr=new StringBuilder();
+		if(isEmpty()){
+			examineStr.append("This room is empty.");
+		}
+		if(hasMonster()) {
+			if(getMonsterList().size() == 1) {
+				examineStr.append("This room has a ");
+				getMonsterList().forEach((k) -> examineStr.append(k + "\n"));
+			}
+			else {
+				examineStr.append("This room has multiple monsters:\n");
+				getMonsterList().forEach((k) -> examineStr.append("\t" + k + "\n"));
+			}
+		}
+		if(hasItems()) {
+			if(getItemList().size() == 1) {
+				examineStr.append("This room contains a ");
+				getItemList().forEach((k) -> examineStr.append(k + "\n"));
+			}
+			else if(getItemList().size() > 1) {
+				examineStr.append("This room has multiple items:\n");
+				getItemList().forEach((k) -> examineStr.append("\t" + k + "\n"));
+			}
+		}
+		else {
+			examineStr.append("This room has no items");
+		}
+		return examineStr.toString();
+	}
 
 	public boolean isEmpty() {
-		return itemMap.isEmpty() && monsterMap.isEmpty();
+		return getItemList().isEmpty() && getMonsterList().isEmpty();
+	}
+	
+	public boolean hasMonster() {
+		return !getMonsterList().isEmpty();
+	}
+	
+	public boolean hasItems() {
+		return !getItemList().isEmpty();
 	}
 
 	public void addItem(Item item) {
@@ -71,7 +110,7 @@ public class Room {
 		return itemMap.keySet();
 	}
 
-	public Set<String> getMosterList() {
+	public Set<String> getMonsterList() {
 		return monsterMap.keySet();
 	}
 	
