@@ -9,7 +9,7 @@ public class QuitCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog){
-    	Tester.printToLog("Thank you for playing! Goodbye.");
+    	Tester.updateRunner("Thank you for playing! Goodbye.");
     	System.exit(0);
     }
 }

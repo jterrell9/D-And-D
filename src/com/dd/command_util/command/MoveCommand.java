@@ -17,7 +17,8 @@ public class MoveCommand extends CommandHandler {
 					getRunnerPosition().moveNorth();
 				}
 				else{
-					Tester.printToLog("No Door in that Direction!");
+					Tester.updateRunner("No Door in that Direction!");
+					return;
 				}
 				break;
 			case "south": 
@@ -25,7 +26,8 @@ public class MoveCommand extends CommandHandler {
 					getRunnerPosition().moveSouth();
 				}
 				else{
-					Tester.printToLog("No Door in that Direction!");
+					Tester.updateRunner("No Door in that Direction!");
+					return;
 				}
 				break;
 			case "east": 
@@ -33,7 +35,8 @@ public class MoveCommand extends CommandHandler {
 					getRunnerPosition().moveEast();
 				}
 				else{
-					Tester.printToLog("No Door in that Direction!");
+					Tester.updateRunner("No Door in that Direction!");
+					return;
 				}
 				break;
 			case "west": 
@@ -41,15 +44,16 @@ public class MoveCommand extends CommandHandler {
 					getRunnerPosition().moveWest();
 				}
 				else{
-					Tester.printToLog("No Door in that Direction!");
+					Tester.updateRunner("No Door in that Direction!");
+					return;
 				}
 				break;
 			default:
-				Tester.printToLog("The argument \"" + args[0] + "\" is invalid.\n"
+				Tester.updateRunner("The argument \"" + args[0] + "\" is invalid.\n"
         			+ "Type \"move\" followed by north, south, east, or west");
 				return;	
 			}
-			Tester.printToLog(getRunnerPlayer().getName() + " has moved through the " + args[0] +" door\n"
+			Tester.updateRunner(getRunnerPlayer().getName() + " has moved through the " + args[0] +" door\n"
 					+ getRunnerRoom().examineString());
 		}
     }

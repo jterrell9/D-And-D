@@ -23,7 +23,7 @@ public class Room {
 		if(hasMonster()) {
 			if(getMonsterList().size() == 1) {
 				examineStr.append("This room has a ");
-				getMonsterList().forEach((k) -> examineStr.append(k + "\n"));
+				getMonsterList().forEach((k) -> examineStr.append(k + ".\n"));
 			}
 			else {
 				examineStr.append("This room has multiple monsters:");

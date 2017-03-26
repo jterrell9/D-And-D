@@ -46,9 +46,7 @@ public class Tester {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
 		System.out.println("\n*Type help for a list of commands*\n");
-		printStats();
-		printMap();
-		printToLog(getRunnerRoom().examineString());
+		updateRunner(getRunnerRoom().examineString());
 		System.out.println();
 		registerCommands();
 		cmdLoop();
@@ -68,13 +66,11 @@ public class Tester {
 						+ cmd
 						+ "\" is invalid.");
 			}
-			System.out.println();
-			printStats();
-			printMap();
 		}
 	}
 	
 	public static void promptAndParse(){
+		printLnTitle('~', "CONSOLE INPUT", 40);
 		Scanner user=new Scanner(System.in);
 		System.out.print(getRunnerPlayer().getName() + ">> ");
 		String userInput=user.nextLine();
@@ -144,18 +140,20 @@ public class Tester {
 		}
 	}
 	
-	public static void printToLog(String output) {
+	public static void updateRunner(String logOutput) {
+		printStats();
+		printMap();
 		Tester.printLnTitle('~', "LOG", 40);
-    	System.out.println(output);
+    	System.out.println(logOutput);
     }
 	
 	public static void printStats() {
-		printLnTitle('~', getRunnerPlayer().getName() + "'s Stats Board", 40);
+		printLnTitle('~', getRunnerPlayer().getName().toUpperCase() + "'S STATS BOARD", 40);
 		System.out.println(getRunnerPlayer().statboardToString());
 	}
 	
 	public static void printMap() {
-		printLnTitle('~', "Map", 40);
+		printLnTitle('~', "MAP", 40);
 		MapPosition playerPos = getRunnerPlayer().getPostion();
 		for(int y = 0; y < getRunnerMap().getMaxRow(); y++){
 			for(int x = 0; x < getRunnerMap().getMaxCol(); x++){
@@ -170,7 +168,6 @@ public class Tester {
 			}
 			System.out.print("|\n");
 		}
-		printLnTitle('~', "", 40);
 	}
 	
     public static void printLnTitle(char c, String str, int width) {

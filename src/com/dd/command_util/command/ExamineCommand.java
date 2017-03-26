@@ -10,7 +10,8 @@ public class ExamineCommand extends CommandHandler {
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
     	StringBuilder examineStrBuilder=new StringBuilder();
-    	switch(unsplitArgs(args)) {
+    	String option = unsplitArgs(args);
+    	switch(option) {
 		case "room":
 			examineStrBuilder.append(getRunnerRoom().examineString());
 			break;
@@ -42,8 +43,8 @@ public class ExamineCommand extends CommandHandler {
 			}
 			break;
 		default:
-			
+			  getRunnerRoom().getMonster(option);
     	}
-    	Tester.printToLog(examineStrBuilder.toString());
+    	Tester.updateRunner(examineStrBuilder.toString());
     }
 }

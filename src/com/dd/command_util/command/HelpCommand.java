@@ -9,7 +9,7 @@ public class HelpCommand extends CommandHandler {
 	
 	@Override
 	public void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException {
-		Tester.printToLog("\tCommands"
+		Tester.updateRunner("\tCommands"
 				+ "'quit' to quit\n"
 				+ "'menu'\n"
 				+ "'save'\n"
