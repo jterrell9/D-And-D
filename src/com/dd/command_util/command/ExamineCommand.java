@@ -8,43 +8,38 @@ public class ExamineCommand extends CommandHandler {
     public ExamineCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String[] args, CommandOutputLog outputLog) {
+    	StringBuilder examineStrBuilder=new StringBuilder();
     	switch(args[0]){
 		case "room":
-			if(!getRunnerRoom().getMosterList().isEmpty()){
-				System.out.println("This Room Has A Monster:");
-				for(String monsterName:getRunnerRoom().getMosterList()){
-					System.out.println(monsterName);
+			examineStrBuilder.append(getRunnerRoom().examineString());
+			break;
+		case "monster":
+			if(getRunnerRoom().hasMonster()) {
+				for(String monsterName : getRunnerRoom().getMonsterList()) {
+					examineStrBuilder.append("~" + monsterName + "\nHealth: "
+							+ getRunnerRoom().getMonster(monsterName).getStats().getHealth()
+							+ "\nAttack/Defense: "
+							+ getRunnerRoom().getMonster(monsterName).getStats().getAttack()
+							+ "/" + getRunnerRoom().getMonster(monsterName).getStats().getDefense()
+							+ "\n\n" + getRunnerRoom().getMonster(monsterName).getDescription() + "\n");
 				}
 			}
-			if(!getRunnerRoom().getItemList().isEmpty()){
-				System.out.println("This room has the following items:");
-				int i=1;
-				for(String itemName:getRunnerRoom().getItemList()){
-					System.out.println(getRunnerRoom().getItem(itemName).toString());
-					i++;
-				}
-			}
-			else{
-				System.out.println("This room is empty.");
+			else {
+				examineStrBuilder.append("There are no mosters in this room.");
 			}
 			break;
-		
-		case "monster":
-			if(!getRunnerRoom().getMosterList().isEmpty()){
-				for(String monsterName:getRunnerRoom().getMosterList()){
-					System.out.println(monsterName
-							+"\nHealth:\t\t"
-							+getRunnerRoom().getMonster(monsterName).getStats().getHealth()
-							+"\nAttack/Defense:\t"
-							+getRunnerRoom().getMonster(monsterName).getStats().getAttack()
-							+"/"+getRunnerRoom().getMonster(monsterName).getStats().getDefense());
+		case "items":
+			if(getRunnerRoom().hasItems()) {
+				for(String itemName : getRunnerRoom().getItemList()) {
+					examineStrBuilder.append("~" + itemName + " " 
+							+ getRunnerRoom().getItem(itemName).examineToString() + "\n");
 				}
 			}
-			else{
-				System.out.println("There are no mosters in this room.");
+			else {
+				Tester.printToLog("There are no items in this room"); 
 			}
-			return;
     	}
+    	Tester.printToLog(examineStrBuilder.toString());
     }
 }
