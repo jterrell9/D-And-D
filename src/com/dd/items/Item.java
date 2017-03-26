@@ -2,7 +2,7 @@ package com.dd.items;
 
 import com.dd.Stats;
 
-public class Item {
+public abstract class Item {
 	
 	protected String name;
 	protected Stats StatModifyer;
