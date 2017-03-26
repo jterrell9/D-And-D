@@ -1,6 +1,8 @@
 package com.dd.command_util;
 
 import com.dd.command_util.CommandHandler;
+
+import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +40,7 @@ public class CommandParser {
         this.outputLog = outputLog;
     }
 
-    public void parseCommand(String command, String[] args) throws CommandHandler.CommandHandlerException {
+    public void parseCommand(String command, String[] args) throws CommandHandler.CommandHandlerException, FileNotFoundException {
         CommandHandler handler = commandMap.get(command);
         if(handler == null)
             throw new IllegalArgumentException("The command \""
