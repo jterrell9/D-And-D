@@ -7,7 +7,10 @@ import java.util.Scanner;
 import com.dd.GameRunner;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
+<<<<<<< HEAD
 import com.dd.command_util.CommandHandler.CommandHandlerException;
+=======
+>>>>>>> refs/remotes/origin/Testing
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
 import com.dd.entities.Player;
@@ -48,8 +51,12 @@ public class Tester {
 		System.out.println("\n*Type help for a list of commands*\n");
 		printStats();
 		printMap();
+<<<<<<< HEAD
 		printToLog(getRunnerRoom().examineString());
 		System.out.println();
+=======
+		System.out.println("*Type help for a list of commands*");
+>>>>>>> refs/remotes/origin/Testing
 		registerCommands();
 		cmdLoop();
 	}
@@ -57,6 +64,7 @@ public class Tester {
 	public static void cmdLoop() throws FileNotFoundException {
 		while(true){
 			promptAndParse();
+<<<<<<< HEAD
 			try {
 				parser.parseCommand(cmd, opts);
 			}
@@ -68,10 +76,40 @@ public class Tester {
 						+ cmd
 						+ "\" is invalid.");
 			}
+=======
+			parser.parseCommand(cmd, opts);
+>>>>>>> refs/remotes/origin/Testing
 			System.out.println();
 			printStats();
 			printMap();
 		}
+	}
+	
+	public static void promptAndParse(){
+		Scanner user=new Scanner(System.in);
+		System.out.print(getRunnerPlayer().getName() + ">> ");
+		String userInput=user.nextLine();
+		String[] input=userInput.toLowerCase().split(" ");
+		cmd=input[0];
+		if(input.length > 1 && input.length < 11){
+			for(int i = 1; i < input.length; i++){
+				opt += input[i] + " ";
+				opts[i-1] = input[i];
+				if(isInteger(input[i])){
+					optNum = Integer.parseInt(input[i]);
+				}
+			}
+		}
+	}
+	
+	public static void registerCommands(){
+		parser.registerCommand("help", new HelpCommand());
+		parser.registerCommand("quit", new QuitCommand());
+		parser.registerCommand("move", new MoveCommand());
+		parser.registerCommand("examine", new ExamineCommand());
+		parser.registerCommand("save", new SaveCommand());
+		
+		
 	}
 	
 	public static void promptAndParse(){
@@ -144,6 +182,7 @@ public class Tester {
 		}
 	}
 	
+<<<<<<< HEAD
 	public static void printToLog(String output) {
 		Tester.printLnTitle('~', "LOG", 40);
     	System.out.println(output);
@@ -171,6 +210,30 @@ public class Tester {
 			System.out.print("|\n");
 		}
 		printLnTitle('~', "", 40);
+=======
+	public static void printStats() {
+		printLnTitle('~', getRunnerPlayer().getName() + "'s Stats Board", 40);
+		System.out.println(getRunnerPlayer().statboardToString());
+	}
+	
+	public static void printMap() {
+		printLnTitle('-', "Map", 40);
+		MapPosition playerPos = getRunnerPlayer().getPostion();
+		for(int y = 0; y < getRunnerMap().getMaxRow(); y++){
+			for(int x = 0; x < getRunnerMap().getMaxCol(); x++){
+				if(x == 0)
+					System.out.print("\t|");
+				if(playerPos.getX() == x && playerPos.getY() == y)
+					System.out.print("#");
+				else if(getRunnerMap().isRoom(new MapPosition(x, y)))
+					System.out.print("X");
+				else
+					System.out.print(" ");
+			}
+			System.out.print("|\n");
+		}
+		printLnTitle('-', "", 40);
+>>>>>>> refs/remotes/origin/Testing
 	}
 	
     public static void printLnTitle(char c, String str, int width) {
