@@ -56,8 +56,14 @@ public class Tester {
 			promptAndParse();
 			try {
 				parser.parseCommand(cmd, opts);
-			} catch (CommandHandlerException e) {
+			}
+			catch(CommandHandlerException e) {
 				e.printStackTrace();
+			}
+			catch(IllegalArgumentException IAE){
+				System.out.println("The command \""
+						+ cmd
+						+ "\" is invalid.");
 			}
 			System.out.println();
 			printStats();
