@@ -14,6 +14,7 @@ public class ExamineCommand extends CommandHandler {
 		case "room":
 			examineStrBuilder.append(getRunnerRoom().examineString());
 			break;
+		case "monsters":
 		case "monster":
 			if(getRunnerRoom().hasMonster()) {
 				for(String monsterName : getRunnerRoom().getMonsterList()) {
