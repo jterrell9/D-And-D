@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -47,12 +48,20 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <children>
-            <RadioButton mnemonicParsing="false" text="Fighter" />
-            <RadioButton mnemonicParsing="false" text="Wizard" />
+            <RadioButton fx:id="fighterRadio" mnemonicParsing="false" text="Fighter">
+               <toggleGroup>
+                  <ToggleGroup fx:id="characterClass" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="wizardRadio" mnemonicParsing="false" text="Wizard" toggleGroup="$characterClass" />
          </children>
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Label fx:id="errorLabel" textFill="RED" />
+         </children>
       </HBox>
    </children>
    <padding>

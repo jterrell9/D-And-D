@@ -1,7 +1,10 @@
 package com.dd.controllers;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,16 +26,22 @@ public class RunningGameController {
 	@FXML private Button saveButton;
 	@FXML private Button exitButton;
 	
-	private String seed;
-	private String name;
+	private String seedNumber;
+	private String characterName;
+	private String characterClass;
 	
 	/**
 	 * Event handler for "Enter" key.
 	 */
 	@FXML
 	private void handleEnterPressed(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
-			System.out.println("Enter key pressed!");
+		
+		// if enter pressed and input is not empty
+		if (event.getCode() == KeyCode.ENTER && !input.getText().equals("")) {
+			
+			// append to output and clear the textfield
+			output.appendText(input.getText() + "\n");
+			input.clear();
 	    }
 	}
 	
@@ -57,17 +66,36 @@ public class RunningGameController {
 	}
 	
 	/**
+	 * Appends text to the TextArea output.
+	 */
+	public void appendText(String str) {
+		Platform.runLater(() -> output.appendText(str));
+	}
+	
+	/**
 	 * Called when fxml document is loaded.
 	 */
 	public void initialize() {
 		
+		// Redirect System.out to TextArea
+		OutputStream out = new OutputStream() {
+			@Override
+			public void write(int b) throws IOException {
+				appendText(String.valueOf((char) b));
+			}
+		};
+		System.setOut(new PrintStream(out, true));
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setSeedNumber(String seed) {
+		this.seedNumber = seed;
 	}
 	
-	public void setSeed(String seed) {
-		this.seed = seed;
+	public void setCharacterName(String name) {
+		this.characterName = name;
+	}
+	
+	public void setCharacterClass(String characterClass) {
+		this.characterClass = characterClass;
 	}
 }
