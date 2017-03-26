@@ -3,6 +3,7 @@ package com.dd.command_util.command;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.levels.DIR;
+import com.dd.tester.Tester;
 
 public class MoveCommand extends CommandHandler {
     public MoveCommand() {}
@@ -14,50 +15,42 @@ public class MoveCommand extends CommandHandler {
 			case "north": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.NORTH)){
 					getRunnerPosition().moveNorth();
-					System.out.println(getRunnerPlayer().getName()
-							+ " has moved North");
 				}
 				else{
-					System.out.println("No Door in that Direction!");
+					Tester.printToLog("No Door in that Direction!");
 				}
 				break;
 			case "south": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.SOUTH)){
 					getRunnerPosition().moveSouth();
-					System.out.println(getRunnerPlayer().getName()
-							+ " has moved South");
 				}
 				else{
-					System.out.println("No Door in that Direction!");
+					Tester.printToLog("No Door in that Direction!");
 				}
 				break;
 			case "east": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.EAST)){
 					getRunnerPosition().moveEast();
-					System.out.println(getRunnerPlayer().getName()
-							+ " has moved East");
 				}
 				else{
-					System.out.println("No Door in that Direction!");
+					Tester.printToLog("No Door in that Direction!");
 				}
 				break;
 			case "west": 
 				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.WEST)){
 					getRunnerPosition().moveWest();
-					System.out.println(getRunnerPlayer().getName()
-							+ " has moved West");
 				}
 				else{
-					System.out.println("No Door in that Direction!");
+					Tester.printToLog("No Door in that Direction!");
 				}
 				break;
 			default:
-				System.out.println("The argument \"" + args[0] + "\" is invalid.\n"
+				Tester.printToLog("The argument \"" + args[0] + "\" is invalid.\n"
         			+ "Type \"move\" followed by north, south, east, or west");
-				break;
-					
+				return;	
 			}
+			Tester.printToLog(getRunnerPlayer().getName() + " has moved " + args[0]
+					+ getRunnerRoom().examineString());
 		}
-		return;
     }
 }
