@@ -10,7 +10,7 @@ public class ExamineCommand extends CommandHandler {
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
     	StringBuilder examineStrBuilder=new StringBuilder();
-    	switch(args[0]){
+    	switch(unsplitArgs(args)) {
 		case "room":
 			examineStrBuilder.append(getRunnerRoom().examineString());
 			break;
@@ -38,8 +38,11 @@ public class ExamineCommand extends CommandHandler {
 				}
 			}
 			else {
-				Tester.printToLog("There are no items in this room"); 
+				examineStrBuilder.append("There are no items in this room"); 
 			}
+			break;
+		default:
+			
     	}
     	Tester.printToLog(examineStrBuilder.toString());
     }
