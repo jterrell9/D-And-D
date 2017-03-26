@@ -49,7 +49,7 @@ public class MoveCommand extends CommandHandler {
         			+ "Type \"move\" followed by north, south, east, or west");
 				return;	
 			}
-			Tester.printToLog(getRunnerPlayer().getName() + " has moved " + args[0]
+			Tester.printToLog(getRunnerPlayer().getName() + " has moved through the " + args[0] +" door\n"
 					+ getRunnerRoom().examineString());
 		}
     }
