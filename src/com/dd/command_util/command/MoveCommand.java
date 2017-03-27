@@ -14,7 +14,7 @@ public class MoveCommand extends CommandHandler {
 			switch(args[0]){
 			case "north": 
 				if(map().isRoomInDir(playerPos(), Direction.NORTH)){
-					playerPos().moveNorth();
+						playerPos().moveNorth();
 				}
 				else{
 					Console.updateScreen("No Door in that Direction!");
