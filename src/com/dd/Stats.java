@@ -14,13 +14,6 @@ public class Stats {
 		setDefense(defense);
 	}
 	
-	public Stats(){
-		setHealth(0);
-		setMaxHealth(0);
-		setAttack(0);
-		setDefense(0);
-	}
-	
 	public void changeStat(Stats statChange){
 		addHealth(statChange.getHealth());
 		addMaxHealth(statChange.getMaxHealth());
