@@ -12,8 +12,7 @@ public class ExamineCommand extends CommandHandler {
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
     	StringBuilder examineStrBuilder=new StringBuilder();
-    	String option = unsplitArgs(args);
-    	switch(option) {
+    	switch(args[0]) {
 		case "room":
 			examineStrBuilder.append(currRoom().examineString());
 			break;
@@ -45,8 +44,8 @@ public class ExamineCommand extends CommandHandler {
 			}
 			break;
 		default:
-			if(currRoom().getMonster(option) != null) {
-				Monster monster = currRoom().getMonster(option);
+			if(currRoom().getMonster(args[0]) != null) {
+				Monster monster = currRoom().getMonster(args[0]);
 				String monsterName = monster.getName();
 				examineStrBuilder.append("~" + monsterName
 						+ "\nHealth: " + monster.getStats().getHealth()
@@ -54,15 +53,15 @@ public class ExamineCommand extends CommandHandler {
 						+ "\n\n" + monster.getDescription() + "\n");
 				break;
 			}
-			if(currRoom().getItem(option) != null) {
-				Item item = currRoom().getItem(option);
+			if(currRoom().getItem(args[0]) != null) {
+				Item item = currRoom().getItem(args[0]);
 				String itemName = item.getName();
 				examineStrBuilder.append("~" + itemName + " " 
 						+ item.examineToString() + "\n");
 				break;
 			}
 			else{
-				examineStrBuilder.append("The argument \"" + option + "\" is invalid.\n"
+				examineStrBuilder.append("The argument \"" + args[0] + "\" is invalid.\n"
         			+ "Type \"help\" for help using the examine command.");
 			}
 			break;
