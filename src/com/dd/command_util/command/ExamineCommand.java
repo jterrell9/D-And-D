@@ -11,9 +11,7 @@ public class ExamineCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
-    	
     	switch(args[0]) {
-		
     	case "room":
 			output.append(currRoom().examineString());
 			break;

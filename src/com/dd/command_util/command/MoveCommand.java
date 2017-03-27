@@ -10,9 +10,7 @@ public class MoveCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
-		
-    	switch(args[0]){
-		
+    	switch(args[0]) {
     	case "north": 
 			if(map().isRoomInDir(playerPos(), Direction.NORTH)){
 					playerPos().moveNorth();
