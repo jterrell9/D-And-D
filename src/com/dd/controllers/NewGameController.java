@@ -27,6 +27,39 @@ public class NewGameController {
 	@FXML Label errorLabel;
 	
 	/**
+	 * Event handler for "Start Game" button.
+	 */
+	@FXML
+	private void handleStartButtonAction(ActionEvent event) throws IOException {
+		if (!checkFields()) {
+			return;
+		}
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/RunningGame.fxml"));
+		Scene scene = new Scene(loader.load());
+		
+		RunningGameController controller = loader.getController();
+		controller.setSeedNumber(seedNumber.getText());
+		controller.setCharacterName(characterName.getText());
+		controller.setCharacterClass(getRadioButtonText());
+		
+		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		primaryStage.setScene(scene);
+	}
+	
+	/**
+	 * Event handler for "Back" button.
+	 */
+	@FXML
+	private void handleBackButtonAction(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
+		Scene scene = new Scene(loader.load());
+		
+		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		primaryStage.setScene(scene);
+	}
+	
+	/**
 	 * Checks the form to make sure nothing is empty or invalid.
 	 */
 	private boolean checkFields() {
@@ -67,39 +100,6 @@ public class NewGameController {
 		
 		RadioButton rbutton = (RadioButton) characterClass.getSelectedToggle();
 		return rbutton.getText();
-	}
-	
-	/**
-	 * Event handler for "Start Game" button.
-	 */
-	@FXML
-	private void handleStartButtonAction(ActionEvent event) throws IOException {
-		if (!checkFields()) {
-			return;
-		}
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/RunningGame.fxml"));
-		Scene scene = new Scene(loader.load());
-		
-		RunningGameController controller = loader.getController();
-		controller.setSeedNumber(seedNumber.getText());
-		controller.setCharacterName(characterName.getText());
-		controller.setCharacterClass(getRadioButtonText());
-		
-		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		primaryStage.setScene(scene);
-	}
-	
-	/**
-	 * Event handler for "Back" button.
-	 */
-	@FXML
-	private void handleBackButtonAction(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
-		Scene scene = new Scene(loader.load());
-		
-		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		primaryStage.setScene(scene);
 	}
 	
 	/**
