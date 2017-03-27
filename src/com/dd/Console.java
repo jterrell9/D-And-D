@@ -47,7 +47,9 @@ public class Console {
 		String userInput = user.nextLine();
 		String[] input = userInput.split(" ");
 		command = input[0].toLowerCase();
-		arguments[0] = userInput.substring(command.length());
+		if(input.length > 1) {
+			arguments[0] = userInput.substring(command.length() + 1);
+		}
 	}
 	
 	public static void updateScreen(String logOutput) {

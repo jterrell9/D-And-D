@@ -9,7 +9,7 @@ public class MoveCommand extends CommandHandler {
     public MoveCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String[] args, CommandOutputLog outputLog) {
     	if(args[0] != null){
 			switch(args[0]){
 			case "north": 
