@@ -37,19 +37,20 @@ public abstract class Item {
 	}
 	
 	public String statModToString() {
-		StringBuilder modStr=new StringBuilder();
+		StringBuilder modStr=new StringBuilder("[");
 		if(getStatChange().getHealth() > 0){
-			modStr.append("+" + getStatChange().getHealth() + " Health");
+			modStr.append("(+" + getStatChange().getHealth() + " Health)");
 		}
 		if(getStatChange().getMaxHealth() > 0){
-			modStr.append("+" + getStatChange().getMaxHealth() + " Max Health");
+			modStr.append("(+" + getStatChange().getMaxHealth() + " Max Health)");
 		}
 		if(getStatChange().getAttack() > 0) {
-			modStr.append("+" + getStatChange().getAttack() + " Attack");
+			modStr.append("(+" + getStatChange().getAttack() + " Attack)");
 		}
 		if(getStatChange().getDefense() > 0){
-			modStr.append("+" + getStatChange().getDefense() + " Defense");
+			modStr.append("(+" + getStatChange().getDefense() + " Defense)");
 		}
+		modStr.append("]");
 		return modStr.toString();
 	}
 	
@@ -58,6 +59,6 @@ public abstract class Item {
 	}
 	
 	public String examineToString(){
-		return "[" + statModToString() + ", " + typeToString() + "]";
+		return statModToString() + " (" + typeToString() + ")";
 	}
 }
