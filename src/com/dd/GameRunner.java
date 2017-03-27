@@ -32,24 +32,24 @@ public class GameRunner extends Application {
     public void start(Stage primaryStage) {
         stage = primaryStage;
 
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
-			Scene scene = new Scene(loader.load());
-			
-			primaryStage.setTitle("D&D");
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-		catch (IllegalStateException e) {
-			e.printStackTrace();
-			System.exit(2);
-		}
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+            
+            primaryStage.setTitle("D&D");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        catch (IllegalStateException e) {
+            e.printStackTrace();
+            System.exit(2);
+        }
         
-		/*
+        /*
         screenWidth = 1920;
         screenHeight = 1080;        
 
