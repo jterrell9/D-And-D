@@ -23,6 +23,8 @@ public abstract class CommandHandler {
         }
     }
     
+    protected StringBuilder output=new StringBuilder();
+    
     public static Player player() {
 		return DandD.getActiveGameState().getActivePlayer();
 	}
