@@ -2,6 +2,13 @@ package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
 
+import com.dd.entities.monsters.Dragon;
+import com.dd.items.Artifact;
+import com.dd.items.OneHandedWeapon;
+import com.dd.items.Potion;
+import com.dd.items.Shield;
+import com.dd.items.Suit;
+
 public class DungeonMap {
 
 	private Room[][] rooms;
@@ -12,6 +19,41 @@ public class DungeonMap {
 		this.maxRow = maxRow;
 		this.maxCol = maxCol;
 		rooms = new Room[maxRow][maxCol];
+	}
+	
+	public DungeonMap() {
+		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
+		Shield shield = new Shield("Wooden Shield", 4);
+		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
+		Potion potion = new Potion("Health Elixer", 10);
+		Suit breastPlate = new Suit("Brass Breast Plate", 2);
+		
+		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
+		
+		MapPosition buildPos = new MapPosition();
+		addRoom(new Room(), buildPos);
+		getRoom(buildPos).addItem(sword);
+		getRoom(buildPos).addItem(shield);
+		buildPos.moveEast();
+		addRoom(new Room(), buildPos);
+		getRoom(buildPos).addItem(breastPlate);
+		getRoom(buildPos).addItem(ring);
+		getRoom(buildPos).addItem(potion);
+		getRoom(buildPos).addMonster(dragon);
+		buildPos.moveEast();
+		addRoom(new Room(), buildPos);
+		buildPos.moveSouth();
+		addRoom(new Room(), buildPos);
+		buildPos.moveSouth();
+		addRoom(new Room(), buildPos);
+		buildPos.moveEast();
+		addRoom(new Room(), buildPos);
+		buildPos.moveSouth();
+		addRoom(new Room(), buildPos);
+		buildPos.moveSouth();
+		addRoom(new Room(), buildPos);
+		buildPos.moveEast();
+		addRoom(new Room(), buildPos);
 	}
 
 	public int getMaxRow() {
