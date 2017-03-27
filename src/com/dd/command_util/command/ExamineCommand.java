@@ -13,10 +13,12 @@ public class ExamineCommand extends CommandHandler {
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
     	StringBuilder examineStrBuilder=new StringBuilder();
     	switch(args[0]) {
-		case "room":
+		
+    	case "room":
 			examineStrBuilder.append(currRoom().examineString());
 			break;
-		case "monsters":
+		
+    	case "monsters":
 		case "monster":
 			if(currRoom().hasMonster()) {
 				for(String monsterName : currRoom().getMonsterList()) {
@@ -31,6 +33,8 @@ public class ExamineCommand extends CommandHandler {
 				examineStrBuilder.append("There are no mosters in this room.");
 			}
 			break;
+		
+		case "item":
 		case "items":
 			if(currRoom().hasItems()) {
 				for(String itemName : currRoom().getItemList()) {
@@ -43,6 +47,7 @@ public class ExamineCommand extends CommandHandler {
 				examineStrBuilder.append("There are no items in this room"); 
 			}
 			break;
+		
 		default:
 			if(currRoom().getMonster(args[0]) != null) {
 				Monster monster = currRoom().getMonster(args[0]);
