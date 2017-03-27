@@ -13,18 +13,18 @@ public class ExamineCommand extends CommandHandler {
     	String option = unsplitArgs(args);
     	switch(option) {
 		case "room":
-			examineStrBuilder.append(getRunnerRoom().examineString());
+			examineStrBuilder.append(currRoom.examineString());
 			break;
 		case "monsters":
 		case "monster":
-			if(getRunnerRoom().hasMonster()) {
-				for(String monsterName : getRunnerRoom().getMonsterList()) {
+			if(currRoom.hasMonster()) {
+				for(String monsterName : currRoom.getMonsterList()) {
 					examineStrBuilder.append("~" + monsterName + "\nHealth: "
-							+ getRunnerRoom().getMonster(monsterName).getStats().getHealth()
+							+ currRoom.getMonster(monsterName).getStats().getHealth()
 							+ "\nAttack/Defense: "
-							+ getRunnerRoom().getMonster(monsterName).getStats().getAttack()
-							+ "/" + getRunnerRoom().getMonster(monsterName).getStats().getDefense()
-							+ "\n\n" + getRunnerRoom().getMonster(monsterName).getDescription() + "\n");
+							+ currRoom.getMonster(monsterName).getStats().getAttack()
+							+ "/" + currRoom.getMonster(monsterName).getStats().getDefense()
+							+ "\n\n" + currRoom.getMonster(monsterName).getDescription() + "\n");
 				}
 			}
 			else {
@@ -32,10 +32,10 @@ public class ExamineCommand extends CommandHandler {
 			}
 			break;
 		case "items":
-			if(getRunnerRoom().hasItems()) {
-				for(String itemName : getRunnerRoom().getItemList()) {
+			if(currRoom.hasItems()) {
+				for(String itemName : currRoom.getItemList()) {
 					examineStrBuilder.append("~" + itemName + " " 
-							+ getRunnerRoom().getItem(itemName).examineToString() + "\n");
+							+ currRoom.getItem(itemName).examineToString() + "\n");
 				}
 			}
 			else {
@@ -43,7 +43,7 @@ public class ExamineCommand extends CommandHandler {
 			}
 			break;
 		default:
-			  getRunnerRoom().getMonster(option);
+			currRoom.getMonster(option);
     	}
     	Tester.updateRunner(examineStrBuilder.toString());
     }

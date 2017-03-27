@@ -13,8 +13,8 @@ public class MoveCommand extends CommandHandler {
     	if(args[0] != null){
 			switch(args[0]){
 			case "north": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.NORTH)){
-					getRunnerPosition().moveNorth();
+				if(map.isRoomInDir(playerPos, Direction.NORTH)){
+					playerPos.moveNorth();
 				}
 				else{
 					Tester.updateRunner("No Door in that Direction!");
@@ -22,8 +22,8 @@ public class MoveCommand extends CommandHandler {
 				}
 				break;
 			case "south": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.SOUTH)){
-					getRunnerPosition().moveSouth();
+				if(map.isRoomInDir(playerPos, Direction.SOUTH)){
+					playerPos.moveSouth();
 				}
 				else{
 					Tester.updateRunner("No Door in that Direction!");
@@ -31,8 +31,8 @@ public class MoveCommand extends CommandHandler {
 				}
 				break;
 			case "east": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.EAST)){
-					getRunnerPosition().moveEast();
+				if(map.isRoomInDir(playerPos, Direction.EAST)){
+					playerPos.moveEast();
 				}
 				else{
 					Tester.updateRunner("No Door in that Direction!");
@@ -40,8 +40,8 @@ public class MoveCommand extends CommandHandler {
 				}
 				break;
 			case "west": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.WEST)){
-					getRunnerPosition().moveWest();
+				if(map.isRoomInDir(playerPos, Direction.WEST)){
+					playerPos.moveWest();
 				}
 				else{
 					Tester.updateRunner("No Door in that Direction!");
@@ -53,8 +53,8 @@ public class MoveCommand extends CommandHandler {
         			+ "Type \"move\" followed by north, south, east, or west");
 				return;	
 			}
-			Tester.updateRunner(getRunnerPlayer().getName() + " has moved through the " + args[0] +" door\n"
-					+ getRunnerRoom().examineString());
+			Tester.updateRunner(player.getName() + " has moved through the " + args[0] +" door\n"
+					+ currRoom.examineString());
 		}
     }
 }
