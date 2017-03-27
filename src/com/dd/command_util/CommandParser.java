@@ -1,16 +1,34 @@
 package com.dd.command_util;
 
 import com.dd.command_util.CommandHandler;
+import com.dd.command_util.command.ExamineCommand;
+import com.dd.command_util.command.HelpCommand;
+import com.dd.command_util.command.MenuCommand;
+import com.dd.command_util.command.MoveCommand;
+import com.dd.command_util.command.QuitCommand;
+import com.dd.command_util.command.SaveCommand;
+
+import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
-    private Map<String, CommandHandler> commandMap;
+    private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
+    private CommandOutputLog outputLog;
 
-    public CommandParser() {
-        commandMap = new HashMap<String, CommandHandler>();
-    };
+    public CommandParser(){
+    	registerCommand("help", new HelpCommand());
+		registerCommand("menu", new MenuCommand());
+		registerCommand("quit", new QuitCommand());
+		registerCommand("move", new MoveCommand());
+		registerCommand("examine", new ExamineCommand());
+		registerCommand("save", new SaveCommand());
+    }
+
+    public CommandParser(CommandOutputLog outputLog) {
+        this.outputLog = outputLog;
+    }
 
     public void registerCommand(String commandName, CommandHandler commandHandler) {
         if(commandMap.containsKey(commandName))
@@ -31,12 +49,20 @@ public class CommandParser {
                                                 + "\" has not been registered with this CommandParser. Unregistration failed.");
     }
 
-    public void parseCommand(String command, String[] args) {
+    public void setOutputLog(CommandOutputLog outputLog){
+        this.outputLog = outputLog;
+    }
+
+    public void parseCommand(String command, String[] args) throws CommandHandler.CommandHandlerException, FileNotFoundException {
         CommandHandler handler = commandMap.get(command);
         if(handler == null)
             throw new IllegalArgumentException("The command \""
                                                     + command
                                                     + "\" is invalid.");
-        handler.handleCommand(args);
+        try{
+            handler.handleCommand(args, outputLog);
+        }
+        catch(CommandHandler.CommandHandlerException e){
+            throw e;}
     }
 }

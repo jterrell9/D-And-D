@@ -14,13 +14,6 @@ public class Stats {
 		setDefense(defense);
 	}
 	
-	public Stats(){
-		setHealth(20);
-		setMaxHealth(20);
-		setAttack(1);
-		setDefense(0);
-	}
-	
 	public void changeStat(Stats statChange){
 		addHealth(statChange.getHealth());
 		addMaxHealth(statChange.getMaxHealth());
@@ -52,13 +45,10 @@ public class Stats {
 	}
 	
 	public void setMaxHealth(int maxHealth) {
-		if(maxHealth < 1){
-			maxHealth = 1;
+		if(maxHealth < 0){
+			maxHealth = 0;
 		}
 		this.maxHealth = maxHealth;
-		if(health > this.maxHealth){
-			health = this.maxHealth;
-		}
 	}
 	
 	public int getHealth() {
@@ -79,8 +69,8 @@ public class Stats {
 	}
 	
 	public void setAttack(int attack) {
-		if(attack < 1){
-			this.attack = 1;
+		if(attack < 0){
+			this.attack = 0;
 		}
 		else{
 			this.attack = attack;

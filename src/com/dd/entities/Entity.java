@@ -22,13 +22,13 @@ public class Entity {
 	
 	public Entity(String name) {
 		setName(name);
-		setStats(new Stats());
+		setStats(new Stats(20, 20, 1, 0));
 		isAlive = true;
 	}
 	
 	public Entity() {
 		setName("player");
-		setStats(new Stats());
+		setStats(new Stats(20, 20, 1, 0));
 		isAlive = true;
 	}
 	
