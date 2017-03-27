@@ -42,10 +42,9 @@ public class Tester {
 		return getRunnerMap().getRoom(getRunnerPosition());
 	}
 	
-	public static void go() throws FileNotFoundException{
+	public static void go() throws FileNotFoundException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
-		System.out.println("\n*Type help for a list of commands*\n");
 		updateRunner(getRunnerRoom().examineString());
 		System.out.println();
 		registerCommands();
