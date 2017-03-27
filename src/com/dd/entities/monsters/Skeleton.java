@@ -3,26 +3,22 @@ package com.dd.entities.monsters;
 import com.dd.entities.Monster;
 import com.dd.entities.Player;
 
-public class Skeleton extends Monster{
+import java.util.Random;
+
+public class Skeleton extends Monster {
 
     //Constructor used when Skeleton is created for specific rooms when rooms are generated
-    public Skeleton (String name, int health, int attack, int defense){
+    public Skeleton (String name, int health, int attack, int defense) {
         //set stats, set alive to true, set fight to false
     	super(name,health,attack,defense);
+        initDescription();
     }
 
-    //used when skeleton attacks the player
-    //pre: if(isFight && isAlive)
-    //post: p1.getStats().getHealth() != 0
-    public void attack(Player p1){
-        // deal damage to player on basic attacks
-    }
-
-    //used when the skeleton takes damage
-    //pre: if(alive && fight)
-    //post: if(stats.getHealth() == 0) => die()
-    public void takeDamage(int damage){
-        //logic for taking damage
+    public void initDescription() {
+        String desc = "As you enter the room, you don't notice anything from the start. A few moments pass and you "
+                + "start to walk around. As you take your first steps into the room proper, you hear a clatter of bones."
+                + " You realize in the corner next to you there is a humanoid skeleton walking towards you.";
+        setDescription(desc);
     }
 
     // used when skeletons health reaches 0
@@ -30,7 +26,26 @@ public class Skeleton extends Monster{
     // pre: if(alive)
     // post: fight = false
     // post: alive = false
-    public void die(){
+    public void die() {
         //set health to 0 and other logic to ensure the battle is over
+        Random random = new Random();
+        if(random.nextInt(5) + 1 == 5
+                || this.stats.getAttack() == 1
+                || this.stats.getDefense() == 1) {
+            this.stats.setHealth(1);
+            this.stats.setAttack(this.stats.getAttack() - 1);
+            this.stats.setDefense(this.stats.getDefense() - 1);
+            //As you deal a deadly blow, the skeleton hastily tries to keep itself together, losing some pieces in the process
+        }
+        else {
+            super.die();
+            //The skeleton falls into a pile of ash at your feet.
+        }
+    }
+
+    // Attack: The skeleton throws itself at you.
+
+    public void examine() {
+        //A skeleton who has a bone to pick with you.
     }
 }

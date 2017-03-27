@@ -3,7 +3,8 @@ package com.dd;
 import com.dd.GameState;
 import com.dd.gamescene_util.GameScene;
 import com.dd.gamescene_util.gamescene.*;
-
+import com.dd.tester.Tester;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
@@ -23,9 +24,10 @@ public class GameRunner extends Application {
     private static Map<String, GameScene> gameSceneMap = new HashMap<String, GameScene>();
     private static int screenWidth;
     private static int screenHeight;
-
-    public static void main(String[] args) {
-        launch(args);
+    
+    public static void main(String[] args) throws FileNotFoundException {
+    	Tester.go();
+    	launch(args);
     }
 
     @Override
