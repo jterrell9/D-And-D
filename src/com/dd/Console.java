@@ -52,6 +52,14 @@ public class Console {
 		}
 	}
 	
+	public static void parse(String userInput) {
+		String[] input = userInput.split(" ");
+		setCommand(input[0].toLowerCase());
+		if(input.length > 1) {
+			setArguments(userInput.substring(command.length() + 1), null);
+		}
+	}
+	
 	public static void updateScreen(String logOutput) {
 		printStats();
 		printMap();
