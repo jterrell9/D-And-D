@@ -10,8 +10,10 @@ public class MoveCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
-		switch(args[0]){
-		case "north": 
+		
+    	switch(args[0]){
+		
+    	case "north": 
 			if(map().isRoomInDir(playerPos(), Direction.NORTH)){
 					playerPos().moveNorth();
 			}
@@ -20,7 +22,8 @@ public class MoveCommand extends CommandHandler {
 				return;
 			}
 			break;
-		case "south": 
+		
+    	case "south": 
 			if(map().isRoomInDir(playerPos(), Direction.SOUTH)){
 				playerPos().moveSouth();
 			}
@@ -29,7 +32,8 @@ public class MoveCommand extends CommandHandler {
 				return;
 			}
 			break;
-		case "east": 
+		
+    	case "east": 
 			if(map().isRoomInDir(playerPos(), Direction.EAST)){
 				playerPos().moveEast();
 			}
@@ -38,7 +42,8 @@ public class MoveCommand extends CommandHandler {
 				return;
 			}
 			break;
-		case "west": 
+		
+    	case "west": 
 			if(map().isRoomInDir(playerPos(), Direction.WEST)){
 				playerPos().moveWest();
 			}
@@ -47,7 +52,8 @@ public class MoveCommand extends CommandHandler {
 				return;
 			}
 			break;
-		default:
+		
+    	default:
 			Console.updateScreen("The argument \"" + args[0] + "\" is invalid.\n"
        			+ "Type \"move\" followed by north, south, east, or west");
 			return;	

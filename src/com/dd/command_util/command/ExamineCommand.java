@@ -11,7 +11,9 @@ public class ExamineCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
+    	
     	StringBuilder examineStrBuilder=new StringBuilder();
+    	
     	switch(args[0]) {
 		
     	case "room":
