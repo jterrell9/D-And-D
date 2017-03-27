@@ -20,7 +20,6 @@ import com.dd.levels.Room;
 
 public class Tester {
 	
-	private static CommandParser parser = new CommandParser();
 	private static String cmd = new String();
 	private static String opt = new String();
 	private static String[] opts = new String[10];
@@ -47,12 +46,12 @@ public class Tester {
 		mainMenu();
 		updateRunner(getRunnerRoom().examineString());
 		System.out.println();
-		registerCommands();
 		cmdLoop();
 	}
 	
 	public static void cmdLoop() throws FileNotFoundException {
 		while(true){
+			CommandParser parser = new CommandParser();
 			promptAndParse();
 			try {
 				parser.parseCommand(cmd, opts);
@@ -70,11 +69,11 @@ public class Tester {
 	
 	public static void promptAndParse(){
 		printLnTitle('~', "CONSOLE INPUT", 40);
-		Scanner user=new Scanner(System.in);
+		Scanner user = new Scanner(System.in);
 		System.out.print(getRunnerPlayer().getName() + ">> ");
-		String userInput=user.nextLine();
-		String[] input=userInput.split(" ");
-		cmd=input[0].toLowerCase();
+		String userInput = user.nextLine();
+		String[] input = userInput.split(" ");
+		cmd = input[0].toLowerCase();
 		if(input.length > 1 && input.length < 11){
 			for(int i = 1; i < input.length; i++){
 				opt += input[i] + " ";
@@ -84,17 +83,6 @@ public class Tester {
 				}
 			}
 		}
-	}
-	
-	public static void registerCommands(){
-		parser.registerCommand("help", new HelpCommand());
-		parser.registerCommand("menu", new MenuCommand());
-		parser.registerCommand("quit", new QuitCommand());
-		parser.registerCommand("move", new MoveCommand());
-		parser.registerCommand("examine", new ExamineCommand());
-		parser.registerCommand("save", new SaveCommand());
-		
-		
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
