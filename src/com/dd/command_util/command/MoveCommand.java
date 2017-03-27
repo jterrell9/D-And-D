@@ -10,51 +10,53 @@ public class MoveCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args, CommandOutputLog outputLog) {
-    	if(args[0] != null){
-			switch(args[0]){
-			case "north": 
-				if(map().isRoomInDir(playerPos(), Direction.NORTH)){
-						playerPos().moveNorth();
-				}
-				else{
-					Console.updateScreen("No Door in that Direction!");
-					return;
-				}
-				break;
-			case "south": 
-				if(map().isRoomInDir(playerPos(), Direction.SOUTH)){
-					playerPos().moveSouth();
-				}
-				else{
-					Console.updateScreen("No Door in that Direction!");
-					return;
-				}
-				break;
-			case "east": 
-				if(map().isRoomInDir(playerPos(), Direction.EAST)){
-					playerPos().moveEast();
-				}
-				else{
-					Console.updateScreen("No Door in that Direction!");
-					return;
-				}
-				break;
-			case "west": 
-				if(map().isRoomInDir(playerPos(), Direction.WEST)){
-					playerPos().moveWest();
-				}
-				else{
-					Console.updateScreen("No Door in that Direction!");
-					return;
-				}
-				break;
-			default:
-				Console.updateScreen("The argument \"" + args[0] + "\" is invalid.\n"
-        			+ "Type \"move\" followed by north, south, east, or west");
-				return;	
+    	switch(args[0]) {
+    	case "north": 
+			if(map().isRoomInDir(playerPos(), Direction.NORTH)){
+					playerPos().moveNorth();
+					output.append(player().getName() + " has moved through the North door\n");
 			}
-			Console.updateScreen(player().getName() + " has moved through the " + args[0] +" door\n"
-					+ currRoom().examineString());
+			else{
+				output.append("No North Door!\n");
+			}
+			break;
+		
+    	case "south": 
+			if(map().isRoomInDir(playerPos(), Direction.SOUTH)){
+				playerPos().moveSouth();
+				output.append(player().getName() + " has moved through the South door\n");
+			}
+			else{
+				output.append("No South Door!\n");
+			}
+			break;
+		
+    	case "east": 
+			if(map().isRoomInDir(playerPos(), Direction.EAST)){
+				playerPos().moveEast();
+				output.append(player().getName() + " has moved through the East door\n");
+			}
+			else{
+				output.append("No East Door!\n");
+			}
+			break;
+		
+    	case "west": 
+			if(map().isRoomInDir(playerPos(), Direction.WEST)){
+				playerPos().moveWest();
+				output.append(player().getName() + " has moved through the West door\n");
+			}
+			else{
+				output.append("No West Door!\n");
+			}
+			break;
+		
+    	default:
+    		output.append("The argument \"" + args[0] + "\" is invalid.\n"
+       			+ "Type \"move\" followed by north, south, east, or west\n");
+			return;	
 		}
+    	output.append(currRoom().examineString());
+    	Console.updateScreen(output.toString());
     }
 }

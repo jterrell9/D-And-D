@@ -23,17 +23,7 @@ public abstract class CommandHandler {
         }
     }
     
-    public String unsplitArgs(String[] arguments) {
-    	String arg = arguments[0];
-	    for(int i = 1; i < arguments.length && arguments[i] != null; i++) {
-	    	arg = arg + " " + arguments[i];
-	    }
-    	return arg;
-    }
-    
-    public void resetArgs() {
-    	
-    }
+    protected StringBuilder output=new StringBuilder();
     
     public static Player player() {
 		return DandD.getActiveGameState().getActivePlayer();
