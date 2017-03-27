@@ -26,7 +26,6 @@ public class DandD extends Application {
     private static int screenHeight;
     
     public static void main(String[] args) throws FileNotFoundException {
-    	Tester.go();
     	launch(args);
     }
 

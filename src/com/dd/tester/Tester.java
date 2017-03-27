@@ -16,7 +16,7 @@ import com.dd.items.*;
 
 public class Tester {
 	
-	public static void go() throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
 		Console.updateScreen(Console.activeRoom().examineString());
