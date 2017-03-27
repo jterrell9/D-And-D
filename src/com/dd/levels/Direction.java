@@ -1,5 +1,5 @@
 package com.dd.levels;
 
-public enum DIR {
+public enum Direction {
 NORTH, SOUTH, EAST, WEST;
 }

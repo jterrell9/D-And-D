@@ -71,7 +71,7 @@ public class MapPosition {
 		this.x--;
 	}
 	
-	public MapPosition translate(DIR direction) {
+	public MapPosition translate(Direction direction) {
 		MapPosition mp=new MapPosition(getX(), getY());
 		switch(direction) {
 		case NORTH:

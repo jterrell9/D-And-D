@@ -72,21 +72,21 @@ public class DungeonMap {
 		return retCode;
 	}
 	
-	public boolean isRoomInDir(MapPosition p, DIR direction) {
+	public boolean isRoomInDir(MapPosition p, Direction direction) {
 		boolean retCode = true;
 		MapPosition mp;
 		switch(direction) {
 		case NORTH:
-			mp = p.translate(DIR.NORTH);
+			mp = p.translate(Direction.NORTH);
 			break;
 		case SOUTH:
-			mp = p.translate(DIR.SOUTH);
+			mp = p.translate(Direction.SOUTH);
 			break;
 		case EAST:
-			mp = p.translate(DIR.EAST);
+			mp = p.translate(Direction.EAST);
 			break;
 		case WEST:
-			mp = p.translate(DIR.WEST);
+			mp = p.translate(Direction.WEST);
 			break;
 		default:
 			mp = p;

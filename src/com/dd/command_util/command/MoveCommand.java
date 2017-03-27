@@ -2,7 +2,7 @@ package com.dd.command_util.command;
 
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.levels.DIR;
+import com.dd.levels.Direction;
 import com.dd.tester.Tester;
 
 public class MoveCommand extends CommandHandler {
@@ -13,7 +13,7 @@ public class MoveCommand extends CommandHandler {
     	if(args[0] != null){
 			switch(args[0]){
 			case "north": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.NORTH)){
+				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.NORTH)){
 					getRunnerPosition().moveNorth();
 				}
 				else{
@@ -22,7 +22,7 @@ public class MoveCommand extends CommandHandler {
 				}
 				break;
 			case "south": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.SOUTH)){
+				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.SOUTH)){
 					getRunnerPosition().moveSouth();
 				}
 				else{
@@ -31,7 +31,7 @@ public class MoveCommand extends CommandHandler {
 				}
 				break;
 			case "east": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.EAST)){
+				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.EAST)){
 					getRunnerPosition().moveEast();
 				}
 				else{
@@ -40,7 +40,7 @@ public class MoveCommand extends CommandHandler {
 				}
 				break;
 			case "west": 
-				if(getRunnerMap().isRoomInDir(getRunnerPosition(), DIR.WEST)){
+				if(getRunnerMap().isRoomInDir(getRunnerPosition(), Direction.WEST)){
 					getRunnerPosition().moveWest();
 				}
 				else{
