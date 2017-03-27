@@ -1,6 +1,12 @@
 package com.dd.command_util;
 
 import com.dd.command_util.CommandHandler;
+import com.dd.command_util.command.ExamineCommand;
+import com.dd.command_util.command.HelpCommand;
+import com.dd.command_util.command.MenuCommand;
+import com.dd.command_util.command.MoveCommand;
+import com.dd.command_util.command.QuitCommand;
+import com.dd.command_util.command.SaveCommand;
 
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
@@ -11,7 +17,14 @@ public class CommandParser {
     private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
     private CommandOutputLog outputLog;
 
-    public CommandParser(){}
+    public CommandParser(){
+    	registerCommand("help", new HelpCommand());
+		registerCommand("menu", new MenuCommand());
+		registerCommand("quit", new QuitCommand());
+		registerCommand("move", new MoveCommand());
+		registerCommand("examine", new ExamineCommand());
+		registerCommand("save", new SaveCommand());
+    }
 
     public CommandParser(CommandOutputLog outputLog) {
         this.outputLog = outputLog;

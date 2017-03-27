@@ -1,8 +1,10 @@
 package com.dd.command_util.command;
 
+import com.dd.Console;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.tester.Tester;
+import com.dd.entities.Monster;
+import com.dd.items.Item;
 
 public class ExamineCommand extends CommandHandler {
     public ExamineCommand() {}
@@ -13,18 +15,17 @@ public class ExamineCommand extends CommandHandler {
     	String option = unsplitArgs(args);
     	switch(option) {
 		case "room":
-			examineStrBuilder.append(currRoom.examineString());
+			examineStrBuilder.append(currRoom().examineString());
 			break;
 		case "monsters":
 		case "monster":
-			if(currRoom.hasMonster()) {
-				for(String monsterName : currRoom.getMonsterList()) {
-					examineStrBuilder.append("~" + monsterName + "\nHealth: "
-							+ currRoom.getMonster(monsterName).getStats().getHealth()
-							+ "\nAttack/Defense: "
-							+ currRoom.getMonster(monsterName).getStats().getAttack()
-							+ "/" + currRoom.getMonster(monsterName).getStats().getDefense()
-							+ "\n\n" + currRoom.getMonster(monsterName).getDescription() + "\n");
+			if(currRoom().hasMonster()) {
+				for(String monsterName : currRoom().getMonsterList()) {
+					Monster monster = currRoom().getMonster(monsterName);
+					examineStrBuilder.append("~" + monsterName
+							+ "\nHealth: " + monster.getStats().getHealth()
+							+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
+							+ "\n\n" + monster.getDescription() + "\n");
 				}
 			}
 			else {
@@ -32,10 +33,11 @@ public class ExamineCommand extends CommandHandler {
 			}
 			break;
 		case "items":
-			if(currRoom.hasItems()) {
-				for(String itemName : currRoom.getItemList()) {
+			if(currRoom().hasItems()) {
+				for(String itemName : currRoom().getItemList()) {
+					Item item = currRoom().getItem(itemName);
 					examineStrBuilder.append("~" + itemName + " " 
-							+ currRoom.getItem(itemName).examineToString() + "\n");
+							+ item.examineToString() + "\n");
 				}
 			}
 			else {
@@ -43,8 +45,28 @@ public class ExamineCommand extends CommandHandler {
 			}
 			break;
 		default:
-			currRoom.getMonster(option);
+			if(currRoom().getMonster(option) != null) {
+				Monster monster = currRoom().getMonster(option);
+				String monsterName = monster.getName();
+				examineStrBuilder.append("~" + monsterName
+						+ "\nHealth: " + monster.getStats().getHealth()
+						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
+						+ "\n\n" + monster.getDescription() + "\n");
+				break;
+			}
+			if(currRoom().getItem(option) != null) {
+				Item item = currRoom().getItem(option);
+				String itemName = item.getName();
+				examineStrBuilder.append("~" + itemName + " " 
+						+ item.examineToString() + "\n");
+				break;
+			}
+			else{
+				examineStrBuilder.append("The argument \"" + option + "\" is invalid.\n"
+        			+ "Type \"help\" for help using the examine command.");
+			}
+			break;
     	}
-    	Tester.updateRunner(examineStrBuilder.toString());
+    	Console.updateScreen(examineStrBuilder.toString());
     }
 }

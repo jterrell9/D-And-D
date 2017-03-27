@@ -11,10 +11,10 @@ public abstract class CommandHandler {
 
 	public abstract void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException, FileNotFoundException;
 
-	protected Player player = GameRunner.getActiveGameState().getActivePlayer();
-	protected DungeonMap map = GameRunner.getActiveGameState().getMap();
-	protected MapPosition playerPos = player.getPostion();
-	protected Room currRoom = map.getRoom(playerPos);
+//	protected Player player = GameRunner.getActiveGameState().getActivePlayer();
+//	protected DungeonMap map = GameRunner.getActiveGameState().getMap();
+//	protected MapPosition playerPos = player.getPostion();
+//	protected Room currRoom = map.getRoom(playerPos);
 
     public class CommandHandlerException extends Exception {
         public CommandHandlerException(String message) {
@@ -29,4 +29,24 @@ public abstract class CommandHandler {
 	    }
     	return arg;
     }
+    
+    public void resetArgs() {
+    	
+    }
+    
+    public static Player player() {
+		return GameRunner.getActiveGameState().getActivePlayer();
+	}
+	
+	public static DungeonMap map(){
+		return GameRunner.getActiveGameState().getMap();
+	}
+	
+	public static MapPosition playerPos(){
+		return player().getPostion();
+	}
+	
+	public static Room currRoom(){
+		return map().getRoom(playerPos());
+	}
 }

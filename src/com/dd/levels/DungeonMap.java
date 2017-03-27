@@ -22,6 +22,7 @@ public class DungeonMap {
 	}
 	
 	public DungeonMap() {
+		rooms = new Room[5][5];
 		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
 		Shield shield = new Shield("Wooden Shield", 4);
 		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);

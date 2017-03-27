@@ -1,15 +1,15 @@
 package com.dd.command_util.command;
 
+import com.dd.Console;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.tester.Tester;
 
 public class HelpCommand extends CommandHandler {
     public HelpCommand() {}
 	
 	@Override
 	public void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException {
-		Tester.updateRunner("\t\tAVAILABLE COMMANDS\n"
+		Console.updateScreen("\t\tAVAILABLE COMMANDS\n"
 				+ "\n"
 				+ "attack <entity_name>\n"
 				+ "\tInitiate an attack against the entity with name entity_name.\n"
