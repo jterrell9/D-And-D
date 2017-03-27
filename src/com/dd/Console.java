@@ -46,9 +46,9 @@ public class Console {
 		System.out.print(activePlayer().getName() + ">> ");
 		String userInput = user.nextLine();
 		String[] input = userInput.split(" ");
-		command = input[0].toLowerCase();
+		setCommand(input[0].toLowerCase());
 		if(input.length > 1) {
-			arguments[0] = userInput.substring(command.length() + 1);
+			setArguments(userInput.substring(command.length() + 1), null);
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class Console {
     	System.out.println(logOutput);
     }
 	
-	public void setCommand(String cmd) {
+	public static void setCommand(String cmd) {
 		command = cmd;
 	}
 	
@@ -67,8 +67,10 @@ public class Console {
 		return command;
 	}
 	
-	public static void setArguments(String[] args) {
-		arguments=args;
+	public static void setArguments(String arg1, String arg2) {
+		arguments[0] = arg1;
+		arguments[1] = arg2;
+		
 	}
 	
 	public static String[] getArguments() {
