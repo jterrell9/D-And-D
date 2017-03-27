@@ -33,6 +33,8 @@ public class DandD extends Application {
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
+        screenWidth = 1920;
+        screenHeight = 1080; 
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/MainMenu.fxml"));
