@@ -1,7 +1,8 @@
 package com.dd.command_util;
 
 import java.io.FileNotFoundException;
-import com.dd.GameRunner;
+
+import com.dd.DandD;
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
@@ -35,11 +36,11 @@ public abstract class CommandHandler {
     }
     
     public static Player player() {
-		return GameRunner.getActiveGameState().getActivePlayer();
+		return DandD.getActiveGameState().getActivePlayer();
 	}
 	
 	public static DungeonMap map(){
-		return GameRunner.getActiveGameState().getMap();
+		return DandD.getActiveGameState().getMap();
 	}
 	
 	public static MapPosition playerPos(){

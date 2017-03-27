@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.dd.Console;
-import com.dd.GameRunner;
+import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.entities.Player;
 import com.dd.entities.monsters.*;
@@ -41,8 +41,8 @@ public class Tester {
 				System.out.print("Enter Player's Name: ");
 				name=scanName.next();
 				GameState game = new GameState(name, new Player(name), new DungeonMap(5,5));
-				GameRunner.registerGameState(game);
-				GameRunner.setActiveGameState(game);
+				DandD.registerGameState(game);
+				DandD.setActiveGameState(game);
 				populate5x5();
 			}
 			else if(selection == 2){		//load game *NOT FUNCTIONING

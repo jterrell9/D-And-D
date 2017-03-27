@@ -17,7 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class GameRunner extends Application {
+public class DandD extends Application {
     private static Stage stage;
     private static List<GameState> gameStateList = new ArrayList<GameState>();
     private static GameState activeGameState;

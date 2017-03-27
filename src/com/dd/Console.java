@@ -1,18 +1,11 @@
 package com.dd;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandHandler.CommandHandlerException;
 import com.dd.command_util.CommandParser;
-import com.dd.command_util.command.*;
 import com.dd.entities.Player;
-import com.dd.entities.monsters.*;
-import com.dd.items.*;
-import com.dd.levels.Direction;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
@@ -86,11 +79,11 @@ public class Console {
 	}
 	
 	public static Player activePlayer(){
-		return GameRunner.getActiveGameState().getActivePlayer();
+		return DandD.getActiveGameState().getActivePlayer();
 	}
 	
 	public static DungeonMap activeMap(){
-		return GameRunner.getActiveGameState().getMap();
+		return DandD.getActiveGameState().getMap();
 	}
 	
 	public static MapPosition activePos(){
