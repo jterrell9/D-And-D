@@ -15,7 +15,7 @@ import javafx.application.Application;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class GameRunner {//extends Application {
+public class GameRunner extends Application {
     private static Stage stage;
     private static List<GameState> gameStateList = new ArrayList<GameState>();
     private static GameState activeGameState;
@@ -25,49 +25,49 @@ public class GameRunner {//extends Application {
     
     public static void main(String[] args) throws FileNotFoundException {
     	Tester.go();
-    	//launch(args);
+    	launch(args);
     }
 
-//    @Override
-//    public void start(Stage primaryStage) {
-//        stage = primaryStage;
-//
-//        screenWidth = 1920;
-//        screenHeight = 1080;
-//
-//        GameScene mainMenuScene =  new MainMenuScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//        GameScene newGameScene = new NewGameScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//        GameScene loadGameScene = new LoadGameScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//        GameScene joinGameScene = new JoinGameScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//        GameScene addServerScene = new AddServerScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//        GameScene characterCreationScene = new CharacterCreationScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//        GameScene runningGameScene = new RunningGameScene(new StackPane(),
-//                                                        screenWidth,
-//                                                        screenHeight);
-//
-//        addGameScene("MainMenuScene", mainMenuScene);
-//        addGameScene("NewGameScene", newGameScene);
-//        addGameScene("LoadGameScene", loadGameScene);
-//        addGameScene("JoinGameScene", joinGameScene);
-//        addGameScene("AddServerScene", addServerScene);
-//        addGameScene("CharacterCreationScene", characterCreationScene);
-//        addGameScene("RunningGameScene", runningGameScene);
-//
-//        setActiveGameScene("MainMenuScene", null);
-//        primaryStage.show();
-//    }
+    @Override
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+
+        screenWidth = 1920;
+        screenHeight = 1080;
+
+        GameScene mainMenuScene =  new MainMenuScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene newGameScene = new NewGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene loadGameScene = new LoadGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene joinGameScene = new JoinGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene addServerScene = new AddServerScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene characterCreationScene = new CharacterCreationScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+        GameScene runningGameScene = new RunningGameScene(new StackPane(),
+                                                        screenWidth,
+                                                        screenHeight);
+
+        addGameScene("MainMenuScene", mainMenuScene);
+        addGameScene("NewGameScene", newGameScene);
+        addGameScene("LoadGameScene", loadGameScene);
+        addGameScene("JoinGameScene", joinGameScene);
+        addGameScene("AddServerScene", addServerScene);
+        addGameScene("CharacterCreationScene", characterCreationScene);
+        addGameScene("RunningGameScene", runningGameScene);
+
+        setActiveGameScene("MainMenuScene", null);
+        primaryStage.show();
+    }
 
     private static void addGameScene(String name, GameScene gameScene) {
         if(gameSceneMap.containsKey(name))
