@@ -10,13 +10,14 @@ public class HelpCommand extends CommandHandler {
 	@Override
 	public void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException {
 		Tester.updateRunner("\t\tAVAILABLE COMMANDS\n"
+				+ "\n"
 				+ "attack <entity_name>\n"
 				+ "\tInitiate an attack against the entity with name entity_name.\n"
 				+ "\n"
 				+ "move <direction>\n"
 				+ "\tMove the player to the room in the specified direction of the room the player is\n" 
 				+ "\tcurrently in. If no room exists in the specified direction this will fail. The\n" 
-				+ "valid directions are: north, south, east, and west.\n"
+				+ "\tvalid directions are: north, south, east, and west.\n"
 				+ "\n"
 				+ "\texamine <entity_name> | <item_name> | room | monster(s) | items\n"
 				+ "\tGet a description of either an entity with name entity_name, and item with name\n"
