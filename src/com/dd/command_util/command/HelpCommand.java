@@ -19,7 +19,7 @@ public class HelpCommand extends CommandHandler {
 				+ "\tcurrently in. If no room exists in the specified direction this will fail. The\n" 
 				+ "\tvalid directions are: north, south, east, and west.\n"
 				+ "\n"
-				+ "\texamine <entity_name> | <item_name> | room | monster(s) | items\n"
+				+ "examine <entity_name> | <item_name> | room | monster(s) | items\n"
 				+ "\tGet a description of either an entity with name entity_name, and item with name\n"
 				+ "\titem_name, or the room the player is currently in, or a list of monsters or items.\n"
 				+ "\n"
