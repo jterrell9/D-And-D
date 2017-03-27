@@ -40,10 +40,10 @@ public class Tester {
 				Scanner scanName = new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name=scanName.next();
-				GameState game = new GameState(name, new Player(name), new DungeonMap(5,5));
+				GameState game = new GameState(name, new Player(name), new DungeonMap());
 				GameRunner.registerGameState(game);
 				GameRunner.setActiveGameState(game);
-				populate5x5();
+				//populate5x5();
 			}
 			else if(selection == 2){		//load game *NOT FUNCTIONING
 				Scanner scanName = new Scanner(System.in);
