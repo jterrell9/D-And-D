@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
+import com.dd.Console;
 import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
@@ -19,5 +20,6 @@ public class SaveCommand extends CommandHandler {
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(DandD.getActiveGameState()));
 		toGsonFile.close();
+		Console.updateScreen(player().getName() + "has saved the Game.");
     }
 }
