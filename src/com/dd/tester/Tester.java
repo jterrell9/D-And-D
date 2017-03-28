@@ -61,6 +61,7 @@ public class Tester {
 				System.out.println("\n!e:Invalid entry, please try again.\n");
 				mainMenu();
 			}
+			System.out.println();
 			Console.updateScreen(Console.activeRoom().examineString());
 			System.out.println();
 		}catch(InputMismatchException ime){
