@@ -15,41 +15,23 @@ public class Console {
 	private static String command = new String();
 	private static String[] arguments = {"~!", null};
 	
-	public static void cmdLoop() throws FileNotFoundException {
-		while(true){
-			CommandParser parser = new CommandParser();
-			promptAndParse();
-			try {
-				parser.parseCommand(getCommand(), getArguments());
-			}
-			catch(CommandHandlerException e) {
-				e.printStackTrace();
-			}
-			catch(IllegalArgumentException IAE){
-				System.out.println("The command \""
-						+ command
-						+ "\" is invalid.");
-			}
-		}
-	}
-	
-	public static void promptAndParse(){
-		printLnTitle('~', "CONSOLE INPUT", 40);
-		Scanner user = new Scanner(System.in);
-		System.out.print(activePlayer().getName() + ">> ");
-		String userInput = user.nextLine();
+	public static void parse(String userInput) throws FileNotFoundException {
+		CommandParser parser = new CommandParser();
 		String[] input = userInput.split(" ");
 		setCommand(input[0].toLowerCase());
 		if(input.length > 1) {
 			setArguments(userInput.substring(command.length() + 1), null);
 		}
-	}
-	
-	public static void parse(String userInput) {
-		String[] input = userInput.split(" ");
-		setCommand(input[0].toLowerCase());
-		if(input.length > 1) {
-			setArguments(userInput.substring(command.length() + 1), null);
+		try {
+			parser.parseCommand(getCommand(), getArguments());
+		}
+		catch(CommandHandlerException e) {
+			e.printStackTrace();
+		}
+		catch(IllegalArgumentException IAE){
+			System.out.println("The command \""
+					+ command
+					+ "\" is invalid.");
 		}
 	}
 	

@@ -21,7 +21,21 @@ public class Tester {
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
-		Console.cmdLoop();
+		cmdLoop();
+	}
+	
+	public static void cmdLoop() throws FileNotFoundException {
+		while(true){
+			prompt();
+		}
+	}
+	
+	public static void prompt() throws FileNotFoundException{
+		Console.printLnTitle('~', "CONSOLE INPUT", 40);
+		Scanner user = new Scanner(System.in);
+		System.out.print(Console.activePlayer().getName() + ">> ");
+		String userInput = user.nextLine();
+		Console.parse(userInput);
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
