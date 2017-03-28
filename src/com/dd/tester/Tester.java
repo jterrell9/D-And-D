@@ -27,17 +27,8 @@ public class Tester {
 	
 	public static void cmdLoop() throws FileNotFoundException, CommandHandlerException {
 		while(true){
-			prompt();
+			Console.prompt();
 		}
-	}
-	
-	public static void prompt() throws FileNotFoundException, CommandHandlerException{
-		Console.printLnTitle('~', "CONSOLE INPUT", 40);
-		Scanner user = new Scanner(System.in);
-		System.out.print(Console.activePlayer().getName() + ">> ");
-		String userInput = user.nextLine();
-		CommandParser parser = new CommandParser();
-		parser.parse(userInput);
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
