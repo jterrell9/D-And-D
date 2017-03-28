@@ -9,8 +9,8 @@ import java.util.List;
 public class GameState {
     protected String name;
 	protected Player activePlayer;
-	protected transient int maxNumPlayers;
-    protected transient List<Player> allActivePlayers = new ArrayList<Player>();
+	protected int maxNumPlayers;
+    protected List<Player> allActivePlayers = new ArrayList<Player>();
 	protected DungeonMap map;
 	
 	public GameState(String name, Player activePlayer, DungeonMap map, int maxNumPlayers) {

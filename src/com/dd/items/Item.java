@@ -2,7 +2,7 @@ package com.dd.items;
 
 import com.dd.Stats;
 
-public abstract class Item {
+public class Item {
 	
 	protected String name;
 	protected Stats StatModifyer;
@@ -12,7 +12,7 @@ public abstract class Item {
 	}
 	
 	public Item() {
-		setName("item");
+		setName("blank item");
 	}
 	
 	public String getName() {
