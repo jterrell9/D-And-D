@@ -5,9 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.dd.Console;
 import com.dd.DandD;
 import com.dd.GameState;
+import com.dd.command_util.CommandHandler.CommandHandlerException;
+import com.dd.command_util.CommandParser;
 import com.dd.entities.Player;
 import com.dd.entities.monsters.*;
 import com.dd.levels.DungeonMap;
@@ -18,24 +19,25 @@ import com.dd.items.*;
 
 public class Tester {
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, CommandHandlerException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
 		cmdLoop();
 	}
 	
-	public static void cmdLoop() throws FileNotFoundException {
+	public static void cmdLoop() throws FileNotFoundException, CommandHandlerException {
 		while(true){
 			prompt();
 		}
 	}
 	
-	public static void prompt() throws FileNotFoundException{
+	public static void prompt() throws FileNotFoundException, CommandHandlerException{
 		Console.printLnTitle('~', "CONSOLE INPUT", 40);
 		Scanner user = new Scanner(System.in);
 		System.out.print(Console.activePlayer().getName() + ">> ");
 		String userInput = user.nextLine();
-		Console.parse(userInput);
+		CommandParser parser = new CommandParser();
+		parser.parse(userInput);
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{

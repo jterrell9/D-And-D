@@ -1,16 +1,16 @@
 package com.dd.command_util.command;
 
-import com.dd.Console;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.entities.Monster;
 import com.dd.items.Item;
+import com.dd.tester.Console;
 
 public class ExamineCommand extends CommandHandler {
     public ExamineCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog) {
+    public void handleCommand(String[] args) {
     	switch(args[0]) {
     	case "room":
 			output.append(currRoom().examineString());

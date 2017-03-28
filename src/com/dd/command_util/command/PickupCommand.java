@@ -7,7 +7,7 @@ public class PickupCommand extends CommandHandler {
     public PickupCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String[] args){
 
     }
 }
