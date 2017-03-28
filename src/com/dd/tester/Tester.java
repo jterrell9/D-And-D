@@ -1,5 +1,6 @@
 package com.dd.tester;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,16 +13,29 @@ import com.dd.entities.monsters.*;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
+import com.google.gson.Gson;
 import com.dd.items.*;
 
 public class Tester {
 	
-	public static void go() throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
-		Console.updateScreen(Console.activeRoom().examineString());
-		System.out.println();
-		Console.cmdLoop();
+		cmdLoop();
+	}
+	
+	public static void cmdLoop() throws FileNotFoundException {
+		while(true){
+			prompt();
+		}
+	}
+	
+	public static void prompt() throws FileNotFoundException{
+		Console.printLnTitle('~', "CONSOLE INPUT", 40);
+		Scanner user = new Scanner(System.in);
+		System.out.print(Console.activePlayer().getName() + ">> ");
+		String userInput = user.nextLine();
+		Console.parse(userInput);
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
@@ -49,9 +63,9 @@ public class Tester {
 				Scanner scanName = new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name = scanName.nextLine();
-				//logic goes here to deserialize using GSON
-				//game.setMap(loadMap(name));
-				//game.addActivePlayer(loadPlayer(name));
+				GameState loadedGame = loadGame(name);
+				DandD.registerGameState(loadedGame);
+				DandD.setActiveGameState(loadedGame);
 			}
 			else if(selection == 3){		//quit
 				System.out.println("\nThank you for playing! GoodBye!\n");
@@ -61,10 +75,29 @@ public class Tester {
 				System.out.println("\n!e:Invalid entry, please try again.\n");
 				mainMenu();
 			}
+			System.out.println();
+			Console.updateScreen(Console.activeRoom().examineString());
+			System.out.println();
 		}catch(InputMismatchException ime){
 			System.out.println("\n!e:Invalid entry, please try again.\n");
 			mainMenu();
 		}
+	}
+	
+	public static GameState loadGame(String name) throws FileNotFoundException{
+		File gameFile = new File(name+".json");
+		if(gameFile.exists()){
+			Scanner scanJsonFile = new Scanner(gameFile);
+			if(scanJsonFile.hasNextLine()){
+				String JsonString = scanJsonFile.nextLine();
+				return new Gson().fromJson(JsonString, GameState.class);
+			}else{
+				System.out.println("ERROR Json file is empty!");
+				return null;
+			}
+		}
+		System.out.println("ERROR file does not exit");
+		return null;
 	}
 	
 	public static void populate5x5(){

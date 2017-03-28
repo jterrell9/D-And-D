@@ -6,4 +6,8 @@ public class Artifact extends Item {
 		super(name);
 		super.setStatChange(healthGain, maxHealthGain, attackGain, defenseGain);
 	}
+	
+	public Artifact() {
+		super();
+	}
 }

@@ -5,6 +5,10 @@ public class TwoHandedWeapon extends Weapon {
         super(name, attackGain);
     }
     
+    public TwoHandedWeapon() {
+		super();
+	}
+    
     @Override
     public String typeToString() {
 		return "Two Handed Weapon";

@@ -2,13 +2,17 @@ package com.dd.items;
 
 import com.dd.Stats;
 
-public abstract class Item {
+public class Item {
 	
 	protected String name;
 	protected Stats StatModifyer;
 	
 	public Item(String name) {
-		this.name=name;
+		setName(name);
+	}
+	
+	public Item() {
+		setName("blank item");
 	}
 	
 	public String getName() {

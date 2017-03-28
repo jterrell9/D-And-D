@@ -6,4 +6,8 @@ public class Suit extends Item {
 		super(name);
 		super.setStatChange(0, 0, 0, defenseGain);
 	}
+	
+	public Suit() {
+		super();
+	}
 }
