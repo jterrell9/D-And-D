@@ -31,6 +31,10 @@ public class CommandParser {
 		registerCommand("save", new SaveCommand());
     }
     
+    public CommandParser(CommandOutputLog outputLog) {
+        this.outputLog = outputLog;
+    }
+    
     public void parse(String userInput) throws FileNotFoundException, CommandHandlerException {
 		CommandParser parser = new CommandParser();
 		String[] input = userInput.split(" ");
@@ -51,10 +55,6 @@ public class CommandParser {
             throw e;
         }
 	}
-
-    public CommandParser(CommandOutputLog outputLog) {
-        this.outputLog = outputLog;
-    }
 
     public void registerCommand(String commandName, CommandHandler commandHandler) {
         if(commandMap.containsKey(commandName))

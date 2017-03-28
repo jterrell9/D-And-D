@@ -43,7 +43,8 @@ public class Tester {
 			Scanner scanInt = new Scanner(System.in);
 			int selection = scanInt.nextInt();
 			String name;
-			if(selection == 1){		//new game
+			//NEW GAME
+			if(selection == 1) {
 				Scanner scanName = new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name=scanName.next();
@@ -52,7 +53,8 @@ public class Tester {
 				DandD.setActiveGameState(game);
 				populate5x5();
 			}
-			else if(selection == 2){		//load game *NOT FUNCTIONING
+			//LOAD GAME
+			else if(selection == 2) { 
 				Scanner scanName = new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name = scanName.nextLine();
@@ -60,6 +62,7 @@ public class Tester {
 				DandD.registerGameState(loadedGame);
 				DandD.setActiveGameState(loadedGame);
 			}
+			//QUIT APPLICATION
 			else if(selection == 3){		//quit
 				System.out.println("\nThank you for playing! GoodBye!\n");
 				System.exit(0);
@@ -70,7 +73,6 @@ public class Tester {
 			}
 			System.out.println();
 			Console.updateScreen(Console.activeRoom().examineString());
-			System.out.println();
 		}catch(InputMismatchException ime){
 			System.out.println("\n!e:Invalid entry, please try again.\n");
 			mainMenu();
