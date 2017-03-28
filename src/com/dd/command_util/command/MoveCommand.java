@@ -1,15 +1,15 @@
 package com.dd.command_util.command;
 
-import com.dd.Console;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.levels.Direction;
+import com.dd.tester.Console;
 
 public class MoveCommand extends CommandHandler {
     public MoveCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog) {
+    public void handleCommand(String[] args) {
     	switch(args[0]) {
     	case "north": 
 			if(map().isRoomInDir(playerPos(), Direction.NORTH)){

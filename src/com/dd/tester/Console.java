@@ -1,9 +1,10 @@
-package com.dd;
+package com.dd.tester;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import com.dd.command_util.CommandHandler.CommandHandlerException;
+import com.dd.DandD;
 import com.dd.command_util.CommandParser;
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
@@ -12,27 +13,13 @@ import com.dd.levels.Room;
 
 public class Console {
 	
-	private static String command = new String();
-	private static String[] arguments = {"~!", null};
-	
-	public static void parse(String userInput) throws FileNotFoundException {
+	public static void prompt() throws FileNotFoundException, CommandHandlerException{
+		Console.printLnTitle('~', "CONSOLE INPUT", 40);
+		Scanner user = new Scanner(System.in);
+		System.out.print(Console.activePlayer().getName() + ">> ");
+		String userInput = user.nextLine();
 		CommandParser parser = new CommandParser();
-		String[] input = userInput.split(" ");
-		setCommand(input[0].toLowerCase());
-		if(input.length > 1) {
-			setArguments(userInput.substring(command.length() + 1), null);
-		}
-		try {
-			parser.parseCommand(getCommand(), getArguments());
-		}
-		catch(CommandHandlerException e) {
-			e.printStackTrace();
-		}
-		catch(IllegalArgumentException IAE){
-			System.out.println("The command \""
-					+ command
-					+ "\" is invalid.");
-		}
+		parser.parse(userInput);
 	}
 	
 	public static void updateScreen(String logOutput) {
@@ -41,24 +28,6 @@ public class Console {
 		Console.printLnTitle('~', "LOG", 40);
     	System.out.println(logOutput);
     }
-	
-	public static void setCommand(String cmd) {
-		command = cmd;
-	}
-	
-	public static String getCommand() {
-		return command;
-	}
-	
-	public static void setArguments(String arg1, String arg2) {
-		arguments[0] = arg1;
-		arguments[1] = arg2;
-		
-	}
-	
-	public static String[] getArguments() {
-		return arguments;
-	}
 	
 	public static Player activePlayer(){
 		return DandD.getActiveGameState().getActivePlayer();

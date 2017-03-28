@@ -2,7 +2,7 @@ package com.dd.entities;
 
 import com.dd.Stats;
 
-public class Entity {
+public abstract class Entity {
 
 	protected String name;
 	protected Stats stats;

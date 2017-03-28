@@ -10,7 +10,7 @@ public class MenuCommand extends CommandHandler {
     public MenuCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog) throws FileNotFoundException{
+    public void handleCommand(String[] args) throws FileNotFoundException{
     	Tester.mainMenu();
     }
 }

@@ -7,7 +7,7 @@ public class DropCommand extends CommandHandler {
     public DropCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String[] args){
 
     }
 }

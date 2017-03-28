@@ -5,9 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.dd.Console;
 import com.dd.DandD;
 import com.dd.GameState;
+import com.dd.command_util.CommandHandler.CommandHandlerException;
+import com.dd.command_util.CommandParser;
 import com.dd.entities.Player;
 import com.dd.entities.monsters.*;
 import com.dd.levels.DungeonMap;
@@ -18,24 +19,16 @@ import com.dd.items.*;
 
 public class Tester {
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, CommandHandlerException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
 		cmdLoop();
 	}
 	
-	public static void cmdLoop() throws FileNotFoundException {
+	public static void cmdLoop() throws FileNotFoundException, CommandHandlerException {
 		while(true){
-			prompt();
+			Console.prompt();
 		}
-	}
-	
-	public static void prompt() throws FileNotFoundException{
-		Console.printLnTitle('~', "CONSOLE INPUT", 40);
-		Scanner user = new Scanner(System.in);
-		System.out.print(Console.activePlayer().getName() + ">> ");
-		String userInput = user.nextLine();
-		Console.parse(userInput);
 	}
 	
 	public static void mainMenu() throws FileNotFoundException{
@@ -50,7 +43,8 @@ public class Tester {
 			Scanner scanInt = new Scanner(System.in);
 			int selection = scanInt.nextInt();
 			String name;
-			if(selection == 1){		//new game
+			//NEW GAME
+			if(selection == 1) {
 				Scanner scanName = new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name=scanName.next();
@@ -59,7 +53,8 @@ public class Tester {
 				DandD.setActiveGameState(game);
 				populate5x5();
 			}
-			else if(selection == 2){		//load game *NOT FUNCTIONING
+			//LOAD GAME
+			else if(selection == 2) { 
 				Scanner scanName = new Scanner(System.in);
 				System.out.print("Enter Player's Name: ");
 				name = scanName.nextLine();
@@ -67,6 +62,7 @@ public class Tester {
 				DandD.registerGameState(loadedGame);
 				DandD.setActiveGameState(loadedGame);
 			}
+			//QUIT APPLICATION
 			else if(selection == 3){		//quit
 				System.out.println("\nThank you for playing! GoodBye!\n");
 				System.exit(0);
@@ -77,7 +73,6 @@ public class Tester {
 			}
 			System.out.println();
 			Console.updateScreen(Console.activeRoom().examineString());
-			System.out.println();
 		}catch(InputMismatchException ime){
 			System.out.println("\n!e:Invalid entry, please try again.\n");
 			mainMenu();

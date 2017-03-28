@@ -7,7 +7,7 @@ public class AttackCommand extends CommandHandler {
     public AttackCommand(){}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String[] args){
 
     }
 }

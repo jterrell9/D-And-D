@@ -7,7 +7,7 @@ public class EquipCommand extends CommandHandler {
     public EquipCommand() {}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String[] args){
 
     }
 }
