@@ -21,8 +21,6 @@ public class Tester {
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("\nWelcome to Dungeons and D & D!");
 		mainMenu();
-		Console.updateScreen(Console.activeRoom().examineString());
-		System.out.println();
 		Console.cmdLoop();
 	}
 	
@@ -63,6 +61,8 @@ public class Tester {
 				System.out.println("\n!e:Invalid entry, please try again.\n");
 				mainMenu();
 			}
+			Console.updateScreen(Console.activeRoom().examineString());
+			System.out.println();
 		}catch(InputMismatchException ime){
 			System.out.println("\n!e:Invalid entry, please try again.\n");
 			mainMenu();

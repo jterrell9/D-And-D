@@ -20,6 +20,6 @@ public class SaveCommand extends CommandHandler {
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(DandD.getActiveGameState()));
 		toGsonFile.close();
-		Console.updateScreen(player().getName() + "has saved the Game.");
+		Console.updateScreen(player().getName() + " has saved the Game.");
     }
 }

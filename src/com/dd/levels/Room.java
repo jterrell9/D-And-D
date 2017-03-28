@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Room {
-	private Map<String, Item> itemMap;
+	private transient Map<String, Item> itemMap;
 	private Map<String, Monster> monsterMap;
 	
 	public Room() {
