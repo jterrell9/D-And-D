@@ -8,7 +8,11 @@ public abstract class Item {
 	protected Stats StatModifyer;
 	
 	public Item(String name) {
-		this.name=name;
+		setName(name);
+	}
+	
+	public Item() {
+		setName("item");
 	}
 	
 	public String getName() {

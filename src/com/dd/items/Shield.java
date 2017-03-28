@@ -6,4 +6,8 @@ public class Shield extends Item {
 		super(name);
 		super.setStatChange(0, 0, 0, defenseGain);
 	}
+	
+	public Shield() {
+		super();
+	}
 }
