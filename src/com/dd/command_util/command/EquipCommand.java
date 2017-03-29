@@ -5,6 +5,7 @@ import com.dd.command_util.CommandOutputLog;
 import com.dd.entities.Player.EquipmentException;
 import com.dd.entities.Player.InventoryException;
 import com.dd.items.*;
+import com.dd.levels.Room.UnknownItemException;
 import com.dd.tester.Console;
 
 public class EquipCommand extends CommandHandler {
@@ -16,6 +17,8 @@ public class EquipCommand extends CommandHandler {
     	if(item != null){
     		try{
     			player().equip(item);
+    			//need to build removeItem(Item item) method in Room class!
+    			//currRoom().removeItem(item);
     			output.append(player().getName() + " has equipped " + item.getName());
     		}
     		catch(EquipmentException ee) {
