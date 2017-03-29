@@ -1,8 +1,7 @@
 package com.dd.entities;
 
 import com.dd.Stats;
-import com.dd.items.Item;
-import com.dd.items.Potion;
+import com.dd.items.*;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.dd_util.ConflictHandlingMap;
@@ -99,6 +98,62 @@ public class Player extends Entity {
 											+ name
 											+ "\". Item discard failed.");
 		}
+	}
+	
+	public void equip(Item item) throws InventoryException, EquipmentException {
+		if(item instanceof Artifact) {
+			addtoInventory(item);
+		}
+		else if(item instanceof OneHandedWeapon) {
+			if(leftHand == null) {
+				leftHand = (OneHandedWeapon)item;
+			}
+			else if(rightHand == null) {
+				rightHand = (OneHandedWeapon)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because both of " 
+						+ getName() + "'s hands are full.");
+			}
+		}
+		else if(item instanceof Shield){
+			if(leftHand == null) {
+				leftHand = (Shield)item;
+			}
+			else if(rightHand == null) {
+				rightHand = (Shield)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because both of " 
+						+ getName() + "'s hands are full.");
+			}
+		}
+		else if(item instanceof Suit){
+			if(suit == null) {
+				suit = (Suit)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because " 
+						+ getName() + " is already wearing a suit.");
+			}
+		}
+		else if(item instanceof TwoHandedWeapon) {
+			if(leftHand == null && rightHand == null) {
+				leftHand = rightHand = (TwoHandedWeapon)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because both of " 
+						+ getName() + "'s hands need to be empty.");
+			}
+		}
+		else if(item instanceof Potion) {
+			
+		}
+		stats.changeStat(item.getStatChange());
 	}
 
 	public void equip(Item item, Equip bodyArea) throws EquipmentException {
@@ -304,17 +359,17 @@ public class Player extends Entity {
 	public String equipToString() {
 		StringBuilder lh=new StringBuilder();
 		if(leftHand!=null)
-			lh.append(leftHand.toString());
+			lh.append(leftHand.examineToString());
 		else
 			lh.append("empty");
 		StringBuilder rh=new StringBuilder();
 		if(rightHand!=null)
-			rh.append(rightHand.toString());
+			rh.append(rightHand.examineToString());
 		else
 			rh.append("empty");
 		StringBuilder s=new StringBuilder();
 		if(suit!=null)
-			s.append(suit.toString());
+			s.append(suit.examineToString());
 		else
 			s.append("empty");
 		return "\tLeft Hand:\t"+lh.toString()+
