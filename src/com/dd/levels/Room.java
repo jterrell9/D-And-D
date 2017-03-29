@@ -74,6 +74,16 @@ public class Room {
 		itemMap.remove(itemName);
 		return retItem;
 	}
+	
+	public boolean removeItem(Item item) {
+		if(getItemList().contains(item)){
+			getItemList().remove(item);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	public void discardItem(String itemName) throws UnknownItemException {
 		if(itemMap.remove(itemName) != null){
