@@ -2,12 +2,7 @@ package com.dd.command_util;
 
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandHandler.CommandHandlerException;
-import com.dd.command_util.command.ExamineCommand;
-import com.dd.command_util.command.HelpCommand;
-import com.dd.command_util.command.MenuCommand;
-import com.dd.command_util.command.MoveCommand;
-import com.dd.command_util.command.QuitCommand;
-import com.dd.command_util.command.SaveCommand;
+import com.dd.command_util.command.*;
 
 import javafx.scene.control.TextInputControl;
 
@@ -29,6 +24,7 @@ public class CommandParser {
 		registerCommand("move", new MoveCommand());
 		registerCommand("examine", new ExamineCommand());
 		registerCommand("save", new SaveCommand());
+		registerCommand("equip", new EquipCommand());
     }
     
     public CommandParser(CommandOutputLog outputLog) {
