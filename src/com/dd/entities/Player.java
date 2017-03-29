@@ -359,17 +359,17 @@ public class Player extends Entity {
 	public String equipToString() {
 		StringBuilder lh=new StringBuilder();
 		if(leftHand!=null)
-			lh.append(leftHand.examineToString());
+			lh.append(leftHand.getName() + " " + leftHand.examineToString());
 		else
 			lh.append("empty");
 		StringBuilder rh=new StringBuilder();
 		if(rightHand!=null)
-			rh.append(rightHand.examineToString());
+			rh.append(rightHand.getName() + " " + rightHand.examineToString());
 		else
 			rh.append("empty");
 		StringBuilder s=new StringBuilder();
 		if(suit!=null)
-			s.append(suit.examineToString());
+			s.append(suit.getName() + " " + suit.examineToString());
 		else
 			s.append("empty");
 		return "\tLeft Hand:\t"+lh.toString()+
