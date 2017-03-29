@@ -18,7 +18,7 @@ public class EquipCommand extends CommandHandler {
     		try{
     			player().equip(item);
     			currRoom().removeItem(item);
-    			output.append(player().getName() + " has equipped " + item.getName());
+    			output.append(player().getName() + " has equipped " + item.getName() + "\n");
     		}
     		catch(EquipmentException ee) {
     			output.append(ee.toString());
@@ -28,8 +28,9 @@ public class EquipCommand extends CommandHandler {
     		}
     	}
     	else {
-    		output.append("The item \"" + args[0] + "\" is not in this room.");
+    		output.append("The item \"" + args[0] + "\" is not in this room.\n");
     	}
+    	output.append(currRoom().examineString());
     	Console.updateScreen(output.toString());
     }
 }
