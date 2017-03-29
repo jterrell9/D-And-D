@@ -151,6 +151,13 @@ public class Player extends Entity {
 			}
 		}
 		else if(item instanceof Potion) {
+			throw new EquipmentException(item.getName()
+					+ " could not be equipped because "
+					+ item.getName() + "is a Potion");
+		}
+		else {
+			throw new EquipmentException(item.getName()
+					+ " is of an unknown type");
 			
 		}
 		stats.changeStat(item.getStatChange());
