@@ -1,9 +1,14 @@
 package com.dd;
 
 import com.dd.GameState;
+import com.dd.entities.Player;
 import com.dd.gamescene_util.GameScene;
 import com.dd.gamescene_util.gamescene.*;
+import com.dd.levels.DungeonMap;
 import com.dd.tester.Tester;
+import com.google.gson.Gson;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.IllegalArgumentException;
@@ -11,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -89,6 +96,39 @@ public class DandD extends Application {
         primaryStage.show();
         */
     }
+    
+    public static void newGame() {
+		Scanner scanName = new Scanner(System.in);
+		System.out.print("Enter Player's Name: ");
+		String name=scanName.next();
+		GameState game = new GameState(name, new Player(name), new DungeonMap(5,5));
+		registerGameState(game);
+		setActiveGameState(game);
+		Tester.populate5x5();
+	}
+    
+    public static void loadGame() throws FileNotFoundException {
+    	Scanner scanName = new Scanner(System.in);
+		System.out.print("Enter Player's Name: ");
+		String name = scanName.nextLine();
+		File gameFile = new File(name+".json");
+		if(gameFile.exists()){
+			Scanner scanJsonFile = new Scanner(gameFile);
+			if(scanJsonFile.hasNextLine()){
+				String JsonString = scanJsonFile.nextLine();
+				GameState loadedGame = new Gson().fromJson(JsonString, GameState.class);
+				registerGameState(loadedGame);
+				setActiveGameState(loadedGame);
+			}else{
+				System.out.println("ERROR Json file is empty!");
+				return;
+			}
+		}
+		else {
+			System.out.println("ERROR file does not exit");
+			return;
+		}
+    }
 
     private static void addGameScene(String name, GameScene gameScene) {
         if(gameSceneMap.containsKey(name))
@@ -126,11 +166,5 @@ public class DandD extends Application {
 
     public static List<GameState> getGameStateList() {
         return gameStateList;
-    }
-
-    public static void saveGame() {
-    }
-
-    public static void loadSavedGames() {
     }
 }

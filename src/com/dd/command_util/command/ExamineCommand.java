@@ -65,7 +65,7 @@ public class ExamineCommand extends CommandHandler {
 			}
 			else{
 				output.append("The argument \"" + args[0] + "\" is invalid.\n"
-        			+ "Type \"help\" for help using the examine command.");
+        			+ "Type \"help\" for help using the examine command.\n");
 			}
 			break;
     	}

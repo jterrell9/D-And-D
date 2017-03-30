@@ -42,25 +42,13 @@ public class Tester {
 		try{
 			Scanner scanInt = new Scanner(System.in);
 			int selection = scanInt.nextInt();
-			String name;
 			//NEW GAME
 			if(selection == 1) {
-				Scanner scanName = new Scanner(System.in);
-				System.out.print("Enter Player's Name: ");
-				name=scanName.next();
-				GameState game = new GameState(name, new Player(name), new DungeonMap(5,5));
-				DandD.registerGameState(game);
-				DandD.setActiveGameState(game);
-				populate5x5();
+				DandD.newGame();
 			}
 			//LOAD GAME
 			else if(selection == 2) { 
-				Scanner scanName = new Scanner(System.in);
-				System.out.print("Enter Player's Name: ");
-				name = scanName.nextLine();
-				GameState loadedGame = loadGame(name);
-				DandD.registerGameState(loadedGame);
-				DandD.setActiveGameState(loadedGame);
+				DandD.loadGame();
 			}
 			//QUIT APPLICATION
 			else if(selection == 3){		//quit
@@ -77,22 +65,6 @@ public class Tester {
 			System.out.println("\n!e:Invalid entry, please try again.\n");
 			mainMenu();
 		}
-	}
-	
-	public static GameState loadGame(String name) throws FileNotFoundException{
-		File gameFile = new File(name+".json");
-		if(gameFile.exists()){
-			Scanner scanJsonFile = new Scanner(gameFile);
-			if(scanJsonFile.hasNextLine()){
-				String JsonString = scanJsonFile.nextLine();
-				return new Gson().fromJson(JsonString, GameState.class);
-			}else{
-				System.out.println("ERROR Json file is empty!");
-				return null;
-			}
-		}
-		System.out.println("ERROR file does not exit");
-		return null;
 	}
 	
 	public static void populate5x5(){
