@@ -63,6 +63,9 @@ public class CommandParser {
 	            handler.output.append(IAE.toString());
 	        }
 		}
+		else {
+			log = "Please enter a command.\n";
+		}
 	}
     
     public void initCommands() {
