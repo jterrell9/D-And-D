@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+//This class holds the main method, which runs the start() method used for launching the
+//javaFX stage with the menu scene.
 public class DandD extends Application {
     private static Stage stage;
     private static List<GameState> gameStateList = new ArrayList<GameState>();
@@ -97,20 +99,16 @@ public class DandD extends Application {
         */
     }
     
-    public static void newGame() {
-		Scanner scanName = new Scanner(System.in);
-		System.out.print("Enter Player's Name: ");
-		String name=scanName.next();
+    //Stub method for creating a new game.  In actual method we will use seed number to
+    //procedurally generate a map.
+    public static void newGame(String name) {
 		GameState game = new GameState(name, new Player(name), new DungeonMap(5,5));
 		registerGameState(game);
 		setActiveGameState(game);
 		Tester.populate5x5();
 	}
     
-    public static void loadGame() throws FileNotFoundException {
-    	Scanner scanName = new Scanner(System.in);
-		System.out.print("Enter Player's Name: ");
-		String name = scanName.nextLine();
+    public static void loadGame(String name) throws FileNotFoundException {
 		File gameFile = new File(name+".json");
 		if(gameFile.exists()){
 			Scanner scanJsonFile = new Scanner(gameFile);
