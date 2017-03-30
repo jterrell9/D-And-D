@@ -36,4 +36,8 @@ public abstract class CommandHandler {
 	public static Room currRoom(){
 		return map().getRoom(playerPos());
 	}
+	
+	public String getLog(){
+		return output.toString();
+	}
 }
