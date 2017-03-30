@@ -13,26 +13,24 @@ public class DropCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String[] args){
-    	Item item = currRoom().getItem(args[0]);
-    	if(item != null){
-    		switch(args[0]) {
-    		case "lefthand" :
-    		case "left hand" :
-    			try{
-        			player().discardEquipment(Equip.LEFTHAND);
-        			currRoom().addItem(item);
-        			output.append(player().getName() + " has equipped " + item.getName() + "\n");
-        		}
-        		catch(EquipmentException ee) {
-        			output.append(ee.toString());
-        		}
-    			break;
-    		}
+    	switch(args[0]) {
+    	case "lefthand" :
+    	case "left hand" :
+    		try{
+    			currRoom().addItem(player().getLeftHand());
+       			player().discardEquipment(Equip.LEFTHAND);
+       			output.append(player().getName() + " has dropped their left hand\n");
+       		}
+       		catch(EquipmentException ee) {
+       			output.append(ee.toString());
+       		}
+    		break;
+    		
+    	default:
+    		output.append("The body area \"" + args[0] + "\" is not a valid entry.\n"
+    				+ "Type \"help\" for help using the examine command.");
     	}
-    	else {
-    		output.append("The item \"" + args[0] + "\" is not in this room.\n");
-    	}
-    	output.append(currRoom().examineString());
-    	Console.updateScreen(output.toString());
+   	output.append(currRoom().examineString());
+   	Console.updateScreen(output.toString());
     }
 }
