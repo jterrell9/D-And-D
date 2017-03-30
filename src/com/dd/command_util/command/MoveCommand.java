@@ -54,14 +54,14 @@ public class MoveCommand extends CommandHandler {
 			
 	    	default:
 	    		output.append("The argument \"" + args[0] + "\" is invalid.\n"
-	       			+ "Type \"move\" followed by north, south, east, or west\n");
+	    				+ "Type \"help\" for help using the move command.");
 				return;	
 			}
 	    	output.append(currRoom().examineString() + "\n");
 	    	Console.updateScreen(output.toString());
     	}
     	else {
-    		output.append("Type \"move\" followed by north, south, east, or west\n");
+    		output.append("Type \"help\" for help using the move command.");
 	    	Console.updateScreen(output.toString());
     	}
     }
