@@ -44,11 +44,17 @@ public class Tester {
 			int selection = scanInt.nextInt();
 			//NEW GAME
 			if(selection == 1) {
-				DandD.newGame();
+				Scanner scanName = new Scanner(System.in);
+				System.out.print("Enter Player's Name: ");
+				String name = scanName.next();
+				DandD.newGame(name);
 			}
 			//LOAD GAME
 			else if(selection == 2) { 
-				DandD.loadGame();
+				Scanner scanName = new Scanner(System.in);
+				System.out.print("Enter Player's Name: ");
+				String name = scanName.nextLine();
+				DandD.loadGame(name);
 			}
 			//QUIT APPLICATION
 			else if(selection == 3){		//quit
