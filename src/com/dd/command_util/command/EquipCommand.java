@@ -21,12 +21,12 @@ public class EquipCommand extends CommandHandler {
     			output.append(player().getName() + " has equipped " + item.getName() + "\n");
     		}
     		catch(EquipmentException ee) {
-    			output.append(ee.toString());
+    			output.append(ee.toString() + "\n");
     		}
     		catch(InventoryException ie) {
-    			output.append(ie.toString());
+    			output.append(ie.toString() + "\n");
     		} catch (UnknownItemException UIE) {
-				output.append(UIE.toString());
+				output.append(UIE.toString() + "\n");
 			}
     	}
     	else {

@@ -22,13 +22,13 @@ public class DropCommand extends CommandHandler {
        			output.append(player().getName() + " has dropped their left hand\n");
        		}
        		catch(EquipmentException ee) {
-       			output.append(ee.toString());
+       			output.append(ee.toString() + "\n");
        		}
     		break;
     		
     	default:
     		output.append("The body area \"" + args[0] + "\" is not a valid entry.\n"
-    				+ "Type \"help\" for help using the examine command.");
+    				+ "Type \"help\" for help using the examine command.\n");
     	}
    	output.append(currRoom().examineString());
    	Console.updateScreen(output.toString());
