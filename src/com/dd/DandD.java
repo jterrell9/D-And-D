@@ -167,10 +167,4 @@ public class DandD extends Application {
     public static List<GameState> getGameStateList() {
         return gameStateList;
     }
-
-    public static void saveGame() {
-    }
-
-    public static void loadSavedGames() {
-    }
 }
