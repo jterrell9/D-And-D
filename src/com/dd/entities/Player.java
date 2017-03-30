@@ -391,6 +391,30 @@ public class Player extends Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public Item getSuit() {
+		return suit;
+	}
+
+	public void setSuit(Item suit) {
+		this.suit = suit;
+	}
+
+	public Item getLeftHand() {
+		return leftHand;
+	}
+
+	public void setLeftHand(Item leftHand) {
+		this.leftHand = leftHand;
+	}
+
+	public Item getRightHand() {
+		return rightHand;
+	}
+
+	public void setRightHand(Item rightHand) {
+		this.rightHand = rightHand;
+	}
 
 	public String inventoryToString() {
 		StringBuilder sb = new StringBuilder("\tInventory:\n");
