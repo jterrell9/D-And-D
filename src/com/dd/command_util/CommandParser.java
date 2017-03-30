@@ -17,6 +17,7 @@ public class CommandParser {
     private CommandOutputLog outputLog;
     private String command = new String();
 	private String[] arguments = {null, null};
+	String log;
 
     public CommandParser(){
     	registerCommand("menu", new MenuCommand());
@@ -53,6 +54,7 @@ public class CommandParser {
 			}
 	        try{
 	            handler.handleCommand(arguments);
+	            log = handler.getLog();
 	        }
 	        catch(CommandHandler.CommandHandlerException E){
 	            handler.output.append(E.toString());
@@ -98,5 +100,9 @@ public class CommandParser {
 
     public void setOutputLog(CommandOutputLog outputLog){
         this.outputLog = outputLog;
+    }
+    
+    public String getLog(){
+    	return log;
     }
 }
