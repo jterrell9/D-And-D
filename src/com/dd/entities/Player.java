@@ -163,60 +163,6 @@ public class Player extends Entity {
 		stats.changeStat(item.getStatChange());
 	}
 
-	public void equip(Item item, Equip bodyArea) throws EquipmentException {
-		String errorTrailer = "";
-		boolean hadError = false;
-		switch(bodyArea){
-			case LEFTHAND:
-				if(leftHand != null){
-					hadError = true;
-					errorTrailer = "the left hand is full.";
-				}
-				else{
-					leftHand = item;
-				}
-				break;
-			case RIGHTHAND:
-				if(rightHand != null){
-					hadError = true;
-					errorTrailer = "the right hand is full.";
-				}
-				else{
-					rightHand = item;
-				}
-				break;
-			case HANDS:
-				if(leftHand != null || rightHand != null){
-					hadError = true;
-					errorTrailer = "one or both hands are full.";
-				}
-				else{
-					leftHand = rightHand = item;
-				}
-				break;
-			case SUIT:
-				if(suit != null){
-					hadError = true;
-					errorTrailer = "armor is already being worn.";
-				}
-				else{
-					suit = item;
-				}
-				break;
-			default:
-				hadError = true;
-				errorTrailer = "no body area was specified.";
-		}
-		if(hadError){
-			throw new EquipmentException("The item \""
-											+ item.getName()
-											+ "\" was not equipped to the player \""
-											+ name
-											+ "\" because "
-											+ errorTrailer);
-		}
-	}
-
 	public Item removeEquipment(Equip bodyArea) throws EquipmentException {
 		Item retItem = null;
 		String errorTrailer = "";
