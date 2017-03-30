@@ -17,8 +17,7 @@ public class EquipCommand extends CommandHandler {
     	if(item != null){
     		try{
     			player().equip(item);
-    			currRoom().removeItem(item.getName());
-    			
+    			currRoom().removeItem(item.getName()); 
     			output.append(player().getName() + " has equipped " + item.getName() + "\n");
     		}
     		catch(EquipmentException ee) {
