@@ -3,7 +3,6 @@ package com.dd.command_util;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.command.*;
-import com.dd.tester.Console;
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.util.Arrays;
