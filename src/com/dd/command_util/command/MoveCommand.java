@@ -1,68 +1,83 @@
 package com.dd.command_util.command;
 
+import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
+import com.dd.entities.Player;
+import com.dd.items.Potion;
 import com.dd.levels.Direction;
-import com.dd.tester.Console;
+import com.dd.levels.DungeonMap;
+import com.dd.levels.MapPosition;
 
 public class MoveCommand extends CommandHandler {
-    public MoveCommand() {}
+	private Player player;
+	private DungeonMap map;
+
+    public MoveCommand(GameState gameState) {
+    	player = gameState.getActivePlayer();
+    	map = gameState.getMap();
+	}
 
     @Override
-    public void handleCommand(String[] args) {
+    public void handleCommand(String[] args, CommandOutputLog outputLog) {
+		if(args.length > 1) {
+			outputLog.printToLog("Invalid arguments \""
+					+ getArgsString(args)
+					+ "\" passed to move command.");
+		}
+
     	if(args[0] != null) {
+			MapPosition position = player.getPostion();
 	    	switch(args[0]) {
 	    	case "north": 
-				if(map().isRoomInDir(playerPos(), Direction.NORTH)){
-						playerPos().moveNorth();
-						output.append(player().getName() + " has moved through the North door\n");
+				if(map.isRoomInDir(position, Direction.NORTH)){
+						position.moveNorth();
+						outputLog.printToLog(player.getName() + " has moved through the North door\n");
 				}
 				else{
-					output.append("No North Door!\n");
+					outputLog.printToLog("No North Door!\n");
 				}
 				break;
 			
 	    	case "south": 
-				if(map().isRoomInDir(playerPos(), Direction.SOUTH)){
-					playerPos().moveSouth();
-					output.append(player().getName() + " has moved through the South door\n");
+				if(map.isRoomInDir(position, Direction.SOUTH)){
+					position.moveSouth();
+					outputLog.printToLog(player.getName() + " has moved through the South door\n");
 				}
 				else{
-					output.append("No South Door!\n");
+					outputLog.printToLog("No South Door!\n");
 				}
 				break;
 			
 	    	case "east": 
-				if(map().isRoomInDir(playerPos(), Direction.EAST)){
-					playerPos().moveEast();
-					output.append(player().getName() + " has moved through the East door\n");
+				if(map.isRoomInDir(position, Direction.EAST)){
+					position.moveEast();
+					outputLog.printToLog(player.getName() + " has moved through the East door\n");
 				}
 				else{
-					output.append("No East Door!\n");
+					outputLog.printToLog("No East Door!\n");
 				}
 				break;
 			
 	    	case "west": 
-				if(map().isRoomInDir(playerPos(), Direction.WEST)){
-					playerPos().moveWest();
-					output.append(player().getName() + " has moved through the West door\n");
+				if(map.isRoomInDir(position, Direction.WEST)){
+					position.moveWest();
+					outputLog.printToLog(player.getName() + " has moved through the West door\n");
 				}
 				else{
-					output.append("No West Door!\n");
+					outputLog.printToLog("No West Door!\n");
 				}
 				break;
 			
 	    	default:
-	    		output.append("The argument \"" + args[0] + "\" is invalid.\n"
+	    		outputLog.printToLog("The argument \"" + args[0] + "\" is invalid.\n"
 	    				+ "Type \"help\" for help using the move command.\n");
 				return;	
 			}
-	    	output.append(currRoom().examineString() + "\n");
-	    	Console.updateScreen(output.toString());
+	    	outputLog.printToLog(map.getRoom(player.getPostion()).examineString() + "\n");
     	}
     	else {
-    		output.append("Type \"help\" for help using the move command.\n");
-	    	Console.updateScreen(output.toString());
+    		outputLog.printToLog("Type \"help\" for help using the move command.\n");
     	}
     }
 }

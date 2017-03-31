@@ -2,10 +2,8 @@ package com.dd.entities;
 
 import com.dd.Stats;
 
-//This is an abstract class that inherits some basic methods to both the Player class
-//and the Monster class.
 public abstract class Entity {
-	
+
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;

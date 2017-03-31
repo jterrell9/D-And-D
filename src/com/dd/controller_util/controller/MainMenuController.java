@@ -1,17 +1,18 @@
-package com.dd.controllers;
+package com.dd.controller_util.controller;
 
 import java.io.IOException;
 
+import com.dd.DandD;
+import com.dd.controller_util.GameSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class MainMenuController {
+public class MainMenuController extends GameSceneController{
 	@FXML private Button newGame;
 	@FXML private Button joinGame;
 	@FXML private Button loadGame;
@@ -20,12 +21,8 @@ public class MainMenuController {
 	 * Event handler for "New Game" button.
 	 */
 	@FXML
-	private void handleNewGameAction(ActionEvent event) throws IOException {		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/NewGame.fxml"));
-		Scene scene = new Scene(loader.load());
-		
-		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		primaryStage.setScene(scene);
+	private void handleNewGameAction(ActionEvent event) throws IOException {
+		DandD.setActiveGameScene("NewGameScene", null);
 	}
 	
 	/**
@@ -33,7 +30,7 @@ public class MainMenuController {
 	 */
 	@FXML
 	private void handleJoinGameAction(ActionEvent event) {
-		System.out.println("Clicked join game!");
+		//DandD.setActiveGameScene("JoinGameScene", null);
 	}
 	
 	/**
@@ -41,18 +38,23 @@ public class MainMenuController {
 	 */
 	@FXML
 	private void handleLoadGameAction(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dd/fxml/LoadGame.fxml"));
-		Scene scene = new Scene(loader.load());
-		
-		Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		primaryStage.setScene(scene);
+		DandD.setActiveGameScene("LoadGameScene", null);
 	}
 	
 	/**
 	 * Called when fxml document is loaded.
 	 */
 	public void initialize() {
-		
+
 	}
-	
+
+	@Override
+	public void setup(Object[] args){
+
+	}
+
+	@Override
+	public void teardown(){
+
+	}
 }

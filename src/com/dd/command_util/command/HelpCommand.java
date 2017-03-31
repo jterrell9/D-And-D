@@ -2,14 +2,19 @@ package com.dd.command_util.command;
 
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.tester.Console;
 
 public class HelpCommand extends CommandHandler {
     public HelpCommand() {}
 	
 	@Override
-	public void handleCommand(String[] args) throws CommandHandlerException {
-		Console.updateScreen("\t\tAVAILABLE COMMANDS\n"
+	public void handleCommand(String[] args, CommandOutputLog outputLog){
+    	if(args.length != 0){
+			outputLog.printToLog("Invalid arguments \""
+					+ getArgsString(args)
+					+ "\" passed to help command.");
+		}
+
+		outputLog.printToLog("\t\tAVAILABLE COMMANDS\n"
 				+ "\n"
 				+ "attack <entity_name>\n"
 				+ "\tInitiate an attack against the entity with name entity_name.\n"
@@ -36,12 +41,6 @@ public class HelpCommand extends CommandHandler {
 				+ "\n"
 				+ "equip <item_name> <body_location>\n"
 				+ "\tEquip an item with the name item_name to the player at the location body_location.\n" 
-				+ "\tIf the specified location is already occupied this will fail.\n"
-				+ "\n"
-				+ "save\n"
-				+ "\tSave the current game state.\n"
-				+ "\n"
-				+ "quit\n"
-				+ "\tQuit the currently running game. This will return the player to the main menu.");
+				+ "\tIf the specified location is already occupied this will fail.\n");
 	}
 }

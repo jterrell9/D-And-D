@@ -16,7 +16,7 @@ public class Room {
 	}
 	
 	public String examineString() {
-		StringBuilder examineStr=new StringBuilder();
+		StringBuilder examineStr = new StringBuilder();
 		if(isEmpty()){
 			examineStr.append("This room is empty.");
 		}
