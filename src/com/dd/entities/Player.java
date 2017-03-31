@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-//This class provides the the game runner with a Player ADT. It is a subclass of
-//abstract class entity.
 public class Player extends Entity {
 	
-	//the Equip enum will be used as the switch cases in the drop method
 	public enum Equip {
 		LEFTHAND, RIGHTHAND, HANDS, SUIT, NONE
 	}
@@ -22,9 +19,10 @@ public class Player extends Entity {
 	private Item suit;
 	private Item leftHand;
 	private Item rightHand;
+
 	private Map<String, Item> inventory = new ConflictHandlingMap<Item>();
 	private int inventoryUsed = 0;
-	private int maxInventorySize = 10;
+	private int maxInventorySize;
 
 	public Player(String name, MapPosition pos, Stats stats) {
 		super(name, stats);
@@ -366,7 +364,11 @@ public class Player extends Entity {
 
 	public String inventoryToString() {
 		StringBuilder sb = new StringBuilder("\tInventory:\n");
-		inventory.keySet().forEach((k) -> sb.append("\t\t\t" + "~" + k + "\n"));
+		int i = 1;
+		for(String itemName:inventory.keySet()){
+			sb.append("\t\t\t" + ( i + 1 ) + ". " + itemName + "\n");
+			i++;
+		}	
 		return sb.toString();
 	}
 	

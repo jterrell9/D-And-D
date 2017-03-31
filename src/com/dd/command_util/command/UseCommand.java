@@ -7,7 +7,7 @@ public class UseCommand extends CommandHandler {
     public UseCommand() {}
 
     @Override
-    public void handleCommand(String[] args){
+    public void handleCommand(String[] args, CommandOutputLog outputLog){
 
     }
 }

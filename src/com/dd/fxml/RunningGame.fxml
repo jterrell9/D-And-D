@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="6.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controllers.RunningGameController">
+<GridPane hgap="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="6.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controller_util.controller.RunningGameController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="396.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="204.0" />
@@ -25,7 +25,7 @@
             <Insets />
          </GridPane.margin>
       </TextField>
-      <TextArea fx:id="output" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="454.0" wrapText="true" GridPane.rowSpan="2">
+      <TextArea fx:id="output" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="454.0" text="&gt; Welcome to D&amp;D. Type help for a list of commands." wrapText="true" GridPane.rowSpan="2">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
@@ -35,7 +35,7 @@
             <Insets />
          </GridPane.margin>
       </TextArea>
-      <TextArea fx:id="stats" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" text="[Stats go here]" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextArea fx:id="stats" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" text="MERLIN&#10;Health&#9;10/10&#10;Attack&#9;2 (+0)&#10;Defense&#9;3 (+0)" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
