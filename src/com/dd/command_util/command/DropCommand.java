@@ -21,7 +21,7 @@ public class DropCommand extends CommandHandler {
 	}
 
 	@Override
-	public void handleCommand(String[] args, CommandOutputLog outputLog){
+	public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
 		Room room = map.getRoom(player.getPostion());
 		if(args.length > 1) {
 			outputLog.printToLog("Invalid arguments \""

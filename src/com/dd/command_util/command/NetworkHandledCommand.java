@@ -15,7 +15,7 @@ public class NetworkHandledCommand extends CommandHandler{
     }
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
 
     }
 }

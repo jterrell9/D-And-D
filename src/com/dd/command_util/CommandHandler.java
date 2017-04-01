@@ -9,7 +9,7 @@ import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
 public abstract class CommandHandler {
-	public abstract void handleCommand(String[] args, CommandOutputLog outputLog) throws FileNotFoundException;
+	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws FileNotFoundException;
 
 	protected String getArgsString(String args[]){
         String argsStr = "";

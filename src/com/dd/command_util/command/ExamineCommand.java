@@ -19,7 +19,7 @@ public class ExamineCommand extends CommandHandler {
 	}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
     	if(args.length != 1){
 			outputLog.printToLog("Invalid arguments \""
 					+ getArgsString(args)

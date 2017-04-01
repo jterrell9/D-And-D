@@ -39,7 +39,7 @@ public class CommandParser {
                                                 + command
                                                 + "\" is not registered with the CommandParser.");
         }
-    	handler.handleCommand(args, outputLog);
+    	handler.handleCommand(command, args, outputLog);
 	}
 
     public void registerCommand(String commandName, CommandHandler commandHandler) {
