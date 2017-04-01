@@ -10,8 +10,7 @@ public class AttackCommand extends CommandHandler {
     private Player player;
     private DungeonMap map;
 
-    public AttackCommand(String name, GameState gameState){
-        super(name);
+    public AttackCommand(GameState gameState){
         player = gameState.getActivePlayer();
         map = gameState.getMap();
     }

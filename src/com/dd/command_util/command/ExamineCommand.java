@@ -13,8 +13,7 @@ public class ExamineCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap map;
 
-    public ExamineCommand(String name, GameState gameState) {
-    	super(name);
+    public ExamineCommand(GameState gameState) {
     	player = gameState.getActivePlayer();
     	map = gameState.getMap();
 	}

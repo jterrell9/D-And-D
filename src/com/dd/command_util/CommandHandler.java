@@ -9,13 +9,6 @@ import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
 public abstract class CommandHandler {
-    protected String name;
-
-    public CommandHandler(String name){
-        this.name = name;
-    }
-
-	//public abstract void handleCommand(String[] args, CommandOutputLog outputLog) throws CommandHandlerException, FileNotFoundException;
 	public abstract void handleCommand(String[] args, CommandOutputLog outputLog) throws FileNotFoundException;
 
 	protected String getArgsString(String args[]){
@@ -25,9 +18,5 @@ public abstract class CommandHandler {
         }
         argsStr += args[args.length - 1];
         return argsStr;
-    }
-
-    public String getName(){
-	    return name;
     }
 }

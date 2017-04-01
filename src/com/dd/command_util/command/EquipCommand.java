@@ -15,8 +15,7 @@ public class EquipCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap dungeonMap;
 
-    public EquipCommand(String name, GameState gameState) {
-		super(name);
+    public EquipCommand(GameState gameState) {
     	this.player = gameState.getActivePlayer();
 		this.dungeonMap = gameState.getMap();
 	}

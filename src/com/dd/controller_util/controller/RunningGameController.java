@@ -1,19 +1,18 @@
 package com.dd.controller_util.controller;
 
+import com.google.gson.Gson;
 import com.dd.DandD;
 import com.dd.GameState;
+import com.dd.GameType;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
-
+import com.dd.controller_util.ControllerArgumentPackage;
+import com.dd.controller_util.GameSceneController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
-
-import com.dd.controller_util.ControllerArgumentPackage;
-import com.dd.controller_util.GameSceneController;
-import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -106,14 +105,14 @@ public class RunningGameController extends GameSceneController{
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
 		commandParser = new CommandParser(new CommandOutputLog(output));
-		commandParser.registerCommand(new MoveCommand("move", gameState));
-		commandParser.registerCommand(new ExamineCommand("examine", gameState));
-		commandParser.registerCommand(new DropCommand("drop", gameState));
-		commandParser.registerCommand(new AttackCommand("attack", gameState));
-		commandParser.registerCommand(new EquipCommand("equip", gameState));
-		commandParser.registerCommand(new HelpCommand("help"));
-		commandParser.registerCommand(new PickupCommand("pickup", gameState));
-		commandParser.registerCommand(new UseCommand("use"));
+		commandParser.registerCommand("move", new MoveCommand(gameState));
+		commandParser.registerCommand("examine", new ExamineCommand(gameState));
+		commandParser.registerCommand("drop", new DropCommand(gameState));
+		commandParser.registerCommand("attack", new AttackCommand(gameState));
+		commandParser.registerCommand("equip", new EquipCommand(gameState));
+		commandParser.registerCommand("help", new HelpCommand());
+		commandParser.registerCommand("pickup", new PickupCommand(gameState));
+		commandParser.registerCommand("use", new UseCommand());
 	}
 
 	@Override
