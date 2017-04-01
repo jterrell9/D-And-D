@@ -42,11 +42,12 @@ public class CommandParser {
     	handler.handleCommand(args, outputLog);
 	}
 
-    public void registerCommand(String commandName, CommandHandler commandHandler) {
+    public void registerCommand(CommandHandler commandHandler) {
+        String commandName = commandHandler.getName();
         if(commandMap.containsKey(commandName))
             throw new IllegalArgumentException("The command \""
                                                 + commandName
-                                                + "\" has already been registerd with this CommandParser. Registration failed.");
+                                                + "\" has already been registered with this CommandParser. Registration failed.");
         if(commandHandler == null)
             throw new IllegalArgumentException("The command handler passed for \""
                                                     + commandName
@@ -55,11 +56,12 @@ public class CommandParser {
         commandMap.put(commandName, commandHandler);
     }
 
-    public void unregisterCommand(String commandName, CommandHandler commandHandler) {
+    public void unregisterCommand(CommandHandler commandHandler) {
+        String commandName = commandHandler.getName();
         if(!commandMap.containsKey(commandName))
             throw new IllegalArgumentException("The command \""
                                                 + commandName
-                                                + "\" has not been registered with this CommandParser. Unregistration failed.");
+                                                + "\" has not been registered with this CommandParser. Un-registration failed.");
     }
 
     public void setOutputLog(CommandOutputLog outputLog){

@@ -3,6 +3,7 @@ package com.dd.controller_util.controller;
 
 import com.dd.DandD;
 import com.dd.GameState;
+import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import com.google.gson.Gson;
 import java.io.File;
@@ -68,7 +69,7 @@ public class LoadGameController extends GameSceneController{
 	}
 
 	@Override
-	public void setup(Object[] args){
+	public void setup(ControllerArgumentPackage args){
 
 	}
 

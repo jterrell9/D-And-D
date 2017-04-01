@@ -4,7 +4,9 @@ import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 
 public class HelpCommand extends CommandHandler {
-    public HelpCommand() {}
+    public HelpCommand(String name) {
+    	super(name);
+	}
 	
 	@Override
 	public void handleCommand(String[] args, CommandOutputLog outputLog){

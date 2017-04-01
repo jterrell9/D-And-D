@@ -15,7 +15,8 @@ public class DropCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap map;
 
-    public DropCommand(GameState gameState) {
+    public DropCommand(String name, GameState gameState) {
+    	super(name);
     	player = gameState.getActivePlayer();
     	map = gameState.getMap();
 	}
