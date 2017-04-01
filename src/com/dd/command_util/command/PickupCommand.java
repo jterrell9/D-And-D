@@ -10,7 +10,8 @@ public class PickupCommand extends CommandHandler {
     private Player player;
     private DungeonMap map;
 
-    public PickupCommand(GameState gameState) {
+    public PickupCommand(String name, GameState gameState) {
+        super(name);
         player = gameState.getActivePlayer();
         map = gameState.getMap();
     }

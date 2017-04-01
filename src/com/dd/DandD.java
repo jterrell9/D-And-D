@@ -1,6 +1,7 @@
 package com.dd;
 
 import com.dd.SceneControllerTuple;
+import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -72,7 +73,7 @@ public class DandD extends Application {
         gameSceneControllerMap.put(name, tuple);
     }
 
-    public static void setActiveGameScene(String name, Object[] args) {
+    public static void setActiveGameScene(String name, ControllerArgumentPackage args) {
         SceneControllerTuple tuple = gameSceneControllerMap.get(name);
         if(tuple == null)
             throw new IllegalArgumentException("GameScene \""

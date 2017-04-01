@@ -13,7 +13,8 @@ public class MoveCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap map;
 
-    public MoveCommand(GameState gameState) {
+    public MoveCommand(String name, GameState gameState) {
+    	super(name);
     	player = gameState.getActivePlayer();
     	map = gameState.getMap();
 	}

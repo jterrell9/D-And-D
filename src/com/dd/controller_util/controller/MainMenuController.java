@@ -3,6 +3,7 @@ package com.dd.controller_util.controller;
 import java.io.IOException;
 
 import com.dd.DandD;
+import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,7 +50,7 @@ public class MainMenuController extends GameSceneController{
 	}
 
 	@Override
-	public void setup(Object[] args){
+	public void setup(ControllerArgumentPackage args){
 
 	}
 

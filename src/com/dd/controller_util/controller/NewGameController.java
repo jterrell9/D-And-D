@@ -2,6 +2,7 @@ package com.dd.controller_util.controller;
 
 import com.dd.DandD;
 import com.dd.GameState;
+import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import com.dd.entities.Player;
 import com.dd.entities.monsters.*;
@@ -45,7 +46,10 @@ public class NewGameController extends GameSceneController{
 		DungeonMap map = generateDungeonMap(5, 5);
 		GameState game = new GameState(saveName.getText(), new Player(characterName.getText()), map);
 
-		DandD.setActiveGameScene("RunningGameScene", new Object[]{game});
+		ControllerArgumentPackage args = new ControllerArgumentPackage();
+		args.setArgument("GameState", game);
+
+		DandD.setActiveGameScene("RunningGameScene", args);
 	}
 	
 	/**
@@ -150,7 +154,7 @@ public class NewGameController extends GameSceneController{
 	}
 
 	@Override
-	public void setup(Object[] args){
+	public void setup(ControllerArgumentPackage args){
 
 	}
 
