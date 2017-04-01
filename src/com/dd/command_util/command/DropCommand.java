@@ -15,14 +15,13 @@ public class DropCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap map;
 
-    public DropCommand(String name, GameState gameState) {
-    	super(name);
+    public DropCommand(GameState gameState) {
     	player = gameState.getActivePlayer();
     	map = gameState.getMap();
 	}
 
 	@Override
-	public void handleCommand(String[] args, CommandOutputLog outputLog){
+	public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
 		Room room = map.getRoom(player.getPostion());
 		if(args.length > 1) {
 			outputLog.printToLog("Invalid arguments \""

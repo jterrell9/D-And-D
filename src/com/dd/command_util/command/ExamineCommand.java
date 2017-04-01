@@ -13,14 +13,13 @@ public class ExamineCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap map;
 
-    public ExamineCommand(String name, GameState gameState) {
-    	super(name);
+    public ExamineCommand(GameState gameState) {
     	player = gameState.getActivePlayer();
     	map = gameState.getMap();
 	}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
     	if(args.length != 1){
 			outputLog.printToLog("Invalid arguments \""
 					+ getArgsString(args)

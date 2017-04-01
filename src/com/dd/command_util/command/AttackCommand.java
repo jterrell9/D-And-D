@@ -10,14 +10,13 @@ public class AttackCommand extends CommandHandler {
     private Player player;
     private DungeonMap map;
 
-    public AttackCommand(String name, GameState gameState){
-        super(name);
+    public AttackCommand(GameState gameState){
         player = gameState.getActivePlayer();
         map = gameState.getMap();
     }
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
 
     }
 }

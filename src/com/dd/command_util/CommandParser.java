@@ -39,11 +39,10 @@ public class CommandParser {
                                                 + command
                                                 + "\" is not registered with the CommandParser.");
         }
-    	handler.handleCommand(args, outputLog);
+    	handler.handleCommand(command, args, outputLog);
 	}
 
-    public void registerCommand(CommandHandler commandHandler) {
-        String commandName = commandHandler.getName();
+    public void registerCommand(String commandName, CommandHandler commandHandler) {
         if(commandMap.containsKey(commandName))
             throw new IllegalArgumentException("The command \""
                                                 + commandName
@@ -56,8 +55,7 @@ public class CommandParser {
         commandMap.put(commandName, commandHandler);
     }
 
-    public void unregisterCommand(CommandHandler commandHandler) {
-        String commandName = commandHandler.getName();
+    public void unregisterCommand(String commandName, CommandHandler commandHandler) {
         if(!commandMap.containsKey(commandName))
             throw new IllegalArgumentException("The command \""
                                                 + commandName

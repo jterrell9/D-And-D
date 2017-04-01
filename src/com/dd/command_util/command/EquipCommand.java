@@ -15,14 +15,13 @@ public class EquipCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap dungeonMap;
 
-    public EquipCommand(String name, GameState gameState) {
-		super(name);
+    public EquipCommand(GameState gameState) {
     	this.player = gameState.getActivePlayer();
 		this.dungeonMap = gameState.getMap();
 	}
 
     @Override
-    public void handleCommand(String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
     	if(args.length != 1){
 			outputLog.printToLog("Invalid arguments \""
 					+ getArgsString(args)
