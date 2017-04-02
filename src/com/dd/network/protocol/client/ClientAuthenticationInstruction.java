@@ -1,5 +1,6 @@
 package com.dd.network.protocol.client;
 
+<<<<<<< master
 import com.dd.network.NetworkGameState;
 import com.dd.network.ClientGameState;
 import com.dd.network.protocol.InstructionHandler;
@@ -11,4 +12,12 @@ public class ClientAuthenticationInstruction extends InstructionHandler {
         ClientGameState gameState = (ClientGameState)netGameState;
 
     }
+=======
+import com.dd.network.protocol.InstructionHandler;
+
+/**
+ * Created by kyle on 4/2/17.
+ */
+public class ClientAuthenticationInstruction extends InstructionHandler {
+>>>>>>> HEAD~1
 }
