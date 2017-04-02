@@ -220,7 +220,7 @@ public class RunningGameController extends GameSceneController{
 			}
 			 */
         }
-	}
+    }
 
 	@Override
 	public void teardown(){
