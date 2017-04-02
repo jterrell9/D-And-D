@@ -1,14 +1,14 @@
-package com.dd.command_util.command;
+package com.dd.command_util.command.network;
 
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.network.NetworkCommChannel;
-import com.dd.network.NetworkCommInterpreter;
+import com.dd.network.protocol.NetworkMessageInterpreter;
 
 public class NetworkHandledCommand extends CommandHandler{
     private NetworkCommChannel channel;
-    private NetworkCommInterpreter interpreter;
+    private NetworkMessageInterpreter interpreter;
 
     public NetworkHandledCommand(NetworkCommChannel channel, NetworkCommInterpreter interpreter, GameState gameState){
         super(gameState);

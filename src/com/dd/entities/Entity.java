@@ -3,13 +3,15 @@ package com.dd.entities;
 import java.io.Serializable;
 
 import com.dd.Stats;
+import com.dd.dd_util.Indexable;
 
-public abstract class Entity implements Serializable{
+public abstract class Entity implements Serializble, Indexable{
 
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
 	protected String text = "";
+	protected int index;
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
@@ -144,5 +146,12 @@ public abstract class Entity implements Serializable{
 	
 	public boolean died() {
 		return !isAlive;
+
+	public int getIndex(){
+		return index;
+	}
+
+	public void setIndex(int index){
+		this.index = index;
 	}
 }

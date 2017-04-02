@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import com.dd.Stats;
 import com.dd.StatModifier;
+import com.dd.dd_util.Indexable;
 
-public abstract class Item implements Serializable {
+public class Item implements Serializable, Indexable{
 	
 	protected String name;
-	protected StatModifier statModifier;
+	protected Stats StatModifyer;
+	protected int index;
 	
 	public Item(String name) {
 		setName(name);
@@ -76,5 +78,12 @@ public abstract class Item implements Serializable {
 	
 	public String titleToString() {
 		return "\"" + getName() + "\" the " + typeToString();
+
+	public int getIndex(){
+		return index;
+	}
+
+	public void setIndex(int index){
+		this.index = index;
 	}
 }
