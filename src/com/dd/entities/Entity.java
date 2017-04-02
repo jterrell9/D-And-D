@@ -1,12 +1,14 @@
 package com.dd.entities;
 
 import com.dd.Stats;
+import com.dd.dd_util.Indexable;
 
-public abstract class Entity {
+public abstract class Entity implements Indexable{
 
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
+	protected int index;
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
@@ -81,5 +83,13 @@ public abstract class Entity {
 	
 	public void setStats(Stats stats) {
 		this.stats = stats;
+	}
+
+	public int getIndex(){
+		return index;
+	}
+
+	public void setIndex(int index){
+		this.index = index;
 	}
 }
