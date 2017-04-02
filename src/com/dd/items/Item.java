@@ -1,11 +1,13 @@
 package com.dd.items;
 
 import com.dd.Stats;
+import com.dd.dd_util.Indexable;
 
-public class Item {
+public class Item implements Indexable{
 	
 	protected String name;
 	protected Stats StatModifyer;
+	protected int index;
 	
 	public Item(String name) {
 		setName(name);
@@ -69,5 +71,13 @@ public class Item {
 	
 	public String examineToString(){
 		return statModToString() + " (" + typeToString() + ")";
+	}
+
+	public int getIndex(){
+		return index;
+	}
+
+	public void setIndex(int index){
+		this.index = index;
 	}
 }
