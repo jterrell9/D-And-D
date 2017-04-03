@@ -1,20 +1,14 @@
 package com.dd.command_util;
 
-import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
-import com.dd.command_util.command.*;
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
     private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
     private CommandOutputLog outputLog;
-    private String command = new String();
-	private String[] arguments = {null, null};
-	String log;
 
     public CommandParser(){}
     
@@ -64,10 +58,6 @@ public class CommandParser {
 
     public void setOutputLog(CommandOutputLog outputLog){
         this.outputLog = outputLog;
-    }
-
-    public String getLog(){
-    	return log;
     }
 
     public class InvalidCommandException extends Exception {
