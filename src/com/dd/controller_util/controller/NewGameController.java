@@ -155,7 +155,12 @@ public class NewGameController extends GameSceneController{
 
 	@Override
 	public void setup(ControllerArgumentPackage args){
-
+		saveName.clear();
+		seedNumber.clear();
+		characterName.clear();
+		fighterRadio.setSelected(false);
+		wizardRadio.setSelected(false);
+		errorLabel.setText("");
 	}
 
 	@Override
