@@ -16,7 +16,6 @@ public class Player extends Entity {
 	}
 
 	private MapPosition mapPosition;
-	private boolean isinDungeon = false;
 	private Item suit;
 	private Item leftHand;
 	private Item rightHand;
@@ -300,15 +299,6 @@ public class Player extends Entity {
 
 	public void discardAllEquipment() {
 		leftHand = rightHand = suit = null;
-	}
-	
-	public boolean isinDungeon() {
-		return isinDungeon;
-	}
-	
-	public void enterDungeon() {
-		isinDungeon = true;
-		setMapPosition(new MapPosition());
 	}
 
 	public MapPosition getPostion() {

@@ -165,7 +165,6 @@ public class RunningGameController extends GameSceneController{
 		output.appendText("Type \"help\" for a list of commands\n");
 		
 		commandParser = new CommandParser(new CommandOutputLog(output), gameState.getActivePlayer().getName());
-		commandParser.registerCommand("enter", new EnterCommand(gameState));
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));
