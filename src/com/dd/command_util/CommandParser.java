@@ -1,6 +1,8 @@
 package com.dd.command_util;
 
 import com.dd.command_util.CommandHandler;
+import com.dd.entities.Player;
+
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.util.HashMap;
@@ -9,17 +11,20 @@ import java.util.Map;
 public class CommandParser {
     private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
     private CommandOutputLog outputLog;
+    private String playerName;
 
     public CommandParser(){}
     
-    public CommandParser(CommandOutputLog outputLog) {
+    public CommandParser(CommandOutputLog outputLog, String playerName) {
         this.outputLog = outputLog;
+        this.playerName = playerName;
     }
     
     public void parse(String userInput) throws InvalidCommandException, FileNotFoundException{
     	if(userInput == null) {
             throw new IllegalArgumentException();
         }
+    	outputLog.printToLog(">" + playerName + ">> " + userInput + "\n");
     	String commandStr[] = userInput.split(" ");
     	String command = commandStr[0];
     	String args[] = new String[commandStr.length - 1];
