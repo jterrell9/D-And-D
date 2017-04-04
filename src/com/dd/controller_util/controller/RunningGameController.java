@@ -72,11 +72,11 @@ public class RunningGameController extends GameSceneController{
 	 */
 	@FXML
 	private void handleSaveButtonAction(ActionEvent event) throws IOException {
-		File gsonFile = new File(gameState.getActivePlayer().getName()+".json");
+		File gsonFile = new File(gameState.getName() + ".json");
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(gameState));
 		toGsonFile.close();
-		output.appendText("The game has been saved.");
+		output.appendText("The game has been saved as " + gameState.getName() + ".json.");
 	}
 	
 	/**
