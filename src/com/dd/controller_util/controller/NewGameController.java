@@ -46,7 +46,9 @@ public class NewGameController extends GameSceneController{
 			return;
 		}
 
-		DungeonMap map = generateDungeonMap(5, 5);
+		String seedStr = seedNumber.getText();
+		Integer seed = Integer.parseInt(seedStr);
+		DungeonMap map = generateDungeonMap(seed);
 		GameState game = new GameState(saveName.getText(), map);
 		if(fighterRadio.isSelected()) {
 			Fighter fighter = new Fighter(characterName.getText());
@@ -56,7 +58,6 @@ public class NewGameController extends GameSceneController{
 			Wizard wizard = new Wizard(characterName.getText());
 			game.setActivePlayer(wizard);
 		}
-
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
 		args.setArgument("GameState", game);
 
@@ -118,45 +119,8 @@ public class NewGameController extends GameSceneController{
 		return rbutton.getText();
 	}
 
-	private DungeonMap generateDungeonMap(int width, int height) {
-		DungeonMap map = new DungeonMap(width, height);
-
-		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
-		Shield shield = new Shield("Wooden Shield", 4);
-		TwoHandedWeapon twoHandedSword = new TwoHandedWeapon("Two Handed Sword", 5);
-		Magical wand = new Magical("Wand", Equip.HANDS, 0, 2, 4, 2);
-		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
-		Potion potion = new Potion("Health Elixer", 10);
-		Suit breastPlate = new Suit("Brass Breast Plate", 2);
-
-		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
-
-		MapPosition buildPos = new MapPosition();
-		map.addRoom(new Room(), buildPos);
-		map.getRoom(buildPos).addItem(sword);
-		map.getRoom(buildPos).addItem(shield);
-		map.getRoom(buildPos).addItem(twoHandedSword);
-		map.getRoom(buildPos).addItem(wand);
-		buildPos.moveEast();
-		map.addRoom(new Room(), buildPos);
-		map.getRoom(buildPos).addItem(breastPlate);
-		map.getRoom(buildPos).addItem(ring);
-		map.getRoom(buildPos).addItem(potion);
-		map.getRoom(buildPos).addMonster(dragon);
-		buildPos.moveEast();
-		map.addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		map.addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		map.addRoom(new Room(), buildPos);
-		buildPos.moveEast();
-		map.addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		map.addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		map.addRoom(new Room(), buildPos);
-		buildPos.moveEast();
-		map.addRoom(new Room(), buildPos);
+	private DungeonMap generateDungeonMap(int seed) {
+		DungeonMap map = new DungeonMap(seed);
 
 		return map;
 	}
