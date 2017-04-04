@@ -40,7 +40,6 @@ public class RunningGameController extends GameSceneController{
 
 	private GameState gameState;
 	private CommandParser commandParser;
-	//private Console console;
 	
 	/**
 	 * Event handler for "Enter" key.
@@ -77,6 +76,7 @@ public class RunningGameController extends GameSceneController{
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(gameState));
 		toGsonFile.close();
+		output.appendText("The game has been saved.");
 	}
 	
 	/**
