@@ -155,12 +155,9 @@ public class RunningGameController extends GameSceneController{
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
 		
-		map.setStyle("-fx-font-family: monospace");
-		stats.setStyle("-fx-font-family: monospace");
 		updateMap();
 		updateStatboard();
 		output.clear();
-		output.setStyle("-fx-font-family: monospace");
 		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
 		output.appendText("Type \"help\" for a list of commands\n");
 		
