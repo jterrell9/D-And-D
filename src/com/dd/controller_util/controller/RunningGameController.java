@@ -71,7 +71,7 @@ public class RunningGameController extends GameSceneController{
 	 * Event handler for "Save" button.
 	 */
 	@FXML
-	private void handleSaveButtonAction(ActionEvent event) throws IOException {
+	private void handleSaveButtonAction(ActionEvent event) throws FileNotFoundException {
 		File gsonFile = new File(gameState.getName() + ".json");
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(gameState));
@@ -83,7 +83,7 @@ public class RunningGameController extends GameSceneController{
 	 * Event handler for "Exit" button.
 	 */
 	@FXML
-	private void handleExitButtonAction(ActionEvent event) throws IOException {
+	private void handleExitButtonAction(ActionEvent event) {
 		DandD.setActiveGameScene("MainMenuScene", null);
 	}
 	

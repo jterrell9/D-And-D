@@ -28,7 +28,7 @@ public class LoadGameController extends GameSceneController{
 	 * Event handler for "Load Game" button.
 	 */
 	@FXML
-	private void handleLoadButtonAction(ActionEvent event) throws IOException {
+	private void handleLoadButtonAction(ActionEvent event) {
 		//NEED TO REWORK THIS TO BE AUTOMATIC
 		/*
 		Scanner scanName = new Scanner(System.in);
@@ -57,7 +57,7 @@ public class LoadGameController extends GameSceneController{
 	 * Event handler for "Back" button.
 	 */
 	@FXML
-	private void handleBackButtonAction(ActionEvent event) throws IOException {
+	private void handleBackButtonAction(ActionEvent event) {
 		DandD.setActiveGameScene("MainMenuScene", null);
 	}
 	

@@ -38,7 +38,7 @@ public class NewGameController extends GameSceneController{
 	 * Event handler for "Start Game" button.
 	 */
 	@FXML
-	private void handleStartButtonAction(ActionEvent event) throws IOException {
+	private void handleStartButtonAction(ActionEvent event) {
 		if (!checkFields()) {
 			return;
 		}
@@ -56,7 +56,7 @@ public class NewGameController extends GameSceneController{
 	 * Event handler for "Back" button.
 	 */
 	@FXML
-	private void handleBackButtonAction(ActionEvent event) throws IOException {
+	private void handleBackButtonAction(ActionEvent event) {
 		DandD.setActiveGameScene("MainMenuScene", null);
 	}
 	
