@@ -31,10 +31,12 @@ public class Player extends Entity {
 
 	public Player(String name) {
 		super(name);
+		setMapPosition(new MapPosition());
 	}
 	
 	public Player() {
 		super();
+		setMapPosition(new MapPosition());
 	}
 
 	public void usePotion(Item item) {
