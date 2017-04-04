@@ -92,7 +92,7 @@ public class Stats {
 	
 	@Override
 	public String toString(){
-		return "Health:\t\t" 
+		return "Health:\t\t\t" 
 				+ getHealth()
 				+ "/" + getMaxHealth()
 				+ "\nAttack/Defense\t"
