@@ -20,11 +20,6 @@ public class ExamineCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
-    	if(args.length != 1){
-			outputLog.printToLog("Invalid arguments \""
-					+ getArgsString(args)
-					+ "\" passed to examine command.");
-		}
     	Room room = map.getRoom(player.getPostion());
     	switch(args[0]) {
     	case "room":

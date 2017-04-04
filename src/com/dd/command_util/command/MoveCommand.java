@@ -20,12 +20,6 @@ public class MoveCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) {
-		if(args.length > 1) {
-			outputLog.printToLog("Invalid arguments \""
-					+ getArgsString(args)
-					+ "\" passed to move command.");
-		}
-
     	if(args[0] != null) {
 			MapPosition position = player.getPostion();
 	    	switch(args[0]) {

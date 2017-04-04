@@ -5,6 +5,7 @@ import com.dd.entities.Player;
 
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,14 +25,20 @@ public class CommandParser {
     	if(userInput == null) {
             throw new IllegalArgumentException();
         }
-    	outputLog.printToLog("\n>" + playerName + ">> " + userInput + "\n");
+    	outputLog.printToLog("\n" + playerName + ">> " + userInput + "\n\n");
     	String commandStr[] = userInput.split(" ");
     	String command = commandStr[0];
-    	String args[] = new String[commandStr.length - 1];
-    	for(int i = 1; i < commandStr.length; i++){
-    	    args[i - 1] = commandStr[i];
-        }
-
+    	ArrayList<String> arguments = new ArrayList<String>();
+    	if(commandStr.length > 1) {
+    		arguments.add(userInput.substring(command.length() + 1));
+    		for(int i = 0; i < commandStr.length - 1; i++) {
+    			arguments.add(commandStr[i + 1]);
+    		}
+    	}
+	    String[] args = new String[arguments.size()];
+	    for(int i=0; i < arguments.size(); i++) {
+	    	args[i] = arguments.get(i);
+	    }
     	CommandHandler handler = commandMap.get(command);
     	if(handler == null) {
             throw new InvalidCommandException("The command \""

@@ -22,7 +22,7 @@ public class Player extends Entity {
 
 	private Map<String, Item> inventory = new ConflictHandlingMap<Item>();
 	private int inventoryUsed = 0;
-	private int maxInventorySize;
+	private int maxInventorySize = 10;
 
 	public Player(String name, MapPosition pos, Stats stats) {
 		super(name, stats);
