@@ -1,6 +1,7 @@
 package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
+import java.util.Random;
 
 import com.dd.entities.Equip;
 import com.dd.entities.monsters.Dragon;
@@ -9,15 +10,36 @@ import com.dd.items.*;
 public class DungeonMap {
 
 	private Room[][] rooms;
-	private int maxRow;
-	private int maxCol;
-	
-	public DungeonMap(int maxCol, int maxRow) {
-		this.maxRow = maxRow;
-		this.maxCol = maxCol;
-		rooms = new Room[maxRow][maxCol];
-	}
-	
+	private int maxRow = 10;
+	private int maxCol = 10;
+	private Random rand;
+	private final String[] dragNames = {
+			"Thordak",
+			"Raishan",
+			"Galisha",
+			"Velica",
+			"Vorical",
+			"Dairak",
+			"Kelshawn",
+			"Herp",
+			"Saphera",
+			"Puff",
+			"Shenron",
+			"Smaug",
+			"Vizarion",
+			"Valoo",
+			"Faizon"
+	};
+	private final String[] skelNames = {
+
+	};
+	private final String[] gobNames = {
+
+	};
+	private final String[] beholdNames = {
+
+	};
+
 	public DungeonMap() {
 		rooms = new Room[5][5];
 		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
@@ -27,9 +49,9 @@ public class DungeonMap {
 		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
 		Suit breastPlate = new Suit("Brass Breast Plate", 2);
-		
+
 		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
-		
+
 		MapPosition buildPos = new MapPosition();
 		addRoom(new Room(), buildPos);
 		getRoom(buildPos).addItem(sword);
@@ -56,6 +78,12 @@ public class DungeonMap {
 		addRoom(new Room(), buildPos);
 		buildPos.moveEast();
 		addRoom(new Room(), buildPos);
+	}
+	
+	public DungeonMap(int seed) {
+		rand = new Random(seed);
+		rooms = new Room[maxRow][maxCol];
+		generateDungeon();
 	}
 
 	public int getMaxRow() {
@@ -130,5 +158,33 @@ public class DungeonMap {
 				|| pos.getX() > rooms.length - 1
 				|| pos.getY() < 0
 				|| pos.getY() > rooms[pos.getY()].length - 1;
+	}
+
+	public void generateDungeon() {
+		Room start = new Room();
+		start.addItem(new OneHandedWeapon("wooden sword", 2));
+		start.addItem(new Shield("wooden shield", 1));
+		int yStart = rand.nextInt(10);
+		int xStart = rand.nextInt(10);
+		rooms[yStart][xStart] = start;
+		Room end = new Room();
+
+		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
+		int yEnd = rand.nextInt(10);
+		while(yEnd <= yStart + 3
+				|| yEnd >= yStart - 3
+				|| yEnd <= yEnd - 3
+				|| yEnd >= yStart + 3) {
+			yEnd = rand.nextInt(10);
+		}
+		int xEnd = rand.nextInt(10);
+		while(xEnd <= xStart + 3
+				|| xEnd >= xStart - 3
+				|| xEnd > xStart + 3
+				|| xEnd <= xStart - 3) {
+			xEnd = rand.nextInt(10);
+		}
+		rooms[yEnd][xEnd] = end;
+		
 	}
 }
