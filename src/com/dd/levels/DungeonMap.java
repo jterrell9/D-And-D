@@ -13,6 +13,7 @@ public class DungeonMap {
 	private int maxRow = 10;
 	private int maxCol = 10;
 	private Random rand;
+	private MapPosition startPosition;
 	private final String[] dragNames = {
 			"Thordak",
 			"Raishan",
@@ -138,7 +139,15 @@ public class DungeonMap {
 		}
 		return retCode;
 	}
-	
+
+	public MapPosition getStartPosition() {
+		return startPosition;
+	}
+
+	public void setStartPosition(MapPosition startPosition) {
+		this.startPosition = startPosition;
+	}
+
 	public void addRoom(Room room, MapPosition position) {
 		if(isOutOfBounds(position)){
 			throw new IllegalArgumentException("The position ("
@@ -178,9 +187,9 @@ public class DungeonMap {
 		start.addItem(new Shield("wooden shield", 1));
 		int yStart = rand.nextInt(10);
 		int xStart = rand.nextInt(10);
+		startPosition = new MapPosition(xStart, yStart);
 		rooms[yStart][xStart] = start;
 		Room end = new Room();
-
 		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
 		int yEnd = rand.nextInt(10);
 		while(yEnd <= yStart + 3
