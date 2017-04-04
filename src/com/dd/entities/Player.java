@@ -342,40 +342,39 @@ public class Player extends Entity {
 	}
 	
 	public String equipToString() {
-		StringBuilder lh=new StringBuilder();
-		if(leftHand!=null)
+		StringBuilder lh = new StringBuilder();
+		if(leftHand != null)
 			lh.append(leftHand.getName() + " " + leftHand.examineToString());
 		else
 			lh.append("empty");
-		StringBuilder rh=new StringBuilder();
+		StringBuilder rh = new StringBuilder();
 		if(rightHand!=null)
 			rh.append(rightHand.getName() + " " + rightHand.examineToString());
 		else
 			rh.append("empty");
-		StringBuilder s=new StringBuilder();
+		StringBuilder s = new StringBuilder();
 		if(suit!=null)
 			s.append(suit.getName() + " " + suit.examineToString());
 		else
 			s.append("empty");
-		return "Left Hand:\t"+lh.toString()+
-				"\nRight Hand:\t"+rh.toString() +
-				"\nSuit:\t\t"+s.toString();
+		return "Left Hand:  " + lh.toString() + "\n"
+				+ "Right Hand: " + rh.toString() + "\n"
+				+ "Suit:       " + s.toString();
 	}
 
 	public String inventoryToString() {
-		StringBuilder sb = new StringBuilder("Inventory:\n");
-		int i = 1;
-		for(String itemName:inventory.keySet()){
-			sb.append("\t\t" + ( i + 1 ) + ". " + itemName + "\n");
-			i++;
+		StringBuilder sb = new StringBuilder("Inventory:");
+		int i = 0;
+		for(String itemName : inventory.keySet()){
+			sb.append("  " + ++i + " " + itemName + "\n");
 		}	
 		return sb.toString();
 	}
 	
 	public String statboardToString() {
 		return	stats.toString()
-				+ "\n\n"+equipToString()
-				+ "\n"+inventoryToString();
+				+ "\n" + equipToString()
+				+ "\n" + inventoryToString();
 				
 	}
 	
