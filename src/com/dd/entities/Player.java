@@ -309,27 +309,6 @@ public class Player extends Entity {
 		mapPosition = p;
 	}
 
-	public String equipToString() {
-		StringBuilder lh=new StringBuilder();
-		if(leftHand!=null)
-			lh.append(leftHand.getName() + " " + leftHand.examineToString());
-		else
-			lh.append("empty");
-		StringBuilder rh=new StringBuilder();
-		if(rightHand!=null)
-			rh.append(rightHand.getName() + " " + rightHand.examineToString());
-		else
-			rh.append("empty");
-		StringBuilder s=new StringBuilder();
-		if(suit!=null)
-			s.append(suit.getName() + " " + suit.examineToString());
-		else
-			s.append("empty");
-		return "\tLeft Hand:\t"+lh.toString()+
-				"\n\tRight Hand:\t"+rh.toString() +
-				"\n\tSuit:\t\t"+s.toString();
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -361,12 +340,33 @@ public class Player extends Entity {
 	public void setRightHand(Item rightHand) {
 		this.rightHand = rightHand;
 	}
+	
+	public String equipToString() {
+		StringBuilder lh=new StringBuilder();
+		if(leftHand!=null)
+			lh.append(leftHand.getName() + " " + leftHand.examineToString());
+		else
+			lh.append("empty");
+		StringBuilder rh=new StringBuilder();
+		if(rightHand!=null)
+			rh.append(rightHand.getName() + " " + rightHand.examineToString());
+		else
+			rh.append("empty");
+		StringBuilder s=new StringBuilder();
+		if(suit!=null)
+			s.append(suit.getName() + " " + suit.examineToString());
+		else
+			s.append("empty");
+		return "Left Hand:\t"+lh.toString()+
+				"\nRight Hand:\t"+rh.toString() +
+				"\nSuit:\t\t"+s.toString();
+	}
 
 	public String inventoryToString() {
-		StringBuilder sb = new StringBuilder("\tInventory:\n");
+		StringBuilder sb = new StringBuilder("Inventory:\n");
 		int i = 1;
 		for(String itemName:inventory.keySet()){
-			sb.append("\t\t\t" + ( i + 1 ) + ". " + itemName + "\n");
+			sb.append("\t\t" + ( i + 1 ) + ". " + itemName + "\n");
 			i++;
 		}	
 		return sb.toString();
