@@ -359,7 +359,7 @@ public class Player extends Entity {
 			s.append("empty");
 		return "Left Hand:\t"+lh.toString()+
 				"\nRight Hand:\t"+rh.toString() +
-				"\nSuit:\t\t\t"+s.toString();
+				"\nSuit:\t\t"+s.toString();
 	}
 
 	public String inventoryToString() {

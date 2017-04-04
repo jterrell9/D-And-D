@@ -104,7 +104,7 @@ public class RunningGameController extends GameSceneController{
 				else if(map.isRoom(new MapPosition(x, y)))
 					output.append("X");
 				else
-					output.append("  ");
+					output.append(" ");
 			}
 			output.append("\n");
 		}
@@ -152,6 +152,8 @@ public class RunningGameController extends GameSceneController{
 
 	@Override
 	public void setup(ControllerArgumentPackage args){
+		map.setStyle("-fx-font-family: monospace");
+		stats.setStyle("-fx-font-family: monospace");
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
 		updateMap();
