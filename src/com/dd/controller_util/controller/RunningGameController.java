@@ -91,6 +91,10 @@ public class RunningGameController extends GameSceneController{
 		map.setText(printMap());
 	}
 	
+	public void updateStatboard() {
+		stats.setText(printStatboard());
+	}
+	
 	public String printMap() {
 		Player player = gameState.getActivePlayer();
 		DungeonMap map = gameState.getMap();
@@ -111,10 +115,6 @@ public class RunningGameController extends GameSceneController{
 		return output.toString();
 	}
 	
-	public void updateStatboard() {
-		stats.setText(printStatboard());
-	}
-	
 	public String printStatboard() {
 		Player player = gameState.getActivePlayer();
 		StringBuilder output = new StringBuilder();
@@ -123,7 +123,7 @@ public class RunningGameController extends GameSceneController{
 		return output.toString();
 	}
 	
-	public String printLnTitle(char c, String str, int width) {
+	public static String printLnTitle(char c, String str, int width) {
     	StringBuilder output = new StringBuilder();
 		int strLength = str.length();
 		int startIndex = (width / 2) - (strLength / 2);
@@ -152,13 +152,20 @@ public class RunningGameController extends GameSceneController{
 
 	@Override
 	public void setup(ControllerArgumentPackage args){
-		map.setStyle("-fx-font-family: monospace");
-		stats.setStyle("-fx-font-family: monospace");
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
+		
+		map.setStyle("-fx-font-family: monospace");
+		stats.setStyle("-fx-font-family: monospace");
 		updateMap();
 		updateStatboard();
+		output.clear();
+		output.setStyle("-fx-font-family: monospace");
+		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 50));
+		output.appendText("Type \"help\" for a list of commands\n\n");
+		
 		commandParser = new CommandParser(new CommandOutputLog(output), gameState.getActivePlayer().getName());
+		commandParser.registerCommand("enter", new EnterCommand(gameState));
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));
