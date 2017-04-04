@@ -99,16 +99,16 @@ public class RunningGameController extends GameSceneController{
 		Player player = gameState.getActivePlayer();
 		DungeonMap map = gameState.getMap();
 		StringBuilder output = new StringBuilder();
-		output.append(printLnTitle('~', "MAP", 22));
+		output.append(printLnTitle('~', "MAP", 40));
 		MapPosition playerPos = player.getPostion();
 		for(int y = 0; y < map.getMaxRow(); y++){
 			for(int x = 0; x < map.getMaxCol(); x++){
 				if(playerPos.getX() == x && playerPos.getY() == y)
-					output.append("#");
+					output.append(" X ");
 				else if(map.isRoom(new MapPosition(x, y)))
-					output.append("X");
+					output.append("[ ]");
 				else
-					output.append(" ");
+					output.append("   ");
 			}
 			output.append("\n");
 		}
@@ -118,7 +118,7 @@ public class RunningGameController extends GameSceneController{
 	public String printStatboard() {
 		Player player = gameState.getActivePlayer();
 		StringBuilder output = new StringBuilder();
-		output.append(printLnTitle('~', player.getName().toUpperCase() + "'S STATS BOARD", 22));
+		output.append(printLnTitle('~', player.getName().toUpperCase() + "'S STATS BOARD", 40));
 		output.append(player.statboardToString());
 		return output.toString();
 	}
@@ -161,7 +161,7 @@ public class RunningGameController extends GameSceneController{
 		updateStatboard();
 		output.clear();
 		output.setStyle("-fx-font-family: monospace");
-		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 50));
+		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
 		output.appendText("Type \"help\" for a list of commands\n\n");
 		
 		commandParser = new CommandParser(new CommandOutputLog(output), gameState.getActivePlayer().getName());
