@@ -30,14 +30,26 @@ public class DungeonMap {
 			"Valoo",
 			"Faizon"
 	};
-	private final String[] skelNames = {
-
-	};
 	private final String[] gobNames = {
-
+			"Bogoblin",
+			"Rowllin",
+			"Stellart",
+			"Combarn",
+			"Meltion",
+			"Ori",
+			"Romil"
 	};
 	private final String[] beholdNames = {
-
+			"K'varn",
+			"Re'tunar",
+			"Ei'Soma",
+			"Emo'Sutra",
+			"Brah'Zumar",
+			"Ko'Rita",
+			"Tumo'Uta",
+			"Ai'Mantra",
+			"Ma'Kefet",
+			"Zi'Tumo"
 	};
 
 	public DungeonMap() {
@@ -185,6 +197,6 @@ public class DungeonMap {
 			xEnd = rand.nextInt(10);
 		}
 		rooms[yEnd][xEnd] = end;
-		
+
 	}
 }
