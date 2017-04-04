@@ -31,12 +31,10 @@ public class Player extends Entity {
 
 	public Player(String name) {
 		super(name);
-		setMapPosition(new MapPosition(false));
 	}
 	
 	public Player() {
 		super();
-		setMapPosition(new MapPosition(false));
 	}
 
 	public void usePotion(Item item) {
@@ -160,7 +158,6 @@ public class Player extends Entity {
 					+ " is of an unknown type");
 			
 		}
-		stats.changeStat(item.getStatChange());
 	}
 
 	public Item removeEquipment(Equip bodyArea) throws EquipmentException {
