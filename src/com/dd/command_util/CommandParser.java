@@ -1,6 +1,7 @@
 package com.dd.command_util;
 
 import com.dd.command_util.CommandHandler;
+import com.dd.controller_util.controller.RunningGameController;
 import com.dd.entities.Player;
 
 import java.io.FileNotFoundException;
@@ -25,7 +26,9 @@ public class CommandParser {
     	if(userInput == null) {
             throw new IllegalArgumentException();
         }
-    	outputLog.printToLog("\n" + playerName + ">> " + userInput + "\n\n");
+    	outputLog.printToLog(RunningGameController.printLnTitle('~', "", 80));
+    	outputLog.printToLog(playerName + ">> " + userInput + "\n");
+    	outputLog.printToLog(RunningGameController.printLnTitle('~', "Dungeon Master", 80));
     	String commandStr[] = userInput.split(" ");
     	String command = commandStr[0];
     	ArrayList<String> arguments = new ArrayList<String>();

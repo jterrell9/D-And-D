@@ -162,7 +162,7 @@ public class RunningGameController extends GameSceneController{
 		output.clear();
 		output.setStyle("-fx-font-family: monospace");
 		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
-		output.appendText("Type \"help\" for a list of commands\n\n");
+		output.appendText("Type \"help\" for a list of commands\n");
 		
 		commandParser = new CommandParser(new CommandOutputLog(output), gameState.getActivePlayer().getName());
 		commandParser.registerCommand("enter", new EnterCommand(gameState));
