@@ -1,9 +1,9 @@
 package com.dd.items;
 
-public class OneHandedWeapon extends Weapon {
+public class OneHandedWeapon extends Physical {
 	
     public OneHandedWeapon(String name, int attackGain){
-        super(name, attackGain);
+        super(name, attackGain, 0);
     }
     
     public OneHandedWeapon(){
