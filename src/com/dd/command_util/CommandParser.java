@@ -24,7 +24,7 @@ public class CommandParser {
     	if(userInput == null) {
             throw new IllegalArgumentException();
         }
-    	outputLog.printToLog(">" + playerName + ">> " + userInput + "\n");
+    	outputLog.printToLog("\n>" + playerName + ">> " + userInput + "\n");
     	String commandStr[] = userInput.split(" ");
     	String command = commandStr[0];
     	String args[] = new String[commandStr.length - 1];

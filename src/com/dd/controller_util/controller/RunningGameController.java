@@ -51,12 +51,11 @@ public class RunningGameController extends GameSceneController{
 		if (event.getCode() == KeyCode.ENTER && !input.getText().equals("")) {
 			// append to output and clear the textfield
 			String commandStr = input.getText();
-			output.appendText(input.getText() + "\n");
 			input.clear();
-			updateMap();
-			updateStatboard();
 			try{
 				commandParser.parse(commandStr);
+				updateMap();
+				updateStatboard();
 			}
 			catch(CommandParser.InvalidCommandException e){
 				output.appendText("The command string \""
@@ -89,39 +88,37 @@ public class RunningGameController extends GameSceneController{
 	}
 	
 	public void updateMap() {
-		map.setText(getMapString());
+		map.setText(printMap());
 	}
 	
-	public String getMapString() {
+	public String printMap() {
 		Player player = gameState.getActivePlayer();
 		DungeonMap map = gameState.getMap();
 		StringBuilder output = new StringBuilder();
-		output.append(printLnTitle('~', "MAP", 40));
+		output.append(printLnTitle('~', "MAP", 22));
 		MapPosition playerPos = player.getPostion();
 		for(int y = 0; y < map.getMaxRow(); y++){
 			for(int x = 0; x < map.getMaxCol(); x++){
-				if(x == 0)
-					output.append("|");
 				if(playerPos.getX() == x && playerPos.getY() == y)
 					output.append("#");
 				else if(map.isRoom(new MapPosition(x, y)))
 					output.append("X");
 				else
-					output.append(" ");
+					output.append("  ");
 			}
-			output.append("|\n");
+			output.append("\n");
 		}
 		return output.toString();
 	}
 	
 	public void updateStatboard() {
-		stats.setText(getStatboardString());
+		stats.setText(printStatboard());
 	}
 	
-	public String getStatboardString() {
+	public String printStatboard() {
 		Player player = gameState.getActivePlayer();
 		StringBuilder output = new StringBuilder();
-		output.append(printLnTitle('~', player.getName().toUpperCase() + "'S STATS BOARD", 40));
+		output.append(printLnTitle('~', player.getName().toUpperCase() + "'S STATS BOARD", 22));
 		output.append(player.statboardToString());
 		return output.toString();
 	}
