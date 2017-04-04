@@ -16,7 +16,6 @@ public class Player extends Entity {
 	}
 
 	private MapPosition mapPosition;
-	private boolean isinDungeon = false;
 	private Item suit;
 	private Item leftHand;
 	private Item rightHand;
@@ -32,12 +31,12 @@ public class Player extends Entity {
 
 	public Player(String name) {
 		super(name);
-		setMapPosition(new MapPosition(false));
+		setMapPosition(new MapPosition());
 	}
 	
 	public Player() {
 		super();
-		setMapPosition(new MapPosition(false));
+		setMapPosition(new MapPosition());
 	}
 
 	public void usePotion(Item item) {
@@ -161,7 +160,6 @@ public class Player extends Entity {
 					+ " is of an unknown type");
 			
 		}
-		stats.changeStat(item.getStatChange());
 	}
 
 	public Item removeEquipment(Equip bodyArea) throws EquipmentException {
@@ -300,15 +298,6 @@ public class Player extends Entity {
 
 	public void discardAllEquipment() {
 		leftHand = rightHand = suit = null;
-	}
-	
-	public boolean isinDungeon() {
-		return isinDungeon;
-	}
-	
-	public void enterDungeon() {
-		isinDungeon = true;
-		setMapPosition(new MapPosition());
 	}
 
 	public MapPosition getPostion() {

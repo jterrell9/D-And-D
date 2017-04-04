@@ -4,7 +4,9 @@ import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
+import com.dd.entities.Fighter;
 import com.dd.entities.Player;
+import com.dd.entities.Wizard;
 import com.dd.entities.monsters.*;
 import com.dd.items.*;
 import com.dd.levels.*;
@@ -44,7 +46,14 @@ public class NewGameController extends GameSceneController{
 		}
 
 		DungeonMap map = generateDungeonMap(5, 5);
-		GameState game = new GameState(saveName.getText(), new Player(characterName.getText()), map);
+		Player player = new Player();
+		if(fighterRadio.isPressed()) {
+			player = new Fighter(characterName.getText());
+		}
+		if(wizardRadio.isPressed()) {
+			player = new Wizard(characterName.getText());
+		}
+		GameState game = new GameState(saveName.getText(), player, map);
 
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
 		args.setArgument("GameState", game);
