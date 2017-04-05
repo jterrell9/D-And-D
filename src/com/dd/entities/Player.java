@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Player extends Entity {
+public abstract class Player extends Entity {
 
 	private MapPosition mapPosition;
 	protected Item suit;
