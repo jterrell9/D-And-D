@@ -22,7 +22,7 @@ public class MainMenuController extends GameSceneController{
 	 * Event handler for "New Game" button.
 	 */
 	@FXML
-	private void handleNewGameAction(ActionEvent event) throws IOException {
+	private void handleNewGameAction(ActionEvent event) {
 		DandD.setActiveGameScene("NewGameScene", null);
 	}
 	
@@ -38,7 +38,7 @@ public class MainMenuController extends GameSceneController{
 	 * Event handler for "Load Game" button.
 	 */
 	@FXML
-	private void handleLoadGameAction(ActionEvent event) throws IOException {
+	private void handleLoadGameAction(ActionEvent event) {
 		DandD.setActiveGameScene("LoadGameScene", null);
 	}
 	

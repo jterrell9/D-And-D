@@ -40,7 +40,6 @@ public class RunningGameController extends GameSceneController{
 
 	private GameState gameState;
 	private CommandParser commandParser;
-	//private Console console;
 	
 	/**
 	 * Event handler for "Enter" key.
@@ -72,18 +71,19 @@ public class RunningGameController extends GameSceneController{
 	 * Event handler for "Save" button.
 	 */
 	@FXML
-	private void handleSaveButtonAction(ActionEvent event) throws IOException {
-		File gsonFile = new File(gameState.getActivePlayer().getName()+".json");
+	private void handleSaveButtonAction(ActionEvent event) throws FileNotFoundException {
+		File gsonFile = new File(gameState.getName() + ".json");
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(gameState));
 		toGsonFile.close();
+		output.appendText("The game has been saved as " + gameState.getName() + ".json.");
 	}
 	
 	/**
 	 * Event handler for "Exit" button.
 	 */
 	@FXML
-	private void handleExitButtonAction(ActionEvent event) throws IOException {
+	private void handleExitButtonAction(ActionEvent event) {
 		DandD.setActiveGameScene("MainMenuScene", null);
 	}
 	
@@ -155,12 +155,9 @@ public class RunningGameController extends GameSceneController{
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
 		
-		map.setStyle("-fx-font-family: monospace");
-		stats.setStyle("-fx-font-family: monospace");
 		updateMap();
 		updateStatboard();
 		output.clear();
-		output.setStyle("-fx-font-family: monospace");
 		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
 		output.appendText("Type \"help\" for a list of commands\n");
 		
