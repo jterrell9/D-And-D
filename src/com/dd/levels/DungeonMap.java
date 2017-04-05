@@ -13,6 +13,7 @@ public class DungeonMap {
 	private int maxRow = 10;
 	private int maxCol = 10;
 	private Random rand;
+	private int seed;
 	private MapPosition startPosition;
 	private MapPosition endPosition;
 	private final String[] suitNames = {
@@ -90,6 +91,7 @@ public class DungeonMap {
 	};
 	
 	public DungeonMap(int seed) {
+		this.seed = seed;
 		rand = new Random(seed);
 		rooms = new Room[maxRow][maxCol];
 		generateDungeon();
@@ -177,7 +179,7 @@ public class DungeonMap {
 				|| pos.getY() > rooms[pos.getY()].length - 1;
 	}
 	
-	public MapPosition randPos(){
+	private MapPosition randPos(){
 		int yStart = rand.nextInt(10);
 		int xStart = rand.nextInt(10);
 		return new MapPosition(xStart, yStart);
@@ -187,7 +189,7 @@ public class DungeonMap {
 		rooms[position.getY()][position.getX()] = room;
 	}
 
-	public void generateDungeon() {
+	private void generateDungeon() {
 		Room start = new Room();
 		start.addItem(new OneHandedWeapon("Wooden Sword", 2));
 		start.addItem(new Shield("Wooden Shield", 1));
@@ -206,11 +208,14 @@ public class DungeonMap {
 			yEnd = rand.nextInt(10);
 		}
 		endPosition = new MapPosition(xEnd, yEnd);
-		generateLineToEnd(startPosition, endPosition, rand);
+		generateLineToEnd(startPosition, endPosition);
 		setRoom(end, endPosition);
+		int roomNumbers = getAmountOfRooms();
+		int branches = roomNumbers / 3;
+		generateBranches(branches);
 	}
 
-	public void generateLineToEnd(MapPosition start, MapPosition end, Random rand) {
+	private void generateLineToEnd(MapPosition start, MapPosition end) {
 		int xTransfer = start.getX();
 		int yTransfer = start.getY();
 		boolean vertical = false;
@@ -238,7 +243,7 @@ public class DungeonMap {
 						return;
 					}
 				}
-				generateRoom(xTransfer, yTransfer, rand);
+				generateRoom(xTransfer, yTransfer);
 				vertical = false;
 			}
 			else {
@@ -255,13 +260,13 @@ public class DungeonMap {
 						return;
 					}
 				}
-				generateRoom(xTransfer, yTransfer, rand);
+				generateRoom(xTransfer, yTransfer);
 				vertical = true;
 			}
 		}
 	}
 
-	public void generateRoom(int x, int y, Random rand) {
+	private void generateRoom(int x, int y) {
 		int monster = rand.nextInt(2);
 		Room room = new Room();
 		if(monster == 1) {
@@ -299,5 +304,22 @@ public class DungeonMap {
 			room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
 		}
 		rooms[y][x] = room;
+	}
+
+	public int getAmountOfRooms() {
+		int counter = 0;
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				if(rooms[i][j] != null) {
+					counter++;
+				}
+			}
+		}
+		return counter;
+	}
+
+	private void generateBranches(int branches){
+		int counter = 0;
+
 	}
 }
