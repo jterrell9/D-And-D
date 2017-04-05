@@ -9,16 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Player extends Entity {
-	
-	public enum Equip {
-		LEFTHAND, RIGHTHAND, HANDS, SUIT, NONE
-	}
+public abstract class Player extends Entity {
 
 	private MapPosition mapPosition;
-	private Item suit;
-	private Item leftHand;
-	private Item rightHand;
+	protected Item suit;
+	protected Item leftHand;
+	protected Item rightHand;
 
 	private Map<String, Item> inventory = new ConflictHandlingMap<Item>();
 	private int inventoryUsed = 0;
@@ -100,29 +96,17 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void equip(Item item) throws InventoryException, EquipmentException {
+	public Item equip(Item item) throws InventoryException, EquipmentException {
+		Item retItem = null;
 		if(item instanceof Artifact) {
-			addtoInventory(item);
-		}
-		else if(item instanceof OneHandedWeapon) {
-			if(leftHand == null) {
-				leftHand = (OneHandedWeapon)item;
-			}
-			else if(rightHand == null) {
-				rightHand = (OneHandedWeapon)item;
-			}
-			else {
-				throw new EquipmentException(item.getName() 
-						+ " could not be equipped because both of " 
-						+ getName() + "'s hands are full.");
-			}
+			addtoInventory((Artifact) item);
 		}
 		else if(item instanceof Shield){
 			if(leftHand == null) {
-				leftHand = (Shield)item;
+				retItem = leftHand = (Shield)item;
 			}
 			else if(rightHand == null) {
-				rightHand = (Shield)item;
+				retItem = rightHand = (Shield)item;
 			}
 			else {
 				throw new EquipmentException(item.getName() 
@@ -132,7 +116,7 @@ public class Player extends Entity {
 		}
 		else if(item instanceof Suit){
 			if(suit == null) {
-				suit = (Suit)item;
+				retItem = suit = (Suit)item;
 			}
 			else {
 				throw new EquipmentException(item.getName() 
@@ -140,26 +124,7 @@ public class Player extends Entity {
 						+ getName() + " is already wearing a suit.");
 			}
 		}
-		else if(item instanceof TwoHandedWeapon) {
-			if(leftHand == null && rightHand == null) {
-				leftHand = rightHand = (TwoHandedWeapon)item;
-			}
-			else {
-				throw new EquipmentException(item.getName() 
-						+ " could not be equipped because both of " 
-						+ getName() + "'s hands need to be empty.");
-			}
-		}
-		else if(item instanceof Potion) {
-			throw new EquipmentException(item.getName()
-					+ " could not be equipped because "
-					+ item.getName() + "is a Potion");
-		}
-		else {
-			throw new EquipmentException(item.getName()
-					+ " is of an unknown type");
-			
-		}
+		return retItem;
 	}
 
 	public Item removeEquipment(Equip bodyArea) throws EquipmentException {
@@ -378,14 +343,26 @@ public class Player extends Entity {
 	}
 	
 	public class InventoryException extends Exception {
+		
 		public InventoryException(String message){
 			super(message);
+		}
+		
+		@Override
+		public String toString() {
+			return super.toString().substring(43);
 		}
 	}
 
 	public class EquipmentException extends Exception {
+		
 		public EquipmentException(String message) {
 			super(message);
+		}
+		
+		@Override
+		public String toString() {
+			return super.toString().substring(43);
 		}
 	}
 }

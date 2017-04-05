@@ -4,6 +4,7 @@ import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
+import com.dd.entities.Equip;
 import com.dd.entities.Fighter;
 import com.dd.entities.Player;
 import com.dd.entities.Wizard;
@@ -46,14 +47,15 @@ public class NewGameController extends GameSceneController{
 		}
 
 		DungeonMap map = generateDungeonMap(5, 5);
-		Player player = new Player();
-		if(fighterRadio.isPressed()) {
-			player = new Fighter(characterName.getText());
+		GameState game = new GameState(saveName.getText(), map);
+		if(fighterRadio.isSelected()) {
+			Fighter fighter = new Fighter(characterName.getText());
+			game.setActivePlayer(fighter);
 		}
-		if(wizardRadio.isPressed()) {
-			player = new Wizard(characterName.getText());
+		else if(wizardRadio.isSelected()) {
+			Wizard wizard = new Wizard(characterName.getText());
+			game.setActivePlayer(wizard);
 		}
-		GameState game = new GameState(saveName.getText(), player, map);
 
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
 		args.setArgument("GameState", game);
@@ -121,6 +123,8 @@ public class NewGameController extends GameSceneController{
 
 		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
 		Shield shield = new Shield("Wooden Shield", 4);
+		TwoHandedWeapon twoHandedSword = new TwoHandedWeapon("Two Handed Sword", 5);
+		Magical wand = new Magical("Wand", Equip.HANDS, 0, 2, 4, 2);
 		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
 		Suit breastPlate = new Suit("Brass Breast Plate", 2);
@@ -131,6 +135,8 @@ public class NewGameController extends GameSceneController{
 		map.addRoom(new Room(), buildPos);
 		map.getRoom(buildPos).addItem(sword);
 		map.getRoom(buildPos).addItem(shield);
+		map.getRoom(buildPos).addItem(twoHandedSword);
+		map.getRoom(buildPos).addItem(wand);
 		buildPos.moveEast();
 		map.addRoom(new Room(), buildPos);
 		map.getRoom(buildPos).addItem(breastPlate);

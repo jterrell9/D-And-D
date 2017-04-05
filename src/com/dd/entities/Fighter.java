@@ -1,13 +1,9 @@
 package com.dd.entities;
 
 import com.dd.Stats;
+import com.dd.entities.Player.EquipmentException;
 import com.dd.items.*;
-import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
-import com.dd.dd_util.ConflictHandlingMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Fighter extends Player {
 
@@ -17,16 +13,54 @@ public class Fighter extends Player {
 
 	public Fighter(String name) {
 		super(name);
+		setMapPosition(new MapPosition());
 	}
 	
 	public Fighter() {
 		super();
+		setMapPosition(new MapPosition());
 	}
 
 	@Override
-	public void equip(Item item) throws com.dd.entities.Player.InventoryException, com.dd.entities.Player.EquipmentException {
-		super.equip(item);
+	public Item equip(Item item) throws InventoryException, EquipmentException {
+		Item retItem = super.equip(item);
+		if(item instanceof TwoHandedWeapon) {
+			retItem = (TwoHandedWeapon) item;
+			if(leftHand == null && rightHand == null) {
+				retItem = leftHand = rightHand = (TwoHandedWeapon)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because both of " 
+						+ getName() + "'s hands need to be empty.");
+			}
+		}
+		else if(item instanceof OneHandedWeapon) {
+			retItem = (OneHandedWeapon) item;
+			if(leftHand == null) {
+				retItem = leftHand = (OneHandedWeapon)item;
+				
+			}
+			else if(rightHand == null) {
+				retItem = rightHand = (OneHandedWeapon)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because both of " 
+						+ getName() + "'s hands are full.");
+			}
+		}
+		else if(item instanceof Magical) {
+			throw new EquipmentException(item.getName() 
+					+ " could not be equipped because "
+					+ "fighters cannot use " + item.typeToString() + " items");
+		}
+		else {
+			throw new EquipmentException(item.getName()
+					+ " is of an unknown type");
+		}
 		stats.changeStat(item.getStatChange());
+		return retItem;
 	}
 
 }

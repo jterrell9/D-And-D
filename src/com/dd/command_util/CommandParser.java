@@ -14,12 +14,14 @@ public class CommandParser {
     private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
     private CommandOutputLog outputLog;
     private String playerName;
+    private String playerClass;
 
     public CommandParser(){}
     
-    public CommandParser(CommandOutputLog outputLog, String playerName) {
+    public CommandParser(CommandOutputLog outputLog, String playerName, String playerClass) {
         this.outputLog = outputLog;
         this.playerName = playerName;
+        this.playerClass = playerClass;
     }
     
     public void parse(String userInput) throws InvalidCommandException, FileNotFoundException{
@@ -27,7 +29,7 @@ public class CommandParser {
             throw new IllegalArgumentException();
         }
     	outputLog.printToLog(RunningGameController.printLnTitle('~', "", 80));
-    	outputLog.printToLog(playerName + ">> " + userInput + "\n");
+    	outputLog.printToLog(playerClass + " " + playerName + ">> " + userInput + "\n");
     	outputLog.printToLog(RunningGameController.printLnTitle('~', "Dungeon Master", 80));
     	String commandStr[] = userInput.split(" ");
     	String command = commandStr[0];

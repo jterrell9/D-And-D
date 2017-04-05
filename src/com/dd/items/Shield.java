@@ -1,10 +1,9 @@
 package com.dd.items;
 
-public class Shield extends Item {
+public class Shield extends Physical {
 	
 	public Shield(String name, int defenseGain) {
-		super(name);
-		super.setStatChange(0, 0, 0, defenseGain);
+		super(name, 0, defenseGain);
 	}
 	
 	public Shield() {

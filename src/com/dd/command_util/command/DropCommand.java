@@ -4,10 +4,8 @@ import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.entities.Player;
-import com.dd.entities.Player.Equip;
+import com.dd.entities.Equip;
 import com.dd.entities.Player.EquipmentException;
-import com.dd.entities.Player.InventoryException;
-import com.dd.items.Item;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.Room;
 
