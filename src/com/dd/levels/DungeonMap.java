@@ -92,7 +92,7 @@ public class DungeonMap {
 	public DungeonMap(int seed) {
 		rand = new Random(seed);
 		rooms = new Room[maxRow][maxCol];
-		generateDungeon(rooms);
+		generateDungeon();
 	}
 
 	public int getMaxRow() {
@@ -187,7 +187,7 @@ public class DungeonMap {
 		rooms[position.getY()][position.getX()] = room;
 	}
 
-	public void generateDungeon(Room[][] rooms) {
+	public void generateDungeon() {
 		Room start = new Room();
 		start.addItem(new OneHandedWeapon("wooden sword", 2));
 		start.addItem(new Shield("wooden shield", 1));
