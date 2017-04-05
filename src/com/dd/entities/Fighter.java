@@ -50,6 +50,11 @@ public class Fighter extends Player {
 						+ getName() + "'s hands are full.");
 			}
 		}
+		else if(item instanceof Magical) {
+			throw new EquipmentException(item.getName() 
+					+ " could not be equipped because "
+					+ "fighters cannot use " + item.typeToString() + " items");
+		}
 		else {
 			throw new EquipmentException(item.getName()
 					+ " is of an unknown type");

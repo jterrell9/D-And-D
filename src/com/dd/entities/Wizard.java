@@ -73,6 +73,11 @@ public class Wizard extends Player {
 						+ getName() + "'s hands are full.");
 			}
 		}
+		else if(item instanceof TwoHandedWeapon) {
+			throw new EquipmentException(item.getName() 
+					+ " could not be equipped because "
+					+ "wizards cannot use " + item.typeToString() + "s");
+		}
 		
 		stats.changeStat(item.getStatChange());
 		return retItem;

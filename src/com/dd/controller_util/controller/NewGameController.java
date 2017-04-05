@@ -4,6 +4,7 @@ import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
+import com.dd.entities.Equip;
 import com.dd.entities.Fighter;
 import com.dd.entities.Player;
 import com.dd.entities.Wizard;
@@ -122,6 +123,8 @@ public class NewGameController extends GameSceneController{
 
 		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
 		Shield shield = new Shield("Wooden Shield", 4);
+		TwoHandedWeapon twoHandedSword = new TwoHandedWeapon("Two Handed Sword", 5);
+		Magical wand = new Magical("Wand", Equip.HANDS, 0, 2, 4, 2);
 		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
 		Suit breastPlate = new Suit("Brass Breast Plate", 2);
@@ -132,6 +135,8 @@ public class NewGameController extends GameSceneController{
 		map.addRoom(new Room(), buildPos);
 		map.getRoom(buildPos).addItem(sword);
 		map.getRoom(buildPos).addItem(shield);
+		map.getRoom(buildPos).addItem(twoHandedSword);
+		map.getRoom(buildPos).addItem(wand);
 		buildPos.moveEast();
 		map.addRoom(new Room(), buildPos);
 		map.getRoom(buildPos).addItem(breastPlate);

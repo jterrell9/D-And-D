@@ -2,12 +2,9 @@ package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
 
+import com.dd.entities.Equip;
 import com.dd.entities.monsters.Dragon;
-import com.dd.items.Artifact;
-import com.dd.items.OneHandedWeapon;
-import com.dd.items.Potion;
-import com.dd.items.Shield;
-import com.dd.items.Suit;
+import com.dd.items.*;
 
 public class DungeonMap {
 
@@ -24,6 +21,8 @@ public class DungeonMap {
 	public DungeonMap() {
 		rooms = new Room[5][5];
 		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
+		TwoHandedWeapon twoHandedSword = new TwoHandedWeapon("Two Handed Sword", 5);
+		Magical wand = new Magical("Wand", Equip.HANDS, 0, 2, 4, 2);
 		Shield shield = new Shield("Wooden Shield", 4);
 		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
 		Potion potion = new Potion("Health Elixer", 10);
@@ -35,6 +34,8 @@ public class DungeonMap {
 		addRoom(new Room(), buildPos);
 		getRoom(buildPos).addItem(sword);
 		getRoom(buildPos).addItem(shield);
+		getRoom(buildPos).addItem(wand);
+		getRoom(buildPos).addItem(twoHandedSword);
 		buildPos.moveEast();
 		addRoom(new Room(), buildPos);
 		getRoom(buildPos).addItem(breastPlate);

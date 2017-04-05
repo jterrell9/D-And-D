@@ -343,14 +343,26 @@ public class Player extends Entity {
 	}
 	
 	public class InventoryException extends Exception {
+		
 		public InventoryException(String message){
 			super(message);
+		}
+		
+		@Override
+		public String toString() {
+			return super.toString().substring(43);
 		}
 	}
 
 	public class EquipmentException extends Exception {
+		
 		public EquipmentException(String message) {
 			super(message);
+		}
+		
+		@Override
+		public String toString() {
+			return super.toString().substring(43);
 		}
 	}
 }
