@@ -193,16 +193,16 @@ public class DungeonMap {
 		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
 		int yEnd = rand.nextInt(10);
 		while(yEnd <= yStart + 3
-				|| yEnd >= yStart - 3
-				|| yEnd <= yEnd - 3
-				|| yEnd >= yStart + 3) {
+				&& yEnd >= yStart - 3
+				&& yEnd <= yEnd - 3
+				&& yEnd >= yStart + 3) {
 			yEnd = rand.nextInt(10);
 		}
 		int xEnd = rand.nextInt(10);
 		while(xEnd <= xStart + 3
-				|| xEnd >= xStart - 3
-				|| xEnd > xStart + 3
-				|| xEnd <= xStart - 3) {
+				&& xEnd >= xStart - 3
+				&& xEnd > xStart + 3
+				&& xEnd <= xStart - 3) {
 			xEnd = rand.nextInt(10);
 		}
 		rooms[yEnd][xEnd] = end;
