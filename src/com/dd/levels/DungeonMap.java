@@ -4,7 +4,7 @@ import java.lang.IllegalArgumentException;
 import java.util.Random;
 
 import com.dd.entities.Equip;
-import com.dd.entities.monsters.Dragon;
+import com.dd.entities.monsters.*;
 import com.dd.items.*;
 
 public class DungeonMap {
@@ -206,6 +206,81 @@ public class DungeonMap {
 			xEnd = rand.nextInt(10);
 		}
 		rooms[yEnd][xEnd] = end;
+		generateLineToEnd(yStart, xStart, yEnd, xEnd, rand);
+	}
 
+	public void generateLineToEnd(int yStart, int xStart, int yEnd, int xEnd, Random rand) {
+		int xTransfer = xStart;
+		int yTransfer = yStart;
+		boolean vertical = false;
+		boolean yTrue = false;
+		boolean xTrue = false;
+		while (!yTrue && !xTrue) {
+			if(xTrue) {
+				vertical = true;
+			}
+			else if(yTrue) {
+				vertical = false;
+			}
+			if(vertical) {
+				if(yTransfer > yEnd) {
+					yTransfer--;
+				}
+				else if(yTransfer < yEnd) {
+					yTransfer++;
+				}
+				else {
+					yTrue = true;
+				}
+				generateRoom(xTransfer, yTransfer, rand);
+				vertical = false;
+			}
+			else {
+				if(xTransfer > xEnd) {
+					xTransfer--;
+				}
+				else if(xTransfer < xEnd) {
+					xTransfer++;
+				}
+				else {
+					xTrue = true;
+				}
+				generateRoom(xTransfer, yTransfer, rand);
+				vertical = true;
+			}
+		}
+	}
+
+	public void generateRoom(int x, int y, Random rand) {
+		int monster = rand.nextInt(2);
+		Room room = new Room();
+		if(monster == 1) {
+			int type = rand.nextInt(4);
+			if(type == 0) {
+				String name = beholdNames[rand.nextInt(10)];
+				Beholder mon = new Beholder(name, 20, 1, 4);
+				room.addMonster(mon);
+				room.addItem(new Artifact(name + " Amulet", 5, 5, 0, 5));
+			}
+			else if(type == 1) {
+				Goblin mon = new Goblin(gobNames[rand.nextInt(7)], 10, 2, 1);
+				room.addMonster(mon);
+			}
+			else if(type == 2) {
+				Skeleton mon = new Skeleton("skel", 15, 4, 1);
+				room.addMonster(mon);
+				room.addItem(new Suit("Brass Breast Plate", 5));
+			}
+			else if(type == 3) {
+				Zombie mon = new Zombie("zomb", 15, 4, 4);
+				room.addMonster(mon);
+				room.addItem(new Potion("Potion of Healing", 4));
+			}
+		}
+		int loot = rand.nextInt(2);
+		if(loot == 1) {
+			room.addItem(new OneHandedWeapon("Longsword of Ilon", 3));
+		}
+		rooms[y][x] = room;
 	}
 }
