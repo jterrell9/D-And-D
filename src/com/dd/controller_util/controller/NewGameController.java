@@ -45,17 +45,15 @@ public class NewGameController extends GameSceneController{
 		if (!checkFields()) {
 			return;
 		}
-
-		String seedStr = seedNumber.getText();
-		Integer seed = Integer.parseInt(seedStr);
-		DungeonMap map = generateDungeonMap(seed);
+		Integer seed = Integer.parseInt(seedNumber.getText());
+		DungeonMap map = new DungeonMap(seed);
 		GameState game = new GameState(saveName.getText(), map);
 		if(fighterRadio.isSelected()) {
-			Fighter fighter = new Fighter(characterName.getText());
+			Fighter fighter = new Fighter(characterName.getText(), map.getStartPosition());
 			game.setActivePlayer(fighter);
 		}
 		else if(wizardRadio.isSelected()) {
-			Wizard wizard = new Wizard(characterName.getText());
+			Wizard wizard = new Wizard(characterName.getText(), map.getStartPosition());
 			game.setActivePlayer(wizard);
 		}
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
@@ -117,12 +115,6 @@ public class NewGameController extends GameSceneController{
 		
 		RadioButton rbutton = (RadioButton) characterClass.getSelectedToggle();
 		return rbutton.getText();
-	}
-
-	private DungeonMap generateDungeonMap(int seed) {
-		DungeonMap map = new DungeonMap(seed);
-
-		return map;
 	}
 
 	/**

@@ -11,9 +11,9 @@ public class Fighter extends Player {
 		super(name, pos, stats);
 	}
 
-	public Fighter(String name) {
+	public Fighter(String name, MapPosition startPosition) {
 		super(name);
-		setMapPosition(new MapPosition());
+		setMapPosition(startPosition);
 	}
 	
 	public Fighter() {
