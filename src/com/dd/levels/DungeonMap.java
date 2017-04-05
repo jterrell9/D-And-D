@@ -189,29 +189,25 @@ public class DungeonMap {
 
 	public void generateDungeon() {
 		Room start = new Room();
-		start.addItem(new OneHandedWeapon("wooden sword", 2));
-		start.addItem(new Shield("wooden shield", 1));
+		start.addItem(new OneHandedWeapon("Wooden Sword", 2));
+		start.addItem(new Shield("Wooden Shield", 1));
 		startPosition = randPos();
 		setRoom(start, startPosition);
 		Room end = new Room();
 		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
 		int xEnd = rand.nextInt(10);
-		int yEnd = rand.nextInt(10);
-		while(xEnd <= startPosition.getX() + 3
-				&& xEnd >= startPosition.getX() - 3
-				&& xEnd > startPosition.getX() + 3
-				&& xEnd <= startPosition.getX() - 3) {
+		while(xEnd > startPosition.getX() - 3
+				&& xEnd < startPosition.getX() + 3) {
 			xEnd = rand.nextInt(10);
 		}
-		while(yEnd <= startPosition.getY() + 3
-				&& yEnd >= startPosition.getY() - 3
-				&& yEnd <= yEnd - 3
-				&& yEnd >= startPosition.getY() + 3) {
+		int yEnd = rand.nextInt(10);
+		while(yEnd > startPosition.getY() - 3
+				&& yEnd < startPosition.getY() + 3) {
 			yEnd = rand.nextInt(10);
 		}
 		endPosition = new MapPosition(xEnd, yEnd);
 		generateLineToEnd(startPosition, endPosition, rand);
-		setRoom(end, new MapPosition(xEnd, yEnd));
+		setRoom(end, endPosition);
 	}
 
 	public void generateLineToEnd(MapPosition start, MapPosition end, Random rand) {
