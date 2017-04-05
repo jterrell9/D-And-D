@@ -164,7 +164,9 @@ public class RunningGameController extends GameSceneController{
 		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
 		output.appendText("Type \"help\" for a list of commands\n");
 		
-		commandParser = new CommandParser(new CommandOutputLog(output), gameState.getActivePlayer().getName());
+		String characterName = gameState.getActivePlayer().getName();
+		String characterClass = gameState.getActivePlayer().getClass().toString().substring(22);
+		commandParser = new CommandParser(new CommandOutputLog(output), characterName, characterClass);
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));

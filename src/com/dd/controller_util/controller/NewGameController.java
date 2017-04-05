@@ -46,14 +46,15 @@ public class NewGameController extends GameSceneController{
 		}
 
 		DungeonMap map = generateDungeonMap(5, 5);
-		Player player = new Player();
-		if(fighterRadio.isPressed()) {
-			player = new Fighter(characterName.getText());
+		GameState game = new GameState(saveName.getText(), map);
+		if(fighterRadio.isSelected()) {
+			Fighter fighter = new Fighter(characterName.getText());
+			game.setActivePlayer(fighter);
 		}
-		if(wizardRadio.isPressed()) {
-			player = new Wizard(characterName.getText());
+		else if(wizardRadio.isSelected()) {
+			Wizard wizard = new Wizard(characterName.getText());
+			game.setActivePlayer(wizard);
 		}
-		GameState game = new GameState(saveName.getText(), player, map);
 
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
 		args.setArgument("GameState", game);

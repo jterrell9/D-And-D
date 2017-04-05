@@ -1,13 +1,9 @@
 package com.dd.entities;
 
 import com.dd.Stats;
+import com.dd.entities.Player.EquipmentException;
 import com.dd.items.*;
-import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
-import com.dd.dd_util.ConflictHandlingMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Wizard extends Player {
 
@@ -17,16 +13,69 @@ public class Wizard extends Player {
 
 	public Wizard(String name) {
 		super(name);
+		setMapPosition(new MapPosition());
 	}
 	
 	public Wizard() {
 		super();
+		setMapPosition(new MapPosition());
 	}
 
 	@Override
-	public void equip(Item item) throws com.dd.entities.Player.InventoryException, com.dd.entities.Player.EquipmentException {
-		super.equip(item);
+	public Item equip(Item item) throws InventoryException, EquipmentException {
+		Item retItem = super.equip(item);
+		if(item instanceof Magical) {
+			retItem = (Magical) item;
+			Equip bodyArea = ((Magical) item).getBodyAread();
+			switch(bodyArea) {
+			case HANDS:
+				if(leftHand == null) {
+					retItem = leftHand = (Magical)item;
+					
+				}
+				else if(rightHand == null) {
+					retItem = rightHand = (Magical)item;
+				}
+				else {
+					throw new EquipmentException(item.getName() 
+							+ " could not be equipped because both of " 
+							+ getName() + "'s hands are full.");
+				}
+				break;
+			case SUIT:
+				if(suit == null) {
+					retItem = suit = (Suit)item;
+				}
+				else {
+					throw new EquipmentException(item.getName() 
+							+ " could not be equipped because " 
+							+ getName() + " is already wearing a suit.");
+				}
+				break;
+			case NONE:
+				addtoInventory((Magical) item);
+				break;
+			}
+		}
+		else if(item instanceof OneHandedWeapon) {
+			((OneHandedWeapon) item).setStatForWizard();
+			retItem = (OneHandedWeapon) item;
+			if(leftHand == null) {
+				retItem = leftHand = (OneHandedWeapon)item;
+				
+			}
+			else if(rightHand == null) {
+				retItem = rightHand = (OneHandedWeapon)item;
+			}
+			else {
+				throw new EquipmentException(item.getName() 
+						+ " could not be equipped because both of " 
+						+ getName() + "'s hands are full.");
+			}
+		}
+		
 		stats.changeStat(item.getStatChange());
+		return retItem;
 	}
 
 }
