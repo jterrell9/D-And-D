@@ -14,6 +14,41 @@ public class DungeonMap {
 	private int maxCol = 10;
 	private Random rand;
 	private MapPosition startPosition;
+	private final String[] suitNames = {
+			"Cloth Armor",
+			"Chain Mail",
+			"Splint",
+			"Brass Armor",
+			"Gold Plate Armor",
+			"Dragon Hide Armor"
+	};
+	private final String[] shieldNames = {
+			"Iron Shield",
+			"Iron Shield",
+			"Brass Shield",
+			"Golden Shield",
+			"Dragon Hide Armor"
+	};
+	private final String[] potionNames = {
+			"Potion of Healing",
+			"Potion of Greater Healing",
+			"Potion of Superior Healing",
+			"Potion of Exceptional Healing"
+	};
+	private final String[] twoSwordNames = {
+			"Greatsword",
+			"Greatsword of Kuu",
+			"Great Axe",
+			"Blood Axe",
+			"Kravenedge, the Great Sword"
+	};
+	private final String[] oneSwordNames = {
+			"Longsword",
+			"Longsword of Ilon",
+			"Club",
+			"Club of Durrak",
+			"Dragonscale Sword"
+	};
 	private final String[] dragNames = {
 			"Thordak",
 			"Raishan",
@@ -205,8 +240,8 @@ public class DungeonMap {
 				&& xEnd <= xStart - 3) {
 			xEnd = rand.nextInt(10);
 		}
-		rooms[yEnd][xEnd] = end;
 		generateLineToEnd(yStart, xStart, yEnd, xEnd, rand);
+		rooms[yEnd][xEnd] = end;
 	}
 
 	public void generateLineToEnd(int yStart, int xStart, int yEnd, int xEnd, Random rand) {
@@ -215,7 +250,8 @@ public class DungeonMap {
 		boolean vertical = false;
 		boolean yTrue = false;
 		boolean xTrue = false;
-		while (!yTrue && !xTrue) {
+		boolean bothTrue = false;
+		while (!bothTrue) {
 			if(xTrue) {
 				vertical = true;
 			}
@@ -231,6 +267,10 @@ public class DungeonMap {
 				}
 				else {
 					yTrue = true;
+					bothTrue = xTrue && yTrue;
+					if(bothTrue) {
+						return;
+					}
 				}
 				generateRoom(xTransfer, yTransfer, rand);
 				vertical = false;
@@ -244,6 +284,10 @@ public class DungeonMap {
 				}
 				else {
 					xTrue = true;
+					bothTrue = xTrue && yTrue;
+					if(bothTrue) {
+						return;
+					}
 				}
 				generateRoom(xTransfer, yTransfer, rand);
 				vertical = true;
@@ -260,26 +304,33 @@ public class DungeonMap {
 				String name = beholdNames[rand.nextInt(10)];
 				Beholder mon = new Beholder(name, 20, 1, 4);
 				room.addMonster(mon);
-				room.addItem(new Artifact(name + " Amulet", 5, 5, 0, 5));
+				int swordNum = rand.nextInt(5);
+				room.addItem(new TwoHandedWeapon(twoSwordNames[swordNum], 6 + swordNum));
+				room.addItem(new Artifact(name + " Amulet", 5 + rand.nextInt(6), 5 + rand.nextInt(6), 0, 5 + rand.nextInt(6)));
 			}
 			else if(type == 1) {
-				Goblin mon = new Goblin(gobNames[rand.nextInt(7)], 10, 2, 1);
+				Goblin mon = new Goblin(gobNames[rand.nextInt(7)] + " the goblin", 5 + rand.nextInt(11), 2 + rand.nextInt(2), 1);
 				room.addMonster(mon);
+				int shieldNum = rand.nextInt(5);
+				room.addItem(new Shield(shieldNames[shieldNum], 1 + shieldNum));
 			}
 			else if(type == 2) {
-				Skeleton mon = new Skeleton("skel", 15, 4, 1);
+				Skeleton mon = new Skeleton("skel", 10 + rand.nextInt(6), 4 + rand.nextInt(4), 1);
 				room.addMonster(mon);
-				room.addItem(new Suit("Brass Breast Plate", 5));
+				int suitNum = rand.nextInt(6);
+				room.addItem(new Suit(suitNames[suitNum], suitNum + 3));
 			}
 			else if(type == 3) {
-				Zombie mon = new Zombie("zomb", 15, 4, 4);
+				Zombie mon = new Zombie("zomb", 10 + rand.nextInt(6), 4, 4);
 				room.addMonster(mon);
-				room.addItem(new Potion("Potion of Healing", 4));
+				int swordNum = rand.nextInt(5);
+				room.addItem(new OneHandedWeapon(oneSwordNames[swordNum], 5 + swordNum));
 			}
 		}
 		int loot = rand.nextInt(2);
 		if(loot == 1) {
-			room.addItem(new OneHandedWeapon("Longsword of Ilon", 3));
+			int potNum = rand.nextInt(4);
+			room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
 		}
 		rooms[y][x] = room;
 	}
