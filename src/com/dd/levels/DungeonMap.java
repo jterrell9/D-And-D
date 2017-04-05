@@ -14,6 +14,7 @@ public class DungeonMap {
 	private int maxCol = 10;
 	private Random rand;
 	private MapPosition startPosition;
+	private MapPosition endPosition;
 	private final String[] suitNames = {
 			"Cloth Armor",
 			"Chain Mail",
@@ -87,46 +88,6 @@ public class DungeonMap {
 			"Ma'Kefet",
 			"Zi'Tumo"
 	};
-
-	public DungeonMap() {
-		rooms = new Room[5][5];
-		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
-		TwoHandedWeapon twoHandedSword = new TwoHandedWeapon("Two Handed Sword", 5);
-		Magical wand = new Magical("Wand", Equip.HANDS, 0, 2, 4, 2);
-		Shield shield = new Shield("Wooden Shield", 4);
-		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
-		Potion potion = new Potion("Health Elixer", 10);
-		Suit breastPlate = new Suit("Brass Breast Plate", 2);
-
-		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
-
-		MapPosition buildPos = new MapPosition();
-		addRoom(new Room(), buildPos);
-		getRoom(buildPos).addItem(sword);
-		getRoom(buildPos).addItem(shield);
-		getRoom(buildPos).addItem(wand);
-		getRoom(buildPos).addItem(twoHandedSword);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-		getRoom(buildPos).addItem(breastPlate);
-		getRoom(buildPos).addItem(ring);
-		getRoom(buildPos).addItem(potion);
-		getRoom(buildPos).addMonster(dragon);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-	}
 	
 	public DungeonMap(int seed) {
 		rand = new Random(seed);
@@ -215,38 +176,47 @@ public class DungeonMap {
 				|| pos.getY() < 0
 				|| pos.getY() > rooms[pos.getY()].length - 1;
 	}
+	
+	public MapPosition randPos(){
+		int yStart = rand.nextInt(10);
+		int xStart = rand.nextInt(10);
+		return new MapPosition(xStart, yStart);
+	}
+	
+	public void setRoom(Room room, MapPosition position) {
+		rooms[position.getY()][position.getX()] = room;
+	}
 
 	public void generateDungeon() {
 		Room start = new Room();
 		start.addItem(new OneHandedWeapon("wooden sword", 2));
 		start.addItem(new Shield("wooden shield", 1));
-		int yStart = rand.nextInt(10);
-		int xStart = rand.nextInt(10);
-		startPosition = new MapPosition(xStart, yStart);
-		rooms[yStart][xStart] = start;
+		startPosition = randPos();
+		setRoom(start, startPosition);
 		Room end = new Room();
 		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
-		int yEnd = rand.nextInt(10);
-		while(yEnd <= yStart + 3
-				&& yEnd >= yStart - 3
-				&& yEnd <= yEnd - 3
-				&& yEnd >= yStart + 3) {
-			yEnd = rand.nextInt(10);
-		}
 		int xEnd = rand.nextInt(10);
-		while(xEnd <= xStart + 3
-				&& xEnd >= xStart - 3
-				&& xEnd > xStart + 3
-				&& xEnd <= xStart - 3) {
+		int yEnd = rand.nextInt(10);
+		while(xEnd <= startPosition.getX() + 3
+				&& xEnd >= startPosition.getX() - 3
+				&& xEnd > startPosition.getX() + 3
+				&& xEnd <= startPosition.getX() - 3) {
 			xEnd = rand.nextInt(10);
 		}
-		generateLineToEnd(yStart, xStart, yEnd, xEnd, rand);
-		rooms[yEnd][xEnd] = end;
+		while(yEnd <= startPosition.getY() + 3
+				&& yEnd >= startPosition.getY() - 3
+				&& yEnd <= yEnd - 3
+				&& yEnd >= startPosition.getY() + 3) {
+			yEnd = rand.nextInt(10);
+		}
+		endPosition = new MapPosition(xEnd, yEnd);
+		generateLineToEnd(startPosition, endPosition, rand);
+		setRoom(end, new MapPosition(xEnd, yEnd));
 	}
 
-	public void generateLineToEnd(int yStart, int xStart, int yEnd, int xEnd, Random rand) {
-		int xTransfer = xStart;
-		int yTransfer = yStart;
+	public void generateLineToEnd(MapPosition start, MapPosition end, Random rand) {
+		int xTransfer = start.getX();
+		int yTransfer = start.getY();
 		boolean vertical = false;
 		boolean yTrue = false;
 		boolean xTrue = false;
@@ -259,10 +229,10 @@ public class DungeonMap {
 				vertical = false;
 			}
 			if(vertical) {
-				if(yTransfer > yEnd) {
+				if(yTransfer > end.getY()) {
 					yTransfer--;
 				}
-				else if(yTransfer < yEnd) {
+				else if(yTransfer < end.getY()) {
 					yTransfer++;
 				}
 				else {
@@ -276,10 +246,10 @@ public class DungeonMap {
 				vertical = false;
 			}
 			else {
-				if(xTransfer > xEnd) {
+				if(xTransfer > end.getX()) {
 					xTransfer--;
 				}
-				else if(xTransfer < xEnd) {
+				else if(xTransfer < end.getX()) {
 					xTransfer++;
 				}
 				else {
