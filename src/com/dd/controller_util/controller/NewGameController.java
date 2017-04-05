@@ -27,15 +27,15 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public class NewGameController extends GameSceneController{
-	@FXML TextField saveName;
-	@FXML TextField seedNumber;
-	@FXML TextField characterName;
-	@FXML Button startButton;
-	@FXML Button backButton;
-	@FXML RadioButton fighterRadio;
-	@FXML RadioButton wizardRadio;
-	@FXML ToggleGroup characterClass;
-	@FXML Label errorLabel;
+	@FXML private TextField saveName;
+	@FXML private TextField seedNumber;
+	@FXML private TextField characterName;
+	@FXML private Button startButton;
+	@FXML private Button backButton;
+	@FXML private RadioButton fighterRadio;
+	@FXML private RadioButton wizardRadio;
+	@FXML private ToggleGroup characterClass;
+	@FXML private Label errorLabel;
 
 	/**
 	 * Event handler for "Start Game" button.
