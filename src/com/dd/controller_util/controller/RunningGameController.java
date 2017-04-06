@@ -157,6 +157,7 @@ public class RunningGameController extends GameSceneController{
 		
 		updateMap();
 		updateStatboard();
+		input.clear();
 		output.clear();
 		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
 		output.appendText("Type \"help\" for a list of commands\n");
