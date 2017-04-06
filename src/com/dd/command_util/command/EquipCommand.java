@@ -14,39 +14,90 @@ import com.dd.levels.Room.UnknownItemException;
 public class EquipCommand extends CommandHandler {
 	private Player player;
 	private DungeonMap dungeonMap;
+	private Room room;
 
     public EquipCommand(GameState gameState) {
     	this.player = gameState.getActivePlayer();
 		this.dungeonMap = gameState.getMap();
+		this.room = dungeonMap.getRoom(player.getPostion());
+		
 	}
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) {
 		if(args[0] != null) {
-	    	Room room = dungeonMap.getRoom(player.getPostion());
-	    	Item item = room.getItem(args[0]);
-	    	if(item != null){
-	    		try{
-	    			player.equip(item);
-	    			room.removeItem(item.getName());
-	    			outputLog.printToLog(player.getName() + " has equipped " + item.getName() + "\n");
-	    		}
-	    		catch(EquipmentException ee) {
-	    			outputLog.printToLog(ee.toString() + "\n");
-	    		}
-	    		catch(InventoryException ie) {
-	    			outputLog.printToLog(ie.toString() + "\n");
-	    		} catch (UnknownItemException UIE) {
-					outputLog.printToLog(UIE.toString() + "\n");
+			Item item = null;
+			switch(args[0]) {
+			case "items":
+				//NOT WORKING!!!
+				for(String itemName : room.getItemList()) {
+					item = room.getItem(itemName);
+					if(item != null) {
+			    		try{
+			    			player.equip(item);
+			    			room.removeItem(item.getName());
+			    			outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
+			    		}
+			    		catch(EquipmentException ee) {
+			    			outputLog.printToLog(ee.toString());
+			    		}
+			    		catch(InventoryException ie) {
+			    			outputLog.printToLog(ie.toString());
+			    		} catch (UnknownItemException UIE) {
+			    			outputLog.printToLog(UIE.toString());
+						}
+					}
+			    	else {
+			    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
+			    	}
 				}
-	    	}
-	    	else {
-	    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room.\n");
-	    	}
-	    	outputLog.printToLog(room.examineString());
+				//NOT WORKING!!
+				break;
+			default:
+				item = room.getItem(args[0]);
+				if(item != null) {
+		    		try{
+		    			player.equip(item);
+		    			room.removeItem(item.getName());
+		    			outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
+		    		}
+		    		catch(EquipmentException ee) {
+		    			outputLog.printToLog(ee.toString());
+		    		}
+		    		catch(InventoryException ie) {
+		    			outputLog.printToLog(ie.toString());
+		    		} catch (UnknownItemException UIE) {
+		    			outputLog.printToLog(UIE.toString());
+					}
+				}
+		    	else {
+		    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
+		    	}
+			}
+			outputLog.printToLog(room.examineString());
 		}
 		else {
-			outputLog.printToLog("Type \"help\" for help using the equip command.\n");
+			outputLog.printToLog("Type \"help\" for help using the equip command. ");
 		}
+    }
+    
+    private String equipItem(Item item) {
+    	if(item != null){
+    		try{
+    			player.equip(item);
+    			room.removeItem(item.getName());
+    			return player.titleToString() + " has equipped " + item.getName() + ". ";
+    		}
+    		catch(EquipmentException ee) {
+    			return ee.toString();
+    		}
+    		catch(InventoryException ie) {
+    			return ie.toString();
+    		} catch (UnknownItemException UIE) {
+				return UIE.toString();
+			}
+    	}else {
+    		return null;
+    	}
     }
 }

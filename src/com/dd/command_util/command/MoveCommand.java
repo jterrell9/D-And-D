@@ -26,52 +26,52 @@ public class MoveCommand extends CommandHandler {
 	    	case "north": 
 				if(map.isRoomInDir(position, Direction.NORTH)){
 						position.moveNorth();
-						outputLog.printToLog(player.getName() + " has moved through the North door\n");
+						outputLog.printToLog("The " + player.titleToString() + " has moved through the North door. ");
 				}
 				else{
-					outputLog.printToLog("No North Door!\n");
+					outputLog.printToLog("No North Door! ");
 				}
 				break;
 			
 	    	case "south": 
 				if(map.isRoomInDir(position, Direction.SOUTH)){
 					position.moveSouth();
-					outputLog.printToLog(player.getName() + " has moved through the South door\n");
+					outputLog.printToLog(player.titleToString() + " has moved through the South door. ");
 				}
 				else{
-					outputLog.printToLog("No South Door!\n");
+					outputLog.printToLog("No South Door! ");
 				}
 				break;
 			
 	    	case "east": 
 				if(map.isRoomInDir(position, Direction.EAST)){
 					position.moveEast();
-					outputLog.printToLog(player.getName() + " has moved through the East door\n");
+					outputLog.printToLog(player.titleToString() + " has moved through the East door. ");
 				}
 				else{
-					outputLog.printToLog("No East Door!\n");
+					outputLog.printToLog("No East Door! ");
 				}
 				break;
 			
 	    	case "west": 
 				if(map.isRoomInDir(position, Direction.WEST)){
 					position.moveWest();
-					outputLog.printToLog(player.getName() + " has moved through the West door\n");
+					outputLog.printToLog(player.titleToString() + " has moved through the West door. ");
 				}
 				else{
-					outputLog.printToLog("No West Door!\n");
+					outputLog.printToLog("No West Door! ");
 				}
 				break;
 			
 	    	default:
 	    		outputLog.printToLog("The argument \"" + args[0] + "\" is invalid.\n"
-	    				+ "Type \"help\" for help using the move command.\n");
+	    				+ "Type \"help\" for help using the move command. ");
 				return;	
 			}
-	    	outputLog.printToLog(map.getRoom(player.getPostion()).examineString() + "\n");
+	    	outputLog.printToLog(map.getRoom(player.getPostion()).examineString());
     	}
     	else {
-    		outputLog.printToLog("Type \"help\" for help using the move command.\n");
+    		outputLog.printToLog("Type \"help\" for help using the move command. ");
     	}
     }
 }

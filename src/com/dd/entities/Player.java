@@ -330,7 +330,7 @@ public class Player extends Entity {
 		StringBuilder sb = new StringBuilder("Inventory:");
 		int i = 0;
 		for(String itemName : inventory.keySet()){
-			sb.append("  " + ++i + " " + itemName + "\n");
+			sb.append("  " + ++i + " " + inventory.get(itemName).toString() + "\n");
 		}	
 		return sb.toString();
 	}
