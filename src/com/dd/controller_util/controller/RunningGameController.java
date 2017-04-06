@@ -76,7 +76,7 @@ public class RunningGameController extends GameSceneController{
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(gameState));
 		toGsonFile.close();
-		output.appendText("The game has been saved as " + gameState.getName() + ".json.\n");
+		output.appendText("The game has been saved as \"" + gameState.getName() + "\".\n");
 	}
 	
 	/**
