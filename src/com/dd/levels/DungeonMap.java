@@ -16,6 +16,7 @@ public class DungeonMap {
 	private int seed;
 	private MapPosition startPosition;
 	private MapPosition endPosition;
+	private int numberRooms;
 	private final String[] suitNames = {
 			"Cloth Armor",
 			"Chain Mail",
@@ -94,6 +95,7 @@ public class DungeonMap {
 		this.seed = seed;
 		rand = new Random(seed);
 		rooms = new Room[maxRow][maxCol];
+		numberRooms = 0;
 		generateDungeon();
 	}
 
@@ -191,6 +193,7 @@ public class DungeonMap {
 	
 	public void setRoom(Room room, MapPosition position) {
 		rooms[position.getY()][position.getX()] = room;
+		numberRooms++;
 	}
 
 	private void generateDungeon() {
@@ -213,8 +216,7 @@ public class DungeonMap {
 		}
 		endPosition = new MapPosition(xEnd, yEnd);
 		generateLineToEnd(startPosition, endPosition);
-		int roomNumbers = getAmountOfRooms() + 1;
-		int branches = roomNumbers / 3;
+		int branches = numberRooms / 3;
 		generateBranches(branches);
 		setRoom(end, endPosition);
 	}
@@ -307,19 +309,7 @@ public class DungeonMap {
 			int potNum = rand.nextInt(4);
 			room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
 		}
-		rooms[y][x] = room;
-	}
-
-	public int getAmountOfRooms() {
-		int counter = 0;
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				if(rooms[i][j] != null) {
-					counter++;
-				}
-			}
-		}
-		return counter;
+		setRoom(room, new MapPosition(x, y));
 	}
 
 	private void generateBranches(int branches) {
