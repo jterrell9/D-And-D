@@ -101,10 +101,6 @@ public class DungeonMap {
 		return seed;
 	}
 
-	public void setSeed(int seed) {
-		this.seed = seed;
-	}
-
 	public int getMaxRow() {
 		return maxRow;
 	}
