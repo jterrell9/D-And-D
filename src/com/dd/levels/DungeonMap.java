@@ -1,61 +1,104 @@
 package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
+import java.util.Random;
 
 import com.dd.entities.Equip;
-import com.dd.entities.monsters.Dragon;
+import com.dd.entities.monsters.*;
 import com.dd.items.*;
 
 public class DungeonMap {
 
 	private Room[][] rooms;
-	private int maxRow;
-	private int maxCol;
+	private int maxRow = 10;
+	private int maxCol = 10;
+	private Random rand;
+	private int seed;
+	private MapPosition startPosition;
+	private MapPosition endPosition;
+	private final String[] suitNames = {
+			"Cloth Armor",
+			"Chain Mail",
+			"Splint",
+			"Brass Armor",
+			"Gold Plate Armor",
+			"Dragon Hide Armor"
+	};
+	private final String[] shieldNames = {
+			"Iron Shield",
+			"Iron Shield",
+			"Brass Shield",
+			"Golden Shield",
+			"Dragon Hide Armor"
+	};
+	private final String[] potionNames = {
+			"Potion of Healing",
+			"Potion of Greater Healing",
+			"Potion of Superior Healing",
+			"Potion of Exceptional Healing"
+	};
+	private final String[] twoSwordNames = {
+			"Greatsword",
+			"Greatsword of Kuu",
+			"Great Axe",
+			"Blood Axe",
+			"Kravenedge, the Great Sword"
+	};
+	private final String[] oneSwordNames = {
+			"Longsword",
+			"Longsword of Ilon",
+			"Club",
+			"Club of Durrak",
+			"Dragonscale Sword"
+	};
+	private final String[] dragNames = {
+			"Thordak",
+			"Raishan",
+			"Galisha",
+			"Velica",
+			"Vorical",
+			"Dairak",
+			"Kelshawn",
+			"Herp",
+			"Saphera",
+			"Puff",
+			"Shenron",
+			"Smaug",
+			"Vizarion",
+			"Valoo",
+			"Faizon"
+	};
+	private final String[] gobNames = {
+			"Bogoblin",
+			"Rowllin",
+			"Stellart",
+			"Combarn",
+			"Meltion",
+			"Ori",
+			"Romil"
+	};
+	private final String[] beholdNames = {
+			"K'varn",
+			"Re'tunar",
+			"Ei'Soma",
+			"Emo'Sutra",
+			"Brah'Zumar",
+			"Ko'Rita",
+			"Tumo'Uta",
+			"Ai'Mantra",
+			"Ma'Kefet",
+			"Zi'Tumo"
+	};
 	
-	public DungeonMap(int maxCol, int maxRow) {
-		this.maxRow = maxRow;
-		this.maxCol = maxCol;
+	public DungeonMap(int seed) {
+		this.seed = seed;
+		rand = new Random(seed);
 		rooms = new Room[maxRow][maxCol];
+		generateDungeon();
 	}
-	
-	public DungeonMap() {
-		rooms = new Room[5][5];
-		OneHandedWeapon sword = new OneHandedWeapon("Sword of Mourning", 2);
-		TwoHandedWeapon twoHandedSword = new TwoHandedWeapon("Two Handed Sword", 5);
-		Magical wand = new Magical("Wand", Equip.HANDS, 0, 2, 4, 2);
-		Shield shield = new Shield("Wooden Shield", 4);
-		Artifact ring = new Artifact("Jade Ring", 0, 5, 1, 1);
-		Potion potion = new Potion("Health Elixer", 10);
-		Suit breastPlate = new Suit("Brass Breast Plate", 2);
-		
-		Dragon dragon = new Dragon("Dragon", 10, 5, 5);
-		
-		MapPosition buildPos = new MapPosition();
-		addRoom(new Room(), buildPos);
-		getRoom(buildPos).addItem(sword);
-		getRoom(buildPos).addItem(shield);
-		getRoom(buildPos).addItem(wand);
-		getRoom(buildPos).addItem(twoHandedSword);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-		getRoom(buildPos).addItem(breastPlate);
-		getRoom(buildPos).addItem(ring);
-		getRoom(buildPos).addItem(potion);
-		getRoom(buildPos).addMonster(dragon);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveSouth();
-		addRoom(new Room(), buildPos);
-		buildPos.moveEast();
-		addRoom(new Room(), buildPos);
+
+	public int getSeed() {
+		return seed;
 	}
 
 	public int getMaxRow() {
@@ -98,7 +141,15 @@ public class DungeonMap {
 		}
 		return retCode;
 	}
-	
+
+	public MapPosition getStartPosition() {
+		return startPosition;
+	}
+
+	public void setStartPosition(MapPosition startPosition) {
+		this.startPosition = startPosition;
+	}
+
 	public void addRoom(Room room, MapPosition position) {
 		if(isOutOfBounds(position)){
 			throw new IllegalArgumentException("The position ("
@@ -130,5 +181,149 @@ public class DungeonMap {
 				|| pos.getX() > rooms.length - 1
 				|| pos.getY() < 0
 				|| pos.getY() > rooms[pos.getY()].length - 1;
+	}
+	
+	private MapPosition randPos(){
+		int yStart = rand.nextInt(10);
+		int xStart = rand.nextInt(10);
+		return new MapPosition(xStart, yStart);
+	}
+	
+	public void setRoom(Room room, MapPosition position) {
+		rooms[position.getY()][position.getX()] = room;
+	}
+
+	private void generateDungeon() {
+		Room start = new Room();
+		start.addItem(new OneHandedWeapon("Wooden Sword", 2));
+		start.addItem(new Shield("Wooden Shield", 1));
+		startPosition = randPos();
+		setRoom(start, startPosition);
+		Room end = new Room();
+		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
+		int xEnd = rand.nextInt(10);
+		while(xEnd > startPosition.getX() - 3
+				&& xEnd < startPosition.getX() + 3) {
+			xEnd = rand.nextInt(10);
+		}
+		int yEnd = rand.nextInt(10);
+		while(yEnd > startPosition.getY() - 3
+				&& yEnd < startPosition.getY() + 3) {
+			yEnd = rand.nextInt(10);
+		}
+		endPosition = new MapPosition(xEnd, yEnd);
+		generateLineToEnd(startPosition, endPosition);
+		setRoom(end, endPosition);
+		int roomNumbers = getAmountOfRooms();
+		int branches = roomNumbers / 3;
+		generateBranches(branches);
+	}
+
+	private void generateLineToEnd(MapPosition start, MapPosition end) {
+		int xTransfer = start.getX();
+		int yTransfer = start.getY();
+		boolean vertical = false;
+		boolean yTrue = false;
+		boolean xTrue = false;
+		boolean bothTrue = false;
+		while (!bothTrue) {
+			if(xTrue) {
+				vertical = true;
+			}
+			else if(yTrue) {
+				vertical = false;
+			}
+			if(vertical) {
+				if(yTransfer > end.getY()) {
+					yTransfer--;
+				}
+				else if(yTransfer < end.getY()) {
+					yTransfer++;
+				}
+				else {
+					yTrue = true;
+					bothTrue = xTrue && yTrue;
+					if(bothTrue) {
+						return;
+					}
+				}
+				generateRoom(xTransfer, yTransfer);
+				vertical = false;
+			}
+			else {
+				if(xTransfer > end.getX()) {
+					xTransfer--;
+				}
+				else if(xTransfer < end.getX()) {
+					xTransfer++;
+				}
+				else {
+					xTrue = true;
+					bothTrue = xTrue && yTrue;
+					if(bothTrue) {
+						return;
+					}
+				}
+				generateRoom(xTransfer, yTransfer);
+				vertical = true;
+			}
+		}
+	}
+
+	private void generateRoom(int x, int y) {
+		int monster = rand.nextInt(2);
+		Room room = new Room();
+		if(monster == 1) {
+			int type = rand.nextInt(4);
+			if(type == 0) {
+				String name = beholdNames[rand.nextInt(10)];
+				Beholder mon = new Beholder(name, 20, 1, 4);
+				room.addMonster(mon);
+				int swordNum = rand.nextInt(5);
+				room.addItem(new TwoHandedWeapon(twoSwordNames[swordNum], 6 + swordNum));
+				room.addItem(new Artifact(name + " Amulet", 5 + rand.nextInt(6), 5 + rand.nextInt(6), 0, 5 + rand.nextInt(6)));
+			}
+			else if(type == 1) {
+				Goblin mon = new Goblin(gobNames[rand.nextInt(7)] + " the goblin", 5 + rand.nextInt(11), 2 + rand.nextInt(2), 1);
+				room.addMonster(mon);
+				int shieldNum = rand.nextInt(5);
+				room.addItem(new Shield(shieldNames[shieldNum], 1 + shieldNum));
+			}
+			else if(type == 2) {
+				Skeleton mon = new Skeleton("skel", 10 + rand.nextInt(6), 4 + rand.nextInt(4), 1);
+				room.addMonster(mon);
+				int suitNum = rand.nextInt(6);
+				room.addItem(new Suit(suitNames[suitNum], suitNum + 3));
+			}
+			else if(type == 3) {
+				Zombie mon = new Zombie("zomb", 10 + rand.nextInt(6), 4, 4);
+				room.addMonster(mon);
+				int swordNum = rand.nextInt(5);
+				room.addItem(new OneHandedWeapon(oneSwordNames[swordNum], 5 + swordNum));
+			}
+		}
+		int loot = rand.nextInt(2);
+		if(loot == 1) {
+			int potNum = rand.nextInt(4);
+			room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+		}
+		rooms[y][x] = room;
+	}
+
+	public int getAmountOfRooms() {
+		int counter = 0;
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				if(rooms[i][j] != null) {
+					counter++;
+				}
+			}
+		}
+		return counter;
+	}
+
+	private void generateBranches(int branches){
+		int counter = 0;
+
 	}
 }

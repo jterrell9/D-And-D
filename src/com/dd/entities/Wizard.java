@@ -11,9 +11,9 @@ public class Wizard extends Player {
 		super(name, pos, stats);
 	}
 
-	public Wizard(String name) {
+	public Wizard(String name, MapPosition startPosition) {
 		super(name);
-		setMapPosition(new MapPosition());
+		setMapPosition(startPosition);
 	}
 	
 	public Wizard() {
