@@ -1,6 +1,8 @@
 package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.dd.entities.Equip;
@@ -347,8 +349,26 @@ public class DungeonMap {
 	private MapPosition findPointClose(int x, int y) {
 		int tempX = x;
 		int tempY = y;
+		Map<MapPosition, Integer> map = new HashMap<>();
+		int distance = 0;
 		for(; tempX < 10; tempX++) {
 			for(; tempY < 10; tempY++) {
+				distance++;
+				if(rooms[tempY][tempX] != null) {
+					map.put(new MapPosition(tempX, tempY), distance);
+					distance = 0;
+				}
+			}
+		}
+		for(tempX = x; tempX >= 0; tempX--) {
+			for(tempY = y; tempY < 10; tempY++) {
+				if(rooms[tempY][tempX] != null) {
+					return new MapPosition(tempX, tempY);
+				}
+			}
+		}
+		for(tempX = x; tempX < 10; tempX++) {
+			for(tempY = y; tempY >= 0; tempY--) {
 				if(rooms[tempY][tempX] != null) {
 					return new MapPosition(tempX, tempY);
 				}
@@ -361,6 +381,6 @@ public class DungeonMap {
 				}
 			}
 		}
-		return new MapPosition(tempX, tempY);
+		return new MapPosition(x, y);
 	}
 }
