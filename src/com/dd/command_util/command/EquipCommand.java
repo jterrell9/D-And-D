@@ -29,7 +29,7 @@ public class EquipCommand extends CommandHandler {
 			Item item = null;
 			switch(args[0]) {
 			case "items":
-				//NOT WORKING!!!
+				/*NOT WORKING!!!
 				for(String itemName : room.getItemList()) {
 					item = room.getItem(itemName);
 					if(item != null) {
@@ -51,7 +51,7 @@ public class EquipCommand extends CommandHandler {
 			    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
 			    	}
 				}
-				//NOT WORKING!!
+				NOT WORKING!!*/
 				break;
 			default:
 				item = room.getItem(args[0]);
