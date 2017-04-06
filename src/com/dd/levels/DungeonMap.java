@@ -69,6 +69,14 @@ public class DungeonMap {
 			"Valoo",
 			"Faizon"
 	};
+	private final String[] magicNames = {
+			"Wand of Fireballs",
+			"Staff of Explosions",
+			"Zeeko's Wand of Wisdom",
+			"Praah's Staff of Prismatic Power",
+			"Zaizon Quarterstaff of Magical Combat",
+			"Shenron's Orb of Wish"
+	};
 	private final String[] gobNames = {
 			"Bogoblin",
 			"Rowllin",
@@ -306,8 +314,15 @@ public class DungeonMap {
 		}
 		int loot = rand.nextInt(2);
 		if(loot == 1) {
-			int potNum = rand.nextInt(4);
-			room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+			int lootType = rand.nextInt(2);
+			if(lootType == 1) {
+				int potNum = rand.nextInt(4);
+				room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+			}
+			else {
+				int magicNum = rand.nextInt(6);
+				room.addItem(new Magical(magicNames[magicNum], Equip.LEFTHAND, 1*magicNum, 1*magicNum, 3*magicNum, magicNum/3));
+			}
 		}
 		setRoom(room, new MapPosition(x, y));
 	}
