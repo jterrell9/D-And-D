@@ -213,10 +213,10 @@ public class DungeonMap {
 		}
 		endPosition = new MapPosition(xEnd, yEnd);
 		generateLineToEnd(startPosition, endPosition);
-		setRoom(end, endPosition);
-		int roomNumbers = getAmountOfRooms();
+		int roomNumbers = getAmountOfRooms() + 1;
 		int branches = roomNumbers / 3;
 		generateBranches(branches);
+		setRoom(end, endPosition);
 	}
 
 	private void generateLineToEnd(MapPosition start, MapPosition end) {
@@ -322,8 +322,40 @@ public class DungeonMap {
 		return counter;
 	}
 
-	private void generateBranches(int branches){
+	private void generateBranches(int branches) {
 		int counter = 0;
+		for(int i = 0; i < branches; counter++) {
+			int x = rand.nextInt(10);
+			int y = rand.nextInt(10);
+			if(rooms[y][x] == null) {
+				MapPosition point = findPointClose(x, y);
+				generateLineToEnd(new MapPosition(x, y), point);
+				generateRoom(x, y);
+				i++;
+			}
+		}
+		if(counter == branches){
+			generateBranches(branches - 1);
+		}
+	}
 
+	private MapPosition findPointClose(int x, int y) {
+		int tempX = x;
+		int tempY = y;
+		for(; tempX < 10; tempX++) {
+			for(; tempY < 10; tempY++) {
+				if(rooms[tempY][tempX] != null) {
+					return new MapPosition(tempX, tempY);
+				}
+			}
+		}
+		for(tempX = x; tempX >= 0; tempX--) {
+			for(tempY = y; tempY >= 0; tempY--) {
+				if(rooms[tempY][tempX] != null) {
+					return new MapPosition(tempX, tempY);
+				}
+			}
+		}
+		return new MapPosition(tempX, tempY);
 	}
 }
