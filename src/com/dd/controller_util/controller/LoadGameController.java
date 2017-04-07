@@ -55,19 +55,19 @@ public class LoadGameController extends GameSceneController{
 	}
 	
 	/**
+	 * Event handler for "Back" button.
+	 */
+	@FXML
+	private void handleBackButtonAction(ActionEvent event) {
+		DandD.setActiveGameScene("MainMenuScene", null);
+	}
+	
+	/**
 	 * Adds the list of GameStates to the ListView.
 	 */
-	private void displayGameStates() {
-		
-		// Get the folder path to the working directory
-		File folder = new File(System.getProperty("user.dir"));
-		
+	private void populateListView() {
 		// Get all of the .json files
-		File[] files = folder.listFiles(new FilenameFilter() {
-			public boolean accept(File folder, String name) {
-				return name.toLowerCase().endsWith(".json");
-			}
-		});
+		File[] files = getFiles(System.getProperty("user.dir"), ".json");
 		
 		// Load up all the save files and stores them in the GameState ArrayList
 		this.gamestates = new ArrayList<>();
@@ -93,11 +93,20 @@ public class LoadGameController extends GameSceneController{
 	}
 	
 	/**
-	 * Event handler for "Back" button.
+	 * Gets the list of files with a given extension.
 	 */
-	@FXML
-	private void handleBackButtonAction(ActionEvent event) {
-		DandD.setActiveGameScene("MainMenuScene", null);
+	private File[] getFiles(String filepath, String extension) {
+		// Get the folder path
+		File folder = new File(filepath);
+		
+		// Get all files with the given extension
+		File[] files = folder.listFiles(new FilenameFilter() {
+			public boolean accept(File folder, String name) {
+				return name.toLowerCase().endsWith(extension);
+			}
+		});
+		
+		return files;
 	}
 	
 	/**
@@ -112,7 +121,7 @@ public class LoadGameController extends GameSceneController{
 		gamestates = null;
 		fileList.getItems().clear();
 		errorLabel.setText("");
-		displayGameStates();
+		populateListView();
 	}
 
 	@Override
