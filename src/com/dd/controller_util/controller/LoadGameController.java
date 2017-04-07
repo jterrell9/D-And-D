@@ -85,8 +85,9 @@ public class LoadGameController extends GameSceneController{
 		
 		// Now populate the ListView
 		for (GameState gamestate : gamestates) {
-			String description = gamestate.getName() + " - "
-							   + "Player: " + gamestate.getActivePlayer().getName();
+			String description = gamestate.getName() + ": "
+							   + gamestate.getActivePlayer().getName() + " "
+							   + gamestate.getMap().getSeed();
 			
 			fileList.getItems().add(description);
 		}
