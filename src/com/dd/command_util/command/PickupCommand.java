@@ -1,5 +1,7 @@
 package com.dd.command_util.command;
 
+import java.util.ArrayList;
+
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
@@ -29,39 +31,52 @@ public class PickupCommand extends CommandHandler {
 			Item item = null;
 			switch(args[0]) {
 			case "items":
+				ArrayList<String> itemNames = new ArrayList<String>();;
 				for(String itemName : room.getItemList().keySet()) {
 					item = room.getItem(itemName);
-		    		try{
+		    		try {
 		    			player.equip(item);
-		    			room.removeItem(item.getName());
-		    			outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
+		    			if(player.isEquipSuccess()) {
+		    				itemNames.add(itemName);
+		    			}
 		    		}
 		    		catch(EquipmentException ee) {
 		    			outputLog.printToLog(ee.toString());
 		    		}
 		    		catch(InventoryException ie) {
 		    			outputLog.printToLog(ie.toString());
-		    		} catch (UnknownItemException UIE) {
+		    		}
+				}
+				for(String itemName : itemNames) {
+		    		try {
+		    			room.removeItem(itemName);
+		    		}
+		    		catch (UnknownItemException UIE) {
 		    			outputLog.printToLog(UIE.toString());
 					}
 				}
+		    	itemNames.forEach((k) -> outputLog.printToLog(player.titleToString() + " has equipped " + k + ". "));
+		    	player.resetEquipSuccess();
 				break;
 			default:
 				item = room.getItem(args[0]);
 				if(item != null) {
-		    		try{
+					try {
 		    			player.equip(item);
-		    			room.removeItem(item.getName());
-		    			outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
 		    		}
 		    		catch(EquipmentException ee) {
 		    			outputLog.printToLog(ee.toString());
 		    		}
 		    		catch(InventoryException ie) {
 		    			outputLog.printToLog(ie.toString());
-		    		} catch (UnknownItemException UIE) {
+		    		}
+		    		try {
+		    			room.removeItem(item.getName());
+		    		}
+		    		catch (UnknownItemException UIE) {
 		    			outputLog.printToLog(UIE.toString());
 					}
+		    		outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
 				}
 		    	else {
 		    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
@@ -72,25 +87,5 @@ public class PickupCommand extends CommandHandler {
 		else {
 			outputLog.printToLog("Type \"help\" for help using the equip command. ");
 		}
-    }
-    
-    private String equipItem(Item item) {
-    	if(item != null){
-    		try{
-    			player.equip(item);
-    			room.removeItem(item.getName());
-    			return player.titleToString() + " has equipped " + item.getName() + ". ";
-    		}
-    		catch(EquipmentException ee) {
-    			return ee.toString();
-    		}
-    		catch(InventoryException ie) {
-    			return ie.toString();
-    		} catch (UnknownItemException UIE) {
-				return UIE.toString();
-			}
-    	}else {
-    		return null;
-    	}
     }
 }
