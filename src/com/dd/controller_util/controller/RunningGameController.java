@@ -12,6 +12,7 @@ import com.dd.controller_util.GameSceneController;
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
+import com.dd.levels.Room;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +40,22 @@ public class RunningGameController extends GameSceneController{
 	@FXML private Button exitButton;
 
 	private GameState gameState;
+	private Player player;
+	private DungeonMap dungeon;
+	private Room startRoom;
 	private CommandParser commandParser;
+	
+	private void setPlayer() {
+		player = gameState.getActivePlayer();
+	}
+	
+	private void setDungeon() {
+		dungeon = gameState.getMap();
+	}
+	
+	private void setStartRoom() {
+		startRoom = dungeon.getRoom(player.getPostion());
+	}
 	
 	/**
 	 * Event handler for "Enter" key.
@@ -59,10 +75,10 @@ public class RunningGameController extends GameSceneController{
 			catch(CommandParser.InvalidCommandException e){
 				output.appendText("The command string \""
 									+ commandStr
-									+ "\" is invalid. Type \"help\" for a list of commands.\n");
+									+ "\" is invalid. Type \"help\" for a list of commands. ");
 			}
 			catch(FileNotFoundException e){
-				output.appendText("ERROR: File issue!\n");
+				output.appendText("ERROR: File issue! ");
 			}
 	    }
 	}
@@ -154,21 +170,25 @@ public class RunningGameController extends GameSceneController{
 	public void setup(ControllerArgumentPackage args){
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
+		setPlayer();
+		setDungeon();
+		setStartRoom();
 		
 		updateMap();
 		updateStatboard();
 		output.clear();
-		output.appendText(printLnTitle('~', " Welcome to Dungeons and D&D ", 80));
-		output.appendText("Type \"help\" for a list of commands\n");
+		output.appendText(printLnTitle('~', " Dungeons and D&D ", 80));
+		output.appendText("*Type \"help\" for a list of commands\n"
+				+ printLnTitle('~', " Dungeon Master ", 80)
+				+ "Hello " + player.typeToString() + " " + player.getName() + ". "
+						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
+		output.appendText(startRoom.examineString());
 		
-		String characterName = gameState.getActivePlayer().getName();
-		String characterClass = gameState.getActivePlayer().getClass().toString().substring(22);
-		commandParser = new CommandParser(new CommandOutputLog(output), characterName, characterClass);
+		commandParser = new CommandParser(new CommandOutputLog(output), player.getName(), player.typeToString());
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));
 		commandParser.registerCommand("attack", new AttackCommand(gameState));
-		commandParser.registerCommand("equip", new EquipCommand(gameState));
 		commandParser.registerCommand("help", new HelpCommand());
 		commandParser.registerCommand("pickup", new PickupCommand(gameState));
 		commandParser.registerCommand("use", new UseCommand());

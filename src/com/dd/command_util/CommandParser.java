@@ -28,9 +28,9 @@ public class CommandParser {
     	if(userInput == null) {
             throw new IllegalArgumentException();
         }
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', "", 80));
+    	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 80));
     	outputLog.printToLog(playerClass + " " + playerName + ">> " + userInput + "\n");
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', "Dungeon Master", 80));
+    	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 80));
     	String commandStr[] = userInput.split(" ");
     	String command = commandStr[0];
     	ArrayList<String> arguments = new ArrayList<String>();

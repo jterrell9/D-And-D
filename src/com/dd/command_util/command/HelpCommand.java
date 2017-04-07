@@ -19,9 +19,6 @@ public class HelpCommand extends CommandHandler {
 				+ "\"attack <entity_name>\"\n"
 				+ "Initiate an attack against the entity with name entity_name.\n"
 				+ "\n"
-				+ "\"enter\"\n"
-				+ "Enter the dungeon, begin the game."
-				+ "\n"
 				+ "\"move <direction>\"\n"
 				+ "\n"
 				+ "Move the player to the room in the specified direction of the room the "
@@ -36,15 +33,12 @@ public class HelpCommand extends CommandHandler {
 				+ "Use an item with the name item_name to receive its effects. If the item specified "
 				+ "is not a usable item this will fail.\n"
 				+ "\n"
-				+ "\"pickup <item name>\"\n"
-				+ "Add the item with the name to the player's inventory.\n"
+				+ "\"pickup <item name> | items\"\n"
+				+ "pickup an item with the name and attempt to equip it to the player or add it to "
+				+ "their inventory. use argument \"items\" to attempt to equip all the items in room\n"
 				+ "\n"
 				+ "\"drop <item name>\"\n"
 				+ "Remove an item with the name item name from the players inventory. The item will "
-				+ "be placed in the room the player is currently in.\n"
-				+ "\n"
-				+ "\"equip <item name>\"\n"
-				+ "Equip an item with the name to the player at the If the location is already "
-				+ "occupied this will fail.\n");
+				+ "be placed in the room the player is currently in.");
 	}
 }
