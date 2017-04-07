@@ -29,29 +29,22 @@ public class PickupCommand extends CommandHandler {
 			Item item = null;
 			switch(args[0]) {
 			case "items":
-				/*NOT WORKING!!!
-				for(String itemName : room.getItemList()) {
+				for(String itemName : room.getItemList().keySet()) {
 					item = room.getItem(itemName);
-					if(item != null) {
-			    		try{
-			    			player.equip(item);
-			    			room.removeItem(item.getName());
-			    			outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
-			    		}
-			    		catch(EquipmentException ee) {
-			    			outputLog.printToLog(ee.toString());
-			    		}
-			    		catch(InventoryException ie) {
-			    			outputLog.printToLog(ie.toString());
-			    		} catch (UnknownItemException UIE) {
-			    			outputLog.printToLog(UIE.toString());
-						}
+		    		try{
+		    			player.equip(item);
+		    			room.removeItem(item.getName());
+		    			outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
+		    		}
+		    		catch(EquipmentException ee) {
+		    			outputLog.printToLog(ee.toString());
+		    		}
+		    		catch(InventoryException ie) {
+		    			outputLog.printToLog(ie.toString());
+		    		} catch (UnknownItemException UIE) {
+		    			outputLog.printToLog(UIE.toString());
 					}
-			    	else {
-			    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
-			    	}
 				}
-				NOT WORKING!!*/
 				break;
 			default:
 				item = room.getItem(args[0]);

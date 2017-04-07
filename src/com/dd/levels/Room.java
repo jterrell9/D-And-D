@@ -23,7 +23,7 @@ public class Room {
 		}
 		if(hasMonster()) {	
 			examineStr.append("This room has a ");
-			getMonsterList().forEach((k) -> examineStr.append(monsterMap.get(k).typeToString() + " named \"" + k + "\" "));
+			getMonsterList().forEach((k,v) -> examineStr.append(v.typeToString() + " named \"" + k + "\" "));
 			examineStr.append(", time to fight! ");
 		}
 		else {
@@ -31,7 +31,7 @@ public class Room {
 		}
 		if(hasItems()) {
 			examineStr.append("This room contains ");
-			getItemList().forEach((k) -> examineStr.append("a " + itemMap.get(k).typeToString() + " called \"" + k + "\" "));
+			getItemList().forEach((k,v) -> examineStr.append("a " + v.typeToString() + " called \"" + k + "\" "));
 		}
 		else {
 			examineStr.append("This room has no items. ");
@@ -99,12 +99,12 @@ public class Room {
 		}
 	}
 
-	public Set<String> getItemList() {
-		return itemMap.keySet();
+	public Map<String, Item> getItemList() {
+		return itemMap;
 	}
 
-	public Set<String> getMonsterList() {
-		return monsterMap.keySet();
+	public Map<String, Monster> getMonsterList() {
+		return monsterMap;
 	}
 	
 	public Monster getMonster(String name) {
