@@ -18,4 +18,13 @@ public class Monster extends Entity {
 		this.description = description;
 	}
 	
+	@Override
+	public String typeToString() {
+		if(getClass().toString().length() < 31) {
+			return getClass().toString().substring(31);
+		}
+		else {
+			return "Monster";
+		}
+	}
 }

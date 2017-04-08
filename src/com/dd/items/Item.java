@@ -59,7 +59,12 @@ public class Item {
 	}
 	
 	public String typeToString() {
-		return getClass().toString().substring(19);
+		if(getClass().toString().length() > 19) {
+			return getClass().toString().substring(19);
+		}
+		else {
+			return "item";
+		}
 	}
 	
 	public String examineToString(){

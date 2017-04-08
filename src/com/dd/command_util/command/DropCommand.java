@@ -21,24 +21,48 @@ public class DropCommand extends CommandHandler {
 	@Override
 	public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
 		Room room = map.getRoom(player.getPostion());
-		if(args.length > 1) {
-			outputLog.printToLog("Invalid arguments \""
-									+ getArgsString(args)
-									+ "\" passed to drop command.");
-		}
 		switch (args[0]) {
-			case "lefthand":
-				try {
-					room.addItem(player.getLeftHand());
-					player.discardEquipment(Equip.LEFTHAND);
-					outputLog.printToLog(player.getName() + " has dropped their left hand\n");
-				} catch (EquipmentException ee) {
-					outputLog.printToLog(ee.toString() + "\n");
-				}
-				break;
-			default:
-				outputLog.printToLog("The body area \"" + args[0] + "\" is not a valid entry.\n"
-						+ "Type \"help\" for help using the examine command.\n");
+		case "left hand":
+		case "lefthand":
+			try {
+				room.addItem(player.getLeftHand());
+				player.discardEquipment(Equip.LEFTHAND);
+				outputLog.printToLog(player.titleToString() + " has dropped their left hand. ");
+			} catch (EquipmentException ee) {
+				outputLog.printToLog(ee.toString());
+			}
+			break;
+		case "right hand":
+		case "righthand":
+			try {
+				room.addItem(player.getRightHand());
+				player.discardEquipment(Equip.RIGHTHAND);
+				outputLog.printToLog(player.titleToString() + " has dropped their right hand. ");
+			} catch (EquipmentException ee) {
+				outputLog.printToLog(ee.toString());
+			}
+			break;
+		case "hands":
+			try {
+				room.addItem(player.getLeftHand());
+				player.discardEquipment(Equip.HANDS);
+				outputLog.printToLog(player.getName() + " has dropped both hands. ");
+			} catch (EquipmentException ee) {
+				outputLog.printToLog(ee.toString() + "\n");
+			}
+			break;
+		case "suit":
+			try {
+				room.addItem(player.getSuit());
+				player.discardEquipment(Equip.SUIT);
+				outputLog.printToLog(player.getName() + " has dropped their suit. ");
+			} catch (EquipmentException ee) {
+				outputLog.printToLog(ee.toString() + "\n");
+			}
+			break;
+		default:
+			outputLog.printToLog("The body area \"" + args[0] + "\" is not a valid entry. "
+					+ "Type \"help\" for help using the examine command. ");
 		}
 		outputLog.printToLog(room.examineString());
 	}

@@ -16,6 +16,7 @@ public class DungeonMap {
 	private int seed;
 	private MapPosition startPosition;
 	private MapPosition endPosition;
+	private int numberRooms;
 	private final String[] suitNames = {
 			"Cloth Armor",
 			"Chain Mail",
@@ -68,6 +69,14 @@ public class DungeonMap {
 			"Valoo",
 			"Faizon"
 	};
+	private final String[] magicNames = {
+			"Wand of Fireballs",
+			"Staff of Explosions",
+			"Zeeko's Wand of Wisdom",
+			"Praah's Staff of Prismatic Power",
+			"Zaizon Quarterstaff of Magical Combat",
+			"Shenron's Orb of Wish"
+	};
 	private final String[] gobNames = {
 			"Bogoblin",
 			"Rowllin",
@@ -94,6 +103,7 @@ public class DungeonMap {
 		this.seed = seed;
 		rand = new Random(seed);
 		rooms = new Room[maxRow][maxCol];
+		numberRooms = 0;
 		generateDungeon();
 	}
 
@@ -191,6 +201,7 @@ public class DungeonMap {
 	
 	public void setRoom(Room room, MapPosition position) {
 		rooms[position.getY()][position.getX()] = room;
+		numberRooms++;
 	}
 
 	private void generateDungeon() {
@@ -213,10 +224,9 @@ public class DungeonMap {
 		}
 		endPosition = new MapPosition(xEnd, yEnd);
 		generateLineToEnd(startPosition, endPosition);
-		setRoom(end, endPosition);
-		int roomNumbers = getAmountOfRooms();
-		int branches = roomNumbers / 3;
+		int branches = numberRooms / 3;
 		generateBranches(branches);
+		setRoom(end, endPosition);
 	}
 
 	private void generateLineToEnd(MapPosition start, MapPosition end) {
@@ -304,26 +314,53 @@ public class DungeonMap {
 		}
 		int loot = rand.nextInt(2);
 		if(loot == 1) {
-			int potNum = rand.nextInt(4);
-			room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+			int lootType = rand.nextInt(2);
+			if(lootType == 1) {
+				int potNum = rand.nextInt(4);
+				room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+			}
+			else {
+				int magicNum = rand.nextInt(6);
+				room.addItem(new Magical(magicNames[magicNum], Equip.LEFTHAND, 1*magicNum, 1*magicNum, 3*magicNum, magicNum/3));
+			}
 		}
-		rooms[y][x] = room;
+		setRoom(room, new MapPosition(x, y));
 	}
 
-	public int getAmountOfRooms() {
+	private void generateBranches(int branches) {
 		int counter = 0;
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				if(rooms[i][j] != null) {
-					counter++;
+		for(int i = 0; i < branches; counter++) {
+			int x = rand.nextInt(10);
+			int y = rand.nextInt(10);
+			if(rooms[y][x] == null) {
+				MapPosition point = findPointClose(x, y);
+				generateLineToEnd(new MapPosition(x, y), point);
+				generateRoom(x, y);
+				i++;
+			}
+		}
+		if(counter == branches){
+			generateBranches(branches - 1);
+		}
+	}
+
+	private MapPosition findPointClose(int x, int y) {
+		int tempX = x;
+		int tempY = y;
+		for(; tempX < 10; tempX++) {
+			for(; tempY < 10; tempY++) {
+				if(rooms[tempY][tempX] != null) {
+					return new MapPosition(tempX, tempY);
 				}
 			}
 		}
-		return counter;
-	}
-
-	private void generateBranches(int branches){
-		int counter = 0;
-
+		for(tempX = x; tempX >= 0; tempX--) {
+			for(tempY = y; tempY >= 0; tempY--) {
+				if(rooms[tempY][tempX] != null) {
+					return new MapPosition(tempX, tempY);
+				}
+			}
+		}
+		return new MapPosition(tempX, tempY);
 	}
 }

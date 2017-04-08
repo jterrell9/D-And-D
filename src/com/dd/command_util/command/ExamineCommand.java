@@ -28,7 +28,7 @@ public class ExamineCommand extends CommandHandler {
     	case "monsters":
 		case "monster":
 			if(room.hasMonster()) {
-				for(String monsterName : room.getMonsterList()) {
+				for(String monsterName : room.getMonsterList().keySet()) {
 					Monster monster = room.getMonster(monsterName);
 					outputLog.printToLog("~" + monsterName
 							+ "\nHealth: " + monster.getStats().getHealth()
@@ -43,7 +43,7 @@ public class ExamineCommand extends CommandHandler {
 		case "item":
 		case "items":
 			if(room.hasItems()) {
-				for(String itemName : room.getItemList()) {
+				for(String itemName : room.getItemList().keySet()) {
 					Item item = room.getItem(itemName);
 					outputLog.printToLog("~" + itemName + " "
 							+ item.examineToString() + "\n");

@@ -19,32 +19,24 @@ public class Room {
 		StringBuilder examineStr = new StringBuilder();
 		if(isEmpty()){
 			examineStr.append("This room is empty.");
+			return examineStr.toString();
 		}
-		if(hasMonster()) {
-			if(getMonsterList().size() == 1) {
-				examineStr.append("This room has a ");
-				getMonsterList().forEach((k) -> examineStr.append(k + ".\n"));
-			}
-			else {
-				examineStr.append("This room has multiple monsters:");
-				getMonsterList().forEach((k) -> examineStr.append("\n~" + k + "\n"));
-			}
-			examineStr.append("Time to fight!\n");
-		}
-		if(hasItems()) {
-			if(getItemList().size() == 1) {
-				examineStr.append("This room contains a ");
-				getItemList().forEach((k) -> examineStr.append(k + "\n"));
-			}
-			else if(getItemList().size() > 1) {
-				examineStr.append("This room contains the following items:");
-				getItemList().forEach((k) -> examineStr.append("\n~" + k));
-			}
+		if(hasMonster()) {	
+			examineStr.append("This room has a ");
+			getMonsterList().forEach((k,v) -> examineStr.append(v.typeToString() + " named \"" + k + "\" "));
+			examineStr.append(", time to fight! ");
 		}
 		else {
-			examineStr.append("This room has no items");
+			examineStr.append("This room has no monsters. ");
 		}
-		return examineStr.toString() + "\n";
+		if(hasItems()) {
+			examineStr.append("This room contains ");
+			getItemList().forEach((k,v) -> examineStr.append("a " + v.typeToString() + " called \"" + k + "\" "));
+		}
+		else {
+			examineStr.append("This room has no items. ");
+		}
+		return examineStr.toString();
 	}
 
 	public boolean isEmpty() {
@@ -68,7 +60,7 @@ public class Room {
 		if(!itemMap.containsKey(itemName)) {
 			throw new UnknownItemException("The item \""
 											+ itemName
-											+ "\" does not exist in this room. Removal failed.");
+											+ "\" does not exist in this room. Removal failed. ");
 		}
 		retItem = itemMap.get(itemName);
 		itemMap.remove(itemName);
@@ -79,7 +71,7 @@ public class Room {
 		if(itemMap.remove(itemName) != null){
 			throw new UnknownItemException("The item \""
 											+ itemName
-											+ "\" does not exist in this room. Discard failed.");
+											+ "\" does not exist in this room. Discard failed. ");
 		}
 	}
 
@@ -92,7 +84,7 @@ public class Room {
 		if(!monsterMap.containsKey(monsterName)){
 			throw new UnknownMonsterException("The monster \""
 												+ monsterName
-												+ "\" does not exist in this room. Removal failed.");
+												+ "\" does not exist in this room. Removal failed. ");
 		}
 		retMonster = monsterMap.get(monsterName);
 		monsterMap.remove(monsterName);
@@ -103,16 +95,16 @@ public class Room {
 		if(monsterMap.remove(monsterName) != null) {
 			throw new UnknownMonsterException("The monster \""
 												+ monsterName
-												+ "\" does not exist in this room. Removal failed.");
+												+ "\" does not exist in this room. Removal failed. ");
 		}
 	}
 
-	public Set<String> getItemList() {
-		return itemMap.keySet();
+	public Map<String, Item> getItemList() {
+		return itemMap;
 	}
 
-	public Set<String> getMonsterList() {
-		return monsterMap.keySet();
+	public Map<String, Monster> getMonsterList() {
+		return monsterMap;
 	}
 	
 	public Monster getMonster(String name) {
@@ -127,11 +119,21 @@ public class Room {
 		public UnknownItemException(String message) {
 			super(message);
 		}
+		
+		@Override
+		public String toString() {
+			return super.toString().substring(41);
+		}
 	}
 
 	public class UnknownMonsterException extends Exception {
 		public UnknownMonsterException(String message){
 			super(message);
+		}
+		
+		@Override
+		public String toString() {
+			return super.toString().substring(44);
 		}
 	}
 }
