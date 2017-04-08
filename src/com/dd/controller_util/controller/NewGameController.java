@@ -13,6 +13,7 @@ import com.dd.items.*;
 import com.dd.levels.*;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,6 +117,12 @@ public class NewGameController extends GameSceneController{
 		RadioButton rbutton = (RadioButton) characterClass.getSelectedToggle();
 		return rbutton.getText();
 	}
+	
+	private void displaySeedNumber() {
+		Random rand = new Random();
+		String result = Integer.toString(rand.nextInt(Integer.MAX_VALUE));
+		seedNumber.setText(result);
+	}
 
 	/**
 	 * Called when fxml document is loaded.
@@ -132,6 +139,7 @@ public class NewGameController extends GameSceneController{
 		fighterRadio.setSelected(false);
 		wizardRadio.setSelected(false);
 		errorLabel.setText("");
+		displaySeedNumber();
 	}
 
 	@Override
