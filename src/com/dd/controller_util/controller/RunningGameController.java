@@ -16,20 +16,14 @@ import com.dd.levels.Room;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Node;
 
 public class RunningGameController extends GameSceneController{
 	@FXML private TextField input;
@@ -176,6 +170,7 @@ public class RunningGameController extends GameSceneController{
 		
 		updateMap();
 		updateStatboard();
+		input.clear();
 		output.clear();
 		output.appendText(printLnTitle('~', " Dungeons and D&D ", 80));
 		output.appendText("*Type \"help\" for a list of commands\n"

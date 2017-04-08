@@ -1,17 +1,11 @@
 package com.dd.controller_util.controller;
 
-import java.io.IOException;
-
 import com.dd.DandD;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class MainMenuController extends GameSceneController{
 	@FXML private Button newGame;
