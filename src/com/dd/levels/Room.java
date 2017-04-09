@@ -26,15 +26,9 @@ public class Room {
 			getMonsterList().forEach((k,v) -> examineStr.append(v.typeToString() + " named \"" + k + "\" "));
 			examineStr.append(", time to fight! ");
 		}
-		else {
-			examineStr.append("This room has no monsters. ");
-		}
 		if(hasItems()) {
 			examineStr.append("This room contains ");
 			getItemList().forEach((k,v) -> examineStr.append("a " + v.typeToString() + " called \"" + k + "\" "));
-		}
-		else {
-			examineStr.append("This room has no items. ");
 		}
 		return examineStr.toString();
 	}
