@@ -15,7 +15,6 @@ public class ByteUtility {
         }
         return outArr;
     }
-<<<<<<< HEAD
 
     public static byte getBits(byte data, int numBits){
         if(numBits > 8 || numBits <= 0){
@@ -34,6 +33,4 @@ public class ByteUtility {
         data >>= (8 - maxBit + startBit);
         return (byte)data;
     }
-=======
->>>>>>> 24b74cad8d703ec7d7229ac01cea9dbf096cd485
 }
