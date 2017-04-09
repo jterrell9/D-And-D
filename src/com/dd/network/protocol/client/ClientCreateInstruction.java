@@ -1,14 +1,20 @@
 package com.dd.network.protocol.client;
 
+<<<<<<< HEAD
 import com.dd.dd_util.BitPattern;
 import com.dd.dd_util.ByteUtility;
 import com.dd.network.ClientGameState;
 import com.dd.network.NetworkGameState;
 import com.dd.network.ServerGameState;
+=======
+import com.dd.network.ClientGameState;
+import com.dd.network.NetworkGameState;
+>>>>>>> 24b74cad8d703ec7d7229ac01cea9dbf096cd485
 import com.dd.network.protocol.InstructionHandler;
 import java.nio.ByteBuffer;
 
 public class ClientCreateInstruction extends InstructionHandler{
+<<<<<<< HEAD
     private BitPattern gameStatePattern = new BitPattern(3, new byte[0x00]);
     private BitPattern dungeonMapPattern = new BitPattern(3, new byte[0x01]);
     private BitPattern roomPattern = new BitPattern(3, new byte[0x02]);
@@ -46,5 +52,10 @@ public class ClientCreateInstruction extends InstructionHandler{
         else if(itemPattern.matchesBitPattern(objectIndex)){
 
         }
+=======
+    @Override
+    public void handleInstruction(ByteBuffer instruction, NetworkGameState netGameState){
+        ClientGameState gameState = (ClientGameState)netGameState;
+>>>>>>> 24b74cad8d703ec7d7229ac01cea9dbf096cd485
     }
 }

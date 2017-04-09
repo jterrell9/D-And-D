@@ -1,7 +1,10 @@
 package com.dd.network.protocol.client;
 
+<<<<<<< HEAD
 <<<<<<< master
 <<<<<<< master
+=======
+>>>>>>> 24b74cad8d703ec7d7229ac01cea9dbf096cd485
 import com.dd.network.NetworkGameState;
 import com.dd.network.ClientGameState;
 import com.dd.network.protocol.InstructionHandler;
@@ -13,6 +16,7 @@ public class ClientAuthenticationInstruction extends InstructionHandler {
         ClientGameState gameState = (ClientGameState)netGameState;
 
     }
+<<<<<<< HEAD
 =======
 =======
 import com.dd.network.NetworkGameState;
@@ -31,4 +35,6 @@ public class ClientAuthenticationInstruction extends InstructionHandler {
 
     }
 >>>>>>> HEAD~0
+=======
+>>>>>>> 24b74cad8d703ec7d7229ac01cea9dbf096cd485
 }

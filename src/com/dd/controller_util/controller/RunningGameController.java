@@ -219,7 +219,7 @@ public class RunningGameController extends GameSceneController{
 				//so it can be closed when the user quits the game
 			}
 			 */
-        }
+		}
     }
 
 	@Override
