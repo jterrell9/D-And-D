@@ -15,4 +15,22 @@ public class ByteUtility {
         }
         return outArr;
     }
+
+    public static byte getBits(byte data, int numBits){
+        if(numBits > 8 || numBits <= 0){
+            throw new InvalidBitLengthException("");
+        }
+        data <<= (8 - numBits);
+        return (byte)(data >> (8 - numBits));
+    }
+
+    public static byte getBits(byte data, int startBit, int numBits){
+        int maxBit = startBit + numBits;
+        if(maxBit > 8 || maxBit <= 0 || startBit <= 0){
+            throw new InvalidBitLengthException("");
+        }
+        data <<= (8 - maxBit);
+        data >>= (8 - maxBit + startBit);
+        return (byte)data;
+    }
 }
