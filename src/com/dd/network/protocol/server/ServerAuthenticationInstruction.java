@@ -13,23 +13,22 @@ public class ServerAuthenticationInstruction extends InstructionHandler {
     }
 
     @Override
-    public void handleInstruction(ByteBuffer instruction, NetworkGameState netGameState){
+    public void handleInstruction(ByteBuffer instruction, NetworkGameState netGameState) {
         int indexOffset = bitPattern.getBitLength();
-        ServerGameState gameState = (ServerGameState)netGameState;
+        ServerGameState gameState = (ServerGameState) netGameState;
         ByteOrder byteOrder = instruction.order();
-        if(byteOrder == ByteOrder.LITTLE_ENDIAN){
+        if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
             instruction = instruction.order(ByteOrder.BIG_ENDIAN);
         }
 
         byte regBit = instruction.get(indexOffset++);
         //Check for activation
-        if((regBit & (byte)0x80) == (byte)0x80){
+        if ((regBit & (byte) 0x80) == (byte) 0x80) {
 
         }
         //Handle registration
-        else{
+        else {
 
         }
-
     }
 }
