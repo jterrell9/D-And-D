@@ -1,6 +1,9 @@
 package com.dd.levels;
 
 import java.lang.IllegalArgumentException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.dd.entities.Equip;
@@ -347,20 +350,62 @@ public class DungeonMap {
 	private MapPosition findPointClose(int x, int y) {
 		int tempX = x;
 		int tempY = y;
+		ArrayList<CompareDistance> map = new ArrayList<>();
+		int distance = 0;
+		int sett = 0;
 		for(; tempX < 10; tempX++) {
 			for(; tempY < 10; tempY++) {
+				distance++;
 				if(rooms[tempY][tempX] != null) {
-					return new MapPosition(tempX, tempY);
+					map.add(new CompareDistance(distance, new MapPosition(tempX, tempY)));
+					distance = sett;
 				}
 			}
+			sett++;
 		}
+		distance = 0;
+		sett = 0;
+		for(tempX = x; tempX >= 0; tempX--) {
+			for(tempY = y; tempY < 10; tempY++) {
+				distance++;
+				if(rooms[tempY][tempX] != null) {
+					map.add(new CompareDistance(distance, new MapPosition(tempX, tempY)));
+					distance = sett;
+				}
+			}
+			sett++;
+		}
+		distance = 0;
+		sett = 0;
+		for(tempX = x; tempX < 10; tempX++) {
+			for(tempY = y; tempY >= 0; tempY--) {
+				distance++;
+				if(rooms[tempY][tempX] != null) {
+					map.add(new CompareDistance(distance, new MapPosition(tempX, tempY)));
+					distance = sett;
+				}
+			}
+			sett++;
+		}
+		distance = 0;
+		sett = 0;
 		for(tempX = x; tempX >= 0; tempX--) {
 			for(tempY = y; tempY >= 0; tempY--) {
+				distance++;
 				if(rooms[tempY][tempX] != null) {
-					return new MapPosition(tempX, tempY);
+					map.add(new CompareDistance(distance, new MapPosition(tempX, tempY)));
+					distance = sett;
 				}
 			}
+			sett++;
 		}
-		return new MapPosition(tempX, tempY);
+		MapPosition current = new MapPosition();
+		int maxDistance = 999;
+		for(int i = 0; i < map.size(); i++) {
+			if(map.get(i).getDistance() < maxDistance) {
+				current = map.get(i).getPosition();
+			}
+		}
+		return current;
 	}
 }
