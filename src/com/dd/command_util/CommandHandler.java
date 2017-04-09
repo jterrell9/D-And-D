@@ -1,16 +1,8 @@
 package com.dd.command_util;
 
-import java.io.FileNotFoundException;
-
-import com.dd.DandD;
-import com.dd.entities.Player;
-import com.dd.levels.DungeonMap;
-import com.dd.levels.MapPosition;
-import com.dd.levels.Room;
-
 public abstract class CommandHandler {
 	
-	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws FileNotFoundException;
+	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException;
 
 	protected String getArgsString(String args[]){
         String argsStr = "";
@@ -20,4 +12,15 @@ public abstract class CommandHandler {
         argsStr += args[args.length - 1];
         return argsStr;
     }
+	
+	public class InvalidArgumentException extends Exception {
+		public InvalidArgumentException(String message){
+    		super(message);
+		}
+    	
+    	@Override
+		public String toString() {
+			return super.toString().substring(61);
+		}
+	}
 }

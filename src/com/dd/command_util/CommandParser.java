@@ -1,11 +1,11 @@
 package com.dd.command_util;
 
+import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
+import com.dd.command_util.CommandHandler.InvalidArgumentException;
 import com.dd.controller_util.controller.RunningGameController;
-import com.dd.entities.Player;
-
-import java.io.FileNotFoundException;
-import java.lang.IllegalArgumentException;
+import com.dd.entities.*;
+//import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,161 +13,117 @@ import java.util.Map;
 public class CommandParser {
     private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
     private CommandOutputLog outputLog;
-    private String playerName;
-    private String playerClass;
+    private String input;
+    private Player player;
 
     public CommandParser(){}
     
-    public CommandParser(CommandOutputLog outputLog, String playerName, String playerClass) {
+    public CommandParser(CommandOutputLog outputLog, GameState game) {
         this.outputLog = outputLog;
-        this.playerName = playerName;
-        this.playerClass = playerClass;
+        if(game.getActivePlayer() instanceof Fighter) {
+        	player = (Fighter) game.getActivePlayer();
+        }
+        else if(game.getActivePlayer() instanceof Wizard) {
+        	player = (Wizard) game.getActivePlayer();
+        }
     }
     
-    public void parse(String userInput) throws InvalidCommandException, FileNotFoundException{
-    	if(userInput == null) {
-            throw new IllegalArgumentException();
+    public void parse(String userInput) throws InvalidCommandException{
+    	input = userInput;
+    	if(input == "") {
+            throw new InvalidCommandException("Please enter a command. ");
         }
-    	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 80));
-    	outputLog.printToLog(playerClass + " " + playerName + ">> " + userInput + "\n");
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 80));
-    	String commandStr[] = userInput.split(" ");
-    	String command = commandStr[0];
-    	ArrayList<String> arguments = new ArrayList<String>();
-    	if(commandStr.length > 1) {
-    		arguments.add(userInput.substring(command.length() + 1));
-    		for(int i = 0; i < commandStr.length - 1; i++) {
-    			arguments.add(commandStr[i + 1]);
-    		}
+    	if(input.charAt(0) == ' ') {
+    		throw new InvalidCommandException("You cannot start a command with a space. ");
     	}
-	    String[] args = new String[arguments.size()];
-	    for(int i=0; i < arguments.size(); i++) {
-	    	args[i] = arguments.get(i);
-	    }
-    	CommandHandler handler = commandMap.get(command);
-    	if(handler == null) {
-            throw new InvalidCommandException("The command \""
-                                                + command
-                                                + "\" is not registered with the CommandParser.");
-        }
-    	handler.handleCommand(command, args, outputLog);
-	}
-    
-/* 
- * Kyle, there are two versions. you'll probably just start from scratch, but here they are:
- * 
- * newer version: hardly works:
- 
- 	public void parse(String userInput) throws InvalidCommandException, FileNotFoundException{
-    	if(userInput == null) {
-            throw new IllegalArgumentException();
-        }
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', "", 80));
-    	outputLog.printToLog(playerName + ">> " + userInput + "\n");
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', "Dungeon Master", 80));
-    	String commandStr[] = userInput.split(" ");
-    	String command = commandStr[0];
-    	ArrayList<String> arguments = new ArrayList<String>();
-    	int quoteBegIndex = 0;
-    	int quoteEndIndex = 0;
-    	//int argNum=0;
-    	int cmdIndex = 0;
-    	if(commandStr.length > 1) { //if there are arguments
-    		String argStr = userInput.substring(commandStr[cmdIndex].length() + 1); //this string is everything after command
-	    	for(int i = 0; i < argStr.length() - 1; i++) {
-	    		if(argStr.charAt(i) == '\"') {
-	    			quoteBegIndex = i + 1;
-	    			quoteEndIndex = quoteBegIndex + 1;
-	    			while(quoteEndIndex < argStr.length() && argStr.charAt(quoteEndIndex) != '\"') {
-	    				quoteEndIndex++;
-	    				i++;
-	    			}
-	    			arguments.add(argStr.substring(quoteBegIndex, quoteEndIndex));
-	    			//argNum++;
-	    			argStr = argStr.substring(quoteEndIndex + 1);
-	    			commandStr = argStr.split(" ");
-	    			cmdIndex = 0;
-	    			i = 0;
-		    	}else {
-	    			if(commandStr.length > 1 && argStr.length() > 0) {
-	    				arguments.add(commandStr[cmdIndex]);
-	    				argStr = argStr.substring(commandStr[cmdIndex].length() + 1);
-	    				cmdIndex++;
-	    			}
-	    		}
-	    	}
-    		for(int i = 0; i < commandStr.length; i++) {
-    			arguments.add(commandStr[i]);
-    		}
+    	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 72));
+    	outputLog.printToLog(player.titleToString() + ">> " + input + "\n");
+    	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
+    	
+    	String command = "";
+    	String[] args = {null};
+    	if(!hasArg()){
+    		command = input;
     	}
-	    String[] args = new String[arguments.size()];
-	    for(int i=0; i < arguments.size(); i++) {
-	    	args[i] = arguments.get(i);
-	    }
-	    
-	    //TEST STUFF DELETE ME!!!
-	    System.out.println("command: " + command);
-	    for(int i = 0; i < args.length; i++){
-	    	System.out.println("args[" + i + "]: " + args[i]);
-	    }
-	    //DELETE ME!!!
-    	CommandHandler handler = commandMap.get(command);
-    	if(handler == null) {
-            throw new InvalidCommandException("The command \""
-                                                + command
-                                                + "\" is not registered with the CommandParser.");
-        }
-    	handler.handleCommand(command, args, outputLog);
-	}
-     
-    public void parse(String userInput) throws InvalidCommandException, FileNotFoundException{
-    	if(userInput == null) {
-            throw new IllegalArgumentException();
-        }
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', "", 80));
-    	outputLog.printToLog(playerName + ">> " + userInput + "\n");
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', "Dungeon Master", 80));
-    	String commandStr[] = userInput.split(" ");
-    	String command = commandStr[0];
-    	ArrayList<String> arguments = new ArrayList<String>();
-    	int quoteBegIndex = 0;
-    	int quoteEndIndex = 0;
-    	if(commandStr.length > 1) { //if there are arguments
-    		String argStr = userInput.substring(command.length() + 1);
-    		for(int i = 0;i<argStr.length(); i++) {
-    			if(argStr.charAt(quoteBegIndex) == '\"') {
-    				while(quoteEndIndex < argStr.length() && argStr.charAt(quoteEndIndex) != '\"') {
-    					quoteEndIndex++;
-    				}
-    				arguments.add(argStr.substring(i + 1, quoteEndIndex));
+    	else {
+    		int argStartIndex = argStartIndex(); 
+    		command = input.toLowerCase().substring(0, argStartIndex - 1);
+    		String argStr = input.substring(argStartIndex);
+    		String[] argArray = argStr.split(" ");
+    		ArrayList<String> argumentList = new ArrayList<String>();
+    		for(int i = 0; i < argArray.length; i++) {
+    			//no quote token
+    			if(quoteNum(argArray[i]) == 0) {
+    				argumentList.add(argArray[i]);
     			}
-    			argStr = argStr.substring(quoteEndIndex + 1);
-    			commandStr = argStr.split(" ");
+    			//one quote token
+    			else if(quoteNum(argArray[i]) == 1) {
+    				String arg = argArray[i];
+    				for(int j = i + 1; j < argArray.length; j++) {
+    					arg = arg + " " + argArray[j];
+    					if(quoteNum(argArray[j]) > 0) {
+    						i = j;
+    						break;
+    					}
+    				}
+    				argumentList.add(arg.substring(1, arg.length() - 1));
+    			}
+    			//two quote token
+    			else if(quoteNum(argArray[i]) == 2) {
+    				argumentList.add(argArray[i].substring(1, argArray[i].length() - 1));
+    			}
+    			else {
+    				throw new InvalidCommandException("Please check your useage of quotation marks. ");
+    			}
     		}
-    		for(int i = 0; i < commandStr.length; i++) {
-    			arguments.add(commandStr[i]);
+    		args = new String[argumentList.size()];
+    		for(int i = 0; i < argumentList.size(); i++) {
+    			args[i] = argumentList.get(i);
     		}
     	}
-	    String[] args = new String[arguments.size()];
-	    for(int i=0; i < arguments.size(); i++) {
-	    	args[i] = arguments.get(i);
-	    }
-	    
-	    //TEST STUFF DELETE ME!!!
-	    System.out.println("command: " + command);
-	    for(int i = 0; i < args.length; i++){
-	    	System.out.println("args[" + i + "]: " + args[i]);
-	    }
-	    //DELETE ME!!!
     	CommandHandler handler = commandMap.get(command);
     	if(handler == null) {
             throw new InvalidCommandException("The command \""
                                                 + command
                                                 + "\" is not registered with the CommandParser.");
         }
-    	handler.handleCommand(command, args, outputLog);
-	}
-	*/
+    	try {
+    		handler.handleCommand(command, args, outputLog);
+    	}
+    	catch (InvalidArgumentException IAE) {    		
+    		outputLog.printToLog(IAE.toString());
+    	}
+    }
+    
+    private boolean hasArg() {
+    	String[] inputArray = input.split(" ");
+    	if(inputArray.length <= 1){
+    		return false;
+    	}
+    	return true;
+    }
+    
+    private int argStartIndex() {
+    	for(int i = 0; i < input.length(); i++) {
+    		if(input.charAt(i) == ' ') {
+    			return i + 1;
+    		}
+    		if(i == input.length() - 1) {
+    			return i;
+    		}
+    	}
+    	return -1; //error occurred
+    }
+    
+    private int quoteNum(String arg) {
+    	int quoteNum = 0;
+    	for(int i = 0; i <arg.length(); i++) {
+    		if(arg.charAt(i) == '"') {
+    			quoteNum++;
+    		}
+    	}
+    	return quoteNum;
+    }
 
     public void registerCommand(String commandName, CommandHandler commandHandler) {
         if(commandMap.containsKey(commandName))
@@ -194,8 +150,13 @@ public class CommandParser {
     }
 
     public class InvalidCommandException extends Exception {
-    	InvalidCommandException(String message){
+    	public InvalidCommandException(String message){
     		super(message);
+		}
+    	
+    	@Override
+		public String toString() {
+			return super.toString().substring(59);
 		}
 	}
 }
