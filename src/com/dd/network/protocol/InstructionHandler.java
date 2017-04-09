@@ -1,22 +1,14 @@
 package com.dd.network.protocol;
 
-<<<<<<< master
-<<<<<<< master
-=======
->>>>>>> HEAD~0
+import com.dd.dd_util.BitPattern;
 import com.dd.network.NetworkGameState;
 
 import java.nio.ByteBuffer;
+import java.util.Map;
 
 public abstract class InstructionHandler {
+    protected BitPattern bitPattern;
+    //Map<BitPattern, InstructionHandler> subInstructionHandlers
+
     public abstract void handleInstruction(ByteBuffer instruction, NetworkGameState gameState);
-<<<<<<< master
-=======
-/**
- * Created by kyle on 4/2/17.
- */
-public class InstructionHandler {
->>>>>>> HEAD~1
-=======
->>>>>>> HEAD~0
 }
