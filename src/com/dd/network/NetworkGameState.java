@@ -15,6 +15,10 @@ public class NetworkGameState {
     protected Map<Integer, Monster> gameMonster = new HashMap<Integer, Monster>();
     protected DungeonMap map;
 
+    public NetworkGameState(String name){
+        this.name = name;
+    }
+
     public NetworkGameState(String name, DungeonMap map) {
         this.name = name;
         this.map = map;
@@ -62,5 +66,45 @@ public class NetworkGameState {
                     + player.getName()
                     + "is not active in this GameState. Removal failed.");
         }
+    }
+
+    public void removeActivePlayerAtIndex(int index){
+        if(allActivePlayers.remove(index) == null){
+            throw new IllegalArgumentException("Player with index \""
+                    + Integer.toString(index)
+                    + "is not active in this GameState. Removal failed.");
+        }
+    }
+
+    public Player getPlayerAtIndex(int index){
+        Player retPlayer = allActivePlayers.get(index);
+        if(retPlayer == null){
+            throw new IllegalArgumentException("Player with index \""
+                    + Integer.toString(index)
+                    + "is not active in this GameState. Get failed.");
+        }
+        return retPlayer;
+    }
+
+    public Item getItemAtIndex(int index){
+        return gameItems.get(index);
+    }
+
+    public void setItemWithIndex(int index, Item item){
+        if(gameItems.containsKey(index)){
+            //throw
+        }
+        gameItems.put(index, item);
+    }
+
+    public Monster getMonsterAtIndex(int index){
+        return gameMonster.get(index);
+    }
+
+    public void setMonsterAtIndex(int index, Monster monster){
+        if(gameMonster.containsKey(index)){
+            //throw
+        }
+        gameMonster.put(index, monster);
     }
 }

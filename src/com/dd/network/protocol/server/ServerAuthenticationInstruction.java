@@ -1,19 +1,24 @@
 package com.dd.network.protocol.server;
 
+import com.dd.command_util.CommandOutputLog;
 import com.dd.dd_util.BitPattern;
+import com.dd.dd_util.BitSequence;
 import com.dd.network.NetworkGameState;
 import com.dd.network.ServerGameState;
 import com.dd.network.protocol.InstructionHandler;
-import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 public class ServerAuthenticationInstruction extends InstructionHandler {
-    public ServerAuthenticationInstruction(){
+    private ServerGameState gameState;
+
+    public ServerAuthenticationInstruction(ServerGameState gameState){
+        this.gameState = gameState;
         bitPattern = new BitPattern(3, new byte[]{0x00});
     }
 
     @Override
-    public void handleInstruction(ByteBuffer instruction, NetworkGameState netGameState) {
+    public void handleInstruction(BitSequence instruction, CommandOutputLog outputLog){
+        /*
         int indexOffset = bitPattern.getBitLength();
         ServerGameState gameState = (ServerGameState) netGameState;
         ByteOrder byteOrder = instruction.order();
@@ -30,5 +35,6 @@ public class ServerAuthenticationInstruction extends InstructionHandler {
         else {
 
         }
+        */
     }
 }

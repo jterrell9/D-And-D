@@ -33,4 +33,58 @@ public class ByteUtility {
         data >>= (8 - maxBit + startBit);
         return (byte)data;
     }
+
+    public static short getShortFromBytes(byte[]data, int bitLength){
+        if(bitLength > 16){
+            throw new InvalidBitLengthException("");
+        }
+        short retShort = 0;
+        int numBytes = (int)Math.ceil((double)bitLength / 8.0);
+        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=bitLength){
+            retShort += ((short)data[i]) << bitOffset;
+        }
+        return retShort;
+    }
+
+    public static int getIntFromBytes(byte[] data, int bitLength){
+        if(bitLength > 32){
+            throw new InvalidBitLengthException("");
+        }
+        int retInt = 0;
+        int numBytes = (int)Math.ceil((double)bitLength / 8.0);
+        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=bitLength){
+            retInt += ((int)data[i]) << bitOffset;
+        }
+        return retInt;
+    }
+
+    public static char getCharFromBytes(byte[] data, int bitLength){
+        if(bitLength > 16){
+            throw new InvalidBitLengthException("");
+        }
+        char retChar = 0;
+        int numBytes = (int)Math.ceil((double)bitLength / 8.0);
+        boolean shortChar = (numBytes % 2 != 0) ? true : false;
+        retChar += ((short)data[0]) << 8;
+        if(!shortChar){
+            retChar += data[1];
+        }
+        return retChar;
+    }
+
+    public static String getStringFromBytes(byte[] data, int bitLength){
+        int numBytes = (int)Math.ceil((double)bitLength / 8.0);
+        char[] charBuffer = new char[numBytes << 1];
+        for(int i = 0, j = 0, bitOffset = 0; j < numBytes;){
+            charBuffer[i] = (char)(((short)data[j++]) << 8);
+            bitOffset += 8;
+            if(bitOffset < bitLength){
+                charBuffer[i++] += (char)data[j++];
+            }
+            else{
+                break;
+            }
+        }
+        return new String(charBuffer);
+    }
 }

@@ -20,7 +20,7 @@ public class DungeonMap implements Serializable {
 	private MapPosition startPosition;
 	private MapPosition endPosition;
 	private int numberRooms;
-	private final String[] suitNames = {
+	private static final String[] suitNames = {
 			"Cloth Armor",
 			"Chain Mail",
 			"Splint",
@@ -28,34 +28,34 @@ public class DungeonMap implements Serializable {
 			"Gold Plate Armor",
 			"Dragon Hide Armor"
 	};
-	private final String[] shieldNames = {
+	private static final String[] shieldNames = {
 			"Iron Shield",
 			"Iron Shield",
 			"Brass Shield",
 			"Golden Shield",
 			"Dragon Hide Armor"
 	};
-	private final String[] potionNames = {
+	private static final String[] potionNames = {
 			"Potion of Healing",
 			"Potion of Greater Healing",
 			"Potion of Superior Healing",
 			"Potion of Exceptional Healing"
 	};
-	private final String[] twoSwordNames = {
+	private static final String[] twoSwordNames = {
 			"Greatsword",
 			"Greatsword of Kuu",
 			"Great Axe",
 			"Blood Axe",
 			"Kravenedge, the Great Sword"
 	};
-	private final String[] oneSwordNames = {
+	private static final String[] oneSwordNames = {
 			"Longsword",
 			"Longsword of Ilon",
 			"Club",
 			"Club of Durrak",
 			"Dragonscale Sword"
 	};
-	private final String[] dragNames = {
+	private static final String[] dragNames = {
 			"Thordak",
 			"Raishan",
 			"Galisha",
@@ -72,7 +72,7 @@ public class DungeonMap implements Serializable {
 			"Valoo",
 			"Faizon"
 	};
-	private final String[] magicNames = {
+	private static final String[] magicNames = {
 			"Wand of Fireballs",
 			"Staff of Explosions",
 			"Zeeko's Wand of Wisdom",
@@ -80,7 +80,7 @@ public class DungeonMap implements Serializable {
 			"Zaizon Quarterstaff of Magical Combat",
 			"Shenron's Orb of Wish"
 	};
-	private final String[] gobNames = {
+	private static final String[] gobNames = {
 			"Bogoblin",
 			"Rowllin",
 			"Stellart",
@@ -89,7 +89,7 @@ public class DungeonMap implements Serializable {
 			"Ori",
 			"Romil"
 	};
-	private final String[] beholdNames = {
+	private static final String[] beholdNames = {
 			"K'varn",
 			"Re'tunar",
 			"Ei'Soma",
@@ -407,5 +407,68 @@ public class DungeonMap implements Serializable {
 	
 	public MapPosition getEndPosition() {
 		return endPosition;
+	}
+
+	public static String getSuitNameAtIndex(int index){
+		if(index < 0 || index > suitNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return suitNames[index];
+	}
+
+	public static String getShieldNameAtIndex(int index){
+		if(index < 0 || index > shieldNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return shieldNames[index];
+	}
+
+	public static String getPotionNameAtIndex(int index){
+		if(index < 0 || index > potionNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return potionNames[index];
+	}
+
+	public static String getTwoSwordNameAtIndex(int index){
+		if(index < 0 || index > twoSwordNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return twoSwordNames[index];
+	}
+
+	public static String getOneSwordNameAtIndex(int index){
+		if(index < 0 || index > oneSwordNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return oneSwordNames[index];
+	}
+
+	public static String getDragNameAtIndex(int index){
+		if(index < 0 || index > dragNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return dragNames[index];
+	}
+
+	public static String getMagicNameAtIndex(int index){
+		if(index < 0 || index > magicNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return magicNames[index];
+	}
+
+	public static String getGobNameAtIndex(int index){
+		if(index < 0 || index > gobNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return gobNames[index];
+	}
+
+	public static String getBeholdNameAtIndex(int index){
+		if(index < 0 || index > beholdNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return beholdNames[index];
 	}
 }
