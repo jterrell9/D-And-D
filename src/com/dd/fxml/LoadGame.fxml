@@ -8,39 +8,45 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controller_util.controller.LoadGameController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controller_util.controller.LoadGameController">
    <children>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <GridPane alignment="CENTER" hgap="10.0" maxHeight="800.0" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
-            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadButtonAction" text="Load Game" />
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
+                  <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadButtonAction" text="Load Game" />
+               </children>
+            </HBox>
+            <ListView fx:id="fileList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="5" />
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <Label fx:id="errorLabel" textFill="RED" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <ListView fx:id="fileList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="5" />
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <children>
-            <Label fx:id="errorLabel" textFill="RED" />
-         </children>
-      </HBox>
+         <padding>
+            <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+         </padding>
+      </GridPane>
    </children>
-   <padding>
-      <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
-   </padding>
-</GridPane>
+</VBox>
