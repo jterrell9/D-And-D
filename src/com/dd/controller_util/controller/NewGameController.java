@@ -4,27 +4,19 @@ import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
-import com.dd.entities.Equip;
 import com.dd.entities.Fighter;
-import com.dd.entities.Player;
 import com.dd.entities.Wizard;
-import com.dd.entities.monsters.*;
-import com.dd.items.*;
 import com.dd.levels.*;
 
-import java.io.IOException;
+import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
 public class NewGameController extends GameSceneController{
 	@FXML private TextField saveName;
@@ -116,6 +108,12 @@ public class NewGameController extends GameSceneController{
 		RadioButton rbutton = (RadioButton) characterClass.getSelectedToggle();
 		return rbutton.getText();
 	}
+	
+	private void displaySeedNumber() {
+		Random rand = new Random();
+		String result = Integer.toString(rand.nextInt(Integer.MAX_VALUE));
+		seedNumber.setText(result);
+	}
 
 	/**
 	 * Called when fxml document is loaded.
@@ -132,6 +130,7 @@ public class NewGameController extends GameSceneController{
 		fighterRadio.setSelected(false);
 		wizardRadio.setSelected(false);
 		errorLabel.setText("");
+		displaySeedNumber();
 	}
 
 	@Override

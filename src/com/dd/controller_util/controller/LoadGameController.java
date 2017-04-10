@@ -1,6 +1,5 @@
 package com.dd.controller_util.controller;
 
-
 import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
@@ -10,20 +9,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 
 public class LoadGameController extends GameSceneController{
 	
@@ -55,19 +48,19 @@ public class LoadGameController extends GameSceneController{
 	}
 	
 	/**
+	 * Event handler for "Back" button.
+	 */
+	@FXML
+	private void handleBackButtonAction(ActionEvent event) {
+		DandD.setActiveGameScene("MainMenuScene", null);
+	}
+	
+	/**
 	 * Adds the list of GameStates to the ListView.
 	 */
-	private void displayGameStates() {
-		
-		// Get the folder path to the working directory
-		File folder = new File(System.getProperty("user.dir"));
-		
+	private void populateListView() {
 		// Get all of the .json files
-		File[] files = folder.listFiles(new FilenameFilter() {
-			public boolean accept(File folder, String name) {
-				return name.toLowerCase().endsWith(".json");
-			}
-		});
+		File[] files = getFiles(System.getProperty("user.dir"), ".json");
 		
 		// Load up all the save files and stores them in the GameState ArrayList
 		this.gamestates = new ArrayList<>();
@@ -85,19 +78,29 @@ public class LoadGameController extends GameSceneController{
 		
 		// Now populate the ListView
 		for (GameState gamestate : gamestates) {
-			String description = gamestate.getName() + " - "
-							   + "Player: " + gamestate.getActivePlayer().getName();
+			String description = gamestate.getName() + ": "
+							   + gamestate.getActivePlayer().getName() + " "
+							   + gamestate.getMap().getSeed();
 			
 			fileList.getItems().add(description);
 		}
 	}
 	
 	/**
-	 * Event handler for "Back" button.
+	 * Gets the list of files with a given extension.
 	 */
-	@FXML
-	private void handleBackButtonAction(ActionEvent event) {
-		DandD.setActiveGameScene("MainMenuScene", null);
+	private File[] getFiles(String filepath, String extension) {
+		// Get the folder path
+		File folder = new File(filepath);
+		
+		// Get all files with the given extension
+		File[] files = folder.listFiles(new FilenameFilter() {
+			public boolean accept(File folder, String name) {
+				return name.toLowerCase().endsWith(extension);
+			}
+		});
+		
+		return files;
 	}
 	
 	/**
@@ -112,7 +115,7 @@ public class LoadGameController extends GameSceneController{
 		gamestates = null;
 		fileList.getItems().clear();
 		errorLabel.setText("");
-		displayGameStates();
+		populateListView();
 	}
 
 	@Override
