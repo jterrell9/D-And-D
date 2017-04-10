@@ -48,7 +48,7 @@ public class CommandParser {
     	else {
     		int argStartIndex = argStartIndex(); 
     		command = input.toLowerCase().substring(0, argStartIndex - 1);
-    		String argStr = input.substring(argStartIndex);
+    		String argStr = input.toLowerCase().substring(argStartIndex);
     		String[] argArray = argStr.split(" ");
     		ArrayList<String> argumentList = new ArrayList<String>();
     		for(int i = 0; i < argArray.length; i++) {
