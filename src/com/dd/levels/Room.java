@@ -4,7 +4,6 @@ import com.dd.entities.Monster;
 import com.dd.items.Item;
 import com.dd.dd_util.ConflictHandlingMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Room {
 	private Map<String, Item> itemMap;
@@ -22,9 +21,7 @@ public class Room {
 			return examineStr.toString();
 		}
 		if(hasMonster()) {	
-			examineStr.append("This room has a ");
-			getMonsterList().forEach((k,v) -> examineStr.append(v.typeToString() + " named \"" + k + "\" "));
-			examineStr.append(", time to fight! ");
+			getMonsterList().values().forEach((v) -> examineStr.append(v.getDescription() + " "));
 		}
 		if(hasItems()) {
 			examineStr.append("This room contains ");
