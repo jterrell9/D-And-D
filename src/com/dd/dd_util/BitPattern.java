@@ -41,6 +41,41 @@ public class BitPattern {
         return retCode;
     }
 
+    public boolean matchesBitPattern(BitPattern bitPatternTest){
+        if(bitLength != bitPatternTest.getBitLength()){
+            return false;
+        }
+        for(int i = 1; i < bitPattern.length; i++){
+            if(bitPattern[i] != bitPatternTest.getBitPattern()[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public byte getAsByte(){
+        if(bitLength > 8){
+            throw new InvalidBitLengthException("");
+        }
+        return bitPattern[0];
+    }
+
+    public short getAsShort(){
+        return ByteUtility.getShortFromBytes(bitPattern, bitLength);
+    }
+
+    public int getAsInt(){
+        return ByteUtility.getIntFromBytes(bitPattern, bitLength);
+    }
+
+    public char getAsChar(){
+        return ByteUtility.getCharFromBytes(bitPattern, bitLength);
+    }
+
+    public String getAsString(){
+        return ByteUtility.getStringFromBytes(bitPattern, bitLength);
+    }
+
     public byte[] getBitPattern(){
         return bitPattern;
     }

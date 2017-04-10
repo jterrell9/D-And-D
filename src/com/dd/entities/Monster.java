@@ -20,11 +20,18 @@ public class Monster extends Entity {
 	
 	@Override
 	public String typeToString() {
-		if(getClass().toString().length() < 31) {
+		if (getClass().toString().length() < 31) {
 			return getClass().toString().substring(31);
-		}
-		else {
+		} else {
 			return "Monster";
 		}
+	}
+
+	public enum MonsterType{
+		BEHOLDER,
+		DRAGON,
+		GOBLIN,
+		SKELETON,
+		ZOMBIE
 	}
 }

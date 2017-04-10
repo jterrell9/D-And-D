@@ -80,4 +80,14 @@ public class Item implements Indexable{
 	public void setIndex(int index){
 		this.index = index;
 	}
+
+	public enum ItemType{
+		ARTIFACT,
+		MAGICAL,
+		ONE_HANDED_WEAPON,
+		TWO_HANDED_WEAPON,
+		POTION,
+		SHIELD,
+		SUIT
+	}
 }

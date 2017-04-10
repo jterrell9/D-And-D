@@ -1,15 +1,15 @@
-package com.dd.network.protocol.client;
+package com.dd.network.protocol.server;
 
 import com.dd.command_util.CommandOutputLog;
 import com.dd.dd_util.BitSequence;
-import com.dd.network.NetworkGameState;
 import com.dd.network.ClientGameState;
+import com.dd.network.ServerGameState;
 import com.dd.network.protocol.InstructionHandler;
 
-public class ClientAuthenticationInstruction extends InstructionHandler {
-    private ClientGameState gameState;
+public class ServerAttackInstruction extends InstructionHandler{
+    private ServerGameState gameState;
 
-    public ClientAuthenticationInstruction(ClientGameState gameState){
+    public ServerAttackInstruction(ServerGameState gameState){
         this.gameState = gameState;
     }
 

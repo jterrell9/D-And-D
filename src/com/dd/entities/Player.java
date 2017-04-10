@@ -87,7 +87,7 @@ public class Player extends Entity {
 		return retItem;
 	}
 
-	public void discardfromInventory(String itemName, int amount) throws InventoryException {
+	public void discardfromInventory(String itemName) throws InventoryException {
 		if(inventory.remove(itemName) == null){
 			throw new InventoryException("There are no items of \""
 											+ itemName
