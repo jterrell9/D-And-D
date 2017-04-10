@@ -212,7 +212,6 @@ public class DungeonMap {
 		start.addItem(new OneHandedWeapon("Wooden Sword", 2));
 		start.addItem(new Shield("Wooden Shield", 1));
 		startPosition = randPos();
-		setRoom(start, startPosition);
 		Room end = new Room();
 		end.addMonster(new Dragon(dragNames[rand.nextInt(15)], 40, 10, 10));
 		int xEnd = rand.nextInt(10);
@@ -227,8 +226,9 @@ public class DungeonMap {
 		}
 		endPosition = new MapPosition(xEnd, yEnd);
 		generateLineToEnd(startPosition, endPosition);
-		int branches = numberRooms / 3;
+		int branches = (numberRooms + 2) / 3;
 		generateBranches(branches);
+		setRoom(start, startPosition);
 		setRoom(end, endPosition);
 	}
 
