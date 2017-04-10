@@ -180,7 +180,7 @@ public class RunningGameController extends GameSceneController{
 				+ printLnTitle('~', " Dungeon Master ", 72)
 				+ "Hello " + player.typeToString() + " " + player.getName() + ". "
 						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
-		output.appendText(startRoom.examineString());
+		output.appendText(startRoom.enterRoomText());
 		
 		commandParser = new CommandParser(new CommandOutputLog(output), gameState);
 		commandParser.registerCommand("move", new MoveCommand(gameState));
