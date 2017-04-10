@@ -19,63 +19,60 @@ public class ExamineCommand extends CommandHandler {
 	}
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
+    	if(args[0] == null) {
+    		throw new InvalidArgumentException("Choose something to examine. "
+    				+ "Type \"help\" for help using the " + commandName +" command. ");
+    	}
+//WE CAN'T DO THIS EXCEPTION WITHOUT QUOTES
+//    	if(args.length > 2) {
+//    		throw new InvalidArgumentException("Type \"help\" for help using the " + commandName +" command. ");
+//    	}
     	Room room = map.getRoom(player.getPostion());
-    	switch(args[0]) {
+    	switch(args[0].toLowerCase()) {
     	case "room":
-			outputLog.printToLog(room.examineString());
+			outputLog.printToLog(room.enterRoomText());
 			break;
     	case "monsters":
 		case "monster":
 			if(room.hasMonster()) {
-				for(String monsterName : room.getMonsterList().keySet()) {
-					Monster monster = room.getMonster(monsterName);
-					outputLog.printToLog("~" + monsterName
-							+ "\nHealth: " + monster.getStats().getHealth()
-							+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
-							+ "\n\n" + monster.getDescription() + "\n");
-				}
+				room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
+						v.titleToString()
+						+ "\nHealth: " + v.getStats().getHealth()
+						+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
+						+ "\n" + v.examineText()));
 			}
 			else {
-				outputLog.printToLog("There are no monsters in this room.");
+				outputLog.printToLog("There are no monsters in this room. ");
 			}
 			break;
 		case "item":
 		case "items":
 			if(room.hasItems()) {
-				for(String itemName : room.getItemList().keySet()) {
-					Item item = room.getItem(itemName);
-					outputLog.printToLog("~" + itemName + " "
-							+ item.examineToString() + "\n");
-				}
+				room.getItemList().values().forEach((v) -> outputLog.printToLog(
+						v.titleToString() + " "
+						+ v.examineToString() + "\n"));
 			}
 			else {
-				outputLog.printToLog("There are no items in this room");
+				outputLog.printToLog("There are no items in this room. ");
 			}
 			break;
 		
 		default:
 			if(room.getMonster(args[0]) != null) {
 				Monster monster = room.getMonster(args[0]);
-				String monsterName = monster.getName();
-				outputLog.printToLog("~" + monsterName
+				outputLog.printToLog(
+						monster.titleToString() +". "
 						+ "\nHealth: " + monster.getStats().getHealth()
 						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
-						+ "\n\n" + monster.getDescription() + "\n");
-				break;
+						+ monster.examineText());
 			}
 			if(room.getItem(args[0]) != null) {
 				Item item = room.getItem(args[0]);
-				String itemName = item.getName();
-				outputLog.printToLog("~" + itemName + " "
+				outputLog.printToLog(item.titleToString() + " "
 						+ item.examineToString() + "\n");
 				break;
 			}
-			else{
-				outputLog.printToLog("The argument \"" + args[0] + "\" is invalid.\n"
-        			+ "Type \"help\" for help using the examine command.\n");
-			}
-			break;
     	}
 	}
 }

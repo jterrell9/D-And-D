@@ -64,6 +64,6 @@ public class DropCommand extends CommandHandler {
 			outputLog.printToLog("The body area \"" + args[0] + "\" is not a valid entry. "
 					+ "Type \"help\" for help using the examine command. ");
 		}
-		outputLog.printToLog(room.examineString());
+		outputLog.printToLog(room.enterRoomText());
 	}
 }

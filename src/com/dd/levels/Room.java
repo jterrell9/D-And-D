@@ -4,7 +4,6 @@ import com.dd.entities.Monster;
 import com.dd.items.Item;
 import com.dd.dd_util.ConflictHandlingMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Room {
 	private Map<String, Item> itemMap;
@@ -15,28 +14,20 @@ public class Room {
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
 	
-	public String examineString() {
-		StringBuilder examineStr = new StringBuilder();
+	public String enterRoomText() {
+		StringBuilder outputText = new StringBuilder();
 		if(isEmpty()){
-			examineStr.append("This room is empty.");
-			return examineStr.toString();
+			outputText.append("This room is empty.");
+			return outputText.toString();
 		}
 		if(hasMonster()) {	
-			examineStr.append("This room has a ");
-			getMonsterList().forEach((k,v) -> examineStr.append(v.typeToString() + " named \"" + k + "\" "));
-			examineStr.append(", time to fight! ");
-		}
-		else {
-			examineStr.append("This room has no monsters. ");
+			getMonsterList().values().forEach((v) -> outputText.append(v.confrontText() + " "));
 		}
 		if(hasItems()) {
-			examineStr.append("This room contains ");
-			getItemList().forEach((k,v) -> examineStr.append("a " + v.typeToString() + " called \"" + k + "\" "));
+			outputText.append("This room contains ");
+			getItemList().forEach((k,v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
 		}
-		else {
-			examineStr.append("This room has no items. ");
-		}
-		return examineStr.toString();
+		return outputText.toString();
 	}
 
 	public boolean isEmpty() {

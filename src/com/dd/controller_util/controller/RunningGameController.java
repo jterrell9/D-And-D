@@ -66,13 +66,11 @@ public class RunningGameController extends GameSceneController{
 				updateMap();
 				updateStatboard();
 			}
-			catch(CommandParser.InvalidCommandException e){
-				output.appendText("The command string \""
-									+ commandStr
-									+ "\" is invalid. Type \"help\" for a list of commands. ");
-			}
-			catch(FileNotFoundException e){
-				output.appendText("ERROR: File issue! ");
+			catch(CommandParser.InvalidCommandException ICE){
+				output.appendText("\n" + RunningGameController.printLnTitle('~', "", 72));
+				output.appendText(player.titleToString() + ">> " + commandStr + "\n");
+				output.appendText(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
+				output.appendText(ICE.toString());
 			}
 	    }
 	}
@@ -172,14 +170,14 @@ public class RunningGameController extends GameSceneController{
 		updateStatboard();
 		input.clear();
 		output.clear();
-		output.appendText(printLnTitle('~', " Dungeons and D&D ", 80));
+		output.appendText(printLnTitle('~', " Dungeons and D&D ", 72));
 		output.appendText("*Type \"help\" for a list of commands\n"
-				+ printLnTitle('~', " Dungeon Master ", 80)
+				+ printLnTitle('~', " Dungeon Master ", 72)
 				+ "Hello " + player.typeToString() + " " + player.getName() + ". "
 						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
-		output.appendText(startRoom.examineString());
+		output.appendText(startRoom.enterRoomText());
 		
-		commandParser = new CommandParser(new CommandOutputLog(output), player.getName(), player.typeToString());
+		commandParser = new CommandParser(new CommandOutputLog(output), gameState);
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));

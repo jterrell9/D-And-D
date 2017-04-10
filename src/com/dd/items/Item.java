@@ -70,4 +70,8 @@ public class Item {
 	public String examineToString(){
 		return statModToString() + " (" + typeToString() + ")";
 	}
+	
+	public String titleToString() {
+		return "\'" + getName() + "\" the " + typeToString() + " ";
+	}
 }

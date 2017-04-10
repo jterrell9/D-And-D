@@ -82,7 +82,7 @@ public class PickupCommand extends CommandHandler {
 		    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
 		    	}
 			}
-			outputLog.printToLog(room.examineString());
+			outputLog.printToLog(room.enterRoomText());
 		}
 		else {
 			outputLog.printToLog("Type \"help\" for help using the equip command. ");

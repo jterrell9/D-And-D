@@ -9,33 +9,11 @@ public class Zombie extends Monster {
     private boolean conSave;
     private int deathCounter = 0;
     
-    //Constructor used when Zombie is created for specific rooms when rooms are generated
     public Zombie (String name, int health, int attack, int defense) {
-        //set stats, set alive to true, set fight to false
     	super(name,health,attack,defense);
-        initDescription();
     }
 
-    public void initDescription() {
-        String desc = "As you enter the room, immediately you notice the smell of rotting meat. The smell is almost "
-                + "too much to bear,";
-        Random random = new Random();
-        if(random.nextInt(1) + 1 == 2) {
-            conSave = true;
-            desc += " but you pull through and find the smell.";
-        }
-        else {
-            conSave = false;
-            desc += " and it is.";
-        }
-        desc += "As you peer down the room, you notice a humanoid creature which you can assume is the"
-            +" source of the rotting smell. You ready yourself for the impending attack.";
-        setDescription(desc);
-    }
-
-    //used when Zombie attacks the player
-    //pre: if(isFight && isAlive)
-    //post: p1.getStats().getHealth() != 0
+    @Override
     public void attack(Entity entity) {
         // Zombie will deal damage and do a basic attack to the player
         Random random = new Random();
@@ -52,11 +30,7 @@ public class Zombie extends Monster {
         entity.takeDamage(this.stats.getAttack());
     }
 
-    // used when Zombie's health reaches 0
-    // pre: if(getStats().getHealth() == 0)
-    // pre: if(alive)
-    // post: fight = false
-    // post: alive = false
+    @Override
     public void die() {
         //25% chance the zombie comes back to life, increasing as the zombie dies more
         Random random = new Random();
@@ -76,7 +50,31 @@ public class Zombie extends Monster {
         // of relief. The battle is won."
     }
 
-    public void examine() {
-        //name + " a zombie who looks hungry. The smell is awful eminating from the creature.";
+    @Override
+    public String confrontText() {
+    	String confrontText = "As you enter the room, immediately you notice the smell of rotting meat. The smell is almost "
+                + "too much to bear, ";
+        Random random = new Random();
+        if(random.nextInt(1) + 1 == 2) {
+            conSave = true;
+            confrontText += "but you pull through and find the smell. ";
+        }
+        else {
+            conSave = false;
+            confrontText += "and it is. ";
+        }
+        confrontText += "As you peer down the room, you notice a humanoid creature which you can assume is the"
+            +" source of the rotting smell. You ready yourself for the impending attack. ";
+        return confrontText;
     }
+
+    @Override
+    public String examineText() {
+        return titleToString() + " looks hungry. The smell is awful eminating from the creature. ";
+    }
+    
+    @Override
+	public String typeToString() {
+		return "Zombie";
+	}
 }

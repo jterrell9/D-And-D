@@ -8,36 +8,34 @@ public class HelpCommand extends CommandHandler {
     public HelpCommand() {}
 	
 	@Override
-	public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
-    	if(args.length != 0){
-			outputLog.printToLog("Invalid arguments \""
-					+ getArgsString(args)
-					+ "\" passed to help command.");
+	public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
+    	if(args[0] != null){
+			throw new InvalidArgumentException("The " + commandName + " command should not be followed by any arguments. ");
 		}
 
-		outputLog.printToLog(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 80)
-				+ "\"attack <entity_name>\"\n"
-				+ "Initiate an attack against the entity with name entity_name.\n"
+		outputLog.printToLog(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 72)
+				+ "\"attack <name>\"\n"
+				+ "Initiate an attack against a monster or player.\n"
 				+ "\n"
 				+ "\"move <direction>\"\n"
 				+ "Move the player to the room in the specified direction of the room the "
 				+ "player is currently in. If no room exists in the specified direction this "
 				+ "will fail. The valid directions are: north, south, east, and west.\n"
 				+ "\n"
-				+ "\"examine <room> | <monsters> | <items> | <name>\"\n"
-				+ "Get a description of either an entity by name, and item by name, or the room "
+				+ "\"examine room | monsters | items | <name>\"\n"
+				+ "Get a description of the either the room, a monster by name, an item by name, or the room "
 				+ "the player is currently in, or a list of monsters or items.\n"
 				+ "\n"
 				+ "\"use <item name>\"\n"
-				+ "Use an item with the name item_name to receive its effects. If the item specified "
-				+ "is not a usable item this will fail.\n"
+				+ "Use an item to receive its effects. If the item specified is not a "
+				+ "usable item this will fail.\n"
 				+ "\n"
 				+ "\"pickup <item name> | items\"\n"
 				+ "pickup an item with the name and attempt to equip it to the player or add it to "
-				+ "their inventory. use argument \"items\" to attempt to equip all the items in room\n"
+				+ "their inventory. Use argument \"items\" to attempt to equip all the items in the room\n"
 				+ "\n"
-				+ "\"drop <item name>\"\n"
-				+ "Remove an item with the name item name from the players inventory. The item will "
-				+ "be placed in the room the player is currently in.");
+				+ "\"drop <body location> | <item name>\"\n"
+				+ "Remove an item from the given body location, or if the item specified is on your body, "
+				+ "or in your inventory, The item will be placed in the room the player is currently in.");
 	}
 }

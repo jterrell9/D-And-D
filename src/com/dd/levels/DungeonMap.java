@@ -247,10 +247,10 @@ public class DungeonMap {
 				vertical = false;
 			}
 			if(vertical) {
-				if(yTransfer > end.getY()) {
+				if(yTransfer > end.getY() && yTransfer > 0) {
 					yTransfer--;
 				}
-				else if(yTransfer < end.getY()) {
+				else if(yTransfer < end.getY()  &&  yTransfer < 10) {
 					yTransfer++;
 				}
 				else {
@@ -264,10 +264,10 @@ public class DungeonMap {
 				vertical = false;
 			}
 			else {
-				if(xTransfer > end.getX()) {
+				if(xTransfer > end.getX() && xTransfer > 0) {
 					xTransfer--;
 				}
-				else if(xTransfer < end.getX()) {
+				else if(xTransfer < end.getX() &&  xTransfer < 10) {
 					xTransfer++;
 				}
 				else {
