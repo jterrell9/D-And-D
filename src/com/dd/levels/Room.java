@@ -14,20 +14,20 @@ public class Room {
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
 	
-	public String examineString() {
-		StringBuilder examineStr = new StringBuilder();
+	public String enterRoomText() {
+		StringBuilder outputText = new StringBuilder();
 		if(isEmpty()){
-			examineStr.append("This room is empty.");
-			return examineStr.toString();
+			outputText.append("This room is empty.");
+			return outputText.toString();
 		}
 		if(hasMonster()) {	
-			getMonsterList().values().forEach((v) -> examineStr.append(v.getDescription() + " "));
+			getMonsterList().values().forEach((v) -> outputText.append(v.confrontText() + " "));
 		}
 		if(hasItems()) {
-			examineStr.append("This room contains ");
-			getItemList().forEach((k,v) -> examineStr.append("a " + v.typeToString() + " called \"" + k + "\" "));
+			outputText.append("This room contains ");
+			getItemList().forEach((k,v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
 		}
-		return examineStr.toString();
+		return outputText.toString();
 	}
 
 	public boolean isEmpty() {
