@@ -48,9 +48,10 @@ public class CommandParser {
     	else {
     		int argStartIndex = argStartIndex(); 
     		command = input.toLowerCase().substring(0, argStartIndex - 1);
-    		String argStr = input.toLowerCase().substring(argStartIndex);
+    		String argStr = input.substring(argStartIndex);
     		String[] argArray = argStr.split(" ");
     		ArrayList<String> argumentList = new ArrayList<String>();
+    		argumentList.add(argStr);
     		for(int i = 0; i < argArray.length; i++) {
     			//no quote token
     			if(quoteNum(argArray[i]) == 0) {
@@ -81,6 +82,13 @@ public class CommandParser {
     			args[i] = argumentList.get(i);
     		}
     	}
+    	//this code prints parsing to console
+    	System.out.println("Command: " + command);
+    	for(int i = 0; i < args.length; i++) {
+    		System.out.println("args[" + i + "]: " + args[i]);
+    	}
+    	//this code prints parsing to console
+    	
     	CommandHandler handler = commandMap.get(command);
     	if(handler == null) {
             throw new InvalidCommandException("The command \""
