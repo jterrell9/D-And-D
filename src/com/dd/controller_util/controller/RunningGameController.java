@@ -168,6 +168,7 @@ public class RunningGameController extends GameSceneController{
 		
 		updateMap();
 		updateStatboard();
+		input.requestFocus();
 		input.clear();
 		output.clear();
 		output.appendText(printLnTitle('~', " Dungeons and D&D ", 72));
