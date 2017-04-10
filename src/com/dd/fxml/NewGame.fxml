@@ -10,67 +10,74 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controller_util.controller.NewGameController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="110.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dd.controller_util.controller.NewGameController">
    <children>
-       <HBox alignment="CENTER_RIGHT">
-           <children>
-               <Label text="Game Name:" />
-           </children>
-       </HBox>
-      <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="1">
-         <children>
-            <Label text="Seed Number:" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="2">
-         <children>
-            <Label text="Character Name:" />
-         </children>
-      </HBox>
-       <TextField fx:id="saveName" GridPane.columnIndex="1" />
-      <TextField fx:id="seedNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="characterName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
-         <children>
-            <RadioButton fx:id="fighterRadio" mnemonicParsing="false" text="Fighter">
-               <toggleGroup>
-                  <ToggleGroup fx:id="characterClass" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="wizardRadio" mnemonicParsing="false" text="Wizard" toggleGroup="$characterClass" />
-         </children>
-         <GridPane.margin>
+      <GridPane alignment="CENTER" hgap="10.0" maxHeight="800.0" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="110.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <opaqueInsets>
             <Insets />
-         </GridPane.margin>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         </opaqueInsets>
          <children>
-            <Label fx:id="errorLabel" textFill="RED" />
+             <HBox alignment="CENTER_RIGHT">
+                 <children>
+                     <Label text="Game Name:" />
+                 </children>
+             </HBox>
+            <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Seed Number:" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Character Name:" />
+               </children>
+            </HBox>
+             <TextField fx:id="saveName" GridPane.columnIndex="1" />
+            <TextField fx:id="seedNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="characterName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+               <children>
+                  <RadioButton fx:id="fighterRadio" mnemonicParsing="false" text="Fighter">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="characterClass" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="wizardRadio" mnemonicParsing="false" text="Wizard" toggleGroup="$characterClass" />
+               </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Label fx:id="errorLabel" textFill="RED" />
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
+                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartButtonAction" text="Start Game" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
-            <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartButtonAction" text="Start Game" />
-         </children>
-      </HBox>
+         <padding>
+            <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+         </padding>
+      </GridPane>
    </children>
-   <padding>
-      <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
-   </padding>
-</GridPane>
+</VBox>
