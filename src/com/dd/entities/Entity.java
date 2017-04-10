@@ -7,6 +7,7 @@ public abstract class Entity {
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
+	protected String text;
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
@@ -32,6 +33,26 @@ public abstract class Entity {
 		isAlive = true;
 	}
 	
+	public void attack(Entity entity) {
+		clearText();
+        entity.takeDamage(attackDamage());
+        text += titleToString() + " deals " + attackDamage() + " damage to " + entity.titleToString() + ". ";
+    }
+	
+	public void takeDamage(int damage){
+        int newDamage;
+        if(damage - stats.getDefense() <= 0){
+            newDamage = 1;
+        }
+        else {
+            newDamage = damage - stats.getDefense();
+        }
+		stats.setHealth(stats.getHealth() - newDamage);
+		if(!survives()){
+			text += "You just killed" + titleToString() +"! ";
+		}
+	}
+	
 	public boolean survives() {
 		if(stats.getHealth() <= 0) {
 			die();
@@ -47,20 +68,6 @@ public abstract class Entity {
 
 	public int attackDamage() {
 		return stats.getAttack();
-	}
-
-	public void takeDamage(int damage){
-        int newDamage;
-        if(damage - stats.getDefense() <= 0){
-            newDamage = 1;
-        }
-        else {
-            newDamage = damage - stats.getDefense();
-        }
-		stats.setHealth(stats.getHealth() - newDamage);
-		if(!survives()){
-			System.out.println("You just killed a " + name + "!");
-		}
 	}
 	
 	public String typeToString() {
@@ -78,10 +85,6 @@ public abstract class Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public void attack(Entity entity){
-		entity.takeDamage(stats.getAttack());
-	}
 	
 	public Stats getStats() {
 		return stats;
@@ -89,5 +92,17 @@ public abstract class Entity {
 	
 	public void setStats(Stats stats) {
 		this.stats = stats;
+	}
+	
+	public String getText() {
+		return text;
+	}
+	
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	public void clearText() {
+		text = "";
 	}
 }
