@@ -75,7 +75,7 @@ public abstract class Entity {
 	}
 	
 	public String titleToString() {
-		return typeToString() + " " + getName();
+		return getName() + " the " + typeToString();
 	}
 
 	public String getName() {

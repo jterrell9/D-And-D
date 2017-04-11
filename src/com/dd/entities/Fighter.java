@@ -2,6 +2,7 @@ package com.dd.entities;
 
 import com.dd.Stats;
 import com.dd.entities.Player.EquipmentException;
+import com.dd.entities.Player.InventoryException;
 import com.dd.items.*;
 import com.dd.levels.MapPosition;
 
@@ -22,39 +23,83 @@ public class Fighter extends Player {
 	}
 
 	@Override
-	public Item equip(Item item) throws InventoryException, EquipmentException {
-		Item retItem = super.equip(item);
-		if(item instanceof TwoHandedWeapon) {
-			retItem = (TwoHandedWeapon) item;
-			if(leftHand == null && rightHand == null) {
-				retItem = leftHand = rightHand = (TwoHandedWeapon)item;
+	public void equip(Item item) throws InventoryException, EquipmentException {
+		if(item instanceof Artifact) {
+			try {
+				addtoInventory((Artifact) item);
+				equipSuccess = true;
+			} catch (InventoryException e) {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because " + titleToString() + "'s "
+						+ "inventory is full");
+			}
+		}
+		else if(item instanceof Shield){
+			if(leftHand == null) {
+				leftHand = (Shield)item;
+				equipSuccess = true;
+			}
+			else if(rightHand == null) {
+				rightHand = (Shield)item;
 				equipSuccess = true;
 			}
 			else {
-				throw new EquipmentException(item.getName() 
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because both of " 
+						+ titleToString() + "'s hands are full. ");
+			}
+		}
+		else if(item instanceof Suit) {
+			if(suit == null) {
+				suit = (Suit)item;
+				equipSuccess = true;
+			}
+			else {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be equipped because " 
+						+ titleToString() + " is already wearing a suit. ");
+			}
+		}
+		else if(item instanceof Potion) {
+			try {
+				addtoInventory((Potion) item);
+				equipSuccess = true;
+			} catch (InventoryException e) {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because " + titleToString() + "'s "
+						+ "inventory is full");
+			}
+			equipSuccess = true;
+		}
+		if(item instanceof TwoHandedWeapon) {
+			if(leftHand == null && rightHand == null) {
+				leftHand = rightHand = (TwoHandedWeapon)item;
+				equipSuccess = true;
+			}
+			else {
+				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because both of " 
-						+ getName() + "'s hands need to be empty. ");
+						+ titleToString() + "'s hands need to be empty. ");
 			}
 		}
 		else if(item instanceof OneHandedWeapon) {
-			retItem = (OneHandedWeapon) item;
 			if(leftHand == null) {
-				retItem = leftHand = (OneHandedWeapon)item;
+				leftHand = (OneHandedWeapon)item;
 				equipSuccess = true;
 				
 			}
 			else if(rightHand == null) {
-				retItem = rightHand = (OneHandedWeapon)item;
+				rightHand = (OneHandedWeapon)item;
 				equipSuccess = true;
 			}
 			else {
-				throw new EquipmentException(item.getName() 
+				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because both of " 
-						+ getName() + "'s hands are full. ");
+						+ titleToString() + "'s hands are full. ");
 			}
 		}
 		else if(item instanceof Magical) {
-			throw new EquipmentException(item.getName() 
+			throw new EquipmentException(item.titleToString() 
 					+ " could not be equipped because "
 					+ "fighters cannot use " + item.typeToString() + " items. ");
 		}
@@ -63,7 +108,6 @@ public class Fighter extends Player {
 					+ " is of an unknown type. ");
 		}
 		stats.changeStat(item.getStatChange());
-		return retItem;
 	}
 
 }
