@@ -16,7 +16,7 @@ public class Magical extends Item {
 		super();
 	}
 	
-	public Equip getBodyAread() {
+	public Equip getBodyArea() {
 		return bodyArea;
 	}
 }
