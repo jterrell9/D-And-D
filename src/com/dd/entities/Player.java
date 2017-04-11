@@ -56,7 +56,7 @@ public class Player extends Entity {
 					+ name
 					+ "\". Item removal failed. ");
 		}
-		else if(!(potion instanceof Potion)) {
+		if(!(potion instanceof Potion)) {
 			throw new InventoryException("The item \""
 											+ potionName
 											+ "\" in the inventory of player \""

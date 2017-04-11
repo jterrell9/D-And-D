@@ -5,6 +5,8 @@ import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandHandler.InvalidArgumentException;
 import com.dd.controller_util.controller.RunningGameController;
 import com.dd.entities.*;
+import com.dd.entities.Player.InventoryException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -97,8 +99,8 @@ public class CommandParser {
     	try {
     		handler.handleCommand(command, args, outputLog);
     	}
-    	catch (InvalidArgumentException IAE) {    		
-    		outputLog.printToLog(IAE.toString());
+    	catch (InvalidArgumentException | InventoryException E) {    		
+    		outputLog.printToLog(E.toString());
     	}
     }
     

@@ -67,10 +67,7 @@ public class RunningGameController extends GameSceneController{
 				updateStatboard();
 			}
 			catch(CommandParser.InvalidCommandException ICE){
-				output.appendText("\n" + RunningGameController.printLnTitle('~', "", 72));
-				output.appendText(player.titleToString() + ">> " + commandStr + "\n");
-				output.appendText(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
-				output.appendText(ICE.toString());
+				output.appendText(ICE.getMessage());
 			}
 	    }
 	}
@@ -84,7 +81,7 @@ public class RunningGameController extends GameSceneController{
 		PrintStream toGsonFile = new PrintStream(gsonFile);
 		toGsonFile.println(new Gson().toJson(gameState));
 		toGsonFile.close();
-		output.appendText("The game has been saved as \"" + gameState.getName() + "\".\n");
+		output.appendText("\nThe game \"" + gameState.getName() + "\" has been saved. ");
 	}
 	
 	/**
@@ -191,7 +188,7 @@ public class RunningGameController extends GameSceneController{
 		commandParser.registerCommand("attack", new AttackCommand(gameState));
 		commandParser.registerCommand("help", new HelpCommand());
 		commandParser.registerCommand("pickup", new PickupCommand(gameState));
-		commandParser.registerCommand("use", new UseCommand());
+		commandParser.registerCommand("use", new UseCommand(gameState));
 	}
 
 	@Override

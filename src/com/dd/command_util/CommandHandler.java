@@ -1,8 +1,10 @@
 package com.dd.command_util;
 
+import com.dd.entities.Player.InventoryException;
+
 public abstract class CommandHandler {
 	
-	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException;
+	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException, InventoryException;
 
 	protected String getArgsString(String args[]){
         String argsStr = "";
