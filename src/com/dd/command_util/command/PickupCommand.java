@@ -158,6 +158,6 @@ public class PickupCommand extends CommandHandler {
     			return;
 			}
 		}
-		outputLog.printToLog(room.enterRoomText());
+		outputLog.printToLog(room.examineItems());
     }
 }

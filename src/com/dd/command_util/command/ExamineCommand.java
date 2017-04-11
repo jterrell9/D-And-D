@@ -49,14 +49,7 @@ public class ExamineCommand extends CommandHandler {
 			break;
 		case "item":
 		case "items":
-			if(room.hasItems()) {
-				room.getItemList().values().forEach((v) -> outputLog.printToLog(
-						v.titleToString() + " "
-						+ v.examineToString() + "\n"));
-			}
-			else {
-				outputLog.printToLog("There are no items in this room. ");
-			}
+			room.examineItems();
 			break;
 		
 		default:
