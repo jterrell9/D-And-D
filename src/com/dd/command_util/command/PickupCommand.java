@@ -141,7 +141,6 @@ public class PickupCommand extends CommandHandler {
 					outputLog.printToLog(item.getName() + " could not be equipped "
 							+ "because it has not item type. ");
 				}
-				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
     		}
 			catch(EquipmentException | InventoryException E) {
     			outputLog.printToLog(E.toString());
@@ -158,6 +157,6 @@ public class PickupCommand extends CommandHandler {
     			return;
 			}
 		}
-		outputLog.printToLog(room.examineItems());
+		outputLog.printToLog("\n" + room.examineItems());
     }
 }
