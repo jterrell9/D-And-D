@@ -74,6 +74,8 @@ public class Wizard extends Player {
 			Equip bodyArea = ((Magical) item).getBodyArea();
 			System.out.println(bodyArea.toString());
 			switch(bodyArea) {
+			case LEFTHAND:
+			case RIGHTHAND:
 			case HANDS:
 				if(leftHand == null) {
 					leftHand = (Magical)item;
