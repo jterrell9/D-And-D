@@ -5,7 +5,6 @@ import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandHandler.InvalidArgumentException;
 import com.dd.controller_util.controller.RunningGameController;
 import com.dd.entities.*;
-//import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,10 +82,10 @@ public class CommandParser {
     		}
     	}
     	//this code prints parsing to console
-    	System.out.println("Command: " + command);
-    	for(int i = 0; i < args.length; i++) {
-    		System.out.println("args[" + i + "]: " + args[i]);
-    	}
+//    	System.out.println("Command: " + command);
+//    	for(int i = 0; i < args.length; i++) {
+//    		System.out.println("args[" + i + "]: " + args[i]);
+//    	}
     	//this code prints parsing to console
     	
     	CommandHandler handler = commandMap.get(command);
