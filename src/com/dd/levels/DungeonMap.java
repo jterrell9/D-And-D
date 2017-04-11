@@ -297,19 +297,19 @@ public class DungeonMap {
 				room.addItem(new Artifact(name + " Amulet", 5 + rand.nextInt(6), 5 + rand.nextInt(6), 0, 5 + rand.nextInt(6)));
 			}
 			else if(type == 1) {
-				Goblin mon = new Goblin(gobNames[rand.nextInt(7)] + " the goblin", 5 + rand.nextInt(11), 2 + rand.nextInt(2), 1);
+				Goblin mon = new Goblin(gobNames[rand.nextInt(7)], 5 + rand.nextInt(11), 2 + rand.nextInt(2), 1);
 				room.addMonster(mon);
 				int shieldNum = rand.nextInt(5);
 				room.addItem(new Shield(shieldNames[shieldNum], 1 + shieldNum));
 			}
 			else if(type == 2) {
-				Skeleton mon = new Skeleton("skel", 10 + rand.nextInt(6), 4 + rand.nextInt(4), 1);
+				Skeleton mon = new Skeleton("skeleton", 10 + rand.nextInt(6), 4 + rand.nextInt(4), 1);
 				room.addMonster(mon);
 				int suitNum = rand.nextInt(6);
 				room.addItem(new Suit(suitNames[suitNum], suitNum + 3));
 			}
 			else if(type == 3) {
-				Zombie mon = new Zombie("zomb", 10 + rand.nextInt(6), 4, 4);
+				Zombie mon = new Zombie("zombie", 10 + rand.nextInt(6), 4, 4);
 				room.addMonster(mon);
 				int swordNum = rand.nextInt(5);
 				room.addItem(new OneHandedWeapon(oneSwordNames[swordNum], 5 + swordNum));
