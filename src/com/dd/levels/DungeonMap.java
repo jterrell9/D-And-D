@@ -408,4 +408,8 @@ public class DungeonMap {
 		}
 		return current;
 	}
+	
+	public MapPosition getEndPosition() {
+		return endPosition;
+	}
 }

@@ -86,13 +86,20 @@ public class Player extends Entity {
 		inventory.remove(itemName);
 	}
 
-	public void discardfromInventory(String itemName, int amount) throws InventoryException {
-		if(inventory.remove(itemName) == null){
-			throw new InventoryException("There are no items of \""
-											+ itemName
-											+ "\" in the inventory of player \""
-											+ name
-											+ "\". Item discard failed. ");
+	public void discardfromInventory(String itemName) throws InventoryException {
+		if(inventory.remove(itemName) == null) {
+			throw new InventoryException("\"" + itemName + "\" "
+					+ "is not in the inventory of "
+					+ titleToString()
+					+ ". Item not dropped. ");
+		}
+	}
+	
+	public void discardfromInventory(Item item) throws InventoryException {
+		if(inventory.remove(item) == null) {
+			throw new InventoryException("Item is not in the inventory of "
+											+ titleToString()
+											+ ". Item not dropped. ");
 		}
 	}
 	
@@ -328,6 +335,10 @@ public class Player extends Entity {
 		this.rightHand = rightHand;
 	}
 	
+	public Map<String, Item> getInventory() {
+		return inventory;
+	}
+	
 	public boolean isEquipSuccess() {
 		return equipSuccess;
 	}
@@ -358,10 +369,10 @@ public class Player extends Entity {
 	}
 
 	public String inventoryToString() {
-		StringBuilder sb = new StringBuilder("Inventory:");
+		StringBuilder sb = new StringBuilder("Inventory:\n");
 		int i = 0;
 		for(String itemName : inventory.keySet()){
-			sb.append("  " + ++i + " " + inventory.get(itemName).toString() + "\n");
+			sb.append("\t" + ++i + " " + itemName + " " + inventory.get(itemName).examineToString() + "\n");
 		}	
 		return sb.toString();
 	}

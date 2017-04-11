@@ -14,6 +14,19 @@ public class Room {
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
 	
+	public String examineItems() {
+		StringBuilder outputSB = new StringBuilder();
+		if(hasItems()) {
+			getItemList().values().forEach((v) -> outputSB.append(
+					v.titleToString() + " "
+					+ v.examineToString() + "\n"));
+		}
+		else {
+			outputSB.append("There are no items in this room. ");
+		}
+		return outputSB.toString();
+	}
+	
 	public String enterRoomText() {
 		StringBuilder outputText = new StringBuilder();
 		if(isEmpty()){

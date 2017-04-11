@@ -69,11 +69,12 @@ public class Wizard extends Player {
 						+ " could not be picked up because " + titleToString() + "'s "
 						+ "inventory is full");
 			}
-			equipSuccess = true;
 		}
-		if(item instanceof Magical) {
+		else if(item instanceof Magical) {
 			Equip bodyArea = ((Magical) item).getBodyArea();
 			switch(bodyArea) {
+			case LEFTHAND:
+			case RIGHTHAND:
 			case HANDS:
 				if(leftHand == null) {
 					leftHand = (Magical)item;

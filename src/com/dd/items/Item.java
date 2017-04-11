@@ -72,6 +72,6 @@ public class Item {
 	}
 	
 	public String titleToString() {
-		return "\'" + getName() + "\" the " + typeToString() + " ";
+		return "\"" + getName() + "\" the " + typeToString();
 	}
 }
