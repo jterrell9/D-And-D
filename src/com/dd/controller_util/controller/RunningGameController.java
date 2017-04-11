@@ -188,7 +188,7 @@ public class RunningGameController extends GameSceneController{
 		commandParser.registerCommand("attack", new AttackCommand(gameState));
 		commandParser.registerCommand("help", new HelpCommand());
 		commandParser.registerCommand("pickup", new PickupCommand(gameState));
-		commandParser.registerCommand("use", new UseCommand());
+		commandParser.registerCommand("use", new UseCommand(gameState));
 	}
 
 	@Override
