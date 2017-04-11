@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
+import com.dd.command_util.CommandHandler.InvalidArgumentException;
 import com.dd.entities.Player;
 import com.dd.entities.Player.EquipmentException;
 import com.dd.entities.Player.InventoryException;
@@ -22,70 +23,141 @@ public class PickupCommand extends CommandHandler {
     	this.player = gameState.getActivePlayer();
 		this.dungeonMap = gameState.getMap();
 		this.room = dungeonMap.getRoom(player.getPostion());
-		
 	}
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) {
-		if(args[0] != null) {
-			Item item = null;
-			switch(args[0]) {
-			case "items":
-				ArrayList<String> itemNames = new ArrayList<String>();;
-				for(String itemName : room.getItemList().keySet()) {
+    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
+    	player.resetEquipSuccess();
+    	this.room = dungeonMap.getRoom(player.getPostion());
+    	if(args[0] == null) {
+    		throw new InvalidArgumentException("Choose something to pickup. "
+    				+ "Type \"help\" for help using the " + commandName +" command. ");
+    	}
+		Item item = null;
+		switch(args[0]) {
+		case "items":
+			ArrayList<String> equippedItemNames = new ArrayList<String>();;
+			for(String itemName : room.getItemList().keySet()) {
+				player.resetEquipSuccess();
+				try {
 					item = room.getItem(itemName);
-		    		try {
-		    			player.equip(item);
-		    			if(player.isEquipSuccess()) {
-		    				itemNames.add(itemName);
-		    			}
-		    		}
-		    		catch(EquipmentException ee) {
-		    			outputLog.printToLog(ee.toString());
-		    		}
-		    		catch(InventoryException ie) {
-		    			outputLog.printToLog(ie.toString());
-		    		}
 				}
-				for(String itemName : itemNames) {
-		    		try {
-		    			room.removeItem(itemName);
-		    		}
-		    		catch (UnknownItemException UIE) {
-		    			outputLog.printToLog(UIE.toString());
+				catch(UnknownItemException UIE) {
+					outputLog.printToLog(UIE.toString());
+				}
+	    		try {
+	    			if(item instanceof Artifact) {
+						item = (Artifact) item;
+						player.equip((Artifact) item);
 					}
-				}
-		    	itemNames.forEach((k) -> outputLog.printToLog(player.titleToString() + " has equipped " + k + ". "));
-		    	player.resetEquipSuccess();
-				break;
-			default:
-				item = room.getItem(args[0]);
-				if(item != null) {
-					try {
-		    			player.equip(item);
-		    		}
-		    		catch(EquipmentException ee) {
-		    			outputLog.printToLog(ee.toString());
-		    		}
-		    		catch(InventoryException ie) {
-		    			outputLog.printToLog(ie.toString());
-		    		}
-		    		try {
-		    			room.removeItem(item.getName());
-		    		}
-		    		catch (UnknownItemException UIE) {
-		    			outputLog.printToLog(UIE.toString());
+					else if(item instanceof Magical) {
+						item = (Magical) item;
+						player.equip((Magical) item);
 					}
-		    		outputLog.printToLog(player.titleToString() + " has equipped " + item.getName() + ". ");
-				}
-		    	else {
-		    		outputLog.printToLog("The item \"" + args[0] + "\" is not in this room. ");
-		    	}
+					else if(item instanceof OneHandedWeapon) {
+						item = (OneHandedWeapon) item;
+						player.equip((OneHandedWeapon) item);
+					}
+					else if(item instanceof Potion) {
+						item = (Potion) item;
+						player.equip((Potion) item);
+					}
+					else if(item instanceof Shield) {
+						item = (Shield) item;
+						player.equip((Shield) item);
+					}
+					else if(item instanceof Suit) {
+						item = (Suit) item;
+						player.equip((Suit) item);
+					}
+					else if(item instanceof TwoHandedWeapon) {
+						item = (TwoHandedWeapon) item;
+						player.equip((TwoHandedWeapon) item);
+					}
+					else {
+						outputLog.printToLog(item.getName() + " could not be equipped "
+								+ "because it has not item type. ");
+					}
+	    			if(player.isEquipSuccess()) {
+	    				equippedItemNames.add(itemName);
+	    			}
+	    		}
+	    		catch(EquipmentException | InventoryException E) {
+	    			outputLog.printToLog(E.toString());
+	    		}
 			}
-			outputLog.printToLog(room.enterRoomText());
+			for(String itemName : equippedItemNames) {
+	    		try {
+	    			room.removeItem(itemName);
+	    		}
+	    		catch (UnknownItemException UIE) {
+	    			outputLog.printToLog(UIE.toString());
+				}
+			}
+	    	equippedItemNames.forEach((k) -> outputLog.printToLog(player.titleToString() + " has equipped " + k + ". "));
+	    	player.resetEquipSuccess();
+			break;
+		default:
+			try {
+				item = room.getItem(args[0]);
+			}
+			catch(UnknownItemException UIE) {
+				outputLog.printToLog(UIE.toString());
+				return;
+			}
+			if(item == null) {
+				throw new InvalidArgumentException("The item \"" + args[0] + "\" is not in this room. ");
+			}
+			try {
+				if(item instanceof Artifact) {
+					item = (Artifact) item;
+					player.equip((Artifact) item);
+				}
+				else if(item instanceof Magical) {
+					item = (Magical) item;
+					player.equip((Magical) item);
+				}
+				else if(item instanceof OneHandedWeapon) {
+					item = (OneHandedWeapon) item;
+					player.equip((OneHandedWeapon) item);
+				}
+				else if(item instanceof Potion) {
+					item = (Potion) item;
+					player.equip((Potion) item);
+				}
+				else if(item instanceof Shield) {
+					item = (Shield) item;
+					player.equip((Shield) item);
+				}
+				else if(item instanceof Suit) {
+					item = (Suit) item;
+					player.equip((Suit) item);
+				}
+				else if(item instanceof TwoHandedWeapon) {
+					item = (TwoHandedWeapon) item;
+					player.equip((TwoHandedWeapon) item);
+				}
+				else {
+					outputLog.printToLog(item.getName() + " could not be equipped "
+							+ "because it has not item type. ");
+				}
+				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
+    		}
+			catch(EquipmentException | InventoryException E) {
+    			outputLog.printToLog(E.toString());
+    			return;
+    		}
+    		try {
+    			if(player.isEquipSuccess()) {
+    				room.removeItem(item.getName());
+    				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
+    			}
+    		}
+    		catch (UnknownItemException UIE) {
+    			outputLog.printToLog(UIE.toString());
+    			return;
+			}
 		}
-		else {
-			outputLog.printToLog("Type \"help\" for help using the equip command. ");
-		}
+		outputLog.printToLog(room.enterRoomText());
     }
 }

@@ -2,6 +2,7 @@ package com.dd.entities;
 
 import com.dd.Stats;
 import com.dd.entities.Player.EquipmentException;
+import com.dd.entities.Player.InventoryException;
 import com.dd.items.*;
 import com.dd.levels.MapPosition;
 
@@ -22,20 +23,64 @@ public class Wizard extends Player {
 	}
 
 	@Override
-	public Item equip(Item item) throws InventoryException, EquipmentException {
-		Item retItem = super.equip(item);
+	public void equip(Item item) throws InventoryException, EquipmentException {
+		if(item instanceof Artifact) {
+			try {
+				addtoInventory((Artifact) item);
+				equipSuccess = true;
+			} catch (InventoryException e) {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because " + titleToString() + "'s "
+						+ "inventory is full");
+			}
+		}
+		else if(item instanceof Shield){
+			if(leftHand == null) {
+				leftHand = (Shield)item;
+				equipSuccess = true;
+			}
+			else if(rightHand == null) {
+				rightHand = (Shield)item;
+				equipSuccess = true;
+			}
+			else {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because both of " 
+						+ titleToString() + "'s hands are full. ");
+			}
+		}
+		else if(item instanceof Suit) {
+			if(suit == null) {
+				suit = (Suit)item;
+				equipSuccess = true;
+			}
+			else {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be equipped because " 
+						+ titleToString() + " is already wearing a suit. ");
+			}
+		}
+		else if(item instanceof Potion) {
+			try {
+				addtoInventory((Potion) item);
+				equipSuccess = true;
+			} catch (InventoryException e) {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because " + titleToString() + "'s "
+						+ "inventory is full");
+			}
+			equipSuccess = true;
+		}
 		if(item instanceof Magical) {
-			retItem = (Magical) item;
-			Equip bodyArea = ((Magical) item).getBodyAread();
+			Equip bodyArea = ((Magical) item).getBodyArea();
 			switch(bodyArea) {
 			case HANDS:
 				if(leftHand == null) {
-					retItem = leftHand = (Magical)item;
+					leftHand = (Magical)item;
 					equipSuccess = true;
-					
 				}
 				else if(rightHand == null) {
-					retItem = rightHand = (Magical)item;
+					rightHand = (Magical)item;
 					equipSuccess = true;
 				}
 				else {
@@ -46,7 +91,7 @@ public class Wizard extends Player {
 				break;
 			case SUIT:
 				if(suit == null) {
-					retItem = suit = (Suit)item;
+					suit = (Suit)item;
 					equipSuccess = true;
 				}
 				else {
@@ -56,25 +101,30 @@ public class Wizard extends Player {
 				}
 				break;
 			case NONE:
-				addtoInventory((Magical) item);
-				equipSuccess = true;
+				try {
+					addtoInventory((Magical) item);
+					equipSuccess = true;
+				} catch (InventoryException e) {
+					throw new EquipmentException(item.titleToString() 
+							+ " could not be picked up because " + titleToString() + "'s "
+							+ "inventory is full");
+				}
 				break;
 			default:
-				throw new EquipmentException(item.getName() 
-						+ " could not be equipped because " 
-						+ getName() + " Magical items need a specified body area. ");
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be equipped to " 
+						+ titleToString() + ", because Magical items need a specified body area. ");
 			}
 		}
 		else if(item instanceof OneHandedWeapon) {
 			((OneHandedWeapon) item).setStatForWizard();
-			retItem = (OneHandedWeapon) item;
 			if(leftHand == null) {
-				retItem = leftHand = (OneHandedWeapon)item;
+				leftHand = (OneHandedWeapon)item;
 				equipSuccess = true;
 				
 			}
 			else if(rightHand == null) {
-				retItem = rightHand = (OneHandedWeapon)item;
+				rightHand = (OneHandedWeapon)item;
 				equipSuccess = true;
 			}
 			else {
@@ -88,9 +138,7 @@ public class Wizard extends Player {
 					+ " could not be equipped because "
 					+ "wizards cannot use " + item.typeToString() + "s. ");
 		}
-		
 		stats.changeStat(item.getStatChange());
-		return retItem;
 	}
 
 }

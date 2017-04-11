@@ -5,6 +5,8 @@ import com.dd.items.*;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.dd_util.ConflictHandlingMap;
+import com.dd.entities.Player.EquipmentException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,17 +68,15 @@ public class Player extends Entity {
 
 	public void addtoInventory(Item item) throws InventoryException {
 		if(inventoryUsed == maxInventorySize){
-			throw new InventoryException("The inventory of player \""
-											+ name
-											+ "\" is already full. Item not added to inventory. ");
+			throw new InventoryException("The inventory of " + titleToString()
+											+ " is already full. Item not added to inventory. ");
 		}
 		inventory.put(item.getName(), item);
 		++inventoryUsed;
 	}
 
-	public Item removefromInventory(String itemName) throws InventoryException {
-		Item retItem = inventory.get(itemName);
-		if(retItem == null){
+	public void removefromInventory(String itemName) throws InventoryException {
+		if(inventory.get(itemName) == null) {
 			throw new InventoryException("There are no items of \""
 											+ itemName
 											+ "\" in the inventory of player \""
@@ -84,7 +84,6 @@ public class Player extends Entity {
 											+ "\". Item removal failed. ");
 		}
 		inventory.remove(itemName);
-		return retItem;
 	}
 
 	public void discardfromInventory(String itemName, int amount) throws InventoryException {
@@ -97,39 +96,58 @@ public class Player extends Entity {
 		}
 	}
 	
-	public Item equip(Item item) throws InventoryException, EquipmentException {
-		Item retItem = null;
+	public void basicEquip(Item item) throws EquipmentException {
 		if(item instanceof Artifact) {
-			addtoInventory((Artifact) item);
-			equipSuccess = true;
+			try {
+				addtoInventory((Artifact) item);
+				equipSuccess = true;
+			} catch (InventoryException e) {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because " + titleToString() + "'s "
+						+ "inventory is full");
+			}
 		}
 		else if(item instanceof Shield){
 			if(leftHand == null) {
-				retItem = leftHand = (Shield)item;
+				leftHand = (Shield)item;
 				equipSuccess = true;
 			}
 			else if(rightHand == null) {
-				retItem = rightHand = (Shield)item;
+				rightHand = (Shield)item;
 				equipSuccess = true;
 			}
 			else {
-				throw new EquipmentException(item.getName() 
-						+ " could not be equipped because both of " 
-						+ getName() + "'s hands are full. ");
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because both of " 
+						+ titleToString() + "'s hands are full. ");
 			}
 		}
-		else if(item instanceof Suit){
+		else if(item instanceof Suit) {
 			if(suit == null) {
-				retItem = suit = (Suit)item;
+				suit = (Suit)item;
 				equipSuccess = true;
 			}
 			else {
-				throw new EquipmentException(item.getName() 
+				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because " 
-						+ getName() + " is already wearing a suit. ");
+						+ titleToString() + " is already wearing a suit. ");
 			}
 		}
-		return retItem;
+		else if(item instanceof Potion) {
+			try {
+				addtoInventory((Potion) item);
+				equipSuccess = true;
+			} catch (InventoryException e) {
+				throw new EquipmentException(item.titleToString() 
+						+ " could not be picked up because " + titleToString() + "'s "
+						+ "inventory is full");
+			}
+			equipSuccess = true;
+		}
+	}
+	
+	public void equip(Item item) throws InventoryException, EquipmentException {
+		basicEquip(item);
 	}
 
 	public Item removeEquipment(Equip bodyArea) throws EquipmentException {

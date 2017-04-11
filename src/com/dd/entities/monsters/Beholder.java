@@ -62,7 +62,7 @@ public class Beholder extends Monster {
     public String confrontText() {
         return "You enter a room and get a strange feeling in the air. You turn around and see a creature" +
         " with multiple eyes. \"Hahaha!\" it laughs, fear tingling through your spine. \"I am " + titleToString() +
-                " feared amongst many, known by few. Those who know me know to fear me. Those who don't, soon will\"";
+                " feared amongst many, known by few. Those who know me know to fear me. Those who don't, soon will\". ";
     }
 
     @Override
