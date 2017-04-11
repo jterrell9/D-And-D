@@ -43,7 +43,7 @@ public class PickupCommand extends CommandHandler {
 					item = room.getItem(itemName);
 				}
 				catch(UnknownItemException UIE) {
-					outputLog.printToLog(UIE.toString());
+					outputLog.printToLog(UIE.getMessage());
 				}
 	    		try {
 	    			if(item instanceof Artifact) {
@@ -91,7 +91,7 @@ public class PickupCommand extends CommandHandler {
 	    			room.removeItem(itemName);
 	    		}
 	    		catch (UnknownItemException UIE) {
-	    			outputLog.printToLog(UIE.toString());
+	    			outputLog.printToLog(UIE.getMessage());
 				}
 			}
 	    	equippedItemNames.forEach((k) -> outputLog.printToLog(player.titleToString() + " has equipped " + k + ". "));
@@ -102,7 +102,7 @@ public class PickupCommand extends CommandHandler {
 				item = room.getItem(args[0]);
 			}
 			catch(UnknownItemException UIE) {
-				outputLog.printToLog(UIE.toString());
+				outputLog.printToLog(UIE.getMessage());
 				return;
 			}
 			if(item == null) {
@@ -143,7 +143,7 @@ public class PickupCommand extends CommandHandler {
 				}
     		}
 			catch(EquipmentException | InventoryException E) {
-    			outputLog.printToLog(E.toString());
+    			outputLog.printToLog(E.getMessage());
     			return;
     		}
     		try {
@@ -153,7 +153,7 @@ public class PickupCommand extends CommandHandler {
     			}
     		}
     		catch (UnknownItemException UIE) {
-    			outputLog.printToLog(UIE.toString());
+    			outputLog.printToLog(UIE.getMessage());
     			return;
 			}
 		}
