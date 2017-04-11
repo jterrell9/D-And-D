@@ -46,16 +46,14 @@ public class Room {
 		itemMap.put(item.getName(), item);
 	}
 
-	public Item removeItem(String itemName) throws UnknownItemException {
-		Item retItem;
+	public void removeItem(String itemName) throws UnknownItemException {
 		if(!itemMap.containsKey(itemName)) {
 			throw new UnknownItemException("The item \""
 											+ itemName
 											+ "\" does not exist in this room. Removal failed. ");
 		}
-		retItem = itemMap.get(itemName);
+		itemMap.get(itemName);
 		itemMap.remove(itemName);
-		return retItem;
 	}
 
 	public void discardItem(String itemName) throws UnknownItemException {
@@ -102,7 +100,10 @@ public class Room {
 		return monsterMap.get(name);
 	}
 	
-	public Item getItem(String name) {
+	public Item getItem(String name) throws UnknownItemException {
+		if(!itemMap.containsKey(name)) {
+			throw new UnknownItemException(name + " is not found in this room. ");
+		}
 		return itemMap.get(name);
 	}
 
