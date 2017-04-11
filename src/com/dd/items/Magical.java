@@ -19,4 +19,9 @@ public class Magical extends Item {
 	public Equip getBodyArea() {
 		return bodyArea;
 	}
+	
+	@Override
+	public String typeToString() {
+		return "Magical item";
+	}
 }
