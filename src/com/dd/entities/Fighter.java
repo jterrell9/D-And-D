@@ -69,9 +69,8 @@ public class Fighter extends Player {
 						+ " could not be picked up because " + titleToString() + "'s "
 						+ "inventory is full");
 			}
-			equipSuccess = true;
 		}
-		if(item instanceof TwoHandedWeapon) {
+		else if(item instanceof TwoHandedWeapon) {
 			if(leftHand == null && rightHand == null) {
 				leftHand = rightHand = (TwoHandedWeapon)item;
 				equipSuccess = true;

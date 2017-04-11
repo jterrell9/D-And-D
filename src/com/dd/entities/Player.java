@@ -358,10 +358,10 @@ public class Player extends Entity {
 	}
 
 	public String inventoryToString() {
-		StringBuilder sb = new StringBuilder("Inventory:");
+		StringBuilder sb = new StringBuilder("Inventory:\n");
 		int i = 0;
 		for(String itemName : inventory.keySet()){
-			sb.append("  " + ++i + " " + itemName + " " + inventory.get(itemName).examineToString() + "\n");
+			sb.append("\t" + ++i + " " + itemName + " " + inventory.get(itemName).examineToString() + "\n");
 		}	
 		return sb.toString();
 	}
