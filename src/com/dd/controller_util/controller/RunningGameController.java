@@ -111,12 +111,18 @@ public class RunningGameController extends GameSceneController{
 		MapPosition playerPos = player.getPostion();
 		for(int y = 0; y < map.getMaxRow(); y++){
 			for(int x = 0; x < map.getMaxCol(); x++){
-				if(playerPos.getX() == x && playerPos.getY() == y)
-					output.append(" X ");
-				else if(map.isRoom(new MapPosition(x, y)))
+				if(x == playerPos.getX() && y == playerPos.getY()) {
+					output.append("[X]");
+				}
+				else if(map.isRoom(new MapPosition(x, y))) {
 					output.append("[ ]");
-				else
+				}
+				else if(x == map.getEndPosition().getX() && y == map.getEndPosition().getY()) {
+					output.append("[!]");
+				}
+				else{
 					output.append("   ");
+				}
 			}
 			output.append("\n");
 		}
