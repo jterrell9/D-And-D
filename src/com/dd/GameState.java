@@ -15,7 +15,15 @@ public class GameState {
 	
 	public GameState(String name, Player activePlayer, DungeonMap map, int maxNumPlayers) {
 	    this.name = name;
-        this.activePlayer = activePlayer;
+	    if(activePlayer instanceof Fighter) {
+	    	this.activePlayer = (Fighter) activePlayer;
+	    }
+	    else if(activePlayer instanceof Wizard) {
+	    	this.activePlayer = (Wizard) activePlayer;
+	    }
+	    else {
+	    	this.activePlayer = activePlayer;
+	    }
         this.maxNumPlayers = maxNumPlayers;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
@@ -23,7 +31,15 @@ public class GameState {
 
 	public GameState(String name, Player activePlayer, DungeonMap map) {
         this.name = name;
-        this.activePlayer = activePlayer;
+        if(activePlayer instanceof Fighter) {
+	    	this.activePlayer = (Fighter) activePlayer;
+	    }
+	    else if(activePlayer instanceof Wizard) {
+	    	this.activePlayer = (Wizard) activePlayer;
+	    }
+	    else {
+	    	this.activePlayer = activePlayer;
+	    }
         this.maxNumPlayers = 1;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
@@ -37,7 +53,13 @@ public class GameState {
     }
 
     public Player getActivePlayer() {
-        return activePlayer;
+    	if(activePlayer instanceof Fighter) {
+    		return (Fighter) activePlayer;
+    	}
+    	else if(activePlayer instanceof Wizard) {
+    		return (Wizard) activePlayer;
+    	}
+    	return activePlayer;
     }
     
     public void setActivePlayer(Fighter fighter) {

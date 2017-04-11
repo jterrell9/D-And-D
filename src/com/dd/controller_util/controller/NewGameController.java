@@ -4,8 +4,7 @@ import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
-import com.dd.entities.Fighter;
-import com.dd.entities.Wizard;
+import com.dd.entities.*;
 import com.dd.levels.*;
 
 import java.util.Random;
@@ -39,14 +38,14 @@ public class NewGameController extends GameSceneController{
 		}
 		Integer seed = Integer.parseInt(seedNumber.getText());
 		DungeonMap map = new DungeonMap(seed);
-		GameState game = new GameState(saveName.getText(), map);
+		GameState game = null;
 		if(fighterRadio.isSelected()) {
 			Fighter fighter = new Fighter(characterName.getText(), map.getStartPosition());
-			game.setActivePlayer(fighter);
+			game = new GameState(saveName.getText(), fighter, map);
 		}
 		else if(wizardRadio.isSelected()) {
 			Wizard wizard = new Wizard(characterName.getText(), map.getStartPosition());
-			game.setActivePlayer(wizard);
+			game = new GameState(saveName.getText(), wizard, map);
 		}
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
 		args.setArgument("GameState", game);
