@@ -8,6 +8,7 @@ import com.dd.entities.Player;
 import com.dd.items.Item;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.Room;
+import com.dd.levels.Room.UnknownItemException;
 
 public class ExamineCommand extends CommandHandler {
 	private Player player;
@@ -67,11 +68,15 @@ public class ExamineCommand extends CommandHandler {
 						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
 						+ monster.examineText());
 			}
-			if(room.getItem(args[0]) != null) {
+			try{
 				Item item = room.getItem(args[0]);
 				outputLog.printToLog(item.titleToString() + " "
 						+ item.examineToString() + "\n");
 				break;
+			}
+			catch(UnknownItemException UIE) {
+				outputLog.printToLog(UIE.toString());
+    			return;
 			}
     	}
 	}
