@@ -1,6 +1,5 @@
 package com.dd.controller_util.controller;
 
-import com.google.gson.Gson;
 import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.GameType;
@@ -14,9 +13,10 @@ import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -76,12 +76,21 @@ public class RunningGameController extends GameSceneController{
 	 * Event handler for "Save" button.
 	 */
 	@FXML
-	private void handleSaveButtonAction(ActionEvent event) throws FileNotFoundException {
-		File gsonFile = new File(gameState.getName() + ".json");
-		PrintStream toGsonFile = new PrintStream(gsonFile);
-		toGsonFile.println(new Gson().toJson(gameState));
-		toGsonFile.close();
-		output.appendText("\nThe game \"" + gameState.getName() + "\" has been saved. ");
+	private void handleSaveButtonAction(ActionEvent event) {
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        try {
+                String filename = gameState.getName() + ".ser";
+        		
+                fos = new FileOutputStream(filename);
+                out = new ObjectOutputStream(fos);
+                out.writeObject(gameState);
+                out.close();
+                output.appendText("\nThe game \"" + gameState.getName() + "\" has been saved. ");
+        } catch (IOException e) {
+                e.printStackTrace();
+                output.appendText("\nERROR - The game was not saved. ");
+        }
 	}
 	
 	/**

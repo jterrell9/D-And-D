@@ -1,8 +1,10 @@
 package com.dd.entities;
 
+import java.io.Serializable;
+
 import com.dd.Stats;
 
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
 	protected String name;
 	protected Stats stats;

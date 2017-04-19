@@ -123,6 +123,7 @@ public class NewGameController extends GameSceneController{
 
 	@Override
 	public void setup(ControllerArgumentPackage args){
+		saveName.requestFocus();
 		saveName.clear();
 		seedNumber.clear();
 		characterName.clear();

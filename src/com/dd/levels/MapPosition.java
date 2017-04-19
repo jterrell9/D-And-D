@@ -1,6 +1,8 @@
 package com.dd.levels;
 
-public class MapPosition {
+import java.io.Serializable;
+
+public class MapPosition implements Serializable {
 	
 	private int x;
 	private int y;

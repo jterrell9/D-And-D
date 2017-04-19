@@ -1,6 +1,8 @@
 package com.dd;
 
-public class Stats {
+import java.io.Serializable;
+
+public class Stats implements Serializable {
 	
 	private int health;
 	private int maxHealth;
