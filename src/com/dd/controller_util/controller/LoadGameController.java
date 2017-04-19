@@ -63,7 +63,7 @@ public class LoadGameController extends GameSceneController{
 		// Get all of the .ser files
 		File[] files = getFiles(System.getProperty("user.dir"), ".ser");
 		
-		// Load up all the save files and stores them in the GameState ArrayList
+		// Load the save files and store them in the GameState ArrayList
 		this.gamestates = new ArrayList<>();
 		for (File file : files) {
 			

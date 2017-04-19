@@ -8,7 +8,7 @@ import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState  implements Serializable {
+public class GameState implements Serializable {
     protected String name;
 	protected Player activePlayer;
 	protected int maxNumPlayers;
