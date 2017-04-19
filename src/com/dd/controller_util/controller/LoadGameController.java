@@ -117,6 +117,7 @@ public class LoadGameController extends GameSceneController{
 
 	@Override
 	public void setup(ControllerArgumentPackage args){
+		backButton.requestFocus();
 		gamestates = null;
 		fileList.getItems().clear();
 		errorLabel.setText("");
