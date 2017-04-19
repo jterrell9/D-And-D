@@ -4,11 +4,11 @@ import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
-import com.google.gson.Gson;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,18 +59,21 @@ public class LoadGameController extends GameSceneController{
 	 * Adds the list of GameStates to the ListView.
 	 */
 	private void populateListView() {
-		// Get all of the .json files
-		File[] files = getFiles(System.getProperty("user.dir"), ".json");
+		
+		// Get all of the .ser files
+		File[] files = getFiles(System.getProperty("user.dir"), ".ser");
 		
 		// Load up all the save files and stores them in the GameState ArrayList
 		this.gamestates = new ArrayList<>();
 		for (File file : files) {
 			
 			try {
-				FileReader filereader = new FileReader(file);
-				gamestates.add(new Gson().fromJson(filereader, GameState.class));
-			}
-			catch (FileNotFoundException e) {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream in = new ObjectInputStream(fis);
+				gamestates.add((GameState) in.readObject());
+				in.close();
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
 				errorLabel.setText("Error opening a file.");
 				return;
 			}
