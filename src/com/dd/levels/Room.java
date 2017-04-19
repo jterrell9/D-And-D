@@ -3,9 +3,11 @@ package com.dd.levels;
 import com.dd.entities.Monster;
 import com.dd.items.Item;
 import com.dd.dd_util.ConflictHandlingMap;
+
+import java.io.Serializable;
 import java.util.Map;
 
-public class Room {
+public class Room implements Serializable {
 	private Map<String, Item> itemMap;
 	private Map<String, Monster> monsterMap;
 	

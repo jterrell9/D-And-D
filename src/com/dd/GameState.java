@@ -2,11 +2,13 @@ package com.dd;
 
 import com.dd.entities.*;
 import com.dd.levels.DungeonMap;
+
+import java.io.Serializable;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState {
+public class GameState  implements Serializable {
     protected String name;
 	protected Player activePlayer;
 	protected int maxNumPlayers;

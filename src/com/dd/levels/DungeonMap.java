@@ -1,5 +1,6 @@
 package com.dd.levels;
 
+import java.io.Serializable;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -10,7 +11,7 @@ import com.dd.entities.Equip;
 import com.dd.entities.monsters.*;
 import com.dd.items.*;
 
-public class DungeonMap {
+public class DungeonMap implements Serializable {
 
 	private Room[][] rooms;
 	private int maxRow = 10;

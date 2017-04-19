@@ -1,8 +1,10 @@
 package com.dd.items;
 
+import java.io.Serializable;
+
 import com.dd.Stats;
 
-public class Item {
+public class Item implements Serializable {
 	
 	protected String name;
 	protected Stats StatModifyer;
