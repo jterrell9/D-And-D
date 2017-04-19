@@ -34,16 +34,18 @@ public class LoadGameController extends GameSceneController{
 	private void handleLoadButtonAction(ActionEvent event) {
 		int selectedIndex = fileList.getSelectionModel().getSelectedIndex();
 		
+		// Return if nothing is selected
 		if (selectedIndex < 0) {
 			errorLabel.setText("Please select a file.");
 			return;
 		}
 		
+		// Get the GameState at the same index as selected item in the ListView
 		GameState game = gamestates.get(selectedIndex);
 		
+		// Set the args and switch scenes
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
 		args.setArgument("GameState", game);
-
 		DandD.setActiveGameScene("RunningGameScene", args);
 	}
 	
