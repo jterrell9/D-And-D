@@ -28,7 +28,7 @@ public class ExamineCommand extends CommandHandler {
     	case "monsters":
 		case "monster":
 			if(room.hasMonster()) {
-				room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
+				room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
 						v.titleToString()
 						+ "\nHealth: " + v.getStats().getHealth()
 						+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
@@ -72,7 +72,7 @@ public class ExamineCommand extends CommandHandler {
     	}
     	if(room.hasMonster()) {
     		Monster monster = room.getMonster();
-			room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
+			room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
 					v.titleToString()
 					+ "\nHealth: " + v.getStats().getHealth()
 					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()

@@ -47,7 +47,7 @@ public class DropCommand extends CommandHandler {
 			break;
 		case "hands":
 			try {
-				dropItem = (TwoHandedWeapon) player.getTwoHands();
+				dropItem = (TwoHandedWeapon) player.get();
 				player.drop(Equip.HANDS);
 				outputLog.printToLog(player.titleToString() + " has dropped both hands. ");
 			}
@@ -123,7 +123,7 @@ public class DropCommand extends CommandHandler {
 	outputLog.printToLog("This room now contains the following items:\n" + this.room.examineItems());
 	if(room.hasMonster()) {
 		Monster monster = room.getMonster();
-		room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
+		room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
 				v.titleToString()
 				+ "\nHealth: " + v.getStats().getHealth()
 				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()

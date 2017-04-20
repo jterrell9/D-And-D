@@ -50,7 +50,7 @@ public class UseCommand extends CommandHandler {
     	}
     	if(room.hasMonster()) {
     		Monster monster = room.getMonster();
-			room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
+			room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
 					v.titleToString()
 					+ "\nHealth: " + v.getStats().getHealth()
 					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()

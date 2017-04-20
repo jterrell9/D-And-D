@@ -23,6 +23,18 @@ public class Room implements Serializable {
 	public void addItem(Item item) {
 		itemMap.put(item.getName(), item);
 	}
+	
+	public Item removeItem(String itemName) throws UnknownMonsterException {
+		Item retItem;
+		if(!monsterMap.containsKey(itemName)){
+			throw new UnknownMonsterException("The monster \""
+												+ itemName
+												+ "\" does not exist in this room. Removal failed. ");
+		}
+		retItem = itemMap.get(itemName);
+		itemMap.remove(itemName);
+		return retItem;
+	}
 
 	public void addMonster(Monster monster) {
 		monsterMap.put(monster.getName(),monster);
@@ -38,14 +50,6 @@ public class Room implements Serializable {
 		retMonster = monsterMap.get(monsterName);
 		monsterMap.remove(monsterName);
 		return retMonster;
-	}
-
-	public void discardMonster(String monsterName) throws UnknownMonsterException {
-		if(monsterMap.remove(monsterName) != null) {
-			throw new UnknownMonsterException("The monster \""
-												+ monsterName
-												+ "\" does not exist in this room. Removal failed. ");
-		}
 	}
 
 	public Map<String, Item> getItemMap() {

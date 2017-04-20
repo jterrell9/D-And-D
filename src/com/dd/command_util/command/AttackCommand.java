@@ -30,7 +30,7 @@ public class AttackCommand extends CommandHandler {
 			outputLog.printToLog(UME.getMessage());
 		}
 		if(room.hasMonster()) {
-			room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
+			room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
 					v.titleToString()
 					+ "\nHealth: " + v.getStats().getHealth()
 					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
