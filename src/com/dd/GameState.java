@@ -1,5 +1,6 @@
 package com.dd;
 
+import com.dd.dataTypes.enums.PlayerType;
 import com.dd.entities.*;
 import com.dd.levels.DungeonMap;
 
@@ -11,41 +12,46 @@ import java.util.List;
 public class GameState implements Serializable {
     protected String name;
 	protected Player activePlayer;
+	protected PlayerType playerType = PlayerType.NONE;
 	protected int maxNumPlayers;
     protected List<Player> allActivePlayers = new ArrayList<Player>();
 	protected DungeonMap map;
 	
-	public GameState(String name, Player activePlayer, DungeonMap map, int maxNumPlayers) {
-	    this.name = name;
-	    if(activePlayer instanceof Fighter) {
-	    	this.activePlayer = (Fighter) activePlayer;
-	    }
-	    else if(activePlayer instanceof Wizard) {
-	    	this.activePlayer = (Wizard) activePlayer;
-	    }
-	    else {
-	    	this.activePlayer = activePlayer;
-	    }
+	public GameState(String name, Fighter newFighter, DungeonMap map, int maxNumPlayers) {
+	    this.name = name;	    
+	   	this.activePlayer = newFighter;
+	   	this.playerType = PlayerType.FIGHTER;
         this.maxNumPlayers = maxNumPlayers;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
 	}
-
-	public GameState(String name, Player activePlayer, DungeonMap map) {
-        this.name = name;
-        if(activePlayer instanceof Fighter) {
-	    	this.activePlayer = (Fighter) activePlayer;
-	    }
-	    else if(activePlayer instanceof Wizard) {
-	    	this.activePlayer = (Wizard) activePlayer;
-	    }
-	    else {
-	    	this.activePlayer = activePlayer;
-	    }
+	
+	public GameState(String name, Wizard newWizard, DungeonMap map, int maxNumPlayers) {
+	    this.name = name;	    
+	   	this.activePlayer = newWizard;
+	   	this.playerType = PlayerType.WIZARD;
+        this.maxNumPlayers = maxNumPlayers;
+        allActivePlayers = new ArrayList<Player>();
+        this.map = map;
+	}
+	
+	public GameState(String name, Fighter newFighter, DungeonMap map) {
+	    this.name = name;	    
+	   	this.activePlayer = newFighter;
+	   	this.playerType = PlayerType.FIGHTER;
         this.maxNumPlayers = 1;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
-    }
+	}
+	
+	public GameState(String name, Wizard newWizard, DungeonMap map) {
+	    this.name = name;	    
+	   	this.activePlayer = newWizard;
+	   	this.playerType = PlayerType.WIZARD;
+        this.maxNumPlayers = 1;
+        allActivePlayers = new ArrayList<Player>();
+        this.map = map;
+	}
 	
 	public GameState(String name, DungeonMap map) {
         this.name = name;
@@ -55,21 +61,19 @@ public class GameState implements Serializable {
     }
 
     public Player getActivePlayer() {
-    	if(activePlayer instanceof Fighter) {
-    		return (Fighter) activePlayer;
-    	}
-    	else if(activePlayer instanceof Wizard) {
-    		return (Wizard) activePlayer;
-    	}
-    	return activePlayer;
+    	return this.activePlayer;
     }
     
     public void setActivePlayer(Fighter fighter) {
-    	activePlayer = fighter;
+    	this.activePlayer = fighter;
     }
     
     public void setActivePlayer(Wizard wizard) {
-    	activePlayer = wizard;
+    	this.activePlayer = wizard;
+    }
+    
+    public PlayerType getPlayerType() {
+    	return playerType;
     }
 
     public List<Player> getPlayerList() {
@@ -90,6 +94,14 @@ public class GameState implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public boolean isFighter() {
+    	return playerType == PlayerType.FIGHTER;
+    }
+    
+    public boolean isWizard() {
+    	return playerType == PlayerType.WIZARD;
     }
 
     public int getMaxNumPlayers() {
