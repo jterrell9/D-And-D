@@ -1,81 +1,51 @@
 package com.dd.dataTypes.bodyAreas;
 
+import com.dd.exceptions.EquipmentException;
 import com.dd.exceptions.ItemTypeException;
 import com.dd.items.*;
-import com.dd.dataTypes.enums.ItemType;
 
-public class Hand {
+import java.io.Serializable;
+
+public class Hand implements Serializable {
 	
-	private ItemType handType = ItemType.NONE;
-	private OneHandedWeapon oneHandedWeapon;
-	private Shield shield;
-	private Magical magical;
+	private Item item;
+	private boolean isEmpty;
 	
 	public Hand() {
-		this.handType = ItemType.NONE;
+		this.isEmpty = true;
 	}
 
-	public Hand(Item item) {
+	public Hand(Item item) throws EquipmentException {
 		try {
-			setHand(item);
+			set(item);
 		} catch (ItemTypeException ITE) {
-			System.out.println(ITE.getMessage());
+			throw new EquipmentException(ITE.getMessage());
 		}
 	}
 	
-	public void setHand(Item item) throws ItemTypeException {
-		clearType();
-		if(item instanceof OneHandedWeapon) {
-			oneHandedWeapon = (OneHandedWeapon) item;
-			handType = ItemType.ONEHANDEDWEAPON;
-		}
-		else if(item instanceof Shield) {
-			shield = (Shield) item;
-			handType = ItemType.SHIELD;
-		}
-		else if(item instanceof Magical) {
-			magical = (Magical) item;
-			handType = ItemType.MAGICAL;
+	public void set(Item item) throws ItemTypeException {
+		if(item instanceof OneHandedWeapon
+				|| item instanceof Shield
+				|| item instanceof Magical) {
+			this.item = item;
+			this.isEmpty = false;
 		}
 		else {
 			throw new ItemTypeException(item.titleToString() + " cannot be equipped to left hand. ");
 		}
 	}
 	
-	public Item getHand() {
-		if(handType == ItemType.ONEHANDEDWEAPON) {
-			return (OneHandedWeapon) oneHandedWeapon;
-		}
-		else if(handType == ItemType.SHIELD) {
-			return (Shield) shield;
-		}
-		else if(handType == ItemType.MAGICAL) {
-			return (Magical) magical;
-		}
-		else {
-			return null;
-		}
+	public Item get() {
+		return this.item;
 	}
 	
-	public void dropHand() {
+	public void drop() {
 		if(!isEmpty()) {
-			oneHandedWeapon = null;
-			shield = null;
-			magical = null;
-			clearType();
+			this.item = null;
 		}
-	}
-	
-	public ItemType getHandType() {
-		return handType;
 	}
 	
 	public boolean isEmpty() {
-		return handType == ItemType.NONE;
+		return isEmpty;
 	}
-	
-	public void clearType() {
-		handType = ItemType.NONE;
-	}
-	
 }
