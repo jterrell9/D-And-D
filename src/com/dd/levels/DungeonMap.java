@@ -3,12 +3,11 @@ package com.dd.levels;
 import java.io.Serializable;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Random;
 
-import com.dd.entities.Equip;
+import com.dd.dataTypes.enums.Equip;
 import com.dd.entities.monsters.*;
+import com.dd.exceptions.NullRoomException;
 import com.dd.items.*;
 
 public class DungeonMap implements Serializable {
@@ -182,10 +181,12 @@ public class DungeonMap implements Serializable {
 		rooms[position.getY()][position.getX()] = room;
 	}
 	
-	public Room getRoom(MapPosition pos) {
+	public Room getRoom(MapPosition pos) throws NullRoomException {
 		if(isOutOfBounds(pos)) {
-			System.out.println("e:DungeonMap.getRoom():out of bounds of map");
-			return null;
+			throw new NullRoomException("Room is out of bounds. ");
+		}
+		if(rooms[pos.getY()][pos.getX()] == null) {
+			throw new NullRoomException("Room does not exist. ");
 		}
 		return rooms[pos.getY()][pos.getX()];
 	}
@@ -325,7 +326,7 @@ public class DungeonMap implements Serializable {
 			}
 			else {
 				int magicNum = rand.nextInt(6);
-				room.addItem(new Magical(magicNames[magicNum], Equip.LEFTHAND, (1 * magicNum) + 1, (1 * magicNum )+ 1, (3 * magicNum) + 1, (magicNum / 3) + 1));
+				room.addItem(new Magical(magicNames[magicNum], Equip.LEFTHAND, 1*magicNum, 1*magicNum, 3*magicNum, magicNum/3));
 			}
 		}
 		setRoom(room, new MapPosition(x, y));
