@@ -24,20 +24,21 @@ public class Wizard extends Player {
 
 	@Override
 	public void pickup(Item item) throws InventoryException, EquipmentException {
-		if(item instanceof Artifact) {
+		if(item instanceof Artifact
+				|| item instanceof Potion
+				|| item instanceof Magical) {
 			try {
-				addtoInventory((Artifact) item);
+				addtoInventory(item);
 				pickupSuccess = true;
-			} catch (InventoryException e) {
-				throw new EquipmentException(item.titleToString() 
-						+ " could not be picked up because " + titleToString() + "'s "
-						+ "inventory is full");
+			} 
+			catch (InventoryException IE) {
+				throw new EquipmentException(IE.getMessage());
 			}
 		}
 		else if(item instanceof Shield){
 			if(leftHand.isEmpty()) {
 				try {
-					leftHand.setHand((Shield) item);
+					leftHand.set((Shield) item);
 					pickupSuccess = true;
 				}
 				catch (ItemTypeException ITE) {
@@ -46,7 +47,7 @@ public class Wizard extends Player {
 			}
 			else if(rightHand.isEmpty()) {
 				try {
-					rightHand.setHand((Shield) item);
+					rightHand.set((Shield) item);
 					pickupSuccess = true;
 				}
 				catch (ItemTypeException ITE) {
@@ -61,7 +62,7 @@ public class Wizard extends Player {
 		}
 		else if(item instanceof Suit) {
 			if(suitArea.isEmpty()) {
-				suitArea.setSuitArea((Suit) item);
+				suitArea.set((Suit) item);
 				pickupSuccess = true;
 			}
 			else {
@@ -88,7 +89,7 @@ public class Wizard extends Player {
 			case HANDS:
 				if(leftHand.isEmpty()) {
 					try {
-						leftHand.setHand((Magical) item);
+						leftHand.set((Magical) item);
 						pickupSuccess = true;
 					}
 					catch (ItemTypeException ITE) {
@@ -97,7 +98,7 @@ public class Wizard extends Player {
 				}
 				else if(rightHand.isEmpty()) {
 					try {
-						rightHand.setHand((Magical) item);
+						rightHand.set((Magical) item);
 						pickupSuccess = true;
 					}
 					catch (ItemTypeException ITE) {
@@ -112,7 +113,7 @@ public class Wizard extends Player {
 				break;
 			case SUIT:
 				if(suitArea.isEmpty()) {
-					suitArea.setSuitArea((Suit) item);
+					suitArea.set((Suit) item);
 					pickupSuccess = true;
 				}
 				else {
@@ -141,7 +142,7 @@ public class Wizard extends Player {
 			((OneHandedWeapon) item).setStatForWizard();
 			if(leftHand.isEmpty()) {
 				try {
-					leftHand.setHand((OneHandedWeapon) item);
+					leftHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} 
 				catch (ItemTypeException ITE) {
@@ -151,7 +152,7 @@ public class Wizard extends Player {
 			}
 			else if(rightHand.isEmpty()) {
 				try {
-					rightHand.setHand((OneHandedWeapon) item);
+					rightHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} 
 				catch (ItemTypeException ITE) {

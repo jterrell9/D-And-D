@@ -36,7 +36,7 @@ public class Fighter extends Player {
 		else if(item instanceof Shield){
 			if(leftHand.isEmpty()) {
 				try {
-					leftHand.setHand((Shield) item);
+					leftHand.set((Shield) item);
 					pickupSuccess = true;
 				}
 				catch (ItemTypeException ITE) {
@@ -45,7 +45,7 @@ public class Fighter extends Player {
 			}
 			else if(rightHand.isEmpty()) {
 				try {
-					rightHand.setHand((Shield) item);
+					rightHand.set((Shield) item);
 					pickupSuccess = true;
 				}
 				catch (ItemTypeException e) {
@@ -60,7 +60,7 @@ public class Fighter extends Player {
 		}
 		else if(item instanceof Suit) {
 			if(suitArea.isEmpty()) {
-				suitArea.setSuitArea((Suit) item);
+				suitArea.set((Suit) item);
 				pickupSuccess = true;
 			}
 			else {
@@ -81,7 +81,7 @@ public class Fighter extends Player {
 		}
 		else if(item instanceof TwoHandedWeapon) {
 			if(twoHands.isEmpty()) {
-				twoHands.setTwoHands((TwoHandedWeapon) item);
+				twoHands.set((TwoHandedWeapon) item);
 				pickupSuccess = true;
 			}
 			else {
@@ -93,7 +93,7 @@ public class Fighter extends Player {
 		else if(item instanceof OneHandedWeapon) {
 			if(leftHand.isEmpty()) {
 				try {
-					leftHand.setHand((OneHandedWeapon) item);
+					leftHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} 
 				catch (ItemTypeException e) {
@@ -102,7 +102,7 @@ public class Fighter extends Player {
 			}
 			else if(rightHand.isEmpty()) {
 				try {
-					rightHand.setHand((OneHandedWeapon) item);
+					rightHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} catch (ItemTypeException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s right hand");
