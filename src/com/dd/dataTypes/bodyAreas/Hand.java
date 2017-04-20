@@ -2,6 +2,7 @@ package com.dd.dataTypes.bodyAreas;
 
 import com.dd.exceptions.EquipmentException;
 import com.dd.exceptions.ItemTypeException;
+import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
 import java.io.Serializable;
@@ -35,7 +36,10 @@ public class Hand implements Serializable {
 		}
 	}
 	
-	public Item get() {
+	public Item get() throws NullValueException {
+		if(isEmpty()) {
+			throw new NullValueException("Suit area is empty. ");
+		}
 		return this.item;
 	}
 	
