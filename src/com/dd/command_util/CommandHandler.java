@@ -42,4 +42,20 @@ public abstract class CommandHandler {
         argsStr += args[args.length - 1];
         return argsStr;
     }
+	
+	public String monsterAttack() {
+		String output = "";
+		if(room.hasMonster()) {
+    		Monster monster = room.getMonster();
+    		for(Monster v : room.getMonsterMap().values()) {
+    			output += v.titleToString()
+    					+ "\nHealth: " + v.getStats().getHealth()
+    					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
+    					+ "\n" + v.examineText();
+    		}
+			monster.attack(player);
+			output += player.getText();
+		}
+		return output;
+	}
 }
