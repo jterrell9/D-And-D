@@ -20,45 +20,8 @@ public class Room implements Serializable {
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
 	
-	public String examineItems() {
-		StringBuilder outputSB = new StringBuilder();
-		if(hasItems()) {
-			getItemMap().values().forEach((v) -> outputSB.append(
-					v.titleToString() + " "
-					+ v.examineToString() + "\n"));
-		}
-		else {
-			outputSB.append("There are no items in this room. ");
-		}
-		return outputSB.toString();
-	}
-	
-	public String enterRoomText() {
-		StringBuilder outputText = new StringBuilder();
-		if(isEmpty()){
-			outputText.append("This room is empty.");
-			return outputText.toString();
-		}
-		if(hasMonster()) {	
-			getMonsterMap().values().forEach((v) -> outputText.append(v.confrontText() + " "));
-		}
-		if(hasItems()) {
-			outputText.append("This room contains ");
-			getItemMap().forEach((k, v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
-		}
-		return outputText.toString();
-	}
-
-	public boolean isEmpty() {
-		return getItemMap().isEmpty() && getMonsterMap().isEmpty();
-	}
-	
-	public boolean hasMonster() {
-		return !getMonsterMap().isEmpty();
-	}
-	
-	public boolean hasItems() {
-		return !getItemMap().isEmpty();
+	public void addItem(Item item) {
+		itemMap.put(item.getName(), item);
 	}
 
 	public void addMonster(Monster monster) {
@@ -123,5 +86,46 @@ public class Room implements Serializable {
 			throw new UnknownItemException(item.titleToString() + " is not found in this room. ");
 		}
 		return itemMap.get(item.getName());
+	}
+	
+	public String examineItems() {
+		StringBuilder outputSB = new StringBuilder();
+		if(hasItems()) {
+			getItemMap().values().forEach((v) -> outputSB.append(
+					v.titleToString() + " "
+					+ v.examineToString() + "\n"));
+		}
+		else {
+			outputSB.append("There are no items in this room. ");
+		}
+		return outputSB.toString();
+	}
+	
+	public String enterRoomText() {
+		StringBuilder outputText = new StringBuilder();
+		if(isEmpty()){
+			outputText.append("This room is empty.");
+			return outputText.toString();
+		}
+		if(hasMonster()) {	
+			getMonsterMap().values().forEach((v) -> outputText.append(v.confrontText() + " "));
+		}
+		if(hasItems()) {
+			outputText.append("This room contains ");
+			getItemMap().forEach((k, v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
+		}
+		return outputText.toString();
+	}
+	
+	public boolean isEmpty() {
+		return getItemMap().isEmpty() && getMonsterMap().isEmpty();
+	}
+	
+	public boolean hasMonster() {
+		return !getMonsterMap().isEmpty();
+	}
+	
+	public boolean hasItems() {
+		return !getItemMap().isEmpty();
 	}
 }
