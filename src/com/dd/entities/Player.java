@@ -45,9 +45,7 @@ public class Player extends Entity {
 		this.inventory = new Inventory(10);
 	}
 	
-	public void pickup(Item item) throws InventoryException, EquipmentException {
-		
-	}
+	public void pickup(Item item) throws InventoryException, EquipmentException {}
 	
 	public void drop(Equip bodyArea) throws EquipmentException {
 		resetDropSuccess();
@@ -56,20 +54,8 @@ public class Player extends Entity {
 		switch(bodyArea) {
 			case LEFTHAND:
 				if(!leftHand.isEmpty()) {
-					dropItem = leftHand.getHand();
-					if(dropItem instanceof Magical) {
-						dropItem = (Magical) dropItem;
-					}
-					else if(dropItem instanceof OneHandedWeapon) {
-						dropItem = (OneHandedWeapon) dropItem;
-					}
-					else if(dropItem instanceof Shield) {
-						dropItem = (Shield) dropItem;
-					}
-					else {
-						throw new EquipmentException("Drop item has no type. ");
-					}
-					leftHand.dropHand();
+					dropItem = leftHand.get();
+					leftHand.drop();
 					dropSuccess = true;
 				}
 				else {
@@ -78,20 +64,8 @@ public class Player extends Entity {
 				break;
 			case RIGHTHAND:
 				if(!rightHand.isEmpty()) {
-					dropItem = rightHand.getHand();
-					if(dropItem instanceof Magical) {
-						dropItem = (Magical) dropItem;
-					}
-					else if(dropItem instanceof OneHandedWeapon) {
-						dropItem = (OneHandedWeapon) dropItem;
-					}
-					else if(dropItem instanceof Shield) {
-						dropItem = (Shield) dropItem;
-					}
-					else {
-						throw new EquipmentException("Drop item has no type. ");
-					}
-					rightHand.dropHand();
+					dropItem = rightHand.get();
+					rightHand.drop();
 					dropSuccess = true;
 				}
 				else {
@@ -100,14 +74,8 @@ public class Player extends Entity {
 				break;
 			case HANDS:
 				if(!twoHands.isEmpty()) {
-					dropItem = twoHands.getTwoHands();
-					if(dropItem instanceof TwoHandedWeapon) {
-						dropItem = (TwoHandedWeapon) dropItem;
-					}
-					else {
-						throw new EquipmentException("Drop item has no type. ");
-					}
-					rightHand.dropHand();
+					dropItem = twoHands.get();
+					rightHand.drop();
 					dropSuccess = true;
 				}
 				else {
@@ -116,14 +84,8 @@ public class Player extends Entity {
 				break;
 			case SUIT:
 				if(!suitArea.isEmpty()) {
-					dropItem = suitArea.getSuitArea();
-					if(dropItem instanceof Suit) {
-						dropItem = (Suit) dropItem;
-					}
-					else {
-						throw new EquipmentException("Drop item has no type. ");
-					}
-					suitArea.dropSuitArea();
+					dropItem = suitArea.get();
+					suitArea.drop();
 					dropSuccess = true;
 				}
 				else {
@@ -144,20 +106,14 @@ public class Player extends Entity {
 	}
 	
 	public void usePotion(Potion potion) throws EquipmentException {
-		try {
-			inventory.remove(potion);
-			changeStats(potion.getStatChange());
-		} 
-		catch (InventoryException IE) {
-			throw new EquipmentException(IE.getMessage());
-		}
+		changeStats(potion.getStatChange());
 	}
 
 	public void usePotionFromInventory(Potion potion) throws EquipmentException {
 		try {
 			inventory.get(potion);
+			inventory.remove(potion);
 			usePotion(potion);
-			dropSuccess = false;
 		} 
 		catch (InventoryException IE) {
 			throw new EquipmentException(IE.getMessage());
@@ -166,37 +122,26 @@ public class Player extends Entity {
 	}
 	
 	public void addtoInventory(Item item) throws InventoryException {
-		if(item instanceof Potion) {
-			this.inventory.add((Potion) item);
-		}
-		else if(item instanceof Artifact) {
-			this.inventory.add((Artifact) item);
-		}
-		else if(item instanceof Magical) {
-			this.inventory.add((Magical) item);
-		}
-		else {
-			throw new InventoryException(item.titleToString() + " cannot be added to your inventory. "
-					+ "The item must be a potion, artifact, or magical item. ");
-		}
+		this.inventory.add(item);
+		
 	}
 
 	public void removeFromInventory(Item item) throws InventoryException {
-		if(item instanceof Potion) {
-			this.inventory.remove((Potion) item);
+		resetDropSuccess();
+		if(!inventory.getInventoryMap().containsValue(item)) {
+			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
 		}
-		else if(item instanceof Artifact) {
-			this.inventory.remove((Artifact) item);
-		}
-		else if(item instanceof Magical) {
-			this.inventory.remove((Magical) item);
-		}
-		else {
-			throw new InventoryException(item.titleToString() + " cannot be added to your inventory. "
-					+ "The item must be a potion, artifact, or magical item. ");
-		}
+		this.inventory.remove(item);
 		dropSuccess = true;
-		
+	}
+	
+	public void removeFromInventory(String itemName) throws InventoryException {
+		resetDropSuccess();
+		if(!inventory.getInventoryMap().containsKey(itemName)) {
+			throw new InventoryException(itemName + " is not in your inventory. ");
+		}
+		this.inventory.remove(inventory.get(itemName));
+		dropSuccess = true;
 	}
 	
 	public MapPosition getPostion() {
@@ -212,31 +157,19 @@ public class Player extends Entity {
 	}
 	
 	public Item getLeftHand() {
-		return leftHand.getHand();
-	}
-	
-	public ItemType leftHandType() {
-		return leftHand.getHandType();
+		return leftHand.get();
 	}
 
 	public Item getRightHand() {
-		return rightHand.getHand();
-	}
-	
-	public ItemType rightHandType() {
-		return rightHand.getHandType();
+		return rightHand.get();
 	}
 
-	public TwoHandedWeapon getTwoHands() {
-		return twoHands.getTwoHands();
+	public TwoHandedWeapon get() {
+		return twoHands.get();
 	}
 
 	public Suit getSuitArea() {
-		return suitArea.getSuitArea();
-	}
-
-	public void setSuitArea(SuitArea suitArea) {
-		this.suitArea = suitArea;
+		return suitArea.get();
 	}
 	
 	public Inventory getInventory() {
@@ -262,17 +195,17 @@ public class Player extends Entity {
 	public String equipToString() {
 		StringBuilder lh = new StringBuilder();
 		if(!leftHand.isEmpty())
-			lh.append(leftHand.getHand().getName() + " " + leftHand.getHand().examineToString());
+			lh.append(leftHand.get().getName() + " " + leftHand.get().examineToString());
 		else
 			lh.append("empty");
 		StringBuilder rh = new StringBuilder();
 		if(!rightHand.isEmpty())
-			rh.append(rightHand.getHand().getName() + " " + rightHand.getHand().examineToString());
+			rh.append(rightHand.get().getName() + " " + rightHand.get().examineToString());
 		else
 			rh.append("empty");
 		StringBuilder s = new StringBuilder();
 		if(!suitArea.isEmpty())
-			s.append(suitArea.getSuitArea().getName() + " " + suitArea.getSuitArea().examineToString());
+			s.append(suitArea.get().getName() + " " + suitArea.get().examineToString());
 		else
 			s.append("empty");
 		return "Left Hand:  " + lh.toString() + "\n"
