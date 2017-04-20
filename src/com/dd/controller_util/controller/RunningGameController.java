@@ -2,7 +2,7 @@ package com.dd.controller_util.controller;
 
 import com.dd.DandD;
 import com.dd.GameState;
-import com.dd.dataTypes.enums.GameType;
+import com.dd.exceptions.InvalidCommandException;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
@@ -66,7 +66,7 @@ public class RunningGameController extends GameSceneController{
 				updateMap();
 				updateStatboard();
 			}
-			catch(CommandParser.InvalidCommandException ICE){
+			catch(InvalidCommandException ICE){
 				output.appendText(ICE.getMessage());
 			}
 	    }
