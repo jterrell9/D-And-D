@@ -1,68 +1,56 @@
 package com.dd.dataTypes.bodyAreas;
 
-import com.dd.dataTypes.enums.*;
+import java.io.Serializable;
+
+import com.dd.exceptions.EquipmentException;
 import com.dd.exceptions.ItemTypeException;
+import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
-public class SuitArea {
+public class SuitArea implements Serializable {
 	
-	private ItemType suitType = ItemType.NONE;
 	private Suit suit;
 	
 	public SuitArea() {
-		this.suitType = ItemType.NONE;
+		this.suit = null;
 	}
 
-	public SuitArea(Item item) throws ItemTypeException {
+	public SuitArea(Item suit) throws EquipmentException {
 		try {
-			setSuitArea(item);
+			set(suit);
 		} catch (ItemTypeException ITE) {
-			System.out.println(ITE.getMessage());
+			throw new EquipmentException(ITE.getMessage());
 		}
 	}
 	
-	public void setSuitArea(Suit suit) {
-		this.suit = suit;
-		suitType = ItemType.SUIT;
-	}
-	
-	public void setSuitArea(Item item) throws ItemTypeException {
-		clearType();
+	public void set(Item item) throws ItemTypeException {
 		if(item instanceof Suit) {
-			suit = (Suit) item;
-			suitType = ItemType.SUIT;
+			this.suit = (Suit) item;
 		}
 		else {
-			throw new ItemTypeException(item.titleToString() + " cannot be equipped to suit. ");
+			throw new ItemTypeException(item.titleToString() + " cannot be equipped to suit area. ");
 		}
 	}
 	
-	public Suit getSuitArea() {
-		if(suitType == ItemType.SUIT) {
-			return (Suit) suit;
-		}
-		else { 
-			return null;
-		}
+	public void set(Suit suit) {
+		this.suit = suit;
 	}
 	
-	public void dropSuitArea() {
-		if(!isEmpty()) {
-			suit = null;
-			clearType();
+	public Suit get() throws NullValueException {
+		if(isEmpty()) {
+			throw new NullValueException("Suit area is empty. ");
 		}
+		return (Suit) suit;
 	}
 	
-	public ItemType getSuitType() {
-		return suitType;
+	public void drop() throws NullValueException {
+		if(isEmpty()) {
+			throw new NullValueException("Suit area is empty. ");
+		}
+		suit = null;
 	}
 	
 	public boolean isEmpty() {
-		return suitType == ItemType.NONE;
+		return this.suit == null;
 	}
-	
-	public void clearType() {
-		suitType = ItemType.NONE;
-	}
-	
 }
