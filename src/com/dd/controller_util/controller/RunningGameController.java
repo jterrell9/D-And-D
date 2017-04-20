@@ -2,7 +2,7 @@ package com.dd.controller_util.controller;
 
 import com.dd.DandD;
 import com.dd.GameState;
-import com.dd.GameType;
+import com.dd.dataTypes.enums.GameType;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
@@ -120,11 +120,11 @@ public class RunningGameController extends GameSceneController{
 				if(x == playerPos.getX() && y == playerPos.getY()) {
 					output.append("[X]");
 				}
-				else if(map.isRoom(new MapPosition(x, y))) {
-					output.append("[ ]");
-				}
 				else if(x == map.getEndPosition().getX() && y == map.getEndPosition().getY()) {
 					output.append("[!]");
+				}
+				else if(map.isRoom(new MapPosition(x, y))) {
+					output.append("[ ]");
 				}
 				else{
 					output.append("   ");
