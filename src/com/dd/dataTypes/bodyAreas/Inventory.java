@@ -1,133 +1,75 @@
 package com.dd.dataTypes.bodyAreas;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.dd.items.*;
 import com.dd.exceptions.*;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
-	private int size;
 	private int maxSize;
-	private ArrayList<Artifact> artifacts;
-	private ArrayList<Potion> potions;
-	private ArrayList<Magical> magicals;
+	private Map<String, Item> items;
 	
 	public Inventory(int maxSize) {
-		this.size = 0;
 		this.maxSize = maxSize;
-		this.potions = new ArrayList<Potion>();
-		this.artifacts = new ArrayList<Artifact>();
-		this.magicals = new ArrayList<Magical>();
+		this.items = new HashMap<String, Item>();
 	}
 	
-	public Potion get(Potion potion) throws InventoryException {
-		if(!potions.contains(potion)) {
-			throw new InventoryException(potion.titleToString() + " is not in your inventory. ");
+	public Item get(Item item) throws InventoryException {
+		if(!items.containsValue(item)) {
+			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
 		}
-		return potions.get(potions.indexOf(potion));
+		return items.get(item.getName());
 	}
 	
-	public Artifact get(Artifact artifact) throws InventoryException {
-		if(!artifacts.contains(artifact)) {
-			throw new InventoryException(artifact.titleToString() + " is not in your inventory. ");
+	public Item get(String itemName) throws InventoryException {
+		if(!items.containsKey(itemName)) {
+			throw new InventoryException(items.get(itemName).titleToString() + " is not in your inventory. ");
 		}
-		return artifacts.get(artifacts.indexOf(artifact));
+		return items.get(itemName);
 	}
 	
-	public Magical get(Magical magical) throws InventoryException {
-		if(!magicals.contains(magical)) {
-			throw new InventoryException(magical.titleToString() + " is not in your inventory. ");
-		}
-		return magicals.get(magicals.indexOf(magical));
-	}
-	
-	public void add(Potion potion) throws InventoryException {
-		if(size >= maxSize) {
-			throw new InventoryException(potion.titleToString() + " cannot be added to your inventory, "
+	public void add(Item item) throws InventoryException {
+		if(items.size() >= maxSize) {
+			throw new InventoryException(item.titleToString() + " cannot be added to your inventory "
 					+ "because it is full. ");
 		}
-		this.potions.add(potion);
-		this.size++;
-	}
-	
-	public void add(Artifact artifact) throws InventoryException {
-		if(size >= maxSize) {
-			throw new InventoryException(artifact.titleToString() + " cannot be added to your inventory, "
-					+ "because it is full. ");
-		}
-		this.artifacts.add(artifact);
-		this.size++;
-	}
-	
-	public void add(Magical magical) throws InventoryException {
-		if(size >= maxSize) {
-			throw new InventoryException(magical.titleToString() + " cannot be added to your inventory, "
-					+ "because it is full. ");
-		}
-		this.magicals.add(magical);
-		this.size++;
-	}
-	
-	public void remove(Potion potion) throws InventoryException {
-		if(potions.contains(potion)) {
-			this.potions.remove(potion);
+		if(item instanceof Artifact 
+				|| item instanceof Potion
+				|| item instanceof Magical) {
+			this.items.put(item.getName(), item);
 		}
 		else {
-			throw new InventoryException(potion.titleToString() + " is not in your inventory. ");
+			throw new InventoryException("Only potions, artifacts, and certain magical items can "
+					+ "be added to your inventory. ");
 		}
-		size--;
 	}
 	
-	public void remove(Artifact artifact) throws InventoryException {
-		if(artifacts.contains(artifact)) {
-			this.artifacts.remove(artifact);
+	public void remove(Item item) throws InventoryException {
+		if(items.containsValue(item)) {
+			this.items.remove(item);
 		}
 		else {
-			throw new InventoryException(artifact.titleToString() + " is not in your inventory. ");
+			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
 		}
-		size--;
 	}
 	
-	public void remove(Magical magical) throws InventoryException {
-		if(magicals.contains(magical)) {
-			this.magicals.remove(magical);
+	public void remove(String itemName) throws InventoryException {
+		if(items.containsKey(itemName)) {
+			this.items.remove(items.get(itemName));
 		}
 		else {
-			throw new InventoryException(magical.titleToString() + " is not in your inventory. ");
+			throw new InventoryException(itemName + " is not in your inventory. ");
 		}
-		size--;
 	}
 	
 	public Map<String, Item> getInventoryMap() {
-		Map<String, Item> inventoryMap = new HashMap<String, Item>();
-		for(Potion potion : potions) {
-			inventoryMap.put(potion.getName(), potion);
-		}
-		for(Artifact artifact: artifacts) {
-			inventoryMap.put(artifact.getName(), artifact);
-		}
-		for(Magical magical: magicals) {
-			inventoryMap.put(magical.getName(), magical);
-		}
-		return inventoryMap;
-	}
-
-	public ArrayList<Artifact> getArtifacts() {
-		return artifacts;
-	}
-
-	public ArrayList<Potion> getPotions() {
-		return potions;
-	}
-
-	public ArrayList<Magical> getMagicals() {
-		return magicals;
+		return items;
 	}
 	
 	public boolean isEmpty() {
-		return size == 0;
+		return items.isEmpty();
 	}
 }	
