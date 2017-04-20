@@ -1,67 +1,61 @@
 package com.dd.dataTypes.bodyAreas;
 
+import java.io.Serializable;
+
 import com.dd.dataTypes.enums.*;
+import com.dd.exceptions.EquipmentException;
 import com.dd.exceptions.ItemTypeException;
+import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
-public class TwoHands {
+public class TwoHands implements Serializable {
 	
-	private ItemType twoHandsType = ItemType.NONE;
 	private TwoHandedWeapon twoHandedWeapon;
 	
 	public TwoHands() {
-		this.twoHandsType = ItemType.NONE;
+		this.twoHandedWeapon = null;
+	}
+	
+	public TwoHands(TwoHandedWeapon twoHandedWeapon) {
+		set(twoHandedWeapon);
 	}
 
-	public TwoHands(Item item) throws ItemTypeException {
+	public TwoHands(Item item) throws EquipmentException {
 		try {
-			setTwoHands(item);
+			set(item);
 		} catch (ItemTypeException ITE) {
-			System.out.println(ITE.getMessage());
+			throw new EquipmentException(ITE.getMessage());
 		}
 	}
 	
-	public void setTwoHands(TwoHandedWeapon twoHandedWeapon) {
-		this.twoHandedWeapon = twoHandedWeapon;
-		twoHandsType = ItemType.TWOHANDEDWEAPON;
-	}
-	
-	public void setTwoHands(Item item) throws ItemTypeException {
-		clearType();
+	public void set(Item item) throws ItemTypeException {
 		if(item instanceof TwoHandedWeapon) {
-			setTwoHands((TwoHandedWeapon) item);
-			twoHandsType = ItemType.TWOHANDEDWEAPON;
+			this.twoHandedWeapon = (TwoHandedWeapon) item;
 		}
 		else {
 			throw new ItemTypeException(item.titleToString() + " cannot be equipped to both hands. ");
 		}
 	}
 	
-	public TwoHandedWeapon getTwoHands() {
-		if(twoHandsType == ItemType.TWOHANDEDWEAPON) {
-			return twoHandedWeapon;
-		}
-		else {
-			return null;
-		}
+	public void set(TwoHandedWeapon twoHandedWeapon) {
+		this.twoHandedWeapon = twoHandedWeapon;
 	}
 	
-	public void dropTwoHands() {
-		if(!isEmpty()) {
-			twoHandedWeapon = null;
-			clearType();
+	public TwoHandedWeapon get() throws NullValueException {
+		if(isEmpty()) {
+			throw new NullValueException("both hands are empty or have different objects. ");
 		}
+		return this.twoHandedWeapon;
 	}
 	
-	public ItemType getTwoHandsType() {
-		return twoHandsType;
+	public void drop() throws NullValueException {
+		if(isEmpty()) {
+			throw new NullValueException("Suit area is empty. ");
+		}
+		this.twoHandedWeapon = null;
 	}
 	
 	public boolean isEmpty() {
-		return twoHandsType == ItemType.NONE;
-	}
-	
-	public void clearType() {
-		twoHandsType = ItemType.NONE;
+		return this.twoHandedWeapon == null;
 	}
 }

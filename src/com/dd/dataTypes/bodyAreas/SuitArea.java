@@ -14,10 +14,14 @@ public class SuitArea implements Serializable {
 	public SuitArea() {
 		this.suit = null;
 	}
+	
+	public SuitArea(Suit suit) {
+		set(suit);
+	}
 
-	public SuitArea(Item suit) throws EquipmentException {
+	public SuitArea(Item item) throws EquipmentException {
 		try {
-			set(suit);
+			set(item);
 		} catch (ItemTypeException ITE) {
 			throw new EquipmentException(ITE.getMessage());
 		}
@@ -40,14 +44,14 @@ public class SuitArea implements Serializable {
 		if(isEmpty()) {
 			throw new NullValueException("Suit area is empty. ");
 		}
-		return (Suit) suit;
+		return this.suit;
 	}
 	
 	public void drop() throws NullValueException {
 		if(isEmpty()) {
 			throw new NullValueException("Suit area is empty. ");
 		}
-		suit = null;
+		this.suit = null;
 	}
 	
 	public boolean isEmpty() {
