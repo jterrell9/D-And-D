@@ -2,6 +2,7 @@ package com.dd;
 
 import com.dd.dataTypes.enums.PlayerType;
 import com.dd.entities.*;
+import com.dd.exceptions.UnknownPlayerTypeException;
 import com.dd.levels.DungeonMap;
 
 import java.io.Serializable;
@@ -60,7 +61,10 @@ public class GameState implements Serializable {
         this.map = map;
     }
 
-    public Player getActivePlayer() {
+    public Player getActivePlayer() throws UnknownPlayerTypeException {
+    	if(playerType == PlayerType.NONE) {
+    		throw new UnknownPlayerTypeException("no player typer. ");
+    	}
     	return this.activePlayer;
     }
     
