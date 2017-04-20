@@ -24,12 +24,10 @@ public class Room implements Serializable {
 		itemMap.put(item.getName(), item);
 	}
 	
-	public Item removeItem(String itemName) throws UnknownMonsterException {
+	public Item removeItem(String itemName) throws UnknownItemException {
 		Item retItem;
-		if(!monsterMap.containsKey(itemName)){
-			throw new UnknownMonsterException("The monster \""
-												+ itemName
-												+ "\" does not exist in this room. Removal failed. ");
+		if(!itemMap.containsKey(itemName)){
+			throw new UnknownItemException(itemName + " item not found in room. ");
 		}
 		retItem = itemMap.get(itemName);
 		itemMap.remove(itemName);
