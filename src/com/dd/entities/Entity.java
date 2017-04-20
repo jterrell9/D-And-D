@@ -9,7 +9,7 @@ public abstract class Entity implements Serializable{
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
-	protected String text;
+	protected String text = "";
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
