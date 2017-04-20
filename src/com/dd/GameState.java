@@ -13,42 +13,21 @@ import java.util.List;
 public class GameState implements Serializable {
     protected String name;
 	protected Player activePlayer;
-	protected PlayerType playerType = PlayerType.NONE;
 	protected int maxNumPlayers;
     protected List<Player> allActivePlayers = new ArrayList<Player>();
 	protected DungeonMap map;
 	
-	public GameState(String name, Fighter newFighter, DungeonMap map, int maxNumPlayers) {
+	public GameState(String name, Player newPlayer, DungeonMap map, int maxNumPlayers) {
 	    this.name = name;	    
-	   	this.activePlayer = newFighter;
-	   	this.playerType = PlayerType.FIGHTER;
+	   	this.activePlayer = newPlayer;
         this.maxNumPlayers = maxNumPlayers;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
 	}
 	
-	public GameState(String name, Wizard newWizard, DungeonMap map, int maxNumPlayers) {
+	public GameState(String name, Player newPlayer, DungeonMap map) {
 	    this.name = name;	    
-	   	this.activePlayer = newWizard;
-	   	this.playerType = PlayerType.WIZARD;
-        this.maxNumPlayers = maxNumPlayers;
-        allActivePlayers = new ArrayList<Player>();
-        this.map = map;
-	}
-	
-	public GameState(String name, Fighter newFighter, DungeonMap map) {
-	    this.name = name;	    
-	   	this.activePlayer = newFighter;
-	   	this.playerType = PlayerType.FIGHTER;
-        this.maxNumPlayers = 1;
-        allActivePlayers = new ArrayList<Player>();
-        this.map = map;
-	}
-	
-	public GameState(String name, Wizard newWizard, DungeonMap map) {
-	    this.name = name;	    
-	   	this.activePlayer = newWizard;
-	   	this.playerType = PlayerType.WIZARD;
+	   	this.activePlayer = newPlayer;
         this.maxNumPlayers = 1;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
@@ -61,23 +40,12 @@ public class GameState implements Serializable {
         this.map = map;
     }
 
-    public Player getActivePlayer() throws UnknownPlayerTypeException {
-    	if(playerType == PlayerType.NONE) {
-    		throw new UnknownPlayerTypeException("no player typer. ");
-    	}
+    public Player getActivePlayer() {
     	return this.activePlayer;
     }
     
-    public void setActivePlayer(Fighter fighter) {
-    	this.activePlayer = fighter;
-    }
-    
-    public void setActivePlayer(Wizard wizard) {
-    	this.activePlayer = wizard;
-    }
-    
-    public PlayerType getPlayerType() {
-    	return playerType;
+    public void setActivePlayer(Player player) {
+    	this.activePlayer = player;
     }
 
     public List<Player> getPlayerList() {
@@ -101,11 +69,11 @@ public class GameState implements Serializable {
     }
     
     public boolean isFighter() {
-    	return playerType == PlayerType.FIGHTER;
+    	return activePlayer instanceof Fighter;
     }
     
     public boolean isWizard() {
-    	return playerType == PlayerType.WIZARD;
+    	return activePlayer instanceof Wizard;
     }
 
     public int getMaxNumPlayers() {
