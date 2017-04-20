@@ -15,8 +15,6 @@ public abstract class CommandHandler {
 	protected DungeonMap dungeonMap;
 	protected Room room;
 	protected Player player;
-    protected PlayerType playerType = PlayerType.NONE;
-    protected ItemType itemType = ItemType.NONE;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
@@ -27,7 +25,6 @@ public abstract class CommandHandler {
 	protected void initGameState(GameState activeState) {
 		this.gameState = activeState;
     	this.dungeonMap = gameState.getMap();
-    	this.playerType = gameState.getPlayerType();
     	this.player = updateState();
 	}
 	
