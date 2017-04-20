@@ -10,10 +10,9 @@ import java.io.Serializable;
 public class Hand implements Serializable {
 	
 	private Item item;
-	private boolean isEmpty;
 	
 	public Hand() {
-		this.isEmpty = true;
+		this.item = null;
 	}
 
 	public Hand(Item item) throws EquipmentException {
@@ -29,7 +28,6 @@ public class Hand implements Serializable {
 				|| item instanceof Shield
 				|| item instanceof Magical) {
 			this.item = item;
-			this.isEmpty = false;
 		}
 		else {
 			throw new ItemTypeException(item.titleToString() + " cannot be equipped to left hand. ");
@@ -43,13 +41,14 @@ public class Hand implements Serializable {
 		return this.item;
 	}
 	
-	public void drop() {
-		if(!isEmpty()) {
-			this.item = null;
+	public void drop() throws NullValueException {
+		if(isEmpty()) {
+			throw new NullValueException("Suit area is empty. ");
 		}
+		this.item = null;
 	}
 	
 	public boolean isEmpty() {
-		return isEmpty;
+		return this.item == null;
 	}
 }
