@@ -289,7 +289,7 @@ public class Player extends Entity {
 		return sb.toString();
 	}
 	
-	public String statboardToString() throws EquipmentException {
+	public String statboardToString() {
 		return	stats.toString()
 				+ "\n" + equipToString()
 				+ "\n" + inventoryToString();
