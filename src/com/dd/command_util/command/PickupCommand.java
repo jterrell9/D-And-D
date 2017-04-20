@@ -26,7 +26,7 @@ public class PickupCommand extends CommandHandler {
 		Item item = null;
 		switch(args[0]) {
 		case "items":
-			ArrayList<String> equippedItemNames = new ArrayList<String>();;
+			ArrayList<String> equippedItemNames = new ArrayList<String>();
 			for(Item equippedItem : room.getItemMap().values()) {
 				player.resetPickupSuccess();
 				try {
@@ -91,18 +91,7 @@ public class PickupCommand extends CommandHandler {
 		else {
 			outputLog.printToLog(room.examineItems());
 		}
-		if(room.hasMonster()) {
-    		Monster monster = room.getMonster();
-			room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
-					v.titleToString()
-					+ "\nHealth: " + v.getStats().getHealth()
-					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-					+ "\n" + v.examineText()));
-			monster.attack(player);
-			outputLog.printToLog(player.getText());
-		}
-		else {
-			outputLog.printToLog("There are no monsters in this room. ");
-		}
+		String MonsterTurnText = monsterAttack();
+		outputLog.printToLog(MonsterTurnText);
     }
 }
