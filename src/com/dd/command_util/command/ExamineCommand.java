@@ -65,7 +65,7 @@ public class ExamineCommand extends CommandHandler {
 						+ item.examineToString() + "\n");
 				break;
 			}
-			catch(UnknownItemException UIE) {
+			catch(NullItemException UIE) {
 				outputLog.printToLog(UIE.getMessage());
     			return;
 			}

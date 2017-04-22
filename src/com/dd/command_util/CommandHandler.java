@@ -2,10 +2,7 @@ package com.dd.command_util;
 
 import com.dd.GameState;
 import com.dd.entities.*;
-import com.dd.dataTypes.enums.ItemType;
-import com.dd.dataTypes.enums.PlayerType;
-import com.dd.exceptions.InvalidArgumentException;
-import com.dd.exceptions.InventoryException;
+import com.dd.exceptions.*;
 import com.dd.levels.DungeonMap;
 import com.dd.levels.Room;
 
@@ -57,5 +54,21 @@ public abstract class CommandHandler {
 			output += player.getText();
 		}
 		return output;
+	}
+	
+	public void monsterDie(String monsterName) throws NullMonsterException {
+		if(!room.getMonsterMap().containsKey(monsterName)) {
+			throw new NullMonsterException(monsterName + " is not in this room. ");
+		}
+		try{
+			room.removeMonster(monsterName);
+		}
+		catch(NullMonsterException UME) {
+			
+		}
+	}
+	
+	public void monsterDie(Monster monster) {
+		
 	}
 }

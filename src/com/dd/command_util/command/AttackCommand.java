@@ -26,7 +26,7 @@ public class AttackCommand extends CommandHandler {
 			outputLog.printToLog(player.getText());
 			player.clearText();
 		}
-		catch(UnknownMonsterException UME) {
+		catch(NullMonsterException UME) {
 			outputLog.printToLog(UME.getMessage());
 		}
 		if(room.hasMonster()) {

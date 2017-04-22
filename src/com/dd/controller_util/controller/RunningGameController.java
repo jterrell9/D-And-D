@@ -190,7 +190,8 @@ public class RunningGameController extends GameSceneController{
 						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
 		output.appendText(startRoom.enterRoomText());
 		
-		commandParser = new CommandParser(new CommandOutputLog(output), gameState);
+		CommandOutputLog outputLog = new CommandOutputLog(output);
+		commandParser = new CommandParser(outputLog, gameState);
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));

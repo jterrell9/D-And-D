@@ -116,7 +116,7 @@ public class DropCommand extends CommandHandler {
 			try {
 				this.room.addItem(dropItem);
 			} 
-			catch (UnknownItemException UIE) {
+			catch (NullItemException UIE) {
 				outputLog.printToLog(UIE.getMessage());
 			}
 		}

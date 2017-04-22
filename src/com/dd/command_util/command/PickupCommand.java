@@ -32,7 +32,7 @@ public class PickupCommand extends CommandHandler {
 				try {
 					item = room.getItem(equippedItem);
 				}
-				catch(UnknownItemException UIE) {
+				catch(NullItemException UIE) {
 					outputLog.printToLog(UIE.getMessage());
 				}
 	    		try {
@@ -50,7 +50,7 @@ public class PickupCommand extends CommandHandler {
 	    			room.removeItem(itemName);
 	    			outputLog.printToLog(player.titleToString() + " has equipped " + itemName + ". ");
 	    		}
-	    		catch (UnknownItemException UIE) {
+	    		catch (NullItemException UIE) {
 	    			outputLog.printToLog(UIE.getMessage());
 				}
 			}
@@ -60,7 +60,7 @@ public class PickupCommand extends CommandHandler {
 			try {
 				item = room.getItem(args[0]);
 			}
-			catch(UnknownItemException UIE) {
+			catch(NullItemException UIE) {
 				outputLog.printToLog(UIE.getMessage());
 				return;
 			}
@@ -80,7 +80,7 @@ public class PickupCommand extends CommandHandler {
     				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
     			}
     		}
-    		catch (UnknownItemException UIE) {
+    		catch (NullItemException UIE) {
     			outputLog.printToLog(UIE.getMessage());
     			return;
 			}
