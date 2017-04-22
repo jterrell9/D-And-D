@@ -1,8 +1,6 @@
 package com.dd;
 
-import com.dd.dataTypes.enums.PlayerType;
 import com.dd.entities.*;
-import com.dd.exceptions.UnknownPlayerTypeException;
 import com.dd.levels.DungeonMap;
 
 import java.io.Serializable;
