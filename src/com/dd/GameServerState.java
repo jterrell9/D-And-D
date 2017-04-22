@@ -1,6 +1,8 @@
 package com.dd;
 
 import com.dd.entities.*;
+import com.dd.entities.players.Fighter;
+import com.dd.entities.players.Wizard;
 import com.dd.levels.DungeonMap;
 
 import java.lang.IllegalArgumentException;

@@ -1,6 +1,7 @@
-package com.dd.entities;
+package com.dd.entities.players;
 
 import com.dd.Stats;
+import com.dd.entities.Player;
 import com.dd.exceptions.*;
 import com.dd.items.*;
 import com.dd.levels.MapPosition;
