@@ -12,6 +12,8 @@ public abstract class CommandHandler {
 	protected DungeonMap dungeonMap;
 	protected Room room;
 	protected Player player;
+	protected CommandOutputLog globalOutputLog;
+	protected boolean monsterExamined;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
@@ -31,6 +33,10 @@ public abstract class CommandHandler {
 		return player;
 	}
 	
+	public void setGlobalOutputLog(CommandOutputLog outputLog) {
+		this.globalOutputLog = outputLog;
+	}
+	
 	protected String getArgsString(String args[]){
         String argsStr = "";
         for(int i = 0; i < args.length - 1; i++) {
@@ -40,35 +46,63 @@ public abstract class CommandHandler {
         return argsStr;
     }
 	
-	public String monsterAttack() {
-		String output = "";
-		if(room.hasMonster()) {
+	public void monsterAttack() {
+		try {
     		Monster monster = room.getMonster();
-    		for(Monster v : room.getMonsterMap().values()) {
-    			output += v.titleToString()
-    					+ "\nHealth: " + v.getStats().getHealth()
-    					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-    					+ "\n" + v.examineText();
-    		}
 			monster.attack(player);
-			output += player.getText();
+			globalOutputLog.printToLog(monster.getText());
+			if(!monsterExamined) {
+				examineMonster();
+			}
 		}
-		return output;
+		catch(NullMonsterException NME) {
+			globalOutputLog.printToLog(NME.getMessage());
+		}
 	}
 	
-	public void monsterDie(String monsterName) throws NullMonsterException {
-		if(!room.getMonsterMap().containsKey(monsterName)) {
-			throw new NullMonsterException(monsterName + " is not in this room. ");
+	public void examineRoom() {
+		globalOutputLog.printToLog(room.enterRoomText());
+	}
+	
+	public void examineItems() {
+		if(room.hasItems()) {
+			room.getItemMap().values().forEach((v) -> globalOutputLog.printToLog(
+					v.titleToString() + " "
+					+ v.examineToString() + "\n"));
 		}
+		else {
+			globalOutputLog.printToLog("There are no items in this room. ");
+		}
+	}
+	
+	public void examineMonster() {
+		if(room.hasMonster()) {
+			room.getMonsterMap().values().forEach((v) -> globalOutputLog.printToLog(
+					v.titleToString()
+					+ "\nHealth: " + v.getStats().getHealth()
+					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
+					+ "\n" + v.examineText()));
+		}
+		else {
+			globalOutputLog.printToLog("There are no monsters in this room. ");
+		}
+	}
+	
+	public void monsterDied(String monsterName) throws NullMonsterException {
 		try{
 			room.removeMonster(monsterName);
 		}
 		catch(NullMonsterException UME) {
-			
+			globalOutputLog.printToLog(UME.getMessage());
 		}
 	}
 	
-	public void monsterDie(Monster monster) {
-		
+	public void monsterDied(Monster monster) {
+		try{
+			room.removeMonster(monster);
+		}
+		catch(NullMonsterException UME) {
+			globalOutputLog.printToLog(UME.getMessage());
+		}
 	}
 }
