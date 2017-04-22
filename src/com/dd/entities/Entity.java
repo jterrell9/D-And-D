@@ -40,6 +40,11 @@ public abstract class Entity implements Serializable{
         text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
     }
 	
+	public void attack(Entity entity, int damage) {
+        damage = entity.takeDamage(damage);
+        text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+    }
+	
 	public int takeDamage(int damage){
         int damageDealt = damage - stats.getDefense();
         if(damageDealt <= 0){
