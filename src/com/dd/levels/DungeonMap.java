@@ -256,10 +256,7 @@ public class DungeonMap implements Serializable {
 				}
 				else {
 					yTrue = true;
-					bothTrue = xTrue && yTrue;
-					if(bothTrue) {
-						return;
-					}
+					bothTrue = xTrue;
 				}
 				generateRoom(xTransfer, yTransfer);
 				vertical = false;
@@ -273,10 +270,7 @@ public class DungeonMap implements Serializable {
 				}
 				else {
 					xTrue = true;
-					bothTrue = xTrue && yTrue;
-					if(bothTrue) {
-						return;
-					}
+					bothTrue =yTrue;
 				}
 				generateRoom(xTransfer, yTransfer);
 				vertical = true;
