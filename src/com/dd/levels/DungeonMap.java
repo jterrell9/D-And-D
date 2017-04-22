@@ -256,10 +256,7 @@ public class DungeonMap implements Serializable {
 				}
 				else {
 					yTrue = true;
-					bothTrue = xTrue && yTrue;
-					if(bothTrue) {
-						return;
-					}
+					bothTrue = xTrue;
 				}
 				generateRoom(xTransfer, yTransfer);
 				vertical = false;
@@ -273,10 +270,7 @@ public class DungeonMap implements Serializable {
 				}
 				else {
 					xTrue = true;
-					bothTrue = xTrue && yTrue;
-					if(bothTrue) {
-						return;
-					}
+					bothTrue =yTrue;
 				}
 				generateRoom(xTransfer, yTransfer);
 				vertical = true;
@@ -321,7 +315,7 @@ public class DungeonMap implements Serializable {
 			int lootType = rand.nextInt(2);
 			if(lootType == 1) {
 				int potNum = rand.nextInt(4);
-				room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+				room.addItem(new Potion(potionNames[potNum], ((potNum + 1) * 4 )+ 1));
 			}
 			else {
 				int magicNum = rand.nextInt(6);
