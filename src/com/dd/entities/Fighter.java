@@ -39,7 +39,7 @@ public class Fighter extends Player {
 					leftHand.set((Shield) item);
 					pickupSuccess = true;
 				}
-				catch (ItemTypeException ITE) {
+				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
 				}
 			}
@@ -48,7 +48,7 @@ public class Fighter extends Player {
 					rightHand.set((Shield) item);
 					pickupSuccess = true;
 				}
-				catch (ItemTypeException e) {
+				catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
 				}
 			}
@@ -96,7 +96,7 @@ public class Fighter extends Player {
 					leftHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} 
-				catch (ItemTypeException e) {
+				catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s left hand");
 				}
 			}
@@ -104,7 +104,7 @@ public class Fighter extends Player {
 				try {
 					rightHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
-				} catch (ItemTypeException e) {
+				} catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s right hand");
 				}
 			}

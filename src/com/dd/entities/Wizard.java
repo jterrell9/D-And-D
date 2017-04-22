@@ -41,7 +41,7 @@ public class Wizard extends Player {
 					leftHand.set((Shield) item);
 					pickupSuccess = true;
 				}
-				catch (ItemTypeException ITE) {
+				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
 				}
 			}
@@ -50,7 +50,7 @@ public class Wizard extends Player {
 					rightHand.set((Shield) item);
 					pickupSuccess = true;
 				}
-				catch (ItemTypeException ITE) {
+				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
 				}
 			}
@@ -92,7 +92,7 @@ public class Wizard extends Player {
 						leftHand.set((Magical) item);
 						pickupSuccess = true;
 					}
-					catch (ItemTypeException ITE) {
+					catch (NullItemException ITE) {
 						throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
 					}
 				}
@@ -101,7 +101,7 @@ public class Wizard extends Player {
 						rightHand.set((Magical) item);
 						pickupSuccess = true;
 					}
-					catch (ItemTypeException ITE) {
+					catch (NullItemException ITE) {
 						throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
 					}
 				}
@@ -145,7 +145,7 @@ public class Wizard extends Player {
 					leftHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} 
-				catch (ItemTypeException ITE) {
+				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
 				}
 				
@@ -155,7 +155,7 @@ public class Wizard extends Player {
 					rightHand.set((OneHandedWeapon) item);
 					pickupSuccess = true;
 				} 
-				catch (ItemTypeException ITE) {
+				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
 				}
 			}

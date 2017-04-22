@@ -1,7 +1,7 @@
 package com.dd.dataTypes.bodyAreas;
 
 import com.dd.exceptions.EquipmentException;
-import com.dd.exceptions.ItemTypeException;
+import com.dd.exceptions.NullItemException;
 import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
@@ -18,19 +18,19 @@ public class Hand implements Serializable {
 	public Hand(Item item) throws EquipmentException {
 		try {
 			set(item);
-		} catch (ItemTypeException ITE) {
+		} catch (NullItemException ITE) {
 			throw new EquipmentException(ITE.getMessage());
 		}
 	}
 	
-	public void set(Item item) throws ItemTypeException {
+	public void set(Item item) throws NullItemException {
 		if(item instanceof OneHandedWeapon
 				|| item instanceof Shield
 				|| item instanceof Magical) {
 			this.item = item;
 		}
 		else {
-			throw new ItemTypeException(item.titleToString() + " cannot be equipped to left hand. ");
+			throw new NullItemException(item.titleToString() + " cannot be equipped to left hand. ");
 		}
 	}
 	

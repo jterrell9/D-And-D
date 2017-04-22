@@ -3,7 +3,7 @@ package com.dd.dataTypes.bodyAreas;
 import java.io.Serializable;
 
 import com.dd.exceptions.EquipmentException;
-import com.dd.exceptions.ItemTypeException;
+import com.dd.exceptions.NullItemException;
 import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
@@ -22,17 +22,17 @@ public class SuitArea implements Serializable {
 	public SuitArea(Item item) throws EquipmentException {
 		try {
 			set(item);
-		} catch (ItemTypeException ITE) {
+		} catch (NullItemException ITE) {
 			throw new EquipmentException(ITE.getMessage());
 		}
 	}
 	
-	public void set(Item item) throws ItemTypeException {
+	public void set(Item item) throws NullItemException {
 		if(item instanceof Suit) {
 			this.suit = (Suit) item;
 		}
 		else {
-			throw new ItemTypeException(item.titleToString() + " cannot be equipped to suit area. ");
+			throw new NullItemException(item.titleToString() + " cannot be equipped to suit area. ");
 		}
 	}
 	

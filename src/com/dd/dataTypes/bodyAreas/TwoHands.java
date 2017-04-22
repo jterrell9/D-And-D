@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.dd.dataTypes.enums.*;
 import com.dd.exceptions.EquipmentException;
-import com.dd.exceptions.ItemTypeException;
+import com.dd.exceptions.NullItemException;
 import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
@@ -23,17 +23,17 @@ public class TwoHands implements Serializable {
 	public TwoHands(Item item) throws EquipmentException {
 		try {
 			set(item);
-		} catch (ItemTypeException ITE) {
+		} catch (NullItemException ITE) {
 			throw new EquipmentException(ITE.getMessage());
 		}
 	}
 	
-	public void set(Item item) throws ItemTypeException {
+	public void set(Item item) throws NullItemException {
 		if(item instanceof TwoHandedWeapon) {
 			this.twoHandedWeapon = (TwoHandedWeapon) item;
 		}
 		else {
-			throw new ItemTypeException(item.titleToString() + " cannot be equipped to both hands. ");
+			throw new NullItemException(item.titleToString() + " cannot be equipped to both hands. ");
 		}
 	}
 	
