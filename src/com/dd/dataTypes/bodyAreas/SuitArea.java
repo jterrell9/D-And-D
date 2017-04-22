@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.dd.exceptions.EquipmentException;
 import com.dd.exceptions.NullItemException;
-import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
 public class SuitArea implements Serializable {
@@ -40,16 +39,16 @@ public class SuitArea implements Serializable {
 		this.suit = suit;
 	}
 	
-	public Suit get() throws NullValueException {
+	public Suit get() throws NullItemException {
 		if(isEmpty()) {
-			throw new NullValueException("Suit area is empty. ");
+			throw new NullItemException("Suit area is empty. ");
 		}
 		return this.suit;
 	}
 	
-	public void drop() throws NullValueException {
+	public void drop() throws NullItemException {
 		if(isEmpty()) {
-			throw new NullValueException("Suit area is empty. ");
+			throw new NullItemException("Suit area is empty. ");
 		}
 		this.suit = null;
 	}

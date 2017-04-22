@@ -1,7 +1,6 @@
 package com.dd.levels;
 
 import com.dd.entities.Monster;
-import com.dd.exceptions.NullValueException;
 import com.dd.exceptions.NullItemException;
 import com.dd.exceptions.NullMonsterException;
 import com.dd.items.*;
@@ -69,13 +68,13 @@ public class Room implements Serializable {
 		return this.monsterMap;
 	}
 	
-	public Monster getMonster() throws NullValueException {
+	public Monster getMonster() throws NullMonsterException {
 		Monster outputMonster = null;
 		for(Monster monster : this.monsterMap.values()) {
 			outputMonster = monster;
 		}
 		if(outputMonster == null) {
-			throw new NullValueException("No monsters in list. ");
+			throw new NullMonsterException("No monsters in list. ");
 		}
 		return outputMonster;
 	}

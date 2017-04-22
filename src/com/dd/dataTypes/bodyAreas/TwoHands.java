@@ -5,7 +5,6 @@ import java.io.Serializable;
 import com.dd.dataTypes.enums.*;
 import com.dd.exceptions.EquipmentException;
 import com.dd.exceptions.NullItemException;
-import com.dd.exceptions.NullValueException;
 import com.dd.items.*;
 
 public class TwoHands implements Serializable {
@@ -41,16 +40,16 @@ public class TwoHands implements Serializable {
 		this.twoHandedWeapon = twoHandedWeapon;
 	}
 	
-	public TwoHandedWeapon get() throws NullValueException {
+	public TwoHandedWeapon get() throws NullItemException {
 		if(isEmpty()) {
-			throw new NullValueException("both hands are empty or have different objects. ");
+			throw new NullItemException("both hands are empty or have different objects. ");
 		}
 		return this.twoHandedWeapon;
 	}
 	
-	public void drop() throws NullValueException {
+	public void drop() throws NullItemException {
 		if(isEmpty()) {
-			throw new NullValueException("Suit area is empty. ");
+			throw new NullItemException("Suit area is empty. ");
 		}
 		this.twoHandedWeapon = null;
 	}
