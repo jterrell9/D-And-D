@@ -22,7 +22,7 @@ public class Fighter extends Player {
 	}
 
 	@Override
-	public void pickup(Item item) throws InventoryException, EquipmentException {
+	public void pickup(Item item) throws EquipmentException {
 		if(item instanceof Artifact) {
 			try {
 				addtoInventory((Artifact) item);
@@ -80,7 +80,9 @@ public class Fighter extends Player {
 			}
 		}
 		else if(item instanceof TwoHandedWeapon) {
-			if(twoHands.isEmpty()) {
+			if(twoHands.isEmpty()
+					&& leftHand.isEmpty()
+					&& rightHand.isEmpty()) {
 				twoHands.set((TwoHandedWeapon) item);
 				pickupSuccess = true;
 			}

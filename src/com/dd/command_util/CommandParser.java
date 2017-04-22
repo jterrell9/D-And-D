@@ -93,8 +93,9 @@ public class CommandParser {
         }
     	try {
     		handler.handleCommand(command, args, outputLog);
+    		handler.monsterAttack();
     	}
-    	catch (InvalidArgumentException | InventoryException E) {    		
+    	catch (InvalidArgumentException E) {    		
     		outputLog.printToLog(E.getMessage());
     	}
     }

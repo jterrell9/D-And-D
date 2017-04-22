@@ -3,8 +3,6 @@ package com.dd.command_util.command;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.entities.Monster;
-import com.dd.entities.Player;
 import com.dd.exceptions.*;
 import com.dd.items.Item;
 
@@ -20,27 +18,30 @@ public class ExamineCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-    	super.setGlobalOutputLog(outputLog);
-    	super.updateState();
+    	setGlobalOutputLog(outputLog);
+    	updateState();
     	
     	switch(args[0].toLowerCase()) {
     	case "room":
     		examineRoom();
+    		examineMonster = false;
 			break;
     	case "monsters":
 		case "monster":
 			examineMonster();
-			monsterExamined = true;
+			examineMonster = false;
 			break;
 		case "item":
 		case "items":
 			examineItems();
+			examineMonster = false;
 			break;
 		default:
 			try{
 				Item item = room.getItem(args[0]);
 				outputLog.printToLog(item.titleToString() + " "
 						+ item.examineToString() + "\n");
+				examineMonster = false;
 			}
 			catch(NullItemException UIE) {
 				outputLog.printToLog(UIE.getMessage());
@@ -48,14 +49,17 @@ public class ExamineCommand extends CommandHandler {
 			/*
 			 * examine <monster name> command - not needed if one monster.
 			 */
-			if(room.getMonster(args[0]) != null) {
-				Monster monster = room.getMonster(args[0]);
-				outputLog.printToLog(
-						monster.titleToString() +". "
-						+ "\nHealth: " + monster.getStats().getHealth()
-						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
-						+ monster.examineText());
-			}
+//			try{
+//				Monster monster = room.getMonster(args[0]);
+//				outputLog.printToLog(
+//						monster.titleToString() +". "
+//						+ "\nHealth: " + monster.getStats().getHealth()
+//						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
+//						+ monster.examineText());
+//			}
+//			catch(NullMonsterException NME) {
+//				outputLog.printToLog(NME.getMessage());
+//			}
     	}
 	}
 }

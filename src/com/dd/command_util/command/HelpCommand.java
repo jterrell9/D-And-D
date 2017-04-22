@@ -17,6 +17,8 @@ public class HelpCommand extends CommandHandler {
     	if(args[0] != null){
 			throw new InvalidArgumentException("The " + commandName + " command should not be followed by any arguments. ");
 		}
+    	monsterAttack = false;
+    	
 		outputLog.printToLog(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 72)
 				+ "\"attack <name>\"\n"
 				+ "Initiate an attack against a monster or player.\n"

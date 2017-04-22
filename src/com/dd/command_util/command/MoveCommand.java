@@ -3,7 +3,6 @@ package com.dd.command_util.command;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.entities.Player;
 import com.dd.exceptions.*;
 import com.dd.levels.Direction;
 import com.dd.levels.MapPosition;
@@ -20,7 +19,9 @@ public class MoveCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose a direction to move. "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-    	Player player = updateState();
+    	setGlobalOutputLog(outputLog);
+    	updateState();
+    	
 		MapPosition position = player.getPostion();
     	switch(args[0].toLowerCase()) {
     	case "north": 

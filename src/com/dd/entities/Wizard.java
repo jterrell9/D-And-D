@@ -23,7 +23,7 @@ public class Wizard extends Player {
 	}
 
 	@Override
-	public void pickup(Item item) throws InventoryException, EquipmentException {
+	public void pickup(Item item) throws EquipmentException {
 		if(item instanceof Artifact
 				|| item instanceof Potion
 				|| item instanceof Magical) {

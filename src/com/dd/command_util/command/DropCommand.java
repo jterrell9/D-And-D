@@ -4,7 +4,6 @@ import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.dataTypes.enums.Equip;
-import com.dd.entities.*;
 import com.dd.exceptions.*;
 import com.dd.items.*;
 
@@ -22,7 +21,9 @@ public class DropCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-		Player player = updateState();
+		setGlobalOutputLog(outputLog);
+		updateState();
+		
 		player.resetDropSuccess();
 		switch (args[0]) {
 		case "left hand":
@@ -47,22 +48,22 @@ public class DropCommand extends CommandHandler {
 			break;
 		case "hands":
 			try {
-				dropItem = (TwoHandedWeapon) player.get();
+				dropItem = player.get();
 				player.drop(Equip.HANDS);
 				outputLog.printToLog(player.titleToString() + " has dropped both hands. ");
 			}
 			catch (EquipmentException ee) {
-				outputLog.printToLog(ee.getMessage() + "\n");
+				outputLog.printToLog(ee.getMessage());
 			}
 			break;
 		case "suit":
 			try {
-				dropItem = (Suit) player.getSuitArea();
+				dropItem = player.getSuitArea();
 				player.drop(Equip.SUIT);
 				outputLog.printToLog(player.titleToString() + " has dropped their suit. ");
 			}
 			catch (EquipmentException ee) {
-				outputLog.printToLog(ee.getMessage() + "\n");
+				outputLog.printToLog(ee.getMessage());
 			}
 			break;
 		default:
@@ -73,30 +74,9 @@ public class DropCommand extends CommandHandler {
 					if(i == inventoryNum) {
 						try {
 							dropItem = item;
-							if(dropItem instanceof Artifact) {
-								dropItem = (Artifact) dropItem;
-								//player.discardfromInventory(inventoryName);
-								player.removeFromInventory(dropItem);
-								outputLog.printToLog(player.titleToString() + " has dropped " + dropItem.titleToString() + " "
-										+ "from their inventory. ");
-							}
-							else if(dropItem instanceof Potion) {
-								dropItem = (Potion) dropItem;
-								//player.discardfromInventory(inventoryName);
-								player.removeFromInventory(dropItem);
-								outputLog.printToLog(player.titleToString() + " has dropped " + dropItem.titleToString() + " "
-										+ "from their inventory. ");
-							}
-							else if(dropItem instanceof Magical) {
-								dropItem = (Magical) dropItem;
-								//player.discardfromInventory(inventoryName);
-								player.removeFromInventory(dropItem);
-								outputLog.printToLog(player.titleToString() + " has dropped " + dropItem.titleToString() + " "
-										+ "from their inventory. ");
-							}
-							else {
-								outputLog.printToLog(dropItem.titleToString() + " is the incorrect type. ");
-							}
+							player.removeFromInventory(dropItem);
+							outputLog.printToLog(player.titleToString() + " has dropped " + dropItem.titleToString() + " "
+									+ "from their inventory. ");
 						}
 						catch (InventoryException IE) {
 							outputLog.printToLog(IE.getMessage());
@@ -120,19 +100,11 @@ public class DropCommand extends CommandHandler {
 				outputLog.printToLog(UIE.getMessage());
 			}
 		}
-	outputLog.printToLog("This room now contains the following items:\n" + this.room.examineItems());
-	if(room.hasMonster()) {
-		Monster monster = room.getMonster();
-		room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
-				v.titleToString()
-				+ "\nHealth: " + v.getStats().getHealth()
-				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-				+ "\n" + v.examineText()));
-		monster.attack(player);
-		outputLog.printToLog(player.getText());
-	}
-	else {
-		outputLog.printToLog("There are no monsters in this room. ");
-	}
+		if(!room.hasItems()) {
+			outputLog.printToLog("This room still has no items. ");
+			return;
+		}
+		outputLog.printToLog("This room now contains the following items:\n");
+		examineItems();	
 	}
 }

@@ -26,10 +26,20 @@ public class Room implements Serializable {
 	public Item removeItem(String itemName) throws NullItemException {
 		Item retItem;
 		if(!itemMap.containsKey(itemName)){
-			throw new NullItemException(itemName + " item not found in room. ");
+			throw new NullItemException(itemName + " not found in room. ");
 		}
 		retItem = itemMap.get(itemName);
 		itemMap.remove(itemName);
+		return retItem;
+	}
+	
+	public Item removeItem(Item item) throws NullItemException {
+		Item retItem;
+		if(!itemMap.containsValue(item)){
+			throw new NullItemException("item not found in room. ");
+		}
+		retItem = itemMap.get(itemMap.get(item.getName()));
+		itemMap.remove(item);
 		return retItem;
 	}
 
@@ -69,12 +79,12 @@ public class Room implements Serializable {
 	}
 	
 	public Monster getMonster() throws NullMonsterException {
+		if(!hasMonster()) {
+			throw new NullMonsterException("This room has no monsters. ");
+		}
 		Monster outputMonster = null;
 		for(Monster monster : this.monsterMap.values()) {
 			outputMonster = monster;
-		}
-		if(outputMonster == null) {
-			throw new NullMonsterException("No monsters in list. ");
 		}
 		return outputMonster;
 	}
@@ -100,17 +110,14 @@ public class Room implements Serializable {
 		return itemMap.get(item.getName());
 	}
 	
-	public String examineItems() {
-		StringBuilder outputSB = new StringBuilder();
-		if(hasItems()) {
-			getItemMap().values().forEach((v) -> outputSB.append(
-					v.titleToString() + " "
-					+ v.examineToString() + "\n"));
+	public Potion hasPotion(String potionName) {
+		try {
+			return (Potion) getItem(potionName);
 		}
-		else {
-			outputSB.append("There are no items in this room. ");
+		catch(NullItemException NIE) {
+			return null;
 		}
-		return outputSB.toString();
+		
 	}
 	
 	public String enterRoomText() {

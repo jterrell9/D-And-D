@@ -45,7 +45,7 @@ public class Player extends Entity {
 		this.inventory = new Inventory(10);
 	}
 	
-	public void pickup(Item item) throws InventoryException, EquipmentException {}
+	public void pickup(Item item) throws EquipmentException {}
 	
 	public void drop(Equip bodyArea) throws EquipmentException {
 		resetDropSuccess();
@@ -79,7 +79,7 @@ public class Player extends Entity {
 					dropSuccess = true;
 				}
 				else {
-					errorTrailer = "both hands are not holding the same item. ";
+					errorTrailer = "You are not holding a two handed weapon. ";
 				}
 				break;
 			case SUIT:

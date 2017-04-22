@@ -108,4 +108,8 @@ public abstract class Entity implements Serializable{
 	public void clearText() {
 		text = "";
 	}
+	
+	public boolean died() {
+		return !isAlive;
+	}
 }

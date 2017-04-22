@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.entities.*;
 import com.dd.exceptions.*;
 import com.dd.items.*;
 
@@ -21,7 +20,9 @@ public class PickupCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-		Player player = updateState();
+    	setGlobalOutputLog(outputLog);
+		updateState();
+		
     	player.resetPickupSuccess();
 		Item item = null;
 		switch(args[0]) {
@@ -41,7 +42,7 @@ public class PickupCommand extends CommandHandler {
 	    				equippedItemNames.add(equippedItem.getName());
 	    			}
 	    		}
-	    		catch(EquipmentException | InventoryException E) {
+	    		catch(EquipmentException E) {
 	    			outputLog.printToLog(E.getMessage());
 	    		}
 			}
@@ -64,13 +65,10 @@ public class PickupCommand extends CommandHandler {
 				outputLog.printToLog(UIE.getMessage());
 				return;
 			}
-			if(item == null) {
-				throw new InvalidArgumentException("The item \"" + args[0] + "\" is not in this room. ");
-			}
 			try {
 				player.pickup(item);
     		}
-			catch(EquipmentException | InventoryException E) {
+			catch(EquipmentException E) {
     			outputLog.printToLog(E.getMessage());
     			return;
     		}
@@ -85,13 +83,11 @@ public class PickupCommand extends CommandHandler {
     			return;
 			}
 		}
-		if(room.hasItems()) {
-			outputLog.printToLog("This room now contains the following items:\n" + room.examineItems());
+		if(!room.hasItems()) {
+			outputLog.printToLog("This room now has no items. ");
+			return;
 		}
-		else {
-			outputLog.printToLog(room.examineItems());
-		}
-		String MonsterTurnText = monsterAttack();
-		outputLog.printToLog(MonsterTurnText);
+		outputLog.printToLog("This room now contains the following items:\n");
+		examineItems();	
     }
 }

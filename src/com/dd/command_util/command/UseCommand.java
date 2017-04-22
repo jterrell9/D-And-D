@@ -3,8 +3,6 @@ package com.dd.command_util.command;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.entities.Monster;
-import com.dd.entities.Player;
 import com.dd.exceptions.*;
 import com.dd.items.Item;
 import com.dd.items.Potion;
@@ -21,20 +19,16 @@ public class UseCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-		Player player = updateState();
-    	Item item = null;
-    	if(player.getInventory().getInventoryMap().containsKey(args[0])) {
-    		item = player.getInventory().getInventoryMap().get(args[0]);
-    	}
-    	else {
-    		if(room.getItemMap().containsKey(args[0])) {
-        		item = room.getItemMap().get(args[0]);
-        	}
-        	else {
-        		outputLog.printToLog("this room does not conatain \""
-        				+ args[0] + "\". ");
-        		return;
-        	}
+    	setGlobalOutputLog(outputLog);
+		updateState();
+		
+    	Item item = room.hasPotion(args[0]);
+    	if(item == null) {
+    		try {
+				item = player.getInventory().get(args[0]);
+			} catch (InventoryException IE) {
+				outputLog.printToLog(IE.getMessage());
+			}
     	}
     	if(item instanceof Potion) {
 			try {
@@ -48,18 +42,5 @@ public class UseCommand extends CommandHandler {
     		outputLog.printToLog(item.titleToString() + " is not a Potion. ");
     		return;
     	}
-    	if(room.hasMonster()) {
-    		Monster monster = room.getMonster();
-			room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
-					v.titleToString()
-					+ "\nHealth: " + v.getStats().getHealth()
-					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-					+ "\n" + v.examineText()));
-			monster.attack(player);
-			outputLog.printToLog(player.getText());
-		}
-		else {
-			outputLog.printToLog("There are no monsters in this room. ");
-		}
     }
 }

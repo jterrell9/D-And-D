@@ -17,7 +17,9 @@ public class AttackCommand extends CommandHandler {
     	if(args[0] != null) {
     		throw new InvalidArgumentException(commandName + " command does not require an argument. ");
     	}		
-		Player player = updateState();
+    	setGlobalOutputLog(outputLog);
+		updateState();
+		
 		Monster monster = null;
 		try{
 			monster = room.getMonster();
@@ -25,21 +27,13 @@ public class AttackCommand extends CommandHandler {
 			player.attack(monster);
 			outputLog.printToLog(player.getText());
 			player.clearText();
+			if(monster.died()) {
+				monsterDied(monster);
+			}
+			examineMonster = true;
 		}
 		catch(NullMonsterException UME) {
 			outputLog.printToLog(UME.getMessage());
-		}
-		if(room.hasMonster()) {
-			room.getMonsterMap().values().forEach((v) -> outputLog.printToLog(
-					v.titleToString()
-					+ "\nHealth: " + v.getStats().getHealth()
-					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-					+ "\n" + v.examineText()));
-			monster.attack(player);
-			outputLog.printToLog(player.getText());
-		}
-		else {
-			outputLog.printToLog("There are no monsters in this room. ");
 		}
     }
 }

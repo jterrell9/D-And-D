@@ -13,28 +13,28 @@ public abstract class CommandHandler {
 	protected Room room;
 	protected Player player;
 	protected CommandOutputLog globalOutputLog;
-	protected boolean monsterExamined;
+	protected boolean examineMonster;
+	protected boolean monsterAttack = true;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
 	}
 	
-	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException, InventoryException;
+	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException;
 
 	protected void initGameState(GameState activeState) {
 		this.gameState = activeState;
     	this.dungeonMap = gameState.getMap();
-    	this.player = updateState();
+    	updateState();
 	}
 	
-	protected Player updateState() {
+	protected void updateState() {
 		player = gameState.getActivePlayer();
-		this.room = dungeonMap.getRoom(player.getPostion());
-		return player;
+		room = dungeonMap.getRoom(player.getPostion());
 	}
 	
 	public void setGlobalOutputLog(CommandOutputLog outputLog) {
-		this.globalOutputLog = outputLog;
+		globalOutputLog = outputLog;
 	}
 	
 	protected String getArgsString(String args[]){
@@ -47,16 +47,20 @@ public abstract class CommandHandler {
     }
 	
 	public void monsterAttack() {
-		try {
-    		Monster monster = room.getMonster();
-			monster.attack(player);
-			globalOutputLog.printToLog(monster.getText());
-			if(!monsterExamined) {
-				examineMonster();
+		if(room.hasMonster() && monsterAttack) {
+			try {
+	    		Monster monster = room.getMonster();
+	    		monster.clearText();
+				monster.attack(player);
+				globalOutputLog.printToLog(monster.getText());
+				monster.clearText();
+				if(examineMonster) {
+					examineMonster();
+				}
 			}
-		}
-		catch(NullMonsterException NME) {
-			globalOutputLog.printToLog(NME.getMessage());
+			catch(NullMonsterException NME) {
+				globalOutputLog.printToLog(NME.getMessage());
+			}
 		}
 	}
 	
@@ -65,30 +69,28 @@ public abstract class CommandHandler {
 	}
 	
 	public void examineItems() {
-		if(room.hasItems()) {
-			room.getItemMap().values().forEach((v) -> globalOutputLog.printToLog(
-					v.titleToString() + " "
-					+ v.examineToString() + "\n"));
-		}
-		else {
+		if(!room.hasItems()) {
 			globalOutputLog.printToLog("There are no items in this room. ");
+			return;
 		}
+		room.getItemMap().values().forEach((v) -> globalOutputLog.printToLog(
+				v.titleToString() + " "
+				+ v.examineToString() + "\n"));
 	}
 	
 	public void examineMonster() {
-		if(room.hasMonster()) {
-			room.getMonsterMap().values().forEach((v) -> globalOutputLog.printToLog(
-					v.titleToString()
-					+ "\nHealth: " + v.getStats().getHealth()
-					+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-					+ "\n" + v.examineText()));
-		}
-		else {
+		if(!room.hasMonster()) {
 			globalOutputLog.printToLog("There are no monsters in this room. ");
+			return;
 		}
+		room.getMonsterMap().values().forEach((v) -> globalOutputLog.printToLog(
+				v.titleToString()
+				+ "\nHealth: " + v.getStats().getHealth()
+				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
+				+ "\n" + v.examineText()));
 	}
 	
-	public void monsterDied(String monsterName) throws NullMonsterException {
+	public void monsterDied(String monsterName) {
 		try{
 			room.removeMonster(monsterName);
 		}
