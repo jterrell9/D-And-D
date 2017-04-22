@@ -5,158 +5,89 @@ import java.util.ArrayList;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.command_util.CommandHandler.InvalidArgumentException;
-import com.dd.entities.Player;
-import com.dd.entities.Player.EquipmentException;
-import com.dd.entities.Player.InventoryException;
+import com.dd.exceptions.*;
 import com.dd.items.*;
-import com.dd.levels.DungeonMap;
-import com.dd.levels.Room;
-import com.dd.levels.Room.UnknownItemException;
 
 public class PickupCommand extends CommandHandler {
-	private Player player;
-	private DungeonMap dungeonMap;
-	private Room room;
 
     public PickupCommand(GameState gameState) {
-    	this.player = gameState.getActivePlayer();
-		this.dungeonMap = gameState.getMap();
-		this.room = dungeonMap.getRoom(player.getPostion());
+    	super(gameState);
 	}
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
-    	player.resetEquipSuccess();
-    	this.room = dungeonMap.getRoom(player.getPostion());
     	if(args[0] == null) {
-    		throw new InvalidArgumentException("Choose something to pickup. "
+    		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
+    	setGlobalOutputLog(outputLog);
+		updateState();
+		
+    	player.resetPickupSuccess();
 		Item item = null;
 		switch(args[0]) {
 		case "items":
-			ArrayList<String> equippedItemNames = new ArrayList<String>();;
-			for(String itemName : room.getItemList().keySet()) {
-				player.resetEquipSuccess();
+			ArrayList<String> equippedItemNames = new ArrayList<String>();
+			for(Item equippedItem : room.getItemMap().values()) {
+				player.resetPickupSuccess();
 				try {
-					item = room.getItem(itemName);
+					item = room.getItem(equippedItem);
 				}
-				catch(UnknownItemException UIE) {
+				catch(NullItemException UIE) {
 					outputLog.printToLog(UIE.getMessage());
 				}
 	    		try {
-	    			if(item instanceof Artifact) {
-						item = (Artifact) item;
-						player.equip((Artifact) item);
-					}
-					else if(item instanceof Magical) {
-						item = (Magical) item;
-						player.equip((Magical) item);
-					}
-					else if(item instanceof OneHandedWeapon) {
-						item = (OneHandedWeapon) item;
-						player.equip((OneHandedWeapon) item);
-					}
-					else if(item instanceof Potion) {
-						item = (Potion) item;
-						player.equip((Potion) item);
-					}
-					else if(item instanceof Shield) {
-						item = (Shield) item;
-						player.equip((Shield) item);
-					}
-					else if(item instanceof Suit) {
-						item = (Suit) item;
-						player.equip((Suit) item);
-					}
-					else if(item instanceof TwoHandedWeapon) {
-						item = (TwoHandedWeapon) item;
-						player.equip((TwoHandedWeapon) item);
-					}
-					else {
-						outputLog.printToLog(item.getName() + " could not be equipped "
-								+ "because it has not item type. ");
-					}
-	    			if(player.isEquipSuccess()) {
-	    				equippedItemNames.add(itemName);
+					player.pickup(item);
+	    			if(player.isPickupSuccess()) {
+	    				equippedItemNames.add(equippedItem.getName());
 	    			}
 	    		}
-	    		catch(EquipmentException | InventoryException E) {
-	    			outputLog.printToLog(E.toString());
+	    		catch(EquipmentException E) {
+	    			outputLog.printToLog(E.getMessage());
 	    		}
 			}
 			for(String itemName : equippedItemNames) {
 	    		try {
 	    			room.removeItem(itemName);
+	    			outputLog.printToLog(player.titleToString() + " has equipped " + itemName + ". ");
 	    		}
-	    		catch (UnknownItemException UIE) {
+	    		catch (NullItemException UIE) {
 	    			outputLog.printToLog(UIE.getMessage());
 				}
 			}
-	    	equippedItemNames.forEach((k) -> outputLog.printToLog(player.titleToString() + " has equipped " + k + ". "));
-	    	player.resetEquipSuccess();
+	    	player.resetPickupSuccess();
 			break;
 		default:
 			try {
 				item = room.getItem(args[0]);
 			}
-			catch(UnknownItemException UIE) {
+			catch(NullItemException UIE) {
 				outputLog.printToLog(UIE.getMessage());
 				return;
 			}
-			if(item == null) {
-				throw new InvalidArgumentException("The item \"" + args[0] + "\" is not in this room. ");
-			}
 			try {
-				if(item instanceof Artifact) {
-					item = (Artifact) item;
-					player.equip((Artifact) item);
-				}
-				else if(item instanceof Magical) {
-					item = (Magical) item;
-					player.equip((Magical) item);
-				}
-				else if(item instanceof OneHandedWeapon) {
-					item = (OneHandedWeapon) item;
-					player.equip((OneHandedWeapon) item);
-				}
-				else if(item instanceof Potion) {
-					item = (Potion) item;
-					player.equip((Potion) item);
-				}
-				else if(item instanceof Shield) {
-					item = (Shield) item;
-					player.equip((Shield) item);
-				}
-				else if(item instanceof Suit) {
-					item = (Suit) item;
-					player.equip((Suit) item);
-				}
-				else if(item instanceof TwoHandedWeapon) {
-					item = (TwoHandedWeapon) item;
-					player.equip((TwoHandedWeapon) item);
-				}
-				else {
-					outputLog.printToLog(item.getName() + " could not be equipped "
-							+ "because it has not item type. ");
-				}
+				player.pickup(item);
     		}
-			catch(EquipmentException | InventoryException E) {
+			catch(EquipmentException E) {
     			outputLog.printToLog(E.getMessage());
     			return;
     		}
     		try {
-    			if(player.isEquipSuccess()) {
+    			if(player.isPickupSuccess()) {
     				room.removeItem(item.getName());
     				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
     			}
     		}
-    		catch (UnknownItemException UIE) {
+    		catch (NullItemException UIE) {
     			outputLog.printToLog(UIE.getMessage());
     			return;
 			}
 		}
-		outputLog.printToLog("This room now contains the following items:\n" + room.examineItems());
+		if(!room.hasItems()) {
+			outputLog.printToLog("This room now has no items. ");
+			return;
+		}
+		outputLog.printToLog("This room now contains the following items:\n");
+		examineItems();	
     }
 }

@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 import com.dd.Stats;
 
-public abstract class Entity implements Serializable {
+public abstract class Entity implements Serializable{
 
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
-	protected String text;
+	protected String text = "";
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
@@ -36,23 +36,20 @@ public abstract class Entity implements Serializable {
 	}
 	
 	public void attack(Entity entity) {
-		clearText();
-        entity.takeDamage(attackDamage());
-        text += titleToString() + " deals " + attackDamage() + " damage to " + entity.titleToString() + ". ";
+        int damage = entity.takeDamage(attackDamage());
+        text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
     }
 	
-	public void takeDamage(int damage){
-        int newDamage;
-        if(damage - stats.getDefense() <= 0){
-            newDamage = 1;
+	public int takeDamage(int damage){
+        int damageDealt = damage - stats.getDefense();
+        if(damageDealt <= 0){
+        	damageDealt = 1;
         }
-        else {
-            newDamage = damage - stats.getDefense();
-        }
-		stats.setHealth(stats.getHealth() - newDamage);
+		stats.setHealth(stats.getHealth() - damageDealt);
 		if(!survives()){
-			text += "You just killed" + titleToString() +"! ";
+			text += titleToString() +" just died! ";
 		}
+		return damageDealt;
 	}
 	
 	public boolean survives() {
@@ -96,6 +93,10 @@ public abstract class Entity implements Serializable {
 		this.stats = stats;
 	}
 	
+	public void changeStats(Stats statModifier) {
+		this.stats.changeStat(statModifier);
+	}
+	
 	public String getText() {
 		return text;
 	}
@@ -106,5 +107,9 @@ public abstract class Entity implements Serializable {
 	
 	public void clearText() {
 		text = "";
+	}
+	
+	public boolean died() {
+		return !isAlive;
 	}
 }

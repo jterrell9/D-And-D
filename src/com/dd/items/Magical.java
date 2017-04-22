@@ -1,6 +1,6 @@
 package com.dd.items;
 
-import com.dd.entities.Equip;
+import com.dd.dataTypes.enums.Equip;
 
 public class Magical extends Item {
 	

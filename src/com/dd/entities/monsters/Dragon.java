@@ -41,17 +41,18 @@ public class Dragon extends Monster {
     }
 
     @Override
-    public void takeDamage(int damage) {
-    	clearText();
-        stats.setHealth(stats.getHealth() - damage);
+    public int takeDamage(int damage) {
+    	int newDamage = stats.getHealth() - damage;
+        stats.setHealth(newDamage);
         if(!survives()){
             text += "You take your sword and ask for a blessing from any god that will hear. You leap up and" +
                     " with a solid heave take " + titleToString() + "! The battle is won! ";
         }
+        return newDamage;
     }
+    
     @Override
     public void attack(Entity entity) {
-    	clearText();
         Random random = new Random();
         if(breathAttack){
             text += titleToString() + "breathes at you with a fiery breath. It's lungs look as if they collapse a bit. ";
@@ -72,7 +73,7 @@ public class Dragon extends Monster {
     public String confrontText() {
         return "As you enter the large room, the first thing that catches your eye is jewels, mostly " + dragColor
                 + ". As you walk around the abnormally large room, you hear a faint hum behind you. As you turn around, "
-                + "a giant " + dragColor + " scaled dragon faces you, nostrils flared. \"Fool! You think you could steal"
+                + "a giant " + dragColor + " scaled dragon faces you, nostrils flared. \"Fool! You think you could steal "
                 + "from " + titleToString() + " dragon? For this, you shall die!\". ";
     }
 

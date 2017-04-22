@@ -34,7 +34,7 @@ public class Item implements Serializable {
 	}
 	
 	public Stats getNegStatChange() {
-		int negHealth = -1 * StatModifyer.getHealth();
+		int negHealth = 0;
 		int negMaxHealth = -1 * StatModifyer.getMaxHealth();
 		int negAttack = -1 * StatModifyer.getAttack();
 		int negDefense = -1 * StatModifyer.getDefense();

@@ -1,13 +1,16 @@
 package com.dd.levels;
 
 import com.dd.entities.Monster;
-import com.dd.items.Item;
+import com.dd.exceptions.NullItemException;
+import com.dd.exceptions.NullMonsterException;
+import com.dd.items.*;
 import com.dd.dd_util.ConflictHandlingMap;
 
 import java.io.Serializable;
 import java.util.Map;
 
 public class Room implements Serializable {
+	
 	private Map<String, Item> itemMap;
 	private Map<String, Monster> monsterMap;
 	
@@ -16,17 +19,105 @@ public class Room implements Serializable {
 		monsterMap = new ConflictHandlingMap<Monster>();
 	}
 	
-	public String examineItems() {
-		StringBuilder outputSB = new StringBuilder();
-		if(hasItems()) {
-			getItemList().values().forEach((v) -> outputSB.append(
-					v.titleToString() + " "
-					+ v.examineToString() + "\n"));
+	public void addItem(Item item) {
+		itemMap.put(item.getName(), item);
+	}
+	
+	public Item removeItem(String itemName) throws NullItemException {
+		Item retItem;
+		if(!itemMap.containsKey(itemName)){
+			throw new NullItemException(itemName + " not found in room. ");
 		}
-		else {
-			outputSB.append("There are no items in this room. ");
+		retItem = itemMap.get(itemName);
+		itemMap.remove(itemName);
+		return retItem;
+	}
+	
+	public Item removeItem(Item item) throws NullItemException {
+		Item retItem;
+		if(!itemMap.containsValue(item)){
+			throw new NullItemException("item not found in room. ");
 		}
-		return outputSB.toString();
+		retItem = itemMap.get(itemMap.get(item.getName()));
+		itemMap.remove(item);
+		return retItem;
+	}
+
+	public void addMonster(Monster monster) {
+		monsterMap.put(monster.getName(),monster);
+	}
+
+	public Monster removeMonster(String monsterName) throws NullMonsterException {
+		Monster retMonster;
+		if(!monsterMap.containsKey(monsterName)){
+			throw new NullMonsterException("The monster \""
+												+ monsterName
+												+ "\" does not exist in this room. Removal failed. ");
+		}
+		retMonster = monsterMap.get(monsterName);
+		monsterMap.remove(monsterName);
+		return retMonster;
+	}
+	
+	public Monster removeMonster(Monster monster) throws NullMonsterException {
+		Monster retMonster;
+		if(!monsterMap.containsValue(monster)){
+			throw new NullMonsterException(monster.titleToString()
+												+ " does not exist in this room. Removal failed. ");
+		}
+		retMonster = monsterMap.get(monster);
+		monsterMap.remove(monster);
+		return retMonster;
+	}
+
+	public Map<String, Item> getItemMap() {
+		return this.itemMap;
+	}
+
+	public Map<String, Monster> getMonsterMap() {
+		return this.monsterMap;
+	}
+	
+	public Monster getMonster() throws NullMonsterException {
+		if(!hasMonster()) {
+			throw new NullMonsterException("This room has no monsters. ");
+		}
+		Monster outputMonster = null;
+		for(Monster monster : this.monsterMap.values()) {
+			outputMonster = monster;
+		}
+		return outputMonster;
+	}
+	
+	public Monster getMonster(String name) throws NullMonsterException {
+		if(!monsterMap.containsKey(name)){
+			throw new NullMonsterException(name + " is not in this room. ");
+		}
+		return monsterMap.get(name);
+	}
+	
+	public Item getItem(String name) throws NullItemException {
+		if(!itemMap.containsKey(name)) {
+			throw new NullItemException(name + " is not found in this room. ");
+		}
+		return itemMap.get(name);
+	}
+	
+	public Item getItem(Item item) throws NullItemException {
+		if(!itemMap.containsValue(item)) {
+			throw new NullItemException(item.titleToString() + " is not found in this room. ");
+		}
+		return itemMap.get(item.getName());
+	}
+	
+	public Potion hasPotion(String potionName) {
+		try {
+			return (Potion) getItem(potionName);
+		}
+		catch(NullItemException NIE) {
+			return null;
+		}
+		
 	}
 	
 	public String enterRoomText() {
@@ -36,111 +127,24 @@ public class Room implements Serializable {
 			return outputText.toString();
 		}
 		if(hasMonster()) {	
-			getMonsterList().values().forEach((v) -> outputText.append(v.confrontText() + " "));
+			getMonsterMap().values().forEach((v) -> outputText.append(v.confrontText() + " "));
 		}
 		if(hasItems()) {
 			outputText.append("This room contains ");
-			getItemList().forEach((k,v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
+			getItemMap().forEach((k, v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
 		}
 		return outputText.toString();
 	}
-
+	
 	public boolean isEmpty() {
-		return getItemList().isEmpty() && getMonsterList().isEmpty();
+		return getItemMap().isEmpty() && getMonsterMap().isEmpty();
 	}
 	
 	public boolean hasMonster() {
-		return !getMonsterList().isEmpty();
+		return !getMonsterMap().isEmpty();
 	}
 	
 	public boolean hasItems() {
-		return !getItemList().isEmpty();
-	}
-
-	public void addItem(Item item) {
-		itemMap.put(item.getName(), item);
-	}
-
-	public void removeItem(String itemName) throws UnknownItemException {
-		if(!itemMap.containsKey(itemName)) {
-			throw new UnknownItemException("The item \""
-											+ itemName
-											+ "\" does not exist in this room. Removal failed. ");
-		}
-		itemMap.get(itemName);
-		itemMap.remove(itemName);
-	}
-
-	public void discardItem(String itemName) throws UnknownItemException {
-		if(itemMap.remove(itemName) != null){
-			throw new UnknownItemException("The item \""
-											+ itemName
-											+ "\" does not exist in this room. Discard failed. ");
-		}
-	}
-
-	public void addMonster(Monster monster) {
-		monsterMap.put(monster.getName(),monster);
-	}
-
-	public Monster removeMonster(String monsterName) throws UnknownMonsterException {
-		Monster retMonster;
-		if(!monsterMap.containsKey(monsterName)){
-			throw new UnknownMonsterException("The monster \""
-												+ monsterName
-												+ "\" does not exist in this room. Removal failed. ");
-		}
-		retMonster = monsterMap.get(monsterName);
-		monsterMap.remove(monsterName);
-		return retMonster;
-	}
-
-	public void discardMonster(String monsterName) throws UnknownMonsterException {
-		if(monsterMap.remove(monsterName) != null) {
-			throw new UnknownMonsterException("The monster \""
-												+ monsterName
-												+ "\" does not exist in this room. Removal failed. ");
-		}
-	}
-
-	public Map<String, Item> getItemList() {
-		return itemMap;
-	}
-
-	public Map<String, Monster> getMonsterList() {
-		return monsterMap;
-	}
-	
-	public Monster getMonster(String name) {
-		return monsterMap.get(name);
-	}
-	
-	public Item getItem(String name) throws UnknownItemException {
-		if(!itemMap.containsKey(name)) {
-			throw new UnknownItemException(name + " is not found in this room. ");
-		}
-		return itemMap.get(name);
-	}
-
-	public class UnknownItemException extends Exception {
-		public UnknownItemException(String message) {
-			super(message);
-		}
-		
-		@Override
-		public String toString() {
-			return super.toString().substring(41);
-		}
-	}
-
-	public class UnknownMonsterException extends Exception {
-		public UnknownMonsterException(String message){
-			super(message);
-		}
-		
-		@Override
-		public String toString() {
-			return super.toString().substring(44);
-		}
+		return !getItemMap().isEmpty();
 	}
 }

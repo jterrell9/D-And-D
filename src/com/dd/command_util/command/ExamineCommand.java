@@ -3,81 +3,63 @@ package com.dd.command_util.command;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
-import com.dd.entities.Monster;
-import com.dd.entities.Player;
+import com.dd.exceptions.*;
 import com.dd.items.Item;
-import com.dd.levels.DungeonMap;
-import com.dd.levels.Room;
-import com.dd.levels.Room.UnknownItemException;
 
 public class ExamineCommand extends CommandHandler {
-	private Player player;
-	private DungeonMap map;
 
     public ExamineCommand(GameState gameState) {
-    	player = gameState.getActivePlayer();
-    	map = gameState.getMap();
+    	super(gameState);
 	}
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
     	if(args[0] == null) {
-    		throw new InvalidArgumentException("Choose something to examine. "
+    		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-//WE CAN'T DO THIS EXCEPTION WITHOUT QUOTES
-//    	if(args.length > 2) {
-//    		throw new InvalidArgumentException("Type \"help\" for help using the " + commandName +" command. ");
-//    	}
-    	Room room = map.getRoom(player.getPostion());
+    	setGlobalOutputLog(outputLog);
+    	updateState();
+    	
     	switch(args[0].toLowerCase()) {
     	case "room":
-			outputLog.printToLog(room.enterRoomText());
+    		examineRoom();
+    		examineMonster = false;
 			break;
     	case "monsters":
 		case "monster":
-			if(room.hasMonster()) {
-				room.getMonsterList().values().forEach((v) -> outputLog.printToLog(
-						v.titleToString()
-						+ "\nHealth: " + v.getStats().getHealth()
-						+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-						+ "\n" + v.examineText()));
-			}
-			else {
-				outputLog.printToLog("There are no monsters in this room. ");
-			}
+			examineMonster();
+			examineMonster = false;
 			break;
 		case "item":
 		case "items":
-			if(room.hasItems()) {
-				room.getItemList().values().forEach((v) -> outputLog.printToLog(
-						v.titleToString() + " "
-						+ v.examineToString() + "\n"));
-			}
-			else {
-				outputLog.printToLog("There are no items in this room. ");
-			}
+			examineItems();
+			examineMonster = false;
 			break;
-		
 		default:
-			if(room.getMonster(args[0]) != null) {
-				Monster monster = room.getMonster(args[0]);
-				outputLog.printToLog(
-						monster.titleToString() +". "
-						+ "\nHealth: " + monster.getStats().getHealth()
-						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
-						+ monster.examineText());
-			}
 			try{
 				Item item = room.getItem(args[0]);
 				outputLog.printToLog(item.titleToString() + " "
 						+ item.examineToString() + "\n");
-				break;
+				examineMonster = false;
 			}
-			catch(UnknownItemException UIE) {
-				outputLog.printToLog(UIE.toString());
-    			return;
+			catch(NullItemException UIE) {
+				outputLog.printToLog(UIE.getMessage());
 			}
+			/*
+			 * examine <monster name> command - not needed if one monster.
+			 */
+//			try{
+//				Monster monster = room.getMonster(args[0]);
+//				outputLog.printToLog(
+//						monster.titleToString() +". "
+//						+ "\nHealth: " + monster.getStats().getHealth()
+//						+ "\nAttack/Defense: " + monster.getStats().getAttack() + "/" + monster.getStats().getDefense()
+//						+ monster.examineText());
+//			}
+//			catch(NullMonsterException NME) {
+//				outputLog.printToLog(NME.getMessage());
+//			}
     	}
 	}
 }

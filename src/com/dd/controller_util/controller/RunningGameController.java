@@ -2,7 +2,7 @@ package com.dd.controller_util.controller;
 
 import com.dd.DandD;
 import com.dd.GameState;
-import com.dd.GameType;
+import com.dd.exceptions.InvalidCommandException;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
@@ -66,7 +66,7 @@ public class RunningGameController extends GameSceneController{
 				updateMap();
 				updateStatboard();
 			}
-			catch(CommandParser.InvalidCommandException ICE){
+			catch(InvalidCommandException ICE){
 				output.appendText(ICE.getMessage());
 			}
 	    }
@@ -120,11 +120,11 @@ public class RunningGameController extends GameSceneController{
 				if(x == playerPos.getX() && y == playerPos.getY()) {
 					output.append("[X]");
 				}
-				else if(map.isRoom(new MapPosition(x, y))) {
-					output.append("[ ]");
-				}
 				else if(x == map.getEndPosition().getX() && y == map.getEndPosition().getY()) {
 					output.append("[!]");
+				}
+				else if(map.isRoom(new MapPosition(x, y))) {
+					output.append("[ ]");
 				}
 				else{
 					output.append("   ");
@@ -190,12 +190,13 @@ public class RunningGameController extends GameSceneController{
 						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
 		output.appendText(startRoom.enterRoomText());
 		
-		commandParser = new CommandParser(new CommandOutputLog(output), gameState);
+		CommandOutputLog outputLog = new CommandOutputLog(output);
+		commandParser = new CommandParser(outputLog, gameState);
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));
 		commandParser.registerCommand("attack", new AttackCommand(gameState));
-		commandParser.registerCommand("help", new HelpCommand());
+		commandParser.registerCommand("help", new HelpCommand(gameState));
 		commandParser.registerCommand("pickup", new PickupCommand(gameState));
 		commandParser.registerCommand("use", new UseCommand(gameState));
 	}

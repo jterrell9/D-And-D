@@ -15,37 +15,21 @@ public class GameState implements Serializable {
     protected List<Player> allActivePlayers = new ArrayList<Player>();
 	protected DungeonMap map;
 	
-	public GameState(String name, Player activePlayer, DungeonMap map, int maxNumPlayers) {
-	    this.name = name;
-	    if(activePlayer instanceof Fighter) {
-	    	this.activePlayer = (Fighter) activePlayer;
-	    }
-	    else if(activePlayer instanceof Wizard) {
-	    	this.activePlayer = (Wizard) activePlayer;
-	    }
-	    else {
-	    	this.activePlayer = activePlayer;
-	    }
+	public GameState(String name, Player newPlayer, DungeonMap map, int maxNumPlayers) {
+	    this.name = name;	    
+	   	this.activePlayer = newPlayer;
         this.maxNumPlayers = maxNumPlayers;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
 	}
-
-	public GameState(String name, Player activePlayer, DungeonMap map) {
-        this.name = name;
-        if(activePlayer instanceof Fighter) {
-	    	this.activePlayer = (Fighter) activePlayer;
-	    }
-	    else if(activePlayer instanceof Wizard) {
-	    	this.activePlayer = (Wizard) activePlayer;
-	    }
-	    else {
-	    	this.activePlayer = activePlayer;
-	    }
+	
+	public GameState(String name, Player newPlayer, DungeonMap map) {
+	    this.name = name;	    
+	   	this.activePlayer = newPlayer;
         this.maxNumPlayers = 1;
         allActivePlayers = new ArrayList<Player>();
         this.map = map;
-    }
+	}
 	
 	public GameState(String name, DungeonMap map) {
         this.name = name;
@@ -55,21 +39,11 @@ public class GameState implements Serializable {
     }
 
     public Player getActivePlayer() {
-    	if(activePlayer instanceof Fighter) {
-    		return (Fighter) activePlayer;
-    	}
-    	else if(activePlayer instanceof Wizard) {
-    		return (Wizard) activePlayer;
-    	}
-    	return activePlayer;
+    	return this.activePlayer;
     }
     
-    public void setActivePlayer(Fighter fighter) {
-    	activePlayer = fighter;
-    }
-    
-    public void setActivePlayer(Wizard wizard) {
-    	activePlayer = wizard;
+    public void setActivePlayer(Player player) {
+    	this.activePlayer = player;
     }
 
     public List<Player> getPlayerList() {
@@ -90,6 +64,14 @@ public class GameState implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public boolean isFighter() {
+    	return activePlayer instanceof Fighter;
+    }
+    
+    public boolean isWizard() {
+    	return activePlayer instanceof Wizard;
     }
 
     public int getMaxNumPlayers() {

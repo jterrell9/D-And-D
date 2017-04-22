@@ -2,10 +2,9 @@ package com.dd.command_util;
 
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
-import com.dd.command_util.CommandHandler.InvalidArgumentException;
 import com.dd.controller_util.controller.RunningGameController;
 import com.dd.entities.*;
-import com.dd.entities.Player.InventoryException;
+import com.dd.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,12 +20,7 @@ public class CommandParser {
     
     public CommandParser(CommandOutputLog outputLog, GameState game) {
         this.outputLog = outputLog;
-        if(game.getActivePlayer() instanceof Fighter) {
-        	player = (Fighter) game.getActivePlayer();
-        }
-        else if(game.getActivePlayer() instanceof Wizard) {
-        	player = (Wizard) game.getActivePlayer();
-        }
+        this.player = game.getActivePlayer();
     }
     
     public void parse(String userInput) throws InvalidCommandException{
@@ -37,6 +31,7 @@ public class CommandParser {
     	if(input.charAt(0) == ' ') {
     		throw new InvalidCommandException("You cannot start a command with a space. ");
     	}
+    	
     	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 72));
     	outputLog.printToLog(player.titleToString() + ">> " + input + "\n");
     	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
@@ -98,9 +93,10 @@ public class CommandParser {
         }
     	try {
     		handler.handleCommand(command, args, outputLog);
+    		handler.monsterAttack();
     	}
-    	catch (InvalidArgumentException | InventoryException E) {    		
-    		outputLog.printToLog(E.toString());
+    	catch (InvalidArgumentException E) {    		
+    		outputLog.printToLog(E.getMessage());
     	}
     }
     
@@ -157,15 +153,4 @@ public class CommandParser {
     public void setOutputLog(CommandOutputLog outputLog){
         this.outputLog = outputLog;
     }
-
-    public class InvalidCommandException extends Exception {
-    	public InvalidCommandException(String message){
-    		super(message);
-		}
-    	
-    	@Override
-		public String toString() {
-			return super.toString().substring(59);
-		}
-	}
 }
