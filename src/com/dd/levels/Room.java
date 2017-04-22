@@ -2,7 +2,7 @@ package com.dd.levels;
 
 import com.dd.entities.Monster;
 import com.dd.exceptions.NullValueException;
-import com.dd.exceptions.UnknownItemException;
+import com.dd.exceptions.NullItemException;
 import com.dd.exceptions.UnknownMonsterException;
 import com.dd.items.*;
 import com.dd.dd_util.ConflictHandlingMap;
@@ -24,10 +24,10 @@ public class Room implements Serializable {
 		itemMap.put(item.getName(), item);
 	}
 	
-	public Item removeItem(String itemName) throws UnknownItemException {
+	public Item removeItem(String itemName) throws NullItemException {
 		Item retItem;
 		if(!itemMap.containsKey(itemName)){
-			throw new UnknownItemException(itemName + " item not found in room. ");
+			throw new NullItemException(itemName + " item not found in room. ");
 		}
 		retItem = itemMap.get(itemName);
 		itemMap.remove(itemName);
@@ -76,16 +76,16 @@ public class Room implements Serializable {
 		return monsterMap.get(name);
 	}
 	
-	public Item getItem(String name) throws UnknownItemException {
+	public Item getItem(String name) throws NullItemException {
 		if(!itemMap.containsKey(name)) {
-			throw new UnknownItemException(name + " is not found in this room. ");
+			throw new NullItemException(name + " is not found in this room. ");
 		}
 		return itemMap.get(name);
 	}
 	
-	public Item getItem(Item item) throws UnknownItemException {
+	public Item getItem(Item item) throws NullItemException {
 		if(!itemMap.containsValue(item)) {
-			throw new UnknownItemException(item.titleToString() + " is not found in this room. ");
+			throw new NullItemException(item.titleToString() + " is not found in this room. ");
 		}
 		return itemMap.get(item.getName());
 	}
