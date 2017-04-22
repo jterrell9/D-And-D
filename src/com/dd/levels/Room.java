@@ -3,7 +3,7 @@ package com.dd.levels;
 import com.dd.entities.Monster;
 import com.dd.exceptions.NullValueException;
 import com.dd.exceptions.NullItemException;
-import com.dd.exceptions.UnknownMonsterException;
+import com.dd.exceptions.NullMonsterException;
 import com.dd.items.*;
 import com.dd.dd_util.ConflictHandlingMap;
 
@@ -38,10 +38,10 @@ public class Room implements Serializable {
 		monsterMap.put(monster.getName(),monster);
 	}
 
-	public Monster removeMonster(String monsterName) throws UnknownMonsterException {
+	public Monster removeMonster(String monsterName) throws NullMonsterException {
 		Monster retMonster;
 		if(!monsterMap.containsKey(monsterName)){
-			throw new UnknownMonsterException("The monster \""
+			throw new NullMonsterException("The monster \""
 												+ monsterName
 												+ "\" does not exist in this room. Removal failed. ");
 		}
@@ -69,9 +69,9 @@ public class Room implements Serializable {
 		return outputMonster;
 	}
 	
-	public Monster getMonster(String name) throws UnknownMonsterException {
+	public Monster getMonster(String name) throws NullMonsterException {
 		if(!monsterMap.containsKey(name)){
-			throw new UnknownMonsterException(name + " is not in this room. ");
+			throw new NullMonsterException(name + " is not in this room. ");
 		}
 		return monsterMap.get(name);
 	}
