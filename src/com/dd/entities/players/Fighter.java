@@ -27,7 +27,6 @@ public class Fighter extends Player {
 		if(item instanceof Artifact) {
 			try {
 				addtoInventory((Artifact) item);
-				pickupSuccess = true;
 			} catch (InventoryException e) {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be picked up because " + titleToString() + "'s "
@@ -38,7 +37,6 @@ public class Fighter extends Player {
 			if(leftHand.isEmpty()) {
 				try {
 					leftHand.set((Shield) item);
-					pickupSuccess = true;
 				}
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
@@ -47,7 +45,6 @@ public class Fighter extends Player {
 			else if(rightHand.isEmpty()) {
 				try {
 					rightHand.set((Shield) item);
-					pickupSuccess = true;
 				}
 				catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
@@ -62,7 +59,6 @@ public class Fighter extends Player {
 		else if(item instanceof Suit) {
 			if(suitArea.isEmpty()) {
 				suitArea.set((Suit) item);
-				pickupSuccess = true;
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
@@ -73,7 +69,6 @@ public class Fighter extends Player {
 		else if(item instanceof Potion) {
 			try {
 				addtoInventory((Potion) item);
-				pickupSuccess = true;
 			} catch (InventoryException e) {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be picked up because " + titleToString() + "'s "
@@ -85,7 +80,6 @@ public class Fighter extends Player {
 					&& leftHand.isEmpty()
 					&& rightHand.isEmpty()) {
 				twoHands.set((TwoHandedWeapon) item);
-				pickupSuccess = true;
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
@@ -97,7 +91,6 @@ public class Fighter extends Player {
 			if(leftHand.isEmpty()) {
 				try {
 					leftHand.set((OneHandedWeapon) item);
-					pickupSuccess = true;
 				} 
 				catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s left hand");
@@ -106,7 +99,6 @@ public class Fighter extends Player {
 			else if(rightHand.isEmpty()) {
 				try {
 					rightHand.set((OneHandedWeapon) item);
-					pickupSuccess = true;
 				} catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s right hand");
 				}

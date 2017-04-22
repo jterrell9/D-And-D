@@ -30,7 +30,6 @@ public class Wizard extends Player {
 				|| item instanceof Magical) {
 			try {
 				addtoInventory(item);
-				pickupSuccess = true;
 			} 
 			catch (InventoryException IE) {
 				throw new EquipmentException(IE.getMessage());
@@ -40,7 +39,6 @@ public class Wizard extends Player {
 			if(leftHand.isEmpty()) {
 				try {
 					leftHand.set((Shield) item);
-					pickupSuccess = true;
 				}
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
@@ -49,7 +47,6 @@ public class Wizard extends Player {
 			else if(rightHand.isEmpty()) {
 				try {
 					rightHand.set((Shield) item);
-					pickupSuccess = true;
 				}
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
@@ -64,7 +61,6 @@ public class Wizard extends Player {
 		else if(item instanceof Suit) {
 			if(suitArea.isEmpty()) {
 				suitArea.set((Suit) item);
-				pickupSuccess = true;
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
@@ -75,7 +71,6 @@ public class Wizard extends Player {
 		else if(item instanceof Potion) {
 			try {
 				addtoInventory((Potion) item);
-				pickupSuccess = true;
 			} catch (InventoryException IE) {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be picked up because " + titleToString() + "'s "
@@ -91,7 +86,6 @@ public class Wizard extends Player {
 				if(leftHand.isEmpty()) {
 					try {
 						leftHand.set((Magical) item);
-						pickupSuccess = true;
 					}
 					catch (NullItemException ITE) {
 						throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
@@ -100,7 +94,6 @@ public class Wizard extends Player {
 				else if(rightHand.isEmpty()) {
 					try {
 						rightHand.set((Magical) item);
-						pickupSuccess = true;
 					}
 					catch (NullItemException ITE) {
 						throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
@@ -115,7 +108,6 @@ public class Wizard extends Player {
 			case SUIT:
 				if(suitArea.isEmpty()) {
 					suitArea.set((Suit) item);
-					pickupSuccess = true;
 				}
 				else {
 					throw new EquipmentException(item.getName() 
@@ -126,7 +118,6 @@ public class Wizard extends Player {
 			case NONE:
 				try {
 					addtoInventory((Magical) item);
-					pickupSuccess = true;
 				} catch (InventoryException e) {
 					throw new EquipmentException(item.titleToString() 
 							+ " could not be picked up because " + titleToString() + "'s "
@@ -144,7 +135,6 @@ public class Wizard extends Player {
 			if(leftHand.isEmpty()) {
 				try {
 					leftHand.set((OneHandedWeapon) item);
-					pickupSuccess = true;
 				} 
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
@@ -154,7 +144,6 @@ public class Wizard extends Player {
 			else if(rightHand.isEmpty()) {
 				try {
 					rightHand.set((OneHandedWeapon) item);
-					pickupSuccess = true;
 				} 
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");

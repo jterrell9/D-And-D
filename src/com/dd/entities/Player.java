@@ -16,7 +16,6 @@ public abstract class Player extends Entity {
 	protected TwoHands twoHands;
 	protected SuitArea suitArea;
 	protected Inventory inventory;
-	protected boolean pickupSuccess;
 	protected boolean dropSuccess;
 
 	public Player(String name, MapPosition pos, Stats stats) {
@@ -174,14 +173,6 @@ public abstract class Player extends Entity {
 	
 	public Inventory getInventory() {
 		return inventory;
-	}
-	
-	public boolean isPickupSuccess() {
-		return pickupSuccess;
-	}
-	
-	public void resetPickupSuccess() {
-		pickupSuccess = false;
 	}
 	
 	public boolean isDropSuccess() {
