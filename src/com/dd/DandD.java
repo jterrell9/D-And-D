@@ -28,12 +28,12 @@ public class DandD extends Application {
             stage.setHeight(720);
 
             //NEED TO MAKE FXML for these
-            //addGameSceneControllerTuple("AddServerScene",
-            //                            generateSceneControllerTuple(new URL("/com/dd/fxml/AddServer.fxml")));
-            //addGameSceneControllerTuple("CharacterCreationScene",
-            //                            generateSceneControllerTuple(new URL("/com/dd/fxml/CharacterCreation.fxml")));
-            //addGameSceneControllerTuple("JoinGameScene",
-            //                            generateSceneControllerTuple(new URL("/com/dd/fxml/JoinGame.fxml")));
+            addGameSceneControllerTuple("AddServerScene",
+                                        generateSceneControllerTuple(new URL("/com/dd/fxml/AddServer.fxml")));
+            addGameSceneControllerTuple("CharacterCreationScene",
+                                        generateSceneControllerTuple(new URL("/com/dd/fxml/CharacterCreation.fxml")));
+            addGameSceneControllerTuple("JoinGameScene",
+                                        generateSceneControllerTuple(new URL("/com/dd/fxml/JoinGame.fxml")));
             addGameSceneControllerTuple("LoadGameScene",
                                         generateSceneControllerTuple(getClass().getResource("/com/dd/fxml/LoadGame.fxml")));
             addGameSceneControllerTuple("MainMenuScene",
