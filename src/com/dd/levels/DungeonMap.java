@@ -321,7 +321,7 @@ public class DungeonMap implements Serializable {
 			int lootType = rand.nextInt(2);
 			if(lootType == 1) {
 				int potNum = rand.nextInt(4);
-				room.addItem(new Potion(potionNames[potNum], (potNum + 1) * 4));
+				room.addItem(new Potion(potionNames[potNum], ((potNum + 1) * 4 )+ 1));
 			}
 			else {
 				int magicNum = rand.nextInt(6);
