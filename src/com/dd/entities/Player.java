@@ -7,7 +7,7 @@ import com.dd.items.*;
 import com.dd.levels.MapPosition;
 import com.dd.exceptions.*;
 
-public class Player extends Entity {
+public abstract class Player extends Entity {
 
 	protected MapPosition mapPosition;
 
