@@ -65,6 +65,7 @@ public abstract class CommandHandler {
 				globalOutputLog.printToLog(NME.getMessage());
 			}
 		}
+		monsterAttack = true;
 	}
 	
 	public void examineRoom() {

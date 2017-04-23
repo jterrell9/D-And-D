@@ -23,6 +23,7 @@ public class MoveCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose a direction to move. "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
+    	monsterAttack = false;
     	setGlobalOutputLog(outputLog);
     	updateState();
     	
