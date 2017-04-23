@@ -79,4 +79,9 @@ public class Zombie extends Monster {
 	public String typeToString() {
 		return "Zombie";
 	}
+    
+    @Override
+    public String titleToString() {
+    	return "\"" + getName() + "\"";
+    }
 }
