@@ -15,6 +15,8 @@ public class UseCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
+    	setGlobalOutputLog(outputLog);
+		updateState();
     	if(dead){
     		outputLog.printToLog(player.titleToString() + " is dead. ");
     		return;
@@ -23,11 +25,16 @@ public class UseCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-    	setGlobalOutputLog(outputLog);
-		updateState();
 		
     	Item item = room.hasPotion(args[0]);
-    	if(item == null) {
+    	if(item != null) {
+    		try {
+				player.usePotion((Potion) item);
+			} catch (EquipmentException EE) {
+				outputLog.printToLog(EE.getMessage());
+			}
+    	}
+    	else {
     		try {
 				item = player.getInventory().get(args[0]);
 			} catch (InventoryException IE) {

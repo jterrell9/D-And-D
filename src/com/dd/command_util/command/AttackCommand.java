@@ -14,15 +14,15 @@ public class AttackCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
+    	setGlobalOutputLog(outputLog);
+		updateState();
     	if(dead){
     		outputLog.printToLog(player.titleToString() + " is dead. ");
     		return;
     	}
     	if(args[0] != null) {
     		throw new InvalidArgumentException(commandName + " command does not require an argument. ");
-    	}		
-    	setGlobalOutputLog(outputLog);
-		updateState();
+    	}
 		
 		Monster monster = null;
 		try{

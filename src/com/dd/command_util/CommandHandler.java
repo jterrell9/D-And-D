@@ -15,7 +15,7 @@ public abstract class CommandHandler {
 	protected CommandOutputLog globalOutputLog;
 	protected boolean examineMonster;
 	protected boolean monsterAttack = true;
-	protected boolean dead = false;
+	protected static boolean dead = false;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
@@ -57,7 +57,7 @@ public abstract class CommandHandler {
 	    		Monster monster = room.getMonster();
 	    		monster.clearText();
 				monster.attack(player);
-				globalOutputLog.printToLog(monster.getText());
+				globalOutputLog.printToLog(monster.getText() + "\n");
 				if(examineMonster) {
 					examineMonster();
 				}

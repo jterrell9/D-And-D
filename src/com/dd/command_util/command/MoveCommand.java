@@ -15,6 +15,8 @@ public class MoveCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
+    	setGlobalOutputLog(outputLog);
+    	updateState();
     	if(dead){
     		outputLog.printToLog(player.titleToString() + " is dead. ");
     		return;
@@ -24,8 +26,6 @@ public class MoveCommand extends CommandHandler {
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
     	monsterAttack = false;
-    	setGlobalOutputLog(outputLog);
-    	updateState();
     	
 		MapPosition position = player.getPostion();
     	switch(args[0].toLowerCase()) {
