@@ -35,10 +35,10 @@ public class Wizard extends Player {
 				throw new EquipmentException(IE.getMessage());
 			}
 		}
-		else if(item instanceof Shield){
+		else if(item instanceof Shield || item instanceof OneHandedWeapon){
 			if(leftHand.isEmpty()) {
 				try {
-					leftHand.set((Shield) item);
+					leftHand.set(item);
 				}
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
@@ -46,7 +46,7 @@ public class Wizard extends Player {
 			}
 			else if(rightHand.isEmpty()) {
 				try {
-					rightHand.set((Shield) item);
+					rightHand.set(item);
 				}
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
@@ -60,21 +60,12 @@ public class Wizard extends Player {
 		}
 		else if(item instanceof Suit) {
 			if(suitArea.isEmpty()) {
-				suitArea.set((Suit) item);
+				suitArea.set(item);
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because " 
 						+ titleToString() + " is already wearing a suit. ");
-			}
-		}
-		else if(item instanceof Potion) {
-			try {
-				addtoInventory((Potion) item);
-			} catch (InventoryException IE) {
-				throw new EquipmentException(item.titleToString() 
-						+ " could not be picked up because " + titleToString() + "'s "
-						+ "inventory is full");
 			}
 		}
 		else if(item instanceof Magical) {
@@ -128,31 +119,6 @@ public class Wizard extends Player {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped to " 
 						+ titleToString() + ", because Magical items need a specified body area. ");
-			}
-		}
-		else if(item instanceof OneHandedWeapon) {
-			((OneHandedWeapon) item).setStatForWizard();
-			if(leftHand.isEmpty()) {
-				try {
-					leftHand.set((OneHandedWeapon) item);
-				} 
-				catch (NullItemException ITE) {
-					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
-				}
-				
-			}
-			else if(rightHand.isEmpty()) {
-				try {
-					rightHand.set((OneHandedWeapon) item);
-				} 
-				catch (NullItemException ITE) {
-					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
-				}
-			}
-			else {
-				throw new EquipmentException(item.getName() 
-						+ " could not be equipped because both of " 
-						+ getName() + "'s hands are full. ");
 			}
 		}
 		else if(item instanceof TwoHandedWeapon) {
