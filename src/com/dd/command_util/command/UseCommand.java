@@ -15,6 +15,10 @@ public class UseCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
+    	if(dead){
+    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		return;
+    	}
     	if(args[0] == null) {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");

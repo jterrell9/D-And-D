@@ -93,7 +93,9 @@ public class CommandParser {
         }
     	try {
     		handler.handleCommand(command, args, outputLog);
-    		handler.monsterAttack();
+    		if(!player.died()) {
+    			handler.monsterAttack();
+    		}
     	}
     	catch (InvalidArgumentException E) {    		
     		outputLog.printToLog(E.getMessage());

@@ -12,18 +12,13 @@ public class Goblin extends Monster {
     @Override
     public void attack(Entity entity) {
         entity.takeDamage(stats.getAttack());
-        text += "The goblin swings with all its might a wooden club at you. "
-        		+ titleToString() + " deals " + stats.getAttack() + " damage to " + entity.titleToString() + ". ";
+        String altText = "The goblin swings with all its might a wooden club at you. ";
+        super.attack(entity, altText);
     }
     
     @Override
     public int takeDamage(int damage) {
-        int damageDealt = stats.getHealth() - damage;
-        stats.setHealth(damageDealt);
-        if(!survives()){
-            text += "As you deal the final blow, the goblin's lifeless body on the ground, a sense of relief come upon you. The battle is won. ";
-        }
-        return damageDealt;
+    	return super.takeDamage(damage, "As you deal the final blow, the goblin's lifeless body on the ground, a sense of relief come upon you. The battle is won. ");
     }
 
     @Override

@@ -3,11 +3,12 @@ package com.dd.items;
 import java.io.Serializable;
 
 import com.dd.Stats;
+import com.dd.StatModifier;
 
 public abstract class Item implements Serializable {
 	
 	protected String name;
-	protected Stats StatModifyer;
+	protected StatModifier statModifier;
 	
 	public Item(String name) {
 		setName(name);
@@ -26,19 +27,19 @@ public abstract class Item implements Serializable {
 	}
 	
 	public void setStatChange(int health, int maxHealth, int attack, int defense) {
-		StatModifyer=new Stats(health,maxHealth,attack,defense);
+		statModifier=new StatModifier(health,maxHealth,attack,defense);
 	}
 	
 	public Stats getStatChange() { 
-		return StatModifyer;
+		return statModifier;
 	}
 	
 	public Stats getNegStatChange() {
 		int negHealth = 0;
-		int negMaxHealth = -1 * StatModifyer.getMaxHealth();
-		int negAttack = -1 * StatModifyer.getAttack();
-		int negDefense = -1 * StatModifyer.getDefense();
-		Stats negStats = new Stats(negHealth, negMaxHealth, negAttack, negDefense);
+		int negMaxHealth = -1 * statModifier.getMaxHealth();
+		int negAttack = -1 * statModifier.getAttack();
+		int negDefense = -1 * statModifier.getDefense();
+		Stats negStats = new StatModifier(negHealth, negMaxHealth, negAttack, negDefense);
 		return negStats;
 	}
 	

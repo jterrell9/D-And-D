@@ -42,31 +42,23 @@ public class Dragon extends Monster {
 
     @Override
     public int takeDamage(int damage) {
-    	int newDamage = stats.getHealth() - damage;
-        stats.setHealth(newDamage);
-        if(!survives()){
-            text += "You take your sword and ask for a blessing from any god that will hear. You leap up and" +
-                    " with a solid heave take " + titleToString() + "! The battle is won! ";
-        }
-        return newDamage;
+    	return super.takeDamage(damage, "You take your sword and ask for a blessing from any god that will hear. You leap up and" +
+                " with a solid heave take " + titleToString() + "! The battle is won! ");
     }
     
     @Override
     public void attack(Entity entity) {
         Random random = new Random();
         if(breathAttack){
-            text += titleToString() + "breathes at you with a fiery breath. It's lungs look as if they collapse a bit. ";
-            entity.takeDamage(5);
+            super.attack(entity, 5, titleToString() + "breathes at you with a fiery breath. It's lungs look as if they collapse a bit. ");
             breathAttack = false;
         }else{
             if(random.nextInt(5) + 1 == 6){
-                text += "Before it attack you, it regains composure in its lungs, readying its breath attack. ";
+                text += "Before it attacks you, it regains composure in its lungs, readying its breath attack. ";
                 breathAttack = true;
             }
         }
-        entity.takeDamage(attackDamage());
-        text += "It takes its claws out to slash at you, a fiery passion in its eyes. "
-        		+ titleToString() + " deals " + stats.getAttack() + " damage to " + entity.titleToString() + ". ";
+        super.attack(entity, "It takes its claws out to slash at you, a fiery passion in its eyes. ");
     }
     
     @Override
