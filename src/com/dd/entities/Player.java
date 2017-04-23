@@ -44,7 +44,7 @@ public abstract class Player extends Entity {
 		this.inventory = new Inventory(10);
 	}
 	
-	public void pickup(Item item) throws EquipmentException {}
+	public abstract void pickup(Item item) throws EquipmentException;
 	
 	public void drop(Equip bodyArea) throws EquipmentException {
 		resetDropSuccess();
