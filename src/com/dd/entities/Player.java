@@ -7,7 +7,7 @@ import com.dd.items.*;
 import com.dd.levels.MapPosition;
 import com.dd.exceptions.*;
 
-public class Player extends Entity {
+public abstract class Player extends Entity {
 
 	protected MapPosition mapPosition;
 
@@ -16,7 +16,6 @@ public class Player extends Entity {
 	protected TwoHands twoHands;
 	protected SuitArea suitArea;
 	protected Inventory inventory;
-	protected boolean pickupSuccess;
 	protected boolean dropSuccess;
 
 	public Player(String name, MapPosition pos, Stats stats) {
@@ -45,7 +44,7 @@ public class Player extends Entity {
 		this.inventory = new Inventory(10);
 	}
 	
-	public void pickup(Item item) throws EquipmentException {}
+	public abstract void pickup(Item item) throws EquipmentException;
 	
 	public void drop(Equip bodyArea) throws EquipmentException {
 		resetDropSuccess();
@@ -174,14 +173,6 @@ public class Player extends Entity {
 	
 	public Inventory getInventory() {
 		return inventory;
-	}
-	
-	public boolean isPickupSuccess() {
-		return pickupSuccess;
-	}
-	
-	public void resetPickupSuccess() {
-		pickupSuccess = false;
 	}
 	
 	public boolean isDropSuccess() {
