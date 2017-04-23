@@ -40,9 +40,19 @@ public abstract class Entity implements Serializable{
         text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
     }
 	
+	public void attack(Entity entity, String altText) {
+        int damage = entity.takeDamage(attackDamage());
+        text += altText + titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+    }
+	
 	public void attack(Entity entity, int damage) {
         damage = entity.takeDamage(damage);
         text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+    }
+	
+	public void attack(Entity entity, int damage, String altText) {
+        damage = entity.takeDamage(damage);
+        text += altText +titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
     }
 	
 	public int takeDamage(int damage){
@@ -57,6 +67,18 @@ public abstract class Entity implements Serializable{
 		return damageDealt;
 	}
 	
+	public int takeDamage(int damage, String addText){
+        int damageDealt = damage - stats.getDefense();
+        if(damageDealt <= 0){
+        	damageDealt = 1;
+        }
+		stats.setHealth(stats.getHealth() - damageDealt);
+		if(!survives()){
+			text += addText+ titleToString() +" just died! ";
+		}
+		return damageDealt;
+	}
+	
 	public boolean survives() {
 		if(stats.getHealth() <= 0) {
 			die();
@@ -66,6 +88,12 @@ public abstract class Entity implements Serializable{
 	}
 	
 	public void die() {
+		stats.setHealth(0);
+		isAlive = false;
+	}
+	
+	public void die(String addText) {
+		text += addText;
 		stats.setHealth(0);
 		isAlive = false;
 	}

@@ -2,6 +2,7 @@ package com.dd.entities.monsters;
 
 import com.dd.entities.Entity;
 import com.dd.entities.Monster;
+import com.dd.entities.Player;
 
 import java.util.Random;
 
@@ -29,20 +30,11 @@ public class Skeleton extends Monster {
     }
 
     @Override
-    public void attack(Entity entity) {
-        entity.takeDamage(stats.getAttack());
-        text += "The skeleton throws itself at you. "
-        		+ titleToString() + " deals " + stats.getAttack() + " damage to " + entity.titleToString() + ". ";
+    public void attack(Entity player) {
+    	String altText = "The skeleton throws itself at you. ";
+    	super.attack(player, altText);
     }
     
-    @Override
-    public int takeDamage(int damage) {
-    	int damageDealt = stats.getHealth() - damage;
-        stats.setHealth(damageDealt);
-        if(!survives()){
-        }
-        return damageDealt;
-    }
 
     @Override
     public String confrontText() {
@@ -60,4 +52,9 @@ public class Skeleton extends Monster {
 	public String typeToString() {
 		return "Skeleton";
 	}
+    
+    @Override
+    public String titleToString() {
+    	return "\"" + getName() + "\"";
+    }
 }

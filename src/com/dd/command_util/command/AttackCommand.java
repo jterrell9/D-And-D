@@ -14,6 +14,10 @@ public class AttackCommand extends CommandHandler {
 
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
+    	if(dead){
+    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		return;
+    	}
     	if(args[0] != null) {
     		throw new InvalidArgumentException(commandName + " command does not require an argument. ");
     	}		
@@ -36,4 +40,22 @@ public class AttackCommand extends CommandHandler {
 			outputLog.printToLog(UME.getMessage());
 		}
     }
+    
+	public void monsterDied(String monsterName) {
+		try{
+			room.removeMonster(monsterName);
+		}
+		catch(NullMonsterException UME) {
+			globalOutputLog.printToLog(UME.getMessage());
+		}
+	}
+	
+	public void monsterDied(Monster monster) {
+		try{
+			room.removeMonster(monster);
+		}
+		catch(NullMonsterException UME) {
+			globalOutputLog.printToLog(UME.getMessage());
+		}
+	}
 }

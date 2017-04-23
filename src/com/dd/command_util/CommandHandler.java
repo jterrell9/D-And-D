@@ -15,6 +15,7 @@ public abstract class CommandHandler {
 	protected CommandOutputLog globalOutputLog;
 	protected boolean examineMonster;
 	protected boolean monsterAttack = true;
+	protected boolean dead = false;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
@@ -31,6 +32,9 @@ public abstract class CommandHandler {
 	protected void updateState() {
 		player = gameState.getActivePlayer();
 		room = dungeonMap.getRoom(player.getPostion());
+		if(player.died()){
+			dead = true;
+		}
 	}
 	
 	public void setGlobalOutputLog(CommandOutputLog outputLog) {
@@ -53,7 +57,6 @@ public abstract class CommandHandler {
 	    		monster.clearText();
 				monster.attack(player);
 				globalOutputLog.printToLog(monster.getText());
-				monster.clearText();
 				if(examineMonster) {
 					examineMonster();
 				}
@@ -90,21 +93,7 @@ public abstract class CommandHandler {
 				+ "\n" + v.examineText()));
 	}
 	
-	public void monsterDied(String monsterName) {
-		try{
-			room.removeMonster(monsterName);
-		}
-		catch(NullMonsterException UME) {
-			globalOutputLog.printToLog(UME.getMessage());
-		}
-	}
-	
-	public void monsterDied(Monster monster) {
-		try{
-			room.removeMonster(monster);
-		}
-		catch(NullMonsterException UME) {
-			globalOutputLog.printToLog(UME.getMessage());
-		}
+	public boolean isDead() {
+		return dead;
 	}
 }

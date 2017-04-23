@@ -14,11 +14,11 @@ public class Zombie extends Monster {
     }
 
     @Override
-    public void attack(Entity entity) {
+    public void attack(Entity player) {
         // Zombie will deal damage and do a basic attack to the player
         Random random = new Random();
         if(!conSave) {
-            super.attack(entity, 2);
+            super.attack(player, 2);
             text += "The stench of the zombie causes you to lower your defenses slightly. ";
             if(random.nextInt(3) + 1 == 4) {
                 conSave = true;
@@ -27,7 +27,7 @@ public class Zombie extends Monster {
         }
         text += "The zombie lunges at you and slashes with its claws. ";
         text += "The zombie lunges at you and sinks its teeth into your skin. ";
-        super.attack(entity);
+        super.attack(player);
     }
 
     @Override
