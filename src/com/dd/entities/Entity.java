@@ -103,7 +103,7 @@ public abstract class Entity implements Serializable{
 	}
 	
 	public String typeToString() {
-		return getClass().toString().substring(22);
+		return getClass().toString().substring(30);
 	}
 	
 	public String titleToString() {

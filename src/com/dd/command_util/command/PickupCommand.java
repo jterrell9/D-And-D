@@ -27,28 +27,18 @@ public class PickupCommand extends CommandHandler {
     	setGlobalOutputLog(outputLog);
 		updateState();
 		
-    	player.resetPickupSuccess();
-		Item item = null;
 		switch(args[0]) {
 		case "items":
 			ArrayList<String> equippedItemNames = new ArrayList<String>();
 			for(Item equippedItem : room.getItemMap().values()) {
-				player.resetPickupSuccess();
 				try {
-					item = room.getItem(equippedItem);
-				}
-				catch(NullItemException UIE) {
-					outputLog.printToLog(UIE.getMessage());
-				}
-	    		try {
+					Item item = room.getItem(equippedItem);
 					player.pickup(item);
-	    			if(player.isPickupSuccess()) {
-	    				equippedItemNames.add(equippedItem.getName());
-	    			}
-	    		}
-	    		catch(EquipmentException E) {
-	    			outputLog.printToLog(E.getMessage());
-	    		}
+					equippedItemNames.add(equippedItem.getName());
+				}
+				catch(NullItemException | EquipmentException E) {
+					outputLog.printToLog(E.getMessage());
+				}
 			}
 			for(String itemName : equippedItemNames) {
 	    		try {
@@ -59,32 +49,17 @@ public class PickupCommand extends CommandHandler {
 	    			outputLog.printToLog(UIE.getMessage());
 				}
 			}
-	    	player.resetPickupSuccess();
 			break;
 		default:
 			try {
-				item = room.getItem(args[0]);
-			}
-			catch(NullItemException UIE) {
-				outputLog.printToLog(UIE.getMessage());
-				return;
-			}
-			try {
+				Item item = room.getItem(args[0]);
 				player.pickup(item);
-    		}
-			catch(EquipmentException E) {
-    			outputLog.printToLog(E.getMessage());
-    			return;
-    		}
-    		try {
-    			if(player.isPickupSuccess()) {
-    				room.removeItem(item.getName());
-    				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
-    			}
-    		}
-    		catch (NullItemException UIE) {
-    			outputLog.printToLog(UIE.getMessage());
-    			return;
+				room.removeItem(item.getName());
+				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
+			}
+			catch(NullItemException | EquipmentException E) {
+				outputLog.printToLog(E.getMessage());
+				return;
 			}
 		}
 		if(!room.hasItems()) {

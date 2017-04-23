@@ -1,6 +1,7 @@
-package com.dd.entities;
+package com.dd.entities.players;
 
 import com.dd.Stats;
+import com.dd.entities.Player;
 import com.dd.exceptions.*;
 import com.dd.items.*;
 import com.dd.levels.MapPosition;
@@ -23,21 +24,19 @@ public class Fighter extends Player {
 
 	@Override
 	public void pickup(Item item) throws EquipmentException {
-		if(item instanceof Artifact) {
+		if(item instanceof Artifact || item instanceof Potion) {
 			try {
-				addtoInventory((Artifact) item);
-				pickupSuccess = true;
+				addtoInventory(item);
 			} catch (InventoryException e) {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be picked up because " + titleToString() + "'s "
 						+ "inventory is full");
 			}
 		}
-		else if(item instanceof Shield){
+		else if(item instanceof Shield || item instanceof OneHandedWeapon){
 			if(leftHand.isEmpty()) {
 				try {
-					leftHand.set((Shield) item);
-					pickupSuccess = true;
+					leftHand.set(item);
 				}
 				catch (NullItemException ITE) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
@@ -45,8 +44,7 @@ public class Fighter extends Player {
 			}
 			else if(rightHand.isEmpty()) {
 				try {
-					rightHand.set((Shield) item);
-					pickupSuccess = true;
+					rightHand.set(item);
 				}
 				catch (NullItemException e) {
 					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
@@ -60,8 +58,7 @@ public class Fighter extends Player {
 		}
 		else if(item instanceof Suit) {
 			if(suitArea.isEmpty()) {
-				suitArea.set((Suit) item);
-				pickupSuccess = true;
+				suitArea.set(item);
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
@@ -69,51 +66,16 @@ public class Fighter extends Player {
 						+ titleToString() + " is already wearing a suit. ");
 			}
 		}
-		else if(item instanceof Potion) {
-			try {
-				addtoInventory((Potion) item);
-				pickupSuccess = true;
-			} catch (InventoryException e) {
-				throw new EquipmentException(item.titleToString() 
-						+ " could not be picked up because " + titleToString() + "'s "
-						+ "inventory is full");
-			}
-		}
 		else if(item instanceof TwoHandedWeapon) {
 			if(twoHands.isEmpty()
 					&& leftHand.isEmpty()
 					&& rightHand.isEmpty()) {
-				twoHands.set((TwoHandedWeapon) item);
-				pickupSuccess = true;
+				twoHands.set(item);
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because both of " 
 						+ titleToString() + "'s hands need to be empty. ");
-			}
-		}
-		else if(item instanceof OneHandedWeapon) {
-			if(leftHand.isEmpty()) {
-				try {
-					leftHand.set((OneHandedWeapon) item);
-					pickupSuccess = true;
-				} 
-				catch (NullItemException e) {
-					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s left hand");
-				}
-			}
-			else if(rightHand.isEmpty()) {
-				try {
-					rightHand.set((OneHandedWeapon) item);
-					pickupSuccess = true;
-				} catch (NullItemException e) {
-					throw new EquipmentException(item.titleToString() + "could not be equipped to " + titleToString() + "'s right hand");
-				}
-			}
-			else {
-				throw new EquipmentException(item.titleToString() 
-						+ " could not be equipped because both of " 
-						+ titleToString() + "'s hands are full. ");
 			}
 		}
 		else if(item instanceof Magical) {

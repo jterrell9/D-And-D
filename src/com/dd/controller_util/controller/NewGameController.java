@@ -5,6 +5,8 @@ import com.dd.GameState;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import com.dd.entities.*;
+import com.dd.entities.players.Fighter;
+import com.dd.entities.players.Wizard;
 import com.dd.levels.*;
 
 import java.util.Random;
