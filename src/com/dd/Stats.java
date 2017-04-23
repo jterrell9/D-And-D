@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 public class Stats implements Serializable{
 	
-	private int health;
-	private int maxHealth;
-	
-	private int attack;
-	private int defense;
+	protected int health;
+	protected int maxHealth;
+	protected int attack;
+	protected int defense;
 	
 	public Stats(int health, int maxHealth, int attack, int defense) {
 		setMaxHealth(maxHealth);
@@ -45,7 +44,12 @@ public class Stats implements Serializable{
 	}
 	
 	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
+		if(maxHealth < 0) {
+			this.maxHealth = 0;
+		}
+		else {
+			this.maxHealth = maxHealth;
+		}
 	}
 	
 	public int getHealth() {
@@ -55,6 +59,9 @@ public class Stats implements Serializable{
 	public void setHealth(int health) {
 		if(health > maxHealth){
 			this.health = getMaxHealth();
+		}
+		else if(health < 0){
+			this.health = 0;
 		}
 		else{
 			this.health = health;
@@ -66,7 +73,12 @@ public class Stats implements Serializable{
 	}
 	
 	public void setAttack(int attack) {
-		this.attack = attack;
+		if(attack < 0) {
+			this.attack = 0;
+		}
+		else {
+			this.attack = attack;
+		}
 	}
 	
 	public int getDefense() {
@@ -74,7 +86,12 @@ public class Stats implements Serializable{
 	}
 	
 	public void setDefense(int defense) {
-		this.defense = defense;
+		if(defense < 0) {
+			this.defense = 0;
+		}
+		else {
+			this.defense = defense;
+		}
 	}
 	
 	@Override
