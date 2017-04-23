@@ -9,7 +9,7 @@ public abstract class Entity implements Serializable{
 	protected String name;
 	protected Stats stats;
 	protected boolean isAlive;
-	protected String text = "";
+	protected static String text = "";
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
@@ -143,6 +143,6 @@ public abstract class Entity implements Serializable{
 	}
 	
 	public boolean died() {
-		return !isAlive;
+		return stats.getHealth() == 0;
 	}
 }
