@@ -51,7 +51,8 @@ public abstract class CommandHandler {
     }
 	
 	public void monsterAttack() {
-		if(room.hasMonster() && monsterAttack) {
+		updateState();
+		if(room.hasMonster() && monsterAttack && !isDead()) {
 			try {
 	    		Monster monster = room.getMonster();
 	    		monster.clearText();
