@@ -16,7 +16,7 @@ public abstract class CommandHandler {
 	protected static CommandOutputLog globalOutputLog;
 	protected static boolean examineMonster;
 	protected static boolean monsterAttack = true;
-	protected static boolean dead = false;
+	protected boolean dead = false;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
