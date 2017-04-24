@@ -25,22 +25,37 @@ public class UseCommand extends CommandHandler {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-		
-    	Item item = room.hasPotion(args[0]);
-    	if(item != null) {
-    		try {
-				player.usePotion((Potion) item);
-			} catch (EquipmentException EE) {
-				outputLog.printToLog(EE.getMessage());
-			}
+    	
+    	Item item = null;
+    	if(player.getInventory().getInventoryMap().containsKey(args[0])) {
+    		item = player.getInventory().getInventoryMap().get(args[0]);
     	}
     	else {
-    		try {
-				item = player.getInventory().get(args[0]);
-			} catch (InventoryException IE) {
-				outputLog.printToLog(IE.getMessage());
-			}
+    		if(room.getItemMap().containsKey(args[0])) {
+        		item = room.getItemMap().get(args[0]);
+        	}
+        	else {
+        		outputLog.printToLog("this room does not conatain \""
+        				+ args[0] + "\". ");
+        		return;
+        	}
     	}
+		
+//    	Item item = room.hasPotion(args[0]);
+//    	if(item != null) {
+//    		try {
+//				player.usePotion((Potion) item);
+//			} catch (EquipmentException EE) {
+//				outputLog.printToLog(EE.getMessage());
+//			}
+//    	}
+//    	else {
+//    		try {
+//				item = player.getInventory().get(args[0]);
+//			} catch (InventoryException IE) {
+//				outputLog.printToLog(IE.getMessage());
+//			}
+//    	}
     	if(item instanceof Potion) {
 			try {
 				player.usePotionFromInventory((Potion) item);

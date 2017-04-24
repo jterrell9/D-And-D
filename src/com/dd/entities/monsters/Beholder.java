@@ -50,7 +50,7 @@ public class Beholder extends Monster {
             revieved = true;
         }
         else {
-            super.die("You strike 5 eye stalks down, then aim for the last five. As the last eye stalks fall, + name + the beholder "
+            super.die("You strike 5 eye stalks down, then aim for the last five. As the last eye stalks fall, " + titleToString()
             		+ "screams out \"YOU SHALL PERISH! IF NOT BY ME, BY MY BROTHERS!\" You slice through the main eye. The battle is won. ");
         }
     }

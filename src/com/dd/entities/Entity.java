@@ -52,7 +52,7 @@ public abstract class Entity implements Serializable{
 	
 	public void attack(Entity entity, int damage, String altText) {
         damage = entity.takeDamage(damage);
-        text += altText +titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+        text += altText + titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
     }
 	
 	public int takeDamage(int damage){

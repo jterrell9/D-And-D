@@ -24,7 +24,6 @@ public class AttackCommand extends CommandHandler {
     		throw new InvalidArgumentException(commandName + " command does not require an argument. ");
     	}
 		
-		Monster monster = null;
 		try{
 			monster = room.getMonster();
 			player.clearText();
@@ -32,7 +31,7 @@ public class AttackCommand extends CommandHandler {
 			outputLog.printToLog(player.getText());
 			player.clearText();
 			if(monster.died()) {
-				monsterDied(monster);
+				room.removeMonster(monster);
 			}
 			examineMonster = true;
 		}
