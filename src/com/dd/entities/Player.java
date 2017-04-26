@@ -136,11 +136,62 @@ public abstract class Player extends Entity {
 	
 	public void removeFromInventory(String itemName) throws InventoryException {
 		resetDropSuccess();
-		if(!inventory.getInventoryMap().containsKey(itemName)) {
+		if (!inventory.getInventoryMap().containsKey(itemName)) {
 			throw new InventoryException(itemName + " is not in your inventory. ");
 		}
 		this.inventory.remove(inventory.get(itemName));
 		dropSuccess = true;
+	}
+
+	public Item takeFromInventory(String itemName) throws InventoryException{
+		Item retItem = null;
+		if((retItem = inventory.get(itemName)) == null){
+			throw new InventoryException(itemName + " is not in your inventory. ");
+		}
+		inventory.remove(itemName);
+		return retItem;
+	}
+
+	public void removeEquipment(Equip equipArea) {
+		switch(equipArea) {
+			case LEFTHAND:
+				leftHand.set(null);
+				break;
+			case RIGHTHAND:
+				rightHand.set(null);
+				break;
+			case HANDS:
+				leftHand.set(null);
+				rightHand.set(null);
+				break;
+			case SUIT:
+				suitArea.set(null);
+				break;
+			default:
+				dropSuccess = false;
+		}
+	}
+
+	public Item takeEquipment(Equip equipArea){
+		Item retItem = null;
+		switch(equipArea){
+			case LEFTHAND:
+				retItem = leftHand.get();
+				leftHand.set(null);
+				break;
+			case RIGHTHAND:
+				retItem = rightHand.get();
+				rightHand.set(null);
+				break;
+			case HANDS:
+				retItem = twoHands.get();
+				twoHands.set(null);
+				break;
+			case SUIT:
+				retItem = suitArea.get();
+				break;
+		}
+		return retItem;
 	}
 	
 	public MapPosition getPostion() {

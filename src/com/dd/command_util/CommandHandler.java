@@ -36,7 +36,7 @@ public abstract class CommandHandler {
 			dead = true;
 		}
 	}
-	
+
 	public void setGlobalOutputLog(CommandOutputLog outputLog) {
 		globalOutputLog = outputLog;
 	}
@@ -94,7 +94,11 @@ public abstract class CommandHandler {
 				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
 				+ "\n" + v.examineText()));
 	}
-	
+
+	public void setPlayer(Player player){
+		this.player = player;
+	}
+
 	public boolean isDead() {
 		return dead;
 	}

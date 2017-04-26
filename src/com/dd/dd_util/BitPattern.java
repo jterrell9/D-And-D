@@ -68,6 +68,8 @@ public class BitPattern {
         return ByteUtility.getIntFromBytes(bitPattern, bitLength);
     }
 
+    public long getAsLong() { return ByteUtility.getLongFromBytes(bitPattern, bitLength); }
+
     public char getAsChar(){
         return ByteUtility.getCharFromBytes(bitPattern, bitLength);
     }

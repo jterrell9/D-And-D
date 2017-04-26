@@ -32,6 +32,10 @@ public class BitSequence {
         return new BitPattern(numBits, retPattern);
     }
 
+    public byte[] getAsBytes() {
+        return sequence;
+    }
+
     public boolean hasNext(){
         return (bitOffset < length) ? true : false;
     }

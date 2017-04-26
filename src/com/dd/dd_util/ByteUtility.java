@@ -40,7 +40,7 @@ public class ByteUtility {
         }
         short retShort = 0;
         int numBytes = (int)Math.ceil((double)bitLength / 8.0);
-        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=bitLength){
+        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=8){
             retShort += ((short)data[i]) << bitOffset;
         }
         return retShort;
@@ -52,10 +52,22 @@ public class ByteUtility {
         }
         int retInt = 0;
         int numBytes = (int)Math.ceil((double)bitLength / 8.0);
-        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=bitLength){
+        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=8){
             retInt += ((int)data[i]) << bitOffset;
         }
         return retInt;
+    }
+
+    public static long getLongFromBytes(byte[] data, int bitLength){
+        if(bitLength > 128){
+            throw new InvalidBitLengthException("");
+        }
+        long retLong = 0;
+        int numBytes = (int)Math.ceil((double)bitLength / 8.0);
+        for(int i = 0, bitOffset = 0; bitOffset < bitLength; i++, bitOffset+=8){
+            retLong += ((long)data[i]) << bitOffset;
+        }
+        return retLong;
     }
 
     public static char getCharFromBytes(byte[] data, int bitLength){

@@ -1,15 +1,13 @@
 package com.dd.controller_util.controller;
 
+import com.dd.GameType;
+import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.command.network.NetworkHandledCommand;
-import com.dd.network.NetworkCommChannel;
-import com.dd.network.SocketCommChannel;
-import com.dd.network.protocol.NetworkMessageInterpreter;
-import com.dd.network.protocol.client.ClientMessageInterpreter;
-import com.google.gson.Gson;
+import com.dd.network.*;
 import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.exceptions.InvalidCommandException;
-import com.dd.command_util.CommandOutputLog;
+import com.dd.command_util.LocalCommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
 import com.dd.controller_util.ControllerArgumentPackage;
@@ -19,14 +17,13 @@ import com.dd.levels.DungeonMap;
 import com.dd.levels.MapPosition;
 import com.dd.levels.Room;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
+import java.net.InterfaceAddress;
 import java.net.Socket;
+import java.nio.channels.Pipe;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -182,12 +179,43 @@ public class RunningGameController extends GameSceneController{
 
 	@Override
 	public void setup(ControllerArgumentPackage args){
-		GameState gameState = args.getArgument("GameState");
-		this.gameState = gameState;
+		gameState = (GameState)args.getArgument("GameState");
+        GameType gameType = (GameType)args.getArgument("GameType");
+		if(gameType == GameType.LOCAL){
+			GameState gameState = args.getArgument("GameState");
+			commandParser = new CommandParser(new LocalCommandOutputLog(output), gameState);
+			commandParser.registerCommand("move", new MoveCommand(gameState));
+		    commandParser.registerCommand("examine", new ExamineCommand(gameState));
+		    commandParser.registerCommand("drop", new DropCommand(gameState));
+		    commandParser.registerCommand("attack", new AttackCommand(gameState));
+		    commandParser.registerCommand("help", new HelpCommand(gameState));
+		    commandParser.registerCommand("pickup", new PickupCommand(gameState));
+		    commandParser.registerCommand("use", new UseCommand(gameState));
+        }
+        else{
+			NetworkCommChannel commChannel = (PipeCommChannel)args.getArgument("CommChannel");
+
+			CommandOutputLog outputLog = new LocalCommandOutputLog(output);
+			commandParser = new CommandParser(outputLog, gameState);
+			ClientInputController clientInputController = new ClientInputController(input);
+			clientInputController.clientTakeControl();
+        	NetworkHandledCommand netCommand = new NetworkHandledCommand(commChannel, gameState, clientInputController);
+			commandParser.registerCommand("move", netCommand);
+			commandParser.registerCommand("examine", netCommand);
+			commandParser.registerCommand("drop", netCommand);
+			commandParser.registerCommand("attack", netCommand);
+			commandParser.registerCommand("help", netCommand);
+			commandParser.registerCommand("pickup", netCommand);
+			commandParser.registerCommand("use", netCommand);
+
+			ClientInstructionHandler instructionHandler = new ClientInstructionHandler(commChannel, gameState, clientInputController, outputLog);
+			instructionHandler.start();
+        }
+
 		setPlayer();
 		setDungeon();
 		setStartRoom();
-		
+
 		updateMap();
 		updateStatboard();
 		input.requestFocus();
@@ -197,54 +225,14 @@ public class RunningGameController extends GameSceneController{
 		output.appendText("*Type \"help\" for a list of commands\n"
 				+ printLnTitle('~', " Dungeon Master ", 72)
 				+ "Hello " + player.typeToString() + " " + player.getName() + ". "
-						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
+				+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
 		output.appendText(startRoom.enterRoomText());
-		
-
-		output.appendText(startRoom.examineString());
-	
-        GameType gameType = args.getArgument("GameType");    
-		commandParser = new CommandParser(new CommandOutputLog(output), player.getName(), player.typeToString());
-        if(gameType == GameType.LOCAL){
-		    commandParser.registerCommand("move", new MoveCommand(gameState));
-		    commandParser.registerCommand("examine", new ExamineCommand(gameState));
-		    commandParser.registerCommand("drop", new DropCommand(gameState));
-		    commandParser.registerCommand("attack", new AttackCommand(gameState));
-		    commandParser.registerCommand("help", new HelpCommand());
-		    commandParser.registerCommand("pickup", new PickupCommand(gameState));
-		    commandParser.registerCommand("use", new UseCommand());
-        }
-        else{
-            Socket socket = args.getArgument("Socket");
-			NetworkCommChannel commChannel = new SocketCommChannel(socket);
-			NetworkMessageInterpreter commInterpreter = new ClientMessageInterpreter();
-			NetworkHandledCommand netCommand = new NetworkHandledCommand(commChannel, commInterpreter, gameState);
-			commandParser.registerCommand("move", netCommand);
-			commandParser.registerCommand("examine", netCommand);
-			commandParser.registerCommand("drop", netCommand);
-			commandParser.registerCommand("attack", netCommand);
-			commandParser.registerCommand("help", netCommand);
-			commandParser.registerCommand("pickup", netCommand);
-			commandParser.registerCommand("use", netCommand);
-			/*
-			Spawn thread to handle comms from server
-			*/
-			/*
-			if(gameType == GameType.NET_SERVER){
-				//set the game type and get a reference to the server object
-				//so it can be closed when the user quits the game
-			}
-			 */
-        }
     }
 
 	@Override
 	public void teardown(){
 		gameState = null;
 		commandParser = null;
-		/*
-		if(gameServer != null)
-			gameSever.kill();
-		 */
+
 	}
 }

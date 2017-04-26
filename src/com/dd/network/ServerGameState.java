@@ -1,41 +1,39 @@
 package com.dd.network;
 
+import com.dd.DandD;
+import com.dd.GameState;
 import com.dd.entities.Player;
 import com.dd.levels.DungeonMap;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
-public class ServerGameState extends NetworkGameState {
-    private Map<Integer, Player> allRegisteredPlayers;
-    private int maxNumPlayers;
-    private int playerCounter;
+public class ServerGameState extends GameState implements Serializable {
+    private Map<UUID, Player> allRegisteredPlayers;
+    private Map<UUID, Player> allActivePlayers;
 
-
-    public ServerGameState(String name, Map<Integer, Player> playerList, DungeonMap map, int maxNumPlayers){
+    public ServerGameState(String name, Player localPlayer, DungeonMap map){
         super(name, map);
-        this.name = name;
-        this.allRegisteredPlayers = playerList;
-        this.map = map;
-        this.maxNumPlayers = maxNumPlayers;
-        this.playerCounter = allRegisteredPlayers.size();
+        allRegisteredPlayers = new HashMap<UUID, Player>();
+        allActivePlayers = new HashMap<UUID, Player>();
+        registerPlayer(DandD.getGameUUID(), localPlayer);
+        addActivePlayer(DandD.getGameUUID(), localPlayer);
+        activePlayer = localPlayer;
     }
 
-    public void registerPlayer(Player player) throws PlayerLimitReachedException{
+    public void registerPlayer(UUID id, Player player){
         if(player == null) {
             throw new IllegalArgumentException("Player passed to ServerGameState is null. Registration failed.");
         }
-        if(playerCounter + 1 < maxNumPlayers) {
-            throw new PlayerLimitReachedException("");
-        }
-        player.setIndex(playerCounter);
-        if(!allRegisteredPlayers.containsKey(player)) {
-            allRegisteredPlayers.put(playerCounter, player);
+        if(!allRegisteredPlayers.containsKey(id)) {
+            allRegisteredPlayers.put(id, player);
         }
         else {
             throw new IllegalArgumentException("Player already registered to this GameState. Registration failed.");
         }
-        ++playerCounter;
     }
 
     public void unregisterPlayer(Player player) {
@@ -47,14 +45,13 @@ public class ServerGameState extends NetworkGameState {
         }
     }
 
-    public void addActivePlayer(Player player) {
+    public void addActivePlayer(UUID id, Player player) {
         if(player == null) {
             throw new IllegalArgumentException("Player passed to ServerGameState is null. Addition failed.");
         }
-        Integer index = player.getIndex();
-        if(!allActivePlayers.containsKey(index)
-                && allRegisteredPlayers.containsKey(index)){
-            allActivePlayers.put(index, player);
+        if(!allActivePlayers.containsKey(id)
+                && allRegisteredPlayers.containsKey(id)){
+            allActivePlayers.put(id, player);
         }
         else{
             throw new IllegalArgumentException("Player already active in this GameState. Addition failed.");
@@ -68,6 +65,14 @@ public class ServerGameState extends NetworkGameState {
         if(allActivePlayers.remove(player.getIndex()) == null){
             throw new IllegalArgumentException("Player is not currently active in this GameState. Removal failed.");
         }
+    }
+
+    public Player getRegisteredPlayer(UUID playerID){
+        return allRegisteredPlayers.get(playerID);
+    }
+
+    public Player getActivePlayer(UUID playerID){
+        return allActivePlayers.get(playerID);
     }
 
     public Collection<Player> getActivePlayersList(){
@@ -90,19 +95,5 @@ public class ServerGameState extends NetworkGameState {
 
     public void setName(String name){
         this.name = name;
-    }
-
-    public int getMaxNumPlayers(){
-        return maxNumPlayers;
-    }
-
-    public void setMaxNumPlayers(int maxNumPlayers){
-        this.maxNumPlayers = maxNumPlayers;
-    }
-
-    public class PlayerLimitReachedException extends Exception{
-        public PlayerLimitReachedException(String message){
-            super(message);
-        }
     }
 }

@@ -1,13 +1,25 @@
 package com.dd.controller_util.controller;
 
+import com.dd.GameState;
+import com.dd.Stats;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.nio.ByteBuffer;
 
 import com.dd.DandD;
 import com.dd.SceneControllerTuple;
 
+import com.dd.dd_util.BitSequence;
+import com.dd.entities.Player;
+import com.dd.entities.players.Fighter;
+import com.dd.entities.players.Wizard;
+import com.dd.levels.DungeonMap;
+import com.dd.levels.MapPosition;
+import com.dd.network.GameServer;
+import com.dd.network.SocketCommChannel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,9 +67,65 @@ public class JoinGameController extends GameSceneController{
             int x1= listName.lastIndexOf("\n");
             String gameName= listName.substring(11, x1);
             String ipAddressNumber=listName.substring(x0+1);
-            serverGame.setArgument("GameName", gameName);
-            serverGame.setArgument("GameAddress", ipAddressNumber);
-            DandD.setActiveGameScene("CharacterCreationScene", serverGame);
+            //Establish connection to server
+            try{
+                final int SEND_PLAYER_INFO_ID = 0x03;
+                final int SEND_ID_ID = 0x04;
+                final int PREPARE_CLIENT_ID = 0x05;
+                final int QUIT_ID = 0xf0;
+                Socket sock = new Socket(ipAddressNumber, GameServer.getServerPort());
+                SocketCommChannel commChannel = new SocketCommChannel(sock);
+                while(true){
+                    byte messageBuffer[] = commChannel.read();
+                    BitSequence message = new BitSequence(8 * messageBuffer.length, messageBuffer);
+                    int instructionID = message.getNextBits(8).getAsInt();
+                    switch(instructionID){
+                        case SEND_ID_ID:
+                            ByteBuffer response = ByteBuffer.allocate(16).putLong(DandD.getGameUUID().getLeastSignificantBits());
+                            response.putLong(DandD.getGameUUID().getMostSignificantBits());
+                            commChannel.write(response.array());
+                            break;
+                        case SEND_PLAYER_INFO_ID:
+                            serverGame.setArgument("CommChannel", commChannel);
+                            DandD.setActiveGameScene("CharacterCreationScene", serverGame);
+                            break;
+                        case PREPARE_CLIENT_ID:
+                            final byte FIGHTER_ID = 0x00;
+                            final byte WIZARD_ID = 0x01;
+                            Player player = null;
+                            int playerType = message.getNextBits(8).getAsInt();
+                            int xPos = message.getNextBits(8).getAsInt();
+                            int yPos = message.getNextBits(8).getAsInt();
+                            int health = message.getNextBits(8).getAsInt();
+                            int maxHealth = message.getNextBits(8).getAsInt();
+                            int attack = message.getNextBits(8).getAsInt();
+                            int defense = message.getNextBits(8).getAsInt();
+                            int seed = message.getNextBits(32).getAsInt();
+                            switch (playerType){
+                                case FIGHTER_ID:
+                                    player = new Fighter("",
+                                                            new MapPosition(xPos, yPos),
+                                                            new Stats(health, maxHealth, attack, defense));
+                                    break;
+                                case WIZARD_ID:
+                                    player = new Wizard("",
+                                                            new MapPosition(xPos, yPos),
+                                                            new Stats(health, maxHealth, attack, defense));
+                                    break;
+
+                            }
+                            GameState gameState = new GameState("", player, new DungeonMap(seed));
+                            serverGame.setArgument("GameState", gameState);
+                            DandD.setActiveGameScene("RunningGameScene", serverGame);
+                            break;
+                        case QUIT_ID:
+                            break;
+                    }
+                }
+            }
+            catch(Exception e){
+                return;
+            }
         }
     }
     @FXML

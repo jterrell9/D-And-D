@@ -2,6 +2,7 @@ package com.dd.controller_util.controller;
 
 import com.dd.DandD;
 import com.dd.GameState;
+import com.dd.GameType;
 import com.dd.controller_util.ControllerArgumentPackage;
 import com.dd.controller_util.GameSceneController;
 import com.dd.entities.*;
@@ -9,15 +10,15 @@ import com.dd.entities.players.Fighter;
 import com.dd.entities.players.Wizard;
 import com.dd.levels.*;
 
+import java.nio.channels.Pipe;
 import java.util.Random;
 
+import com.dd.network.GameServer;
+import com.dd.network.PipeCommChannel;
+import com.dd.network.ServerGameState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 public class NewGameController extends GameSceneController{
 	@FXML private TextField saveName;
@@ -29,6 +30,7 @@ public class NewGameController extends GameSceneController{
 	@FXML private RadioButton wizardRadio;
 	@FXML private ToggleGroup characterClass;
 	@FXML private Label errorLabel;
+	@FXML private CheckBox networkPlay;
 
 	/**
 	 * Event handler for "Start Game" button.
@@ -40,16 +42,34 @@ public class NewGameController extends GameSceneController{
 		}
 		Integer seed = Integer.parseInt(seedNumber.getText());
 		DungeonMap map = new DungeonMap(seed);
-		GameState game = null;
+		Player player = null;
 		if(fighterRadio.isSelected()) {
-			Fighter fighter = new Fighter(characterName.getText(), map.getStartPosition());
-			game = new GameState(saveName.getText(), fighter, map);
+			player = new Fighter(characterName.getText(), map.getStartPosition());
 		}
 		else if(wizardRadio.isSelected()) {
-			Wizard wizard = new Wizard(characterName.getText(), map.getStartPosition());
-			game = new GameState(saveName.getText(), wizard, map);
+			player = new Wizard(characterName.getText(), map.getStartPosition());
 		}
+		GameState game = null;
 		ControllerArgumentPackage args = new ControllerArgumentPackage();
+
+		if(networkPlay.isSelected()) {
+			try {
+				game = new ServerGameState(saveName.getText(), player, map);
+				Pipe commPipe = Pipe.open();
+				PipeCommChannel commChannel = new PipeCommChannel(commPipe.source(), commPipe.sink());
+				GameServer server = new GameServer((ServerGameState)game, player, commChannel);
+				server.start();
+				args.setArgument("GameType", GameType.NET_SERVER);
+				args.setArgument("CommChannel", commChannel);
+			}
+			catch(Exception e){
+				System.exit(1);
+			}
+		}
+		else{
+			game = new GameState(saveName.getText(), player, map);
+			args.setArgument("GameType", GameType.LOCAL);
+		}
 		args.setArgument("GameState", game);
 
 		DandD.setActiveGameScene("RunningGameScene", args);

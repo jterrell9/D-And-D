@@ -24,7 +24,7 @@ public class PipeCommChannel extends NetworkCommChannel{
         ByteBuffer data = ByteBuffer.allocate(1460);
         int dataRead = inStream.read(data);
         byte[] outData = data.array();
-        if (dataRead < 1460){
+        if (dataRead != 1460){
             byte[] tempData = new byte[dataRead];
             for(int i = 0; i < dataRead; i++){
                 tempData[i] = outData[i];

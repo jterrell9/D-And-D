@@ -50,22 +50,7 @@ public class SocketCommChannel extends NetworkCommChannel{
     @Override
     public byte[] read() throws IOException {
         byte[] outData = null;
-        int availData = inStream.available();
-        if (availData > 0){
-            outData = new byte[availData];
-            inStream.read(outData);
-        }
-        else{
-            outData = new byte[1460];
-            int dataRead = inStream.read(outData);
-            if (dataRead < 1460){
-                byte[] tempData = new byte[dataRead];
-                for(int i = 0; i < dataRead; i++){
-                    tempData[i] = outData[i];
-                }
-                outData = tempData;
-            }
-        }
+        inStream.read(outData);
         return outData;
     }
 

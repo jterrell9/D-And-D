@@ -9,7 +9,7 @@ import com.dd.dd_util.Indexable;
 public class Item implements Serializable, Indexable{
 	
 	protected String name;
-	protected Stats StatModifyer;
+	protected Stats statModifier;
 	protected int index;
 	
 	public Item(String name) {
@@ -78,6 +78,7 @@ public class Item implements Serializable, Indexable{
 	
 	public String titleToString() {
 		return "\"" + getName() + "\" the " + typeToString();
+	}
 
 	public int getIndex(){
 		return index;

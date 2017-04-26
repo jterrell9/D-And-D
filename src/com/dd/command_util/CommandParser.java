@@ -1,7 +1,6 @@
 package com.dd.command_util;
 
 import com.dd.GameState;
-import com.dd.command_util.CommandHandler;
 import com.dd.controller_util.controller.RunningGameController;
 import com.dd.entities.*;
 import com.dd.exceptions.*;
@@ -11,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
-    private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
-    private CommandOutputLog outputLog;
-    private String input;
-    private Player player;
+    protected Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
+    protected CommandOutputLog outputLog;
+    protected String input;
+    protected Player player;
 
     public CommandParser(){}
     
@@ -42,7 +41,7 @@ public class CommandParser {
     		command = input;
     	}
     	else {
-    		int argStartIndex = argStartIndex(); 
+    		int argStartIndex = argStartIndex();
     		command = input.toLowerCase().substring(0, argStartIndex - 1);
     		String argStr = input.substring(argStartIndex);
     		String[] argArray = argStr.split(" ");
@@ -102,7 +101,7 @@ public class CommandParser {
     	}
     }
     
-    private boolean hasArg() {
+    protected boolean hasArg() {
     	String[] inputArray = input.split(" ");
     	if(inputArray.length <= 1){
     		return false;
@@ -110,7 +109,7 @@ public class CommandParser {
     	return true;
     }
     
-    private int argStartIndex() {
+    protected int argStartIndex() {
     	for(int i = 0; i < input.length(); i++) {
     		if(input.charAt(i) == ' ') {
     			return i + 1;
@@ -122,7 +121,7 @@ public class CommandParser {
     	return -1; //error occurred
     }
     
-    private int quoteNum(String arg) {
+    protected int quoteNum(String arg) {
     	int quoteNum = 0;
     	for(int i = 0; i <arg.length(); i++) {
     		if(arg.charAt(i) == '"') {
@@ -155,4 +154,10 @@ public class CommandParser {
     public void setOutputLog(CommandOutputLog outputLog){
         this.outputLog = outputLog;
     }
+
+    public void setPlayer(Player player){
+    	for(CommandHandler cmdHandler : commandMap.values()){
+    		cmdHandler.setPlayer(player);
+		}
+	}
 }

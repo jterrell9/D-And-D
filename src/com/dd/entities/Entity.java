@@ -1,11 +1,11 @@
 package com.dd.entities;
 
-import java.io.Serializable;
-
 import com.dd.Stats;
 import com.dd.dd_util.Indexable;
 
-public abstract class Entity implements Serializble, Indexable{
+import java.io.Serializable;
+
+public abstract class Entity implements Serializable, Indexable{
 
 	protected String name;
 	protected Stats stats;
@@ -146,6 +146,7 @@ public abstract class Entity implements Serializble, Indexable{
 	
 	public boolean died() {
 		return !isAlive;
+	}
 
 	public int getIndex(){
 		return index;
