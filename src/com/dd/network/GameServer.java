@@ -173,7 +173,6 @@ public class GameServer extends Thread{
                                 }
                             }
                             else{
-                                System.out.println("GOT COMMAND");
                                 NetworkCommChannel commChannel = playerConn.getCommChannel();
                                 byte data[] = commChannel.read();
                                 BitSequence message = new BitSequence(data.length, data);

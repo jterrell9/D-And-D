@@ -471,4 +471,67 @@ public class DungeonMap implements Serializable {
 		}
 		return beholdNames[index];
 	}
+
+	public static String getSuitNameAtIndex(int index){
+		if(index < 0 || index > suitNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return suitNames[index];
+	}
+
+	public static String getShieldNameAtIndex(int index){
+		if(index < 0 || index > shieldNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return shieldNames[index];
+	}
+
+	public static String getPotionNameAtIndex(int index){
+		if(index < 0 || index > potionNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return potionNames[index];
+	}
+
+	public static String getTwoSwordNameAtIndex(int index){
+		if(index < 0 || index > twoSwordNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return twoSwordNames[index];
+	}
+
+	public static String getOneSwordNameAtIndex(int index){
+		if(index < 0 || index > oneSwordNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return oneSwordNames[index];
+	}
+
+	public static String getDragNameAtIndex(int index){
+		if(index < 0 || index > dragNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return dragNames[index];
+	}
+
+	public static String getMagicNameAtIndex(int index){
+		if(index < 0 || index > magicNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return magicNames[index];
+	}
+
+	public static String getGobNameAtIndex(int index){
+		if(index < 0 || index > gobNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return gobNames[index];
+	}
+
+	public static String getBeholdNameAtIndex(int index){
+		if(index < 0 || index > beholdNames.length - 1){
+			throw new ArrayIndexOutOfBoundsException("");
+		}
+		return beholdNames[index];
+	}
 }
