@@ -66,7 +66,7 @@ public class Room implements Serializable {
 												+ " does not exist in this room. Removal failed. ");
 		}
 		retMonster = monsterMap.get(monster);
-		monsterMap.remove(monster);
+		monsterMap.remove(monster.getName());
 		return retMonster;
 	}
 
