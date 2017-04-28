@@ -93,7 +93,7 @@ public class CommandParser {
         }
     	try {
     		handler.handleCommand(command, args, outputLog);
-    		if(!player.died()) {
+    		if(!player.isDead()) {
     			handler.monsterAttack();
     		}
     	}

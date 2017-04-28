@@ -30,7 +30,7 @@ public class AttackCommand extends CommandHandler {
 			player.attack(monster);
 			outputLog.printToLog(player.getText());
 			player.clearText();
-			if(monster.died()) {
+			if(monster.isDead()) {
 				room.removeMonster(monster);
 			}
 			examineMonster = true;

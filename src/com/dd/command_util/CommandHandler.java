@@ -40,7 +40,7 @@ public abstract class CommandHandler {
 			monster = null;
 			//globalOutputLog.printToLog(NME.getMessage());
 		}
-		if(player.died()){
+		if(player.isDead()){
 			dead = true;
 		}
 	}

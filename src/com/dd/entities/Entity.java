@@ -142,7 +142,7 @@ public abstract class Entity implements Serializable{
 		text = "";
 	}
 	
-	public boolean died() {
+	public boolean isDead() {
 		return stats.getHealth() == 0;
 	}
 }
