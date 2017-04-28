@@ -8,31 +8,26 @@ public abstract class Entity implements Serializable{
 
 	protected String name;
 	protected Stats stats;
-	protected boolean isAlive;
 	protected static String text = "";
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
 		setStats(new Stats(health, maxHealth, attack, defense));
-		isAlive = true;
 	}
 	
 	public Entity(String name, Stats stats) {
 		setName(name);
 		setStats(stats);
-		isAlive = true;
 	}
 	
 	public Entity(String name) {
 		setName(name);
 		setStats(new Stats(20, 20, 1, 0));
-		isAlive = true;
 	}
 	
 	public Entity() {
 		setName("player");
 		setStats(new Stats(20, 20, 1, 0));
-		isAlive = true;
 	}
 	
 	public void attack(Entity entity) {
@@ -82,20 +77,17 @@ public abstract class Entity implements Serializable{
 	public boolean survives() {
 		if(stats.getHealth() <= 0) {
 			die();
-			return false;
 		}
 		return true;
 	}
 	
 	public void die() {
 		stats.setHealth(0);
-		isAlive = false;
 	}
 	
 	public void die(String addText) {
 		text += addText;
 		stats.setHealth(0);
-		isAlive = false;
 	}
 
 	public int attackDamage() {
