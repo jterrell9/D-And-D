@@ -142,7 +142,7 @@ public abstract class Player extends Entity {
 		if(!inventory.getInventoryMap().containsKey(itemName)) {
 			throw new InventoryException(itemName + " is not in your inventory. ");
 		}
-		this.inventory.remove(inventory.get(itemName));
+		this.inventory.remove(itemName);
 		dropSuccess = true;
 	}
 	

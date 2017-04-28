@@ -24,23 +24,17 @@ public class Room implements Serializable {
 	}
 	
 	public Item removeItem(String itemName) throws NullItemException {
-		Item retItem;
 		if(!itemMap.containsKey(itemName)){
 			throw new NullItemException(itemName + " not found in room. ");
 		}
-		retItem = itemMap.get(itemName);
-		itemMap.remove(itemName);
-		return retItem;
+		return itemMap.remove(itemName);
 	}
 	
 	public Item removeItem(Item item) throws NullItemException {
-		Item retItem;
 		if(!itemMap.containsValue(item)){
 			throw new NullItemException("item not found in room. ");
 		}
-		retItem = itemMap.get(itemMap.get(item.getName()));
-		itemMap.remove(item.getName());
-		return retItem;
+		return itemMap.remove(item.getName());
 	}
 
 	public void addMonster(Monster monster) {
@@ -48,27 +42,22 @@ public class Room implements Serializable {
 	}
 
 	public Monster removeMonster(String monsterName) throws NullMonsterException {
-		Monster retMonster;
 		if(!monsterMap.containsKey(monsterName)){
 			throw new NullMonsterException("The monster \""
 												+ monsterName
 												+ "\" does not exist in this room. Removal failed. ");
 		}
-		retMonster = monsterMap.get(monsterName);
-		monsterMap.remove(monsterName);
-		return retMonster;
+		return monsterMap.remove(monsterName);
 	}
 	
 	public Monster removeMonster(Monster monster) throws NullMonsterException {
-		Monster retMonster;
 		if(!monsterMap.containsValue(monster)){
 			throw new NullMonsterException(monster.getTitle()
 												+ " does not exist in this room. Removal failed. ");
 		}
-		retMonster = monsterMap.get(monster);
-		monsterMap.remove(monster.getName());
-		return retMonster;
+		return monsterMap.remove(monster.getName());
 	}
+	
 
 	public Map<String, Item> getItemMap() {
 		return this.itemMap;

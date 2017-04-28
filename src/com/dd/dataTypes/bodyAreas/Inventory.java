@@ -47,22 +47,19 @@ public class Inventory implements Serializable {
 		}
 	}
 	
-	public void remove(Item item) throws InventoryException {
-		if(items.containsValue(item)) {
-			this.items.remove(item.getName());
-		}
-		else {
+	public Item remove(Item item) throws InventoryException {
+		if (!items.containsValue(item)) {
 			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
 		}
+		return items.remove(item.getName());
 	}
 	
-	public void remove(String itemName) throws InventoryException {
-		if(items.containsKey(itemName)) {
-			this.items.remove(items.get(itemName));
-		}
-		else {
+	
+	public Item remove(String itemName) throws InventoryException {
+		if(!items.containsKey(itemName)) {
 			throw new InventoryException(itemName + " is not in your inventory. ");
-		}
+		}		
+		return items.remove(items.get(itemName));
 	}
 	
 	public Map<String, Item> getInventoryMap() {
