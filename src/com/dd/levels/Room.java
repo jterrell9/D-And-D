@@ -39,7 +39,7 @@ public class Room implements Serializable {
 			throw new NullItemException("item not found in room. ");
 		}
 		retItem = itemMap.get(itemMap.get(item.getName()));
-		itemMap.remove(item);
+		itemMap.remove(item.getName());
 		return retItem;
 	}
 

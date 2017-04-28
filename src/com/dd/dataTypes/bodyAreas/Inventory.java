@@ -49,7 +49,7 @@ public class Inventory implements Serializable {
 	
 	public void remove(Item item) throws InventoryException {
 		if(items.containsValue(item)) {
-			this.items.remove(item);
+			this.items.remove(item.getName());
 		}
 		else {
 			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
