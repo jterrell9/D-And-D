@@ -18,7 +18,7 @@ public class MoveCommand extends CommandHandler {
     	setGlobalOutputLog(outputLog);
     	updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		outputLog.printToLog(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -32,7 +32,7 @@ public class MoveCommand extends CommandHandler {
     	case "north": 
 			if(dungeonMap.isRoomInDir(position, Direction.NORTH)){
 				position.moveNorth();
-				outputLog.printToLog("The " + player.titleToString() + " has moved through the North door. ");
+				outputLog.printToLog("The " + player.getTitle() + " has moved through the North door. ");
 				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
 			}
 			else{
@@ -43,7 +43,7 @@ public class MoveCommand extends CommandHandler {
     	case "south": 
 			if(dungeonMap.isRoomInDir(position, Direction.SOUTH)){
 				position.moveSouth();
-				outputLog.printToLog(player.titleToString() + " has moved through the South door. ");
+				outputLog.printToLog(player.getTitle() + " has moved through the South door. ");
 				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
 			}
 			else{
@@ -54,7 +54,7 @@ public class MoveCommand extends CommandHandler {
     	case "east": 
 			if(dungeonMap.isRoomInDir(position, Direction.EAST)){
 				position.moveEast();
-				outputLog.printToLog(player.titleToString() + " has moved through the East door. ");
+				outputLog.printToLog(player.getTitle() + " has moved through the East door. ");
 				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
 			}
 			else{
@@ -65,7 +65,7 @@ public class MoveCommand extends CommandHandler {
     	case "west": 
 			if(dungeonMap.isRoomInDir(position, Direction.WEST)){
 				position.moveWest();
-				outputLog.printToLog(player.titleToString() + " has moved through the West door. ");
+				outputLog.printToLog(player.getTitle() + " has moved through the West door. ");
 				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
 			}
 			else{

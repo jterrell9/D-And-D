@@ -186,7 +186,7 @@ public class RunningGameController extends GameSceneController{
 		output.appendText(printLnTitle('~', " Dungeons and D&D ", 72));
 		output.appendText("*Type \"help\" for a list of commands\n"
 				+ printLnTitle('~', " Dungeon Master ", 72)
-				+ "Hello " + player.typeToString() + " " + player.getName() + ". "
+				+ "Hello " + player.getType() + " " + player.getName() + ". "
 						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
 		output.appendText(startRoom.enterRoomText());
 		

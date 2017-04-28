@@ -97,7 +97,7 @@ public abstract class CommandHandler {
 			return;
 		}
 		room.getMonsterMap().values().forEach((v) -> globalOutputLog.printToLog(
-				v.titleToString()
+				v.getTitle()
 				+ "\nHealth: " + v.getStats().getHealth()
 				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
 				+ "\n" + v.examineText()));

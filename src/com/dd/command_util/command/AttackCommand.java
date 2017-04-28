@@ -17,7 +17,7 @@ public class AttackCommand extends CommandHandler {
     	setGlobalOutputLog(outputLog);
 		updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		outputLog.printToLog(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] != null) {

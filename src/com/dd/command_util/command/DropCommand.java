@@ -20,7 +20,7 @@ public class DropCommand extends CommandHandler {
 		setGlobalOutputLog(outputLog);
 		updateState();
 		if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		outputLog.printToLog(player.getTitle() + " is dead. ");
     		return;
     	}
 		if(args[0] == null) {
@@ -35,7 +35,7 @@ public class DropCommand extends CommandHandler {
 			try {
 				dropItem = player.getLeftHand();
 				player.drop(Equip.LEFTHAND);
-				outputLog.printToLog(player.titleToString() + " has dropped their left hand. ");
+				outputLog.printToLog(player.getTitle() + " has dropped their left hand. ");
 			} catch (EquipmentException EE) {
 				outputLog.printToLog(EE.getMessage());
 			}
@@ -45,7 +45,7 @@ public class DropCommand extends CommandHandler {
 			try {
 				dropItem = player.getRightHand();
 				player.drop(Equip.RIGHTHAND);
-				outputLog.printToLog(player.titleToString() + " has dropped their right hand. ");
+				outputLog.printToLog(player.getTitle() + " has dropped their right hand. ");
 			} catch (EquipmentException EE) {
 				outputLog.printToLog(EE.getMessage());
 			}
@@ -54,7 +54,7 @@ public class DropCommand extends CommandHandler {
 			try {
 				dropItem = player.get();
 				player.drop(Equip.HANDS);
-				outputLog.printToLog(player.titleToString() + " has dropped both hands. ");
+				outputLog.printToLog(player.getTitle() + " has dropped both hands. ");
 			}
 			catch (EquipmentException ee) {
 				outputLog.printToLog(ee.getMessage());
@@ -64,7 +64,7 @@ public class DropCommand extends CommandHandler {
 			try {
 				dropItem = player.getSuitArea();
 				player.drop(Equip.SUIT);
-				outputLog.printToLog(player.titleToString() + " has dropped their suit. ");
+				outputLog.printToLog(player.getTitle() + " has dropped their suit. ");
 			}
 			catch (EquipmentException ee) {
 				outputLog.printToLog(ee.getMessage());
@@ -79,7 +79,7 @@ public class DropCommand extends CommandHandler {
 						try {
 							dropItem = item;
 							player.removeFromInventory(dropItem);
-							outputLog.printToLog(player.titleToString() + " has dropped " + dropItem.titleToString() + " "
+							outputLog.printToLog(player.getTitle() + " has dropped " + dropItem.titleToString() + " "
 									+ "from their inventory. ");
 						}
 						catch (InventoryException IE) {

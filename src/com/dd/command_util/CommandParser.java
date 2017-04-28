@@ -33,7 +33,7 @@ public class CommandParser {
     	}
     	
     	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 72));
-    	outputLog.printToLog(player.titleToString() + ">> " + input + "\n");
+    	outputLog.printToLog(player.getTitle() + ">> " + input + "\n");
     	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
     	
     	String command = "";

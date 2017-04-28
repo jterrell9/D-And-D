@@ -19,7 +19,7 @@ public class PickupCommand extends CommandHandler {
     	setGlobalOutputLog(outputLog);
 		updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		outputLog.printToLog(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -43,7 +43,7 @@ public class PickupCommand extends CommandHandler {
 			for(String itemName : equippedItemNames) {
 	    		try {
 	    			room.removeItem(itemName);
-	    			outputLog.printToLog(player.titleToString() + " has equipped " + itemName + ". ");
+	    			outputLog.printToLog(player.getTitle() + " has equipped " + itemName + ". ");
 	    		}
 	    		catch (NullItemException UIE) {
 	    			outputLog.printToLog(UIE.getMessage());
@@ -55,7 +55,7 @@ public class PickupCommand extends CommandHandler {
 				Item item = room.getItem(args[0]);
 				player.pickup(item);
 				room.removeItem(item.getName());
-				outputLog.printToLog(player.titleToString() + " has equipped " + item.titleToString() + ". ");
+				outputLog.printToLog(player.getTitle() + " has equipped " + item.titleToString() + ". ");
 			}
 			catch(NullItemException | EquipmentException E) {
 				outputLog.printToLog(E.getMessage());

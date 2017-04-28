@@ -18,7 +18,7 @@ public class UseCommand extends CommandHandler {
     	setGlobalOutputLog(outputLog);
 		updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		outputLog.printToLog(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -59,7 +59,7 @@ public class UseCommand extends CommandHandler {
     	if(item instanceof Potion) {
 			try {
 				player.usePotionFromInventory((Potion) item);
-				outputLog.printToLog(player.titleToString() + " has used " + item.titleToString() + ". ");
+				outputLog.printToLog(player.getTitle() + " has used " + item.titleToString() + ". ");
 			} catch (EquipmentException EE) {
 				outputLog.printToLog(EE.getMessage());
 			}

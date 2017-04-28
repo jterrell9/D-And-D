@@ -29,7 +29,7 @@ public class Fighter extends Player {
 				addtoInventory(item);
 			} catch (InventoryException e) {
 				throw new EquipmentException(item.titleToString() 
-						+ " could not be picked up because " + titleToString() + "'s "
+						+ " could not be picked up because " + getTitle() + "'s "
 						+ "inventory is full");
 			}
 		}
@@ -39,7 +39,7 @@ public class Fighter extends Player {
 					leftHand.set(item);
 				}
 				catch (NullItemException ITE) {
-					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s left hand. ");
+					throw new EquipmentException(item.titleToString() + "could not be equpped to " + getTitle() +"'s left hand. ");
 				}
 			}
 			else if(rightHand.isEmpty()) {
@@ -47,13 +47,13 @@ public class Fighter extends Player {
 					rightHand.set(item);
 				}
 				catch (NullItemException e) {
-					throw new EquipmentException(item.titleToString() + "could not be equpped to " + titleToString() +"'s right hand. ");
+					throw new EquipmentException(item.titleToString() + "could not be equpped to " + getTitle() +"'s right hand. ");
 				}
 			}
 			else {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be picked up because both of " 
-						+ titleToString() + "'s hands are full. ");
+						+ getTitle() + "'s hands are full. ");
 			}
 		}
 		else if(item instanceof Suit) {
@@ -63,7 +63,7 @@ public class Fighter extends Player {
 			else {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because " 
-						+ titleToString() + " is already wearing a suit. ");
+						+ getTitle() + " is already wearing a suit. ");
 			}
 		}
 		else if(item instanceof TwoHandedWeapon) {
@@ -75,7 +75,7 @@ public class Fighter extends Player {
 			else {
 				throw new EquipmentException(item.titleToString() 
 						+ " could not be equipped because both of " 
-						+ titleToString() + "'s hands need to be empty. ");
+						+ getTitle() + "'s hands need to be empty. ");
 			}
 		}
 		else if(item instanceof Magical) {

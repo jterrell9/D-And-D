@@ -62,7 +62,7 @@ public class Room implements Serializable {
 	public Monster removeMonster(Monster monster) throws NullMonsterException {
 		Monster retMonster;
 		if(!monsterMap.containsValue(monster)){
-			throw new NullMonsterException(monster.titleToString()
+			throw new NullMonsterException(monster.getTitle()
 												+ " does not exist in this room. Removal failed. ");
 		}
 		retMonster = monsterMap.get(monster);
