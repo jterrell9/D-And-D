@@ -34,22 +34,7 @@ public class RunningGameController extends GameSceneController{
 	@FXML private Button exitButton;
 
 	private GameState gameState;
-	private Player player;
-	private DungeonMap dungeon;
-	private Room startRoom;
 	private CommandParser commandParser;
-	
-	private void setPlayer() {
-		player = gameState.getActivePlayer();
-	}
-	
-	private void setDungeon() {
-		dungeon = gameState.getMap();
-	}
-	
-	private void setStartRoom() {
-		startRoom = dungeon.getRoom(player.getPostion());
-	}
 	
 	/**
 	 * Event handler for "Enter" key.
@@ -99,6 +84,20 @@ public class RunningGameController extends GameSceneController{
 	@FXML
 	private void handleExitButtonAction(ActionEvent event) {
 		DandD.setActiveGameScene("MainMenuScene", null);
+	}
+	
+	private void printIntro() {
+		Player player = gameState.getActivePlayer();;
+		DungeonMap dungeon = gameState.getMap();
+		Room startRoom = dungeon.getRoom(player.getPostion());
+		
+		output.appendText(printLnTitle('~', " Dungeons and D&D ", 72));
+		output.appendText("*Type \"help\" for a list of commands\n"
+				+ printLnTitle('~', " Dungeon Master ", 72)
+				+ "Hello " + player.getType() + " " + player.getName() + ". "
+						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
+		output.appendText(startRoom.enterRoomText());
+		
 	}
 	
 	public void updateMap() {
@@ -174,21 +173,13 @@ public class RunningGameController extends GameSceneController{
 	public void setup(ControllerArgumentPackage args){
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
-		setPlayer();
-		setDungeon();
-		setStartRoom();
 		
 		updateMap();
 		updateStatboard();
 		input.requestFocus();
 		input.clear();
 		output.clear();
-		output.appendText(printLnTitle('~', " Dungeons and D&D ", 72));
-		output.appendText("*Type \"help\" for a list of commands\n"
-				+ printLnTitle('~', " Dungeon Master ", 72)
-				+ "Hello " + player.getType() + " " + player.getName() + ". "
-						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
-		output.appendText(startRoom.enterRoomText());
+		printIntro();
 		
 		CommandOutputLog outputLog = new CommandOutputLog(output);
 		commandParser = new CommandParser(outputLog, gameState);
