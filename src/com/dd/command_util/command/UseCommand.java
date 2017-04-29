@@ -14,11 +14,11 @@ public class UseCommand extends CommandHandler {
     }
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
-    	setGlobalOutputLog(outputLog);
+    public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
+    	setGlobalOutput(output);
 		updateState();
     	if(dead){
-    		outputLog.printToLog(player.getTitle() + " is dead. ");
+    		output.print(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -35,7 +35,7 @@ public class UseCommand extends CommandHandler {
         		item = room.getItemMap().get(args[0]);
         	}
         	else {
-        		outputLog.printToLog("this room does not conatain \""
+        		output.print("this room does not conatain \""
         				+ args[0] + "\". ");
         		return;
         	}
@@ -59,13 +59,13 @@ public class UseCommand extends CommandHandler {
     	if(item instanceof Potion) {
 			try {
 				player.usePotionFromInventory((Potion) item);
-				outputLog.printToLog(player.getTitle() + " has used " + item.titleToString() + ". ");
+				output.print(player.getTitle() + " has used " + item.titleToString() + ". ");
 			} catch (EquipmentException EE) {
-				outputLog.printToLog(EE.getMessage());
+				output.print(EE.getMessage());
 			}
     	}
     	else {
-    		outputLog.printToLog(item.titleToString() + " is not a Potion. ");
+    		output.print(item.titleToString() + " is not a Potion. ");
     		return;
     	}
     }

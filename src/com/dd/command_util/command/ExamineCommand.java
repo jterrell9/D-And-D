@@ -13,11 +13,11 @@ public class ExamineCommand extends CommandHandler {
 	}
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
-    	setGlobalOutputLog(outputLog);
+    public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
+    	setGlobalOutput(output);
     	updateState();
     	if(dead){
-    		outputLog.printToLog(player.getTitle() + " is dead. ");
+    		output.print(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -27,28 +27,28 @@ public class ExamineCommand extends CommandHandler {
     	
     	switch(args[0].toLowerCase()) {
     	case "room":
-    		outputLog.printToLog(room.examineRoom());
+    		output.print(room.examineRoom());
     		examineMonster = false;
 			break;
     	case "monsters":
 		case "monster":
-			outputLog.printToLog(room.examineMonster());
+			output.print(room.examineMonster());
 			examineMonster = false;
 			break;
 		case "item":
 		case "items":
-			outputLog.printToLog(room.examineItems());
+			output.print(room.examineItems());
 			examineMonster = false;
 			break;
 		default:
 			try{
 				Item item = room.getItem(args[0]);
-				outputLog.printToLog(item.titleToString() + " "
+				output.print(item.titleToString() + " "
 						+ item.examineToString() + "\n");
 				examineMonster = false;
 			}
 			catch(NullItemException UIE) {
-				outputLog.printToLog(UIE.getMessage());
+				output.print(UIE.getMessage());
 			}
 			/*
 			 * examine <monster name> command - not needed if one monster.
