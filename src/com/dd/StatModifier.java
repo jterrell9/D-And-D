@@ -15,12 +15,7 @@ public class StatModifier extends Stats {
 	
 	@Override
 	public void setHealth(int health) {
-		if(health > maxHealth){
-			this.health = getMaxHealth();
-		}
-		else{
-			this.health = health;
-		}
+		this.health = health;
 	}
 	
 	@Override
