@@ -29,7 +29,7 @@ public class Goblin extends Monster {
 
     @Override
     public String examineText() {
-        return getTitle() + ". He isn't very bright, but sure can hit hard";
+        return getTitle() + ". He isn't very bright, but sure can hit hard. ";
     }
     
     @Override
