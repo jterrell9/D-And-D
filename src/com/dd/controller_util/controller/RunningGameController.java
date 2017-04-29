@@ -174,12 +174,15 @@ public class RunningGameController extends GameSceneController{
 		GameState gameState = args.getArgument("GameState");
 		this.gameState = gameState;
 		
-		updateMap();
-		updateStatboard();
 		input.requestFocus();
 		input.clear();
 		output.clear();
+		map.clear();
+		stats.clear();
+		
 		printIntro();
+		updateMap();
+		updateStatboard();
 		
 		CommandOutputLog outputLog = new CommandOutputLog(output);
 		commandParser = new CommandParser(outputLog, gameState);
