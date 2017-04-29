@@ -10,10 +10,6 @@ public class OneHandedWeapon extends Physical {
         
     }
     
-    public OneHandedWeapon() {
-    	super();
-    }
-    
     public void setStatForWizard() {
     	attackGain -= 2;
     	if(attackGain < 1){

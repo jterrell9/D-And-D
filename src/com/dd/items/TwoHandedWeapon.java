@@ -5,10 +5,6 @@ public class TwoHandedWeapon extends Physical {
         super(name, attackGain, 0);
     }
     
-    public TwoHandedWeapon() {
-		super();
-	}
-    
     @Override
     public String typeToString() {
 		return "Two Handed Weapon";

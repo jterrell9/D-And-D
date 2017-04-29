@@ -12,10 +12,6 @@ public class Magical extends Item {
 		this.bodyArea = bodyArea;
 	}
 	
-	public Magical() {
-		super();
-	}
-	
 	public Equip getBodyArea() {
 		return bodyArea;
 	}

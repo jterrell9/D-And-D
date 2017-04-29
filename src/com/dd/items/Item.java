@@ -14,10 +14,6 @@ public abstract class Item implements Serializable {
 		setName(name);
 	}
 	
-	public Item() {
-		setName("blank item");
-	}
-	
 	public String getName() {
 		return name;
 	}
