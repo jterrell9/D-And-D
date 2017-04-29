@@ -49,15 +49,6 @@ public abstract class CommandHandler {
 		globalOutputLog = outputLog;
 	}
 	
-	protected String getArgsString(String args[]){
-        String argsStr = "";
-        for(int i = 0; i < args.length - 1; i++) {
-            argsStr += args[0] + " ";
-        }
-        argsStr += args[args.length - 1];
-        return argsStr;
-    }
-	
 	public void monsterAttack() {
 		updateState();
 		if(room.hasMonster() && monsterAttack && !isDead()) {
