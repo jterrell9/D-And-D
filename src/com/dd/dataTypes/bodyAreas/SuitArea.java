@@ -31,7 +31,7 @@ public class SuitArea implements Serializable {
 			this.suit = (Suit) item;
 		}
 		else {
-			throw new NullItemException(item.titleToString() + " cannot be equipped to suit area. ");
+			throw new NullItemException(item.getTitle() + " cannot be equipped to suit area. ");
 		}
 	}
 	

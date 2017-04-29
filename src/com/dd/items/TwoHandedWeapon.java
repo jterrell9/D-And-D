@@ -6,7 +6,7 @@ public class TwoHandedWeapon extends Physical {
     }
     
     @Override
-    public String typeToString() {
+    public String getType() {
 		return "Two Handed Weapon";
 	}
 }

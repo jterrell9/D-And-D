@@ -59,13 +59,13 @@ public class UseCommand extends CommandHandler {
     	if(item instanceof Potion) {
 			try {
 				player.usePotionFromInventory((Potion) item);
-				output.print(player.getTitle() + " has used " + item.titleToString() + ". ");
+				output.print(player.getTitle() + " has used " + item.getTitle() + ". ");
 			} catch (EquipmentException EE) {
 				output.print(EE.getMessage());
 			}
     	}
     	else {
-    		output.print(item.titleToString() + " is not a Potion. ");
+    		output.print(item.getTitle() + " is not a Potion. ");
     		return;
     	}
     }

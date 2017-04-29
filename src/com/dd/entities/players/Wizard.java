@@ -41,7 +41,7 @@ public class Wizard extends Player {
 					leftHand.set(item);
 				}
 				catch (NullItemException ITE) {
-					throw new EquipmentException(item.titleToString() + "could not be equpped to " + getTitle() +"'s left hand. ");
+					throw new EquipmentException(item.getTitle() + "could not be equpped to " + getTitle() +"'s left hand. ");
 				}
 			}
 			else if(rightHand.isEmpty()) {
@@ -49,11 +49,11 @@ public class Wizard extends Player {
 					rightHand.set(item);
 				}
 				catch (NullItemException ITE) {
-					throw new EquipmentException(item.titleToString() + "could not be equpped to " + getTitle() +"'s right hand. ");
+					throw new EquipmentException(item.getTitle() + "could not be equpped to " + getTitle() +"'s right hand. ");
 				}
 			}
 			else {
-				throw new EquipmentException(item.titleToString() 
+				throw new EquipmentException(item.getTitle() 
 						+ " could not be picked up because both of " 
 						+ getTitle() + "'s hands are full. ");
 			}
@@ -63,7 +63,7 @@ public class Wizard extends Player {
 				suitArea.set(item);
 			}
 			else {
-				throw new EquipmentException(item.titleToString() 
+				throw new EquipmentException(item.getTitle() 
 						+ " could not be equipped because " 
 						+ getTitle() + " is already wearing a suit. ");
 			}
@@ -79,7 +79,7 @@ public class Wizard extends Player {
 						leftHand.set((Magical) item);
 					}
 					catch (NullItemException ITE) {
-						throw new EquipmentException(item.titleToString() + "could not be equpped to " + getTitle() +"'s left hand. ");
+						throw new EquipmentException(item.getTitle() + "could not be equpped to " + getTitle() +"'s left hand. ");
 					}
 				}
 				else if(rightHand.isEmpty()) {
@@ -87,7 +87,7 @@ public class Wizard extends Player {
 						rightHand.set((Magical) item);
 					}
 					catch (NullItemException ITE) {
-						throw new EquipmentException(item.titleToString() + "could not be equpped to " + getTitle() +"'s right hand. ");
+						throw new EquipmentException(item.getTitle() + "could not be equpped to " + getTitle() +"'s right hand. ");
 					}
 				}
 				else {
@@ -110,13 +110,13 @@ public class Wizard extends Player {
 				try {
 					addtoInventory((Magical) item);
 				} catch (InventoryException e) {
-					throw new EquipmentException(item.titleToString() 
+					throw new EquipmentException(item.getTitle() 
 							+ " could not be picked up because " + getTitle() + "'s "
 							+ "inventory is full");
 				}
 				break;
 			default:
-				throw new EquipmentException(item.titleToString() 
+				throw new EquipmentException(item.getTitle() 
 						+ " could not be equipped to " 
 						+ getTitle() + ", because Magical items need a specified body area. ");
 			}
@@ -124,7 +124,7 @@ public class Wizard extends Player {
 		else if(item instanceof TwoHandedWeapon) {
 			throw new EquipmentException(item.getName() 
 					+ " could not be equipped because "
-					+ "wizards cannot use " + item.typeToString() + "s. ");
+					+ "wizards cannot use " + item.getType() + "s. ");
 		}
 		changeStats(item.getStatChange());
 	}

@@ -17,7 +17,7 @@ public class Magical extends Item {
 	}
 	
 	@Override
-	public String typeToString() {
+	public String getType() {
 		return "Magical item";
 	}
 }

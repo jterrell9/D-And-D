@@ -79,7 +79,7 @@ public class DropCommand extends CommandHandler {
 						try {
 							dropItem = item;
 							player.removeFromInventory(dropItem);
-							output.print(player.getTitle() + " has dropped " + dropItem.titleToString() + " "
+							output.print(player.getTitle() + " has dropped " + dropItem.getTitle() + " "
 									+ "from their inventory. ");
 						}
 						catch (InventoryException IE) {

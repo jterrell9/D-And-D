@@ -55,7 +55,7 @@ public class PickupCommand extends CommandHandler {
 				Item item = room.getItem(args[0]);
 				player.pickup(item);
 				room.removeItem(item.getName());
-				output.print(player.getTitle() + " has equipped " + item.titleToString() + ". ");
+				output.print(player.getTitle() + " has equipped " + item.getTitle() + ". ");
 			}
 			catch(NullItemException | EquipmentException E) {
 				output.print(E.getMessage());

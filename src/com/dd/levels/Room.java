@@ -94,7 +94,7 @@ public class Room implements Serializable {
 	
 	public Item getItem(Item item) throws NullItemException {
 		if(!itemMap.containsValue(item)) {
-			throw new NullItemException(item.titleToString() + " is not found in this room. ");
+			throw new NullItemException(item.getTitle() + " is not found in this room. ");
 		}
 		return itemMap.get(item.getName());
 	}
@@ -120,7 +120,7 @@ public class Room implements Serializable {
 		}
 		if(hasItems()) {
 			outputText.append("This room contains ");
-			getItemMap().forEach((k, v) -> outputText.append("a " + v.typeToString() + " called \"" + k + "\" "));
+			getItemMap().forEach((k, v) -> outputText.append("a " + v.getType() + " called \"" + k + "\" "));
 		}
 		return outputText.toString();
 	}
@@ -132,7 +132,7 @@ public class Room implements Serializable {
 		
 		StringBuilder outputText = new StringBuilder();
 		itemMap.values().forEach((v) -> outputText.append(
-				v.titleToString() + " "
+				v.getTitle() + " "
 				+ v.examineToString() + "\n"));
 		
 		return outputText.toString();

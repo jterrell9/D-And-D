@@ -57,7 +57,7 @@ public abstract class Item implements Serializable {
 		return modStr.toString();
 	}
 	
-	public String typeToString() {
+	public String getType() {
 		if(getClass().toString().length() > 19) {
 			return getClass().toString().substring(19);
 		}
@@ -67,10 +67,10 @@ public abstract class Item implements Serializable {
 	}
 	
 	public String examineToString(){
-		return statModToString() + " (" + typeToString() + ")";
+		return statModToString() + " (" + getType() + ")";
 	}
 	
-	public String titleToString() {
-		return "\"" + getName() + "\" the " + typeToString();
+	public String getTitle() {
+		return "\"" + getName() + "\" the " + getType();
 	}
 }

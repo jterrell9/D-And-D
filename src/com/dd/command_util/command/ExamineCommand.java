@@ -43,7 +43,7 @@ public class ExamineCommand extends CommandHandler {
 		default:
 			try{
 				Item item = room.getItem(args[0]);
-				output.print(item.titleToString() + " "
+				output.print(item.getTitle() + " "
 						+ item.examineToString() + "\n");
 				examineMonster = false;
 			}
