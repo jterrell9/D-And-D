@@ -109,7 +109,7 @@ public class Room implements Serializable {
 		
 	}
 	
-	public String enterRoomText() {
+	public String examineRoom() {
 		StringBuilder outputText = new StringBuilder();
 		if(isEmpty()){
 			outputText.append("This room is empty.");
@@ -125,15 +125,43 @@ public class Room implements Serializable {
 		return outputText.toString();
 	}
 	
+	public String examineItems() {
+		if(!hasItems()) {
+			return "There are no items in this room. ";
+		}
+		
+		StringBuilder outputText = new StringBuilder();
+		itemMap.values().forEach((v) -> outputText.append(
+				v.titleToString() + " "
+				+ v.examineToString() + "\n"));
+		
+		return outputText.toString();
+	}
+	
+	public String examineMonster() {
+		if(!hasMonster()) {
+			return "There are no monsters in this room. ";
+		}
+		
+		StringBuilder outputText = new StringBuilder();
+		monsterMap.values().forEach((v) -> outputText.append(
+				v.getTitle()
+				+ "\nHealth: " + v.getStats().getHealth()
+				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
+				+ "\n" + v.examineText()));
+		
+		return outputText.toString();
+	}
+	
 	public boolean isEmpty() {
-		return getItemMap().isEmpty() && getMonsterMap().isEmpty();
+		return itemMap.isEmpty() && monsterMap.isEmpty();
 	}
 	
 	public boolean hasMonster() {
-		return !getMonsterMap().isEmpty();
+		return !monsterMap.isEmpty();
 	}
 	
 	public boolean hasItems() {
-		return !getItemMap().isEmpty();
+		return !itemMap.isEmpty();
 	}
 }

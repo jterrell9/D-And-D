@@ -67,7 +67,7 @@ public abstract class CommandHandler {
 				monster.attack(player);
 				globalOutputLog.printToLog(monster.getText() + "\n");
 				if(examineMonster) {
-					examineMonster();
+					globalOutputLog.printToLog(room.examineMonster());
 				}
 			}
 			catch(NullMonsterException NME) {
@@ -75,32 +75,6 @@ public abstract class CommandHandler {
 			}
 		}
 		monsterAttack = true;
-	}
-	
-	public void examineRoom() {
-		globalOutputLog.printToLog(room.enterRoomText());
-	}
-	
-	public void examineItems() {
-		if(!room.hasItems()) {
-			globalOutputLog.printToLog("There are no items in this room. ");
-			return;
-		}
-		room.getItemMap().values().forEach((v) -> globalOutputLog.printToLog(
-				v.titleToString() + " "
-				+ v.examineToString() + "\n"));
-	}
-	
-	public void examineMonster() {
-		if(!room.hasMonster()) {
-			globalOutputLog.printToLog("There are no monsters in this room. ");
-			return;
-		}
-		room.getMonsterMap().values().forEach((v) -> globalOutputLog.printToLog(
-				v.getTitle()
-				+ "\nHealth: " + v.getStats().getHealth()
-				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-				+ "\n" + v.examineText()));
 	}
 	
 	public boolean isDead() {

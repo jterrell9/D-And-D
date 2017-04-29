@@ -96,7 +96,7 @@ public class RunningGameController extends GameSceneController{
 				+ printLnTitle('~', " Dungeon Master ", 72)
 				+ "Hello " + player.getType() + " " + player.getName() + ". "
 						+ "You have found yourself in a dark dungeon room. You see doors leading to other rooms. ");
-		output.appendText(startRoom.enterRoomText());
+		output.appendText(startRoom.examineRoom());
 		
 	}
 	

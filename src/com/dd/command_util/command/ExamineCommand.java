@@ -27,17 +27,17 @@ public class ExamineCommand extends CommandHandler {
     	
     	switch(args[0].toLowerCase()) {
     	case "room":
-    		examineRoom();
+    		outputLog.printToLog(room.examineRoom());
     		examineMonster = false;
 			break;
     	case "monsters":
 		case "monster":
-			examineMonster();
+			outputLog.printToLog(room.examineMonster());
 			examineMonster = false;
 			break;
 		case "item":
 		case "items":
-			examineItems();
+			outputLog.printToLog(room.examineItems());
 			examineMonster = false;
 			break;
 		default:

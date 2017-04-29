@@ -109,6 +109,6 @@ public class DropCommand extends CommandHandler {
 			return;
 		}
 		outputLog.printToLog("This room now contains the following items:\n");
-		examineItems();	
+		outputLog.printToLog(room.examineItems());	
 	}
 }

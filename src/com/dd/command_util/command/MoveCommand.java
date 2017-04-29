@@ -33,7 +33,7 @@ public class MoveCommand extends CommandHandler {
 			if(dungeonMap.isRoomInDir(position, Direction.NORTH)){
 				position.moveNorth();
 				outputLog.printToLog("The " + player.getTitle() + " has moved through the North door. ");
-				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
+				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).examineRoom());
 			}
 			else{
 				outputLog.printToLog("No North Door! ");
@@ -44,7 +44,7 @@ public class MoveCommand extends CommandHandler {
 			if(dungeonMap.isRoomInDir(position, Direction.SOUTH)){
 				position.moveSouth();
 				outputLog.printToLog(player.getTitle() + " has moved through the South door. ");
-				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
+				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).examineRoom());
 			}
 			else{
 				outputLog.printToLog("No South Door! ");
@@ -55,7 +55,7 @@ public class MoveCommand extends CommandHandler {
 			if(dungeonMap.isRoomInDir(position, Direction.EAST)){
 				position.moveEast();
 				outputLog.printToLog(player.getTitle() + " has moved through the East door. ");
-				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
+				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).examineRoom());
 			}
 			else{
 				outputLog.printToLog("No East Door! ");
@@ -66,7 +66,7 @@ public class MoveCommand extends CommandHandler {
 			if(dungeonMap.isRoomInDir(position, Direction.WEST)){
 				position.moveWest();
 				outputLog.printToLog(player.getTitle() + " has moved through the West door. ");
-				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).enterRoomText());
+				outputLog.printToLog(dungeonMap.getRoom(player.getPostion()).examineRoom());
 			}
 			else{
 				outputLog.printToLog("No West Door! ");
