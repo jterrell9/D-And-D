@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
+import com.dd.command_util.LocalCommandOutputLog;
 import com.dd.exceptions.*;
 import com.dd.items.*;
 

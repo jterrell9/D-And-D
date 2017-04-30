@@ -5,10 +5,11 @@ import java.io.Serializable;
 import com.dd.Stats;
 import com.dd.StatModifier;
 
-public abstract class Item implements Serializable {
+public class Item implements Serializable{
 	
 	protected String name;
-	protected StatModifier statModifier;
+	protected Stats statModifier;
+	protected int index;
 	
 	public Item(String name) {
 		setName(name);
@@ -74,3 +75,4 @@ public abstract class Item implements Serializable {
 		return "\"" + getName() + "\" the " + getType();
 	}
 }
+

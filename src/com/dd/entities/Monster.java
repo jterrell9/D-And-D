@@ -23,4 +23,12 @@ public abstract class Monster extends Entity {
 	public String getTitle() {
 		return "\"" + getName() + "\" the " + getType();
 	}
+
+	public enum MonsterType{
+		BEHOLDER,
+		DRAGON,
+		GOBLIN,
+		SKELETON,
+		ZOMBIE
+	}
 }

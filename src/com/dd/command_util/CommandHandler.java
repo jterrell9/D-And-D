@@ -44,9 +44,9 @@ public abstract class CommandHandler {
 			dead = true;
 		}
 	}
-	
-	public void setGlobalOutput(CommandOutputLog output) {
-		globalOutput = output;
+
+	public void setGlobalOutput(CommandOutputLog outputLog) {
+		globalOutput = outputLog;
 	}
 	
 	public void monsterAttack() {
@@ -68,6 +68,10 @@ public abstract class CommandHandler {
 		monsterAttack = true;
 	}
 	
+	public void setPlayer(Player player){
+		this.player = player;
+	}
+
 	public boolean isDead() {
 		return dead;
 	}

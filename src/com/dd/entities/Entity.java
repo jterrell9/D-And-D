@@ -1,8 +1,8 @@
 package com.dd.entities;
 
-import java.io.Serializable;
-
 import com.dd.Stats;
+
+import java.io.Serializable;
 
 public abstract class Entity implements Serializable{
 

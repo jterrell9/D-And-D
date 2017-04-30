@@ -2,11 +2,14 @@ package com.dd;
 
 import com.dd.SceneControllerTuple;
 import com.dd.controller_util.ControllerArgumentPackage;
-import java.io.IOException;
+
+import java.io.*;
 import java.lang.IllegalArgumentException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +18,7 @@ import javafx.stage.Stage;
 public class DandD extends Application {
     private static Stage stage;
     private static Map<String, SceneControllerTuple> gameSceneControllerMap = new HashMap<String, SceneControllerTuple>();
+    private static UUID gameUUID;
 
     public static void main(String[] args) {
     	launch(args);
@@ -22,6 +26,29 @@ public class DandD extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        try {
+            File uuidFile = new File("GameUUID.ser.uuid");
+            FileInputStream fis = new FileInputStream(uuidFile);
+            ObjectInputStream in = new ObjectInputStream(fis);
+            gameUUID = (UUID)in.readObject();
+            in.close();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            gameUUID = UUID.randomUUID();
+            FileOutputStream fos = null;
+            ObjectOutputStream out = null;
+            try {
+                String filename = "GameUUID.ser.uuid";
+                fos = new FileOutputStream(filename);
+                out = new ObjectOutputStream(fos);
+                out.writeObject(gameUUID);
+                out.close();
+             }
+            catch (IOException ioE) {
+                System.exit(1);
+            }
+        }
+
         try {
             stage = primaryStage;
             stage.setWidth(1280);
@@ -78,5 +105,9 @@ public class DandD extends Application {
                     + "\" is not registered with the GameRunner. GameScene unchanged.");
         tuple.getController().setup(args);
         stage.setScene(tuple.getScene());
+    }
+
+    public static UUID getGameUUID(){
+        return gameUUID;
     }
 }
