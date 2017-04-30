@@ -6,8 +6,4 @@ public class Potion extends Item {
 		super(name);
 		super.setStatChange(healthGain, 0, 0, 0);
 	}
-	
-	public Potion() {
-		super();
-	}
 }

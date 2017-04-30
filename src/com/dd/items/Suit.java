@@ -5,8 +5,4 @@ public class Suit extends Physical {
 	public Suit(String name, int defenseGain) {
 		super(name, 0, defenseGain);
 	}
-	
-	public Suit() {
-		super();
-	}
 }

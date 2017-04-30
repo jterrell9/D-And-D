@@ -43,14 +43,14 @@ public class Dragon extends Monster {
     @Override
     public int takeDamage(int damage) {
     	return super.takeDamage(damage, "You take your sword and ask for a blessing from any god that will hear. You leap up and" +
-                " with a solid heave take " + titleToString() + "! The battle is won! ");
+                " with a solid heave take " + getTitle() + "! The battle is won! ");
     }
     
     @Override
     public void attack(Entity entity) {
         Random random = new Random();
         if(breathAttack){
-            super.attack(entity, 5, titleToString() + "breathes at you with a fiery breath. It's lungs look as if they collapse a bit. ");
+            super.attack(entity, 5, getTitle() + "breathes at you with a fiery breath. It's lungs look as if they collapse a bit. ");
             breathAttack = false;
         }else{
             if(random.nextInt(5) + 1 == 6){
@@ -66,16 +66,16 @@ public class Dragon extends Monster {
         return "As you enter the large room, the first thing that catches your eye is jewels, mostly " + dragColor
                 + ". As you walk around the abnormally large room, you hear a faint hum behind you. As you turn around, "
                 + "a giant " + dragColor + " scaled dragon faces you, nostrils flared. \"Fool! You think you could steal "
-                + "from " + titleToString() + " dragon? For this, you shall die!\". ";
+                + "from " + getTitle() + " dragon? For this, you shall die!\". ";
     }
 
     @Override
     public String examineText() {
-        return titleToString() + "The sound of the name vibrates the air. The name itself causes you to tremble in fear. ";
+        return getTitle() + "The sound of the name vibrates the air. The name itself causes you to tremble in fear. ";
     }
     
     @Override
-	public String typeToString() {
+	public String getType() {
 		return dragColor + " Dragon";
 	}
 }

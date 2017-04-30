@@ -32,7 +32,7 @@ public class TwoHands implements Serializable {
 			this.twoHandedWeapon = (TwoHandedWeapon) item;
 		}
 		else {
-			throw new NullItemException(item.titleToString() + " cannot be equipped to both hands. ");
+			throw new NullItemException(item.getTitle() + " cannot be equipped to both hands. ");
 		}
 	}
 	

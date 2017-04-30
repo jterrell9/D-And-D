@@ -13,11 +13,11 @@ public class AttackCommand extends CommandHandler {
     }
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
-    	setGlobalOutputLog(outputLog);
+    public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException{
+    	setGlobalOutput(output);
 		updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		output.print(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] != null) {
@@ -28,15 +28,15 @@ public class AttackCommand extends CommandHandler {
 			monster = room.getMonster();
 			player.clearText();
 			player.attack(monster);
-			outputLog.printToLog(player.getText());
+			output.print(player.getText());
 			player.clearText();
-			if(monster.died()) {
+			if(monster.isDead()) {
 				room.removeMonster(monster);
 			}
 			examineMonster = true;
 		}
 		catch(NullMonsterException UME) {
-			outputLog.printToLog(UME.getMessage());
+			output.print(UME.getMessage());
 		}
     }
     
@@ -45,7 +45,7 @@ public class AttackCommand extends CommandHandler {
 			room.removeMonster(monsterName);
 		}
 		catch(NullMonsterException UME) {
-			globalOutputLog.printToLog(UME.getMessage());
+			globalOutput.print(UME.getMessage());
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class AttackCommand extends CommandHandler {
 			room.removeMonster(monster);
 		}
 		catch(NullMonsterException UME) {
-			globalOutputLog.printToLog(UME.getMessage());
+			globalOutput.print(UME.getMessage());
 		}
 	}
 }

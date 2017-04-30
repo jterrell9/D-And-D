@@ -17,11 +17,11 @@ public class NetworkHandledCommand extends CommandHandler{
     }
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog){
-    	setGlobalOutputLog(outputLog);
+    public void handleCommand(String commandName, String[] args, CommandOutputLog output){
+    	setGlobalOutput(output);
     	updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		output.print(player.getTitle() + " is dead. ");
     		return;
     	}
     }

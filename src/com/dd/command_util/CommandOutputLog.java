@@ -3,13 +3,13 @@ package com.dd.command_util;
 import javafx.scene.control.TextInputControl;
 
 public class CommandOutputLog {
-    private TextInputControl outputLog;
+    private TextInputControl output;
 
-    public CommandOutputLog(TextInputControl outputLog){
-        this.outputLog = outputLog;
+    public CommandOutputLog(TextInputControl output){
+        this.output = output;
     }
 
-    public void printToLog(String outputStr){
-        outputLog.appendText(outputStr);
+    public void print(String outputStr){
+        output.appendText(outputStr);
     }
 }

@@ -13,7 +13,7 @@ public abstract class CommandHandler {
 	protected static Room room;
 	protected static Player player;
 	protected static Monster monster;
-	protected static CommandOutputLog globalOutputLog;
+	protected static CommandOutputLog globalOutput;
 	protected static boolean examineMonster;
 	protected static boolean monsterAttack = true;
 	protected boolean dead = false;
@@ -22,7 +22,7 @@ public abstract class CommandHandler {
     	initGameState(gameState);
 	}
 	
-	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException;
+	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException;
 
 	protected void initGameState(GameState activeState) {
 		this.gameState = activeState;
@@ -38,25 +38,16 @@ public abstract class CommandHandler {
 		}
 		catch (NullMonsterException NME) {
 			monster = null;
-			//globalOutputLog.printToLog(NME.getMessage());
+			//globalOutput.print(NME.getMessage());
 		}
-		if(player.died()){
+		if(player.isDead()){
 			dead = true;
 		}
 	}
 	
-	public void setGlobalOutputLog(CommandOutputLog outputLog) {
-		globalOutputLog = outputLog;
+	public void setGlobalOutput(CommandOutputLog output) {
+		globalOutput = output;
 	}
-	
-	protected String getArgsString(String args[]){
-        String argsStr = "";
-        for(int i = 0; i < args.length - 1; i++) {
-            argsStr += args[0] + " ";
-        }
-        argsStr += args[args.length - 1];
-        return argsStr;
-    }
 	
 	public void monsterAttack() {
 		updateState();
@@ -65,42 +56,16 @@ public abstract class CommandHandler {
 	    		monster = room.getMonster();
 	    		monster.clearText();
 				monster.attack(player);
-				globalOutputLog.printToLog(monster.getText() + "\n");
+				globalOutput.print(monster.getText() + "\n");
 				if(examineMonster) {
-					examineMonster();
+					globalOutput.print(room.examineMonster());
 				}
 			}
 			catch(NullMonsterException NME) {
-				globalOutputLog.printToLog(NME.getMessage());
+				globalOutput.print(NME.getMessage());
 			}
 		}
 		monsterAttack = true;
-	}
-	
-	public void examineRoom() {
-		globalOutputLog.printToLog(room.enterRoomText());
-	}
-	
-	public void examineItems() {
-		if(!room.hasItems()) {
-			globalOutputLog.printToLog("There are no items in this room. ");
-			return;
-		}
-		room.getItemMap().values().forEach((v) -> globalOutputLog.printToLog(
-				v.titleToString() + " "
-				+ v.examineToString() + "\n"));
-	}
-	
-	public void examineMonster() {
-		if(!room.hasMonster()) {
-			globalOutputLog.printToLog("There are no monsters in this room. ");
-			return;
-		}
-		room.getMonsterMap().values().forEach((v) -> globalOutputLog.printToLog(
-				v.titleToString()
-				+ "\nHealth: " + v.getStats().getHealth()
-				+ "\nAttack/Defense: " + v.getStats().getAttack() + "/" + v.getStats().getDefense()
-				+ "\n" + v.examineText()));
 	}
 	
 	public boolean isDead() {

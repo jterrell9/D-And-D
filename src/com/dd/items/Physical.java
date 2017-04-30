@@ -6,8 +6,4 @@ public abstract class Physical extends Item {
 		super(name);
 		super.setStatChange(0, 0, attackGain, defenseGain);
 	}
-	
-	public Physical() {
-		super();
-	}
 }
