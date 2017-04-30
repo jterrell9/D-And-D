@@ -3,6 +3,7 @@ package com.dd.controller_util.controller;
 import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.exceptions.InvalidCommandException;
+import com.dd.command_util.CommandHandler;
 import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
@@ -191,7 +192,7 @@ public class RunningGameController extends GameSceneController{
 		output.appendText(startRoom.enterRoomText());
 		
 		CommandOutputLog outputLog = new CommandOutputLog(output);
-		commandParser = new CommandParser(outputLog, gameState);
+		commandParser = new CommandParser(gameState);
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 		commandParser.registerCommand("examine", new ExamineCommand(gameState));
 		commandParser.registerCommand("drop", new DropCommand(gameState));
@@ -199,6 +200,7 @@ public class RunningGameController extends GameSceneController{
 		commandParser.registerCommand("help", new HelpCommand(gameState));
 		commandParser.registerCommand("pickup", new PickupCommand(gameState));
 		commandParser.registerCommand("use", new UseCommand(gameState));
+		CommandParser.setOutputLog(outputLog);
 	}
 
 	@Override

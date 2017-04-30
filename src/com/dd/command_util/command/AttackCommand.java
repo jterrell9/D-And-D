@@ -2,7 +2,6 @@ package com.dd.command_util.command;
 
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
-import com.dd.command_util.CommandOutputLog;
 import com.dd.entities.*;
 import com.dd.exceptions.*;
 
@@ -13,11 +12,9 @@ public class AttackCommand extends CommandHandler {
     }
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
-    	setGlobalOutputLog(outputLog);
-		updateState();
-    	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    public void handleCommand(String commandName, String[] args) throws InvalidArgumentException{
+    	if(isDead()){
+    		toLog(player().titleToString() + " is dead. ");
     		return;
     	}
     	if(args[0] != null) {
@@ -25,36 +22,32 @@ public class AttackCommand extends CommandHandler {
     	}
 		
 		try{
-			monster = room.getMonster();
-			player.clearText();
-			player.attack(monster);
-			outputLog.printToLog(player.getText());
-			player.clearText();
-			if(monster.died()) {
-				room.removeMonster(monster);
+			player().attack(monster());
+			if(player().died()) {
+				room().removeMonster(monster());
 			}
 			examineMonster = true;
 		}
 		catch(NullMonsterException UME) {
-			outputLog.printToLog(UME.getMessage());
+			toLog(UME.getMessage());
 		}
     }
     
 	public void monsterDied(String monsterName) {
 		try{
-			room.removeMonster(monsterName);
+			room().removeMonster(monsterName);
 		}
 		catch(NullMonsterException UME) {
-			globalOutputLog.printToLog(UME.getMessage());
+			toLog(UME.getMessage());
 		}
 	}
 	
 	public void monsterDied(Monster monster) {
 		try{
-			room.removeMonster(monster);
+			room().removeMonster(monster);
 		}
 		catch(NullMonsterException UME) {
-			globalOutputLog.printToLog(UME.getMessage());
+			toLog(UME.getMessage());
 		}
 	}
 }

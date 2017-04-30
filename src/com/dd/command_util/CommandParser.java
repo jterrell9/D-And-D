@@ -12,14 +12,14 @@ import java.util.Map;
 
 public class CommandParser {
     private Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
-    private CommandOutputLog outputLog;
+    public static CommandOutputLog outputLog;
     private String input;
+    private GameState gameState;
     private Player player;
 
     public CommandParser(){}
     
-    public CommandParser(CommandOutputLog outputLog, GameState game) {
-        this.outputLog = outputLog;
+    public CommandParser(GameState game, CommandOutputLog outputLog) {
         this.player = game.getActivePlayer();
     }
     
@@ -32,9 +32,9 @@ public class CommandParser {
     		throw new InvalidCommandException("You cannot start a command with a space. ");
     	}
     	
-    	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 72));
-    	outputLog.printToLog(player.titleToString() + ">> " + input + "\n");
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
+    	toLog("\n" + RunningGameController.printLnTitle('~', "", 72));
+    	toLog(player.titleToString() + ">> " + input + "\n");
+    	toLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
     	
     	String command = "";
     	String[] args = {null};
@@ -92,7 +92,7 @@ public class CommandParser {
                                                 + "\" is not registered with the CommandParser.");
         }
     	try {
-    		handler.handleCommand(command, args, outputLog);
+    		handler.handleCommand(command, args);
     		if(!player.died()) {
     			handler.monsterAttack();
     		}
@@ -101,6 +101,10 @@ public class CommandParser {
     		outputLog.printToLog(E.getMessage());
     	}
     }
+    
+    public static void toLog(String text) {
+		outputLog.printToLog(text);
+	}
     
     private boolean hasArg() {
     	String[] inputArray = input.split(" ");
@@ -152,7 +156,7 @@ public class CommandParser {
                                                 + "\" has not been registered with this CommandParser. Un-registration failed.");
     }
 
-    public void setOutputLog(CommandOutputLog outputLog){
-        this.outputLog = outputLog;
+    public static void setOutputLog(CommandOutputLog outputLog){
+        CommandParser.outputLog = outputLog;
     }
 }

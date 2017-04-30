@@ -12,4 +12,10 @@ public class CommandOutputLog {
     public void printToLog(String outputStr){
         outputLog.appendText(outputStr);
     }
+    
+    public void printBlueToLog(String outputStr){
+    	outputLog.setStyle("-fx-text-inner-color: blue;");
+    	outputLog.appendText(outputStr);
+    	outputLog.setStyle("-fx-text-inner-color: black;");
+    }
 }
