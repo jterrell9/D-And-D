@@ -29,7 +29,7 @@ public class Hand implements Serializable {
 			this.item = item;
 		}
 		else {
-			throw new NullItemException(item.titleToString() + " cannot be equipped to left hand. ");
+			throw new NullItemException(item.getTitle() + " cannot be equipped to left hand. ");
 		}
 	}
 	

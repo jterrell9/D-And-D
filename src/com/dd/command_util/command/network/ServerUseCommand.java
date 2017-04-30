@@ -14,7 +14,7 @@ public class ServerUseCommand extends UseCommand{
     @Override
     public void handleCommand(String commandName, String commandAgrs[], CommandOutputLog outputLog) throws InvalidArgumentException {
         super.handleCommand(commandName, commandAgrs, outputLog);
-        outputLog.printToLog(ServerInstructionBuilder.buildSetStatsInstruction(gameState.getActivePlayer().getStats()));
-        outputLog.printToLog(ServerInstructionBuilder.buildReleaseInputInstruction());
+        outputLog.print(ServerInstructionBuilder.buildSetStatsInstruction(gameState.getActivePlayer().getStats()));
+        outputLog.print(ServerInstructionBuilder.buildReleaseInputInstruction());
     }
 }

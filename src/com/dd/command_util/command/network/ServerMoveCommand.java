@@ -35,8 +35,8 @@ public class ServerMoveCommand extends MoveCommand{
                     dir = Direction.WEST;
                     break;
             }
-            outputLog.printToLog(ServerInstructionBuilder.buildMovePlayerInstruction(dir));
+            outputLog.print(ServerInstructionBuilder.buildMovePlayerInstruction(dir));
         }
-        outputLog.printToLog(ServerInstructionBuilder.buildReleaseInputInstruction());
+        outputLog.print(ServerInstructionBuilder.buildReleaseInputInstruction());
     }
 }

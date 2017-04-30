@@ -19,21 +19,21 @@ public class Inventory implements Serializable {
 	
 	public Item get(Item item) throws InventoryException {
 		if(!items.containsValue(item)) {
-			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
+			throw new InventoryException(item.getTitle() + " is not in your inventory. ");
 		}
 		return items.get(item.getName());
 	}
 	
 	public Item get(String itemName) throws InventoryException {
 		if(!items.containsKey(itemName)) {
-			throw new InventoryException(items.get(itemName).titleToString() + " is not in your inventory. ");
+			throw new InventoryException(items.get(itemName).getTitle() + " is not in your inventory. ");
 		}
 		return items.get(itemName);
 	}
 	
 	public void add(Item item) throws InventoryException {
 		if(items.size() >= maxSize) {
-			throw new InventoryException(item.titleToString() + " cannot be added to your inventory "
+			throw new InventoryException(item.getTitle() + " cannot be added to your inventory "
 					+ "because it is full. ");
 		}
 		if(item instanceof Artifact 
@@ -47,22 +47,19 @@ public class Inventory implements Serializable {
 		}
 	}
 	
-	public void remove(Item item) throws InventoryException {
-		if(items.containsValue(item)) {
-			this.items.remove(item);
+	public Item remove(Item item) throws InventoryException {
+		if (!items.containsValue(item)) {
+			throw new InventoryException(item.getTitle() + " is not in your inventory. ");
 		}
-		else {
-			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
-		}
+		return items.remove(item.getName());
 	}
 	
-	public void remove(String itemName) throws InventoryException {
-		if(items.containsKey(itemName)) {
-			this.items.remove(items.get(itemName));
-		}
-		else {
+	
+	public Item remove(String itemName) throws InventoryException {
+		if(!items.containsKey(itemName)) {
 			throw new InventoryException(itemName + " is not in your inventory. ");
-		}
+		}		
+		return items.remove(items.get(itemName));
 	}
 	
 	public Map<String, Item> getInventoryMap() {

@@ -16,11 +16,11 @@ public class ServerCommandParser extends CommandParser {
     public void parse(String userInput){
         input = userInput;
         if(input == "") {
-            outputLog.printToLog(ServerInstructionBuilder.buildPrintMessageInstruction("Please enter a command. "));
+            output.print(ServerInstructionBuilder.buildPrintMessageInstruction("Please enter a command. "));
             return;
         }
         if(input.charAt(0) == ' ') {
-            outputLog.printToLog(ServerInstructionBuilder.buildPrintMessageInstruction("You cannot start a command with a space. "));
+            output.print(ServerInstructionBuilder.buildPrintMessageInstruction("You cannot start a command with a space. "));
             return;
         }
 
@@ -58,7 +58,7 @@ public class ServerCommandParser extends CommandParser {
                     argumentList.add(argArray[i].substring(1, argArray[i].length() - 1));
                 }
                 else {
-                    outputLog.printToLog(ServerInstructionBuilder.buildPrintMessageInstruction("Please check your usage of quotation marks. "));
+                    output.print(ServerInstructionBuilder.buildPrintMessageInstruction("Please check your usage of quotation marks. "));
                     return;
                 }
             }
@@ -70,17 +70,17 @@ public class ServerCommandParser extends CommandParser {
 
         CommandHandler handler = commandMap.get(command);
         if(handler == null) {
-            outputLog.printToLog(ServerInstructionBuilder.buildPrintMessageInstruction("The command \"" + command + "\" is not registered with the CommandParser."));
+            output.print(ServerInstructionBuilder.buildPrintMessageInstruction("The command \"" + command + "\" is not registered with the CommandParser."));
             return;
         }
         try {
-            handler.handleCommand(command, args, outputLog);
-            if(!player.died()) {
+            handler.handleCommand(command, args, output);
+            if(!player.isDead()) {
                 handler.monsterAttack();
             }
         }
         catch (InvalidArgumentException E) {
-            outputLog.printToLog(E.getMessage());
+            output.print(E.getMessage());
         }
     }
 }

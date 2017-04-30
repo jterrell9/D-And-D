@@ -14,13 +14,15 @@ public class HelpCommand extends CommandHandler {
 	}
 	
 	@Override
-	public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
+	public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException{
+		setGlobalOutput(output);
+    	updateState();
 		if(args[0] != null){
 			throw new InvalidArgumentException("The " + commandName + " command should not be followed by any arguments. ");
 		}
     	monsterAttack = false;
     	
-		outputLog.printToLog(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 72)
+		output.print(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 72)
 				+ "\"attack <name>\"\n"
 				+ "Initiate an attack against a monster or player.\n"
 				+ "\n"

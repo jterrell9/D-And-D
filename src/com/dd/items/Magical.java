@@ -12,16 +12,12 @@ public class Magical extends Item {
 		this.bodyArea = bodyArea;
 	}
 	
-	public Magical() {
-		super();
-	}
-	
 	public Equip getBodyArea() {
 		return bodyArea;
 	}
 	
 	@Override
-	public String typeToString() {
+	public String getType() {
 		return "Magical item";
 	}
 }

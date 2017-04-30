@@ -38,10 +38,10 @@ public class NetworkHandledCommand extends CommandHandler{
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException{
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		outputLog.print(player.getTitle() + " is dead. ");
     		return;
     	}
-    	setGlobalOutputLog(outputLog);
+    	setGlobalOutput(outputLog);
 
     	if(commandName.equals("help")){
             if(args[0] != null){
@@ -49,7 +49,7 @@ public class NetworkHandledCommand extends CommandHandler{
             }
             monsterAttack = false;
 
-            outputLog.printToLog(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 72)
+            outputLog.print(RunningGameController.printLnTitle('~', "AVAILABLE COMMANDS", 72)
                     + "\"attack <name>\"\n"
                     + "Initiate an attack against a monster or player.\n"
                     + "\n"

@@ -1,10 +1,14 @@
 package com.dd.entities;
 
+import java.util.HashMap;
+
 import com.dd.Stats;
 import com.dd.dataTypes.bodyAreas.*;
 import com.dd.dataTypes.enums.*;
+import com.dd.dd_util.ConflictHandlingMap;
 import com.dd.items.*;
 import com.dd.levels.MapPosition;
+import com.sun.javafx.collections.MappingChange.Map;
 import com.dd.exceptions.*;
 
 public abstract class Player extends Entity {
@@ -122,13 +126,12 @@ public abstract class Player extends Entity {
 	
 	public void addtoInventory(Item item) throws InventoryException {
 		this.inventory.add(item);
-		
 	}
 
 	public void removeFromInventory(Item item) throws InventoryException {
 		resetDropSuccess();
 		if(!inventory.getInventoryMap().containsValue(item)) {
-			throw new InventoryException(item.titleToString() + " is not in your inventory. ");
+			throw new InventoryException(item.getTitle() + " is not in your inventory. ");
 		}
 		this.inventory.remove(item);
 		dropSuccess = true;
@@ -139,7 +142,7 @@ public abstract class Player extends Entity {
 		if (!inventory.getInventoryMap().containsKey(itemName)) {
 			throw new InventoryException(itemName + " is not in your inventory. ");
 		}
-		this.inventory.remove(inventory.get(itemName));
+		this.inventory.remove(itemName);
 		dropSuccess = true;
 	}
 

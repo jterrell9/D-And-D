@@ -15,36 +15,58 @@ public class UseCommand extends CommandHandler {
     }
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog outputLog) throws InvalidArgumentException {
+    public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
+    	setGlobalOutput(output);
+		updateState();
     	if(dead){
-    		outputLog.printToLog(player.titleToString() + " is dead. ");
+    		output.print(player.getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
     		throw new InvalidArgumentException("Choose something to " + commandName + ". "
     				+ "Type \"help\" for help using the " + commandName +" command. ");
     	}
-    	setGlobalOutputLog(outputLog);
-		updateState();
-		
-    	Item item = room.hasPotion(args[0]);
-    	if(item == null) {
-    		try {
-				item = player.getInventory().get(args[0]);
-			} catch (InventoryException IE) {
-				outputLog.printToLog(IE.getMessage());
-			}
+    	
+    	Item item = null;
+    	if(player.getInventory().getInventoryMap().containsKey(args[0])) {
+    		item = player.getInventory().getInventoryMap().get(args[0]);
     	}
+    	else {
+    		if(room.getItemMap().containsKey(args[0])) {
+        		item = room.getItemMap().get(args[0]);
+        	}
+        	else {
+        		output.print("this room does not conatain \""
+        				+ args[0] + "\". ");
+        		return;
+        	}
+    	}
+		
+//    	Item item = room.hasPotion(args[0]);
+//    	if(item != null) {
+//    		try {
+//				player.usePotion((Potion) item);
+//			} catch (EquipmentException EE) {
+//				outputLog.printToLog(EE.getMessage());
+//			}
+//    	}
+//    	else {
+//    		try {
+//				item = player.getInventory().get(args[0]);
+//			} catch (InventoryException IE) {
+//				outputLog.printToLog(IE.getMessage());
+//			}
+//    	}
     	if(item instanceof Potion) {
 			try {
 				player.usePotionFromInventory((Potion) item);
-				outputLog.printToLog(player.titleToString() + " has used " + item.titleToString() + ". ");
+				output.print(player.getTitle() + " has used " + item.getTitle() + ". ");
 			} catch (EquipmentException EE) {
-				outputLog.printToLog(EE.getMessage());
+				output.print(EE.getMessage());
 			}
     	}
     	else {
-    		outputLog.printToLog(item.titleToString() + " is not a Potion. ");
+    		output.print(item.getTitle() + " is not a Potion. ");
     		return;
     	}
     }

@@ -1,60 +1,53 @@
 package com.dd.entities;
 
 import com.dd.Stats;
-import com.dd.dd_util.Indexable;
 
 import java.io.Serializable;
 
-public abstract class Entity implements Serializable, Indexable{
+public abstract class Entity implements Serializable{
 
 	protected String name;
 	protected Stats stats;
-	protected boolean isAlive;
-	protected String text = "";
-	protected int index;
+	protected static String text = "";
 
 	public Entity(String name, int health, int maxHealth, int attack, int defense) {
 		setName(name);
 		setStats(new Stats(health, maxHealth, attack, defense));
-		isAlive = true;
 	}
 	
 	public Entity(String name, Stats stats) {
 		setName(name);
 		setStats(stats);
-		isAlive = true;
 	}
 	
 	public Entity(String name) {
 		setName(name);
 		setStats(new Stats(20, 20, 1, 0));
-		isAlive = true;
 	}
 	
 	public Entity() {
 		setName("player");
 		setStats(new Stats(20, 20, 1, 0));
-		isAlive = true;
 	}
 	
 	public void attack(Entity entity) {
         int damage = entity.takeDamage(attackDamage());
-        text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+        text += getTitle() + " deals " + damage + " damage to " + entity.getTitle() + ". ";
     }
 	
 	public void attack(Entity entity, String altText) {
         int damage = entity.takeDamage(attackDamage());
-        text += altText + titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+        text += altText + getTitle() + " deals " + damage + " damage to " + entity.getTitle() + ". ";
     }
 	
 	public void attack(Entity entity, int damage) {
         damage = entity.takeDamage(damage);
-        text += titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+        text += getTitle() + " deals " + damage + " damage to " + entity.getTitle() + ". ";
     }
 	
 	public void attack(Entity entity, int damage, String altText) {
         damage = entity.takeDamage(damage);
-        text += altText +titleToString() + " deals " + damage + " damage to " + entity.titleToString() + ". ";
+        text += altText + getTitle() + " deals " + damage + " damage to " + entity.getTitle() + ". ";
     }
 	
 	public int takeDamage(int damage){
@@ -64,7 +57,7 @@ public abstract class Entity implements Serializable, Indexable{
         }
 		stats.setHealth(stats.getHealth() - damageDealt);
 		if(!survives()){
-			text += titleToString() +" just died! ";
+			text += getTitle() +" just died! ";
 		}
 		return damageDealt;
 	}
@@ -76,7 +69,7 @@ public abstract class Entity implements Serializable, Indexable{
         }
 		stats.setHealth(stats.getHealth() - damageDealt);
 		if(!survives()){
-			text += addText+ titleToString() +" just died! ";
+			text += addText+ getTitle() +" just died! ";
 		}
 		return damageDealt;
 	}
@@ -84,32 +77,29 @@ public abstract class Entity implements Serializable, Indexable{
 	public boolean survives() {
 		if(stats.getHealth() <= 0) {
 			die();
-			return false;
 		}
 		return true;
 	}
 	
 	public void die() {
 		stats.setHealth(0);
-		isAlive = false;
 	}
 	
 	public void die(String addText) {
 		text += addText;
 		stats.setHealth(0);
-		isAlive = false;
 	}
 
 	public int attackDamage() {
 		return stats.getAttack();
 	}
 	
-	public String typeToString() {
+	public String getType() {
 		return getClass().toString().substring(30);
 	}
 	
-	public String titleToString() {
-		return getName() + " the " + typeToString();
+	public String getTitle() {
+		return getName() + " the " + getType();
 	}
 
 	public String getName() {
@@ -144,15 +134,7 @@ public abstract class Entity implements Serializable, Indexable{
 		text = "";
 	}
 	
-	public boolean died() {
-		return !isAlive;
-	}
-
-	public int getIndex(){
-		return index;
-	}
-
-	public void setIndex(int index){
-		this.index = index;
+	public boolean isDead() {
+		return stats.getHealth() == 0;
 	}
 }

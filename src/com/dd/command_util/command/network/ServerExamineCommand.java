@@ -14,6 +14,6 @@ public class ServerExamineCommand extends ExamineCommand{
     @Override
     public void handleCommand(String commandName, String commandAgrs[], CommandOutputLog outputLog) throws InvalidArgumentException {
         super.handleCommand(commandName, commandAgrs, outputLog);
-        outputLog.printToLog(ServerInstructionBuilder.buildReleaseInputInstruction());
+        outputLog.print(ServerInstructionBuilder.buildReleaseInputInstruction());
     }
 }

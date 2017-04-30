@@ -49,12 +49,12 @@ public class Skeleton extends Monster {
     }
     
     @Override
-	public String typeToString() {
+	public String getType() {
 		return "Skeleton";
 	}
     
     @Override
-    public String titleToString() {
+    public String getTitle() {
     	return "\"" + getName() + "\"";
     }
 }

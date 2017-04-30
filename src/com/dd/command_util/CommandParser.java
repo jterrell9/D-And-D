@@ -11,14 +11,14 @@ import java.util.Map;
 
 public class CommandParser {
     protected Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
-    protected CommandOutputLog outputLog;
+    protected CommandOutputLog output;
     protected String input;
     protected Player player;
 
     public CommandParser(){}
     
-    public CommandParser(CommandOutputLog outputLog, GameState game) {
-        this.outputLog = outputLog;
+    public CommandParser(CommandOutputLog output, GameState game) {
+        this.output = output;
         this.player = game.getActivePlayer();
     }
     
@@ -31,9 +31,9 @@ public class CommandParser {
     		throw new InvalidCommandException("You cannot start a command with a space. ");
     	}
     	
-    	outputLog.printToLog("\n" + RunningGameController.printLnTitle('~', "", 72));
-    	outputLog.printToLog(player.titleToString() + ">> " + input + "\n");
-    	outputLog.printToLog(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
+    	output.print("\n" + RunningGameController.printLnTitle('~', "", 72));
+    	output.print(player.getTitle() + ">> " + input + "\n");
+    	output.print(RunningGameController.printLnTitle('~', " Dungeon Master ", 72));
     	
     	String command = "";
     	String[] args = {null};
@@ -91,13 +91,13 @@ public class CommandParser {
                                                 + "\" is not registered with the CommandParser.");
         }
     	try {
-    		handler.handleCommand(command, args, outputLog);
-    		if(!player.died()) {
+    		handler.handleCommand(command, args, output);
+    		if(!player.isDead()) {
     			handler.monsterAttack();
     		}
     	}
     	catch (InvalidArgumentException E) {    		
-    		outputLog.printToLog(E.getMessage());
+    		output.print(E.getMessage());
     	}
     }
     
@@ -152,7 +152,7 @@ public class CommandParser {
     }
 
     public void setOutputLog(CommandOutputLog outputLog){
-        this.outputLog = outputLog;
+        this.output = outputLog;
     }
 
     public void setPlayer(Player player){

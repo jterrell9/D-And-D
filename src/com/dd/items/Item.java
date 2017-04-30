@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import com.dd.Stats;
 import com.dd.StatModifier;
-import com.dd.dd_util.Indexable;
 
-public class Item implements Serializable, Indexable{
+public class Item implements Serializable{
 	
 	protected String name;
 	protected Stats statModifier;
@@ -14,10 +13,6 @@ public class Item implements Serializable, Indexable{
 	
 	public Item(String name) {
 		setName(name);
-	}
-	
-	public Item() {
-		setName("blank item");
 	}
 	
 	public String getName() {
@@ -63,7 +58,7 @@ public class Item implements Serializable, Indexable{
 		return modStr.toString();
 	}
 	
-	public String typeToString() {
+	public String getType() {
 		if(getClass().toString().length() > 19) {
 			return getClass().toString().substring(19);
 		}
@@ -73,19 +68,11 @@ public class Item implements Serializable, Indexable{
 	}
 	
 	public String examineToString(){
-		return statModToString() + " (" + typeToString() + ")";
+		return statModToString() + " (" + getType() + ")";
 	}
 	
-	public String titleToString() {
-		return "\"" + getName() + "\" the " + typeToString();
-	}
-
-	public int getIndex(){
-		return index;
-	}
-
-	public void setIndex(int index){
-		this.index = index;
+	public String getTitle() {
+		return "\"" + getName() + "\" the " + getType();
 	}
 }
 

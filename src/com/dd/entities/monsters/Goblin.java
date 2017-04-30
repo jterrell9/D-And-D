@@ -24,16 +24,16 @@ public class Goblin extends Monster {
     @Override
     public String confrontText() {
         return "You enter a small room where you see a small humanoid creature. You approach it and hear a growl, "
-                + "\"You wanna mess with " + titleToString() + "? then come at me!\". ";
+                + "\"You wanna mess with " + getTitle() + "? then come at me!\". ";
     }
 
     @Override
     public String examineText() {
-        return titleToString() + ". He isn't very bright, but sure can hit hard";
+        return getTitle() + ". He isn't very bright, but sure can hit hard. ";
     }
     
     @Override
-	public String typeToString() {
+	public String getType() {
 		return "Goblin";
 	}
 }

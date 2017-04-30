@@ -10,10 +10,6 @@ public class OneHandedWeapon extends Physical {
         
     }
     
-    public OneHandedWeapon() {
-    	super();
-    }
-    
     public void setStatForWizard() {
     	attackGain -= 2;
     	if(attackGain < 1){
@@ -23,7 +19,7 @@ public class OneHandedWeapon extends Physical {
     }
     
     @Override
-    public String typeToString() {
+    public String getType() {
 		return "One Handed Weapon";
 	}
 }

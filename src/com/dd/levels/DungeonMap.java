@@ -320,7 +320,7 @@ public class DungeonMap implements Serializable {
 			}
 			else {
 				int magicNum = rand.nextInt(6);
-				room.addItem(new Magical(magicNames[magicNum], Equip.LEFTHAND, 1*magicNum, 1*magicNum, 3*magicNum, magicNum/3));
+				room.addItem(new Magical(magicNames[magicNum], Equip.LEFTHAND, 1*(magicNum +1), 1*(magicNum +1), 3*(magicNum +1), magicNum/3));
 			}
 		}
 		setRoom(room, new MapPosition(x, y));

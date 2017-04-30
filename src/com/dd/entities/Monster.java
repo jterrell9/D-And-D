@@ -7,21 +7,21 @@ public abstract class Monster extends Entity {
 	}
 	
 	public String confrontText() {
-        return "You encounter " + titleToString() + ". ";
+        return "You encounter " + getTitle() + ". ";
     }
 	
 	public String examineText() {
-        return titleToString();
+        return getTitle();
     }
 	
 	@Override
-	public String typeToString() {
+	public String getType() {
 		return "Monster";
 	}
 	
 	@Override
-	public String titleToString() {
-		return "\"" + getName() + "\" the " + typeToString();
+	public String getTitle() {
+		return "\"" + getName() + "\" the " + getType();
 	}
 
 	public enum MonsterType{

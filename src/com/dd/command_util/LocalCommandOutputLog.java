@@ -10,12 +10,12 @@ public class LocalCommandOutputLog extends CommandOutputLog{
     }
 
     @Override
-    public void printToLog(String outputStr){
+    public void print(String outputStr){
         outputLog.appendText(outputStr);
     }
 
     @Override
-    public void printToLog(byte output[]){
-        printToLog(new String(output));
+    public void print(byte output[]){
+        print(new String(output));
     }
 }

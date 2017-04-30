@@ -72,16 +72,16 @@ public class Zombie extends Monster {
 
     @Override
     public String examineText() {
-        return titleToString() + " looks hungry. The smell is awful eminating from the creature. ";
+        return getTitle() + " looks hungry. The smell is awful eminating from the creature. ";
     }
     
     @Override
-	public String typeToString() {
+	public String getType() {
 		return "Zombie";
 	}
     
     @Override
-    public String titleToString() {
+    public String getTitle() {
     	return "\"" + getName() + "\"";
     }
 }

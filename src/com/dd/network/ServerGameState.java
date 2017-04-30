@@ -36,11 +36,11 @@ public class ServerGameState extends GameState implements Serializable {
         }
     }
 
-    public void unregisterPlayer(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player passed to ServerGameState is null. Unregistration failed.");
+    public void unregisterPlayer(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("UUID passed to ServerGameState is null. Unregistration failed.");
         }
-        if (allRegisteredPlayers.remove(player.getIndex()) == null) {
+        if (allRegisteredPlayers.remove(id) == null) {
             throw new IllegalArgumentException("Player not registered in this GameState. Unregistration failed.");
         }
     }
@@ -58,11 +58,11 @@ public class ServerGameState extends GameState implements Serializable {
         }
     }
 
-    public void removeActivePlayer(Player player) {
-        if(player == null) {
-            throw new IllegalArgumentException("Player passed to ServerGameState is null. Removal failed.");
+    public void removeActivePlayer(UUID id) {
+        if(id == null) {
+            throw new IllegalArgumentException("UUID passed to ServerGameState is null. Removal failed.");
         }
-        if(allActivePlayers.remove(player.getIndex()) == null){
+        if(allActivePlayers.remove(id) == null){
             throw new IllegalArgumentException("Player is not currently active in this GameState. Removal failed.");
         }
     }

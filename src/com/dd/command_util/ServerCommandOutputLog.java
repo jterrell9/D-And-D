@@ -14,14 +14,14 @@ public class ServerCommandOutputLog extends CommandOutputLog {
     }
 
     @Override
-    public void printToLog(String string){
+    public void print(String string){
         GameServer.PlayerConnection playerConn = gameServer.getActivePlayerConn();
         System.out.println(string);
         playerConn.appendToOutBuffer(ServerInstructionBuilder.buildPrintMessageInstruction(string));
     }
 
     @Override
-    public void printToLog(byte output[]){
+    public void print(byte output[]){
         GameServer.PlayerConnection playerConn = gameServer.getActivePlayerConn();
         playerConn.appendToOutBuffer(output);
     }

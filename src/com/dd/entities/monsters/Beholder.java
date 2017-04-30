@@ -30,7 +30,7 @@ public class Beholder extends Monster {
                 super.attack(entity, 2 + 4 + attackPatern/2);
                 break;
         }
-        altText += "Critical hit by " + titleToString() + ". ";
+        altText += "Critical hit by " + getTitle() + ". ";
         if(attackPatern == 10) {
         	altText += "As you are hit, dazed by the hit, the big eye in the center of the being looks at you and you are hit "
             		+ "with a giant black beam from the main eye. ";
@@ -44,13 +44,13 @@ public class Beholder extends Monster {
         int diePercentage = random.nextInt(19) + 1;
         if (diePercentage == 20 && !revieved) {
             text += "You stab the main eye, hoping for it to be the end of the beholder. It looks injured, and falters. But "
-            		+ titleToString()
+            		+ getTitle()
             		+ " is not one to die to such an inferior being. ";
             this.stats.addHealth(4);
             revieved = true;
         }
         else {
-            super.die("You strike 5 eye stalks down, then aim for the last five. As the last eye stalks fall, + name + the beholder "
+            super.die("You strike 5 eye stalks down, then aim for the last five. As the last eye stalks fall, " + getTitle()
             		+ "screams out \"YOU SHALL PERISH! IF NOT BY ME, BY MY BROTHERS!\" You slice through the main eye. The battle is won. ");
         }
     }
@@ -58,7 +58,7 @@ public class Beholder extends Monster {
     @Override
     public String confrontText() {
         return "You enter a room and get a strange feeling in the air. You turn around and see a creature" +
-        " with multiple eyes. \"Hahaha!\" it laughs, fear tingling through your spine. \"I am " + titleToString() +
+        " with multiple eyes. \"Hahaha!\" it laughs, fear tingling through your spine. \"I am " + getTitle() +
                 " feared amongst many, known by few. Those who know me know to fear me. Those who don't, soon will\". ";
     }
 
@@ -68,7 +68,7 @@ public class Beholder extends Monster {
     }
     
     @Override
-	public String typeToString() {
+	public String getType() {
 		return "Beholder";
 	}
 }

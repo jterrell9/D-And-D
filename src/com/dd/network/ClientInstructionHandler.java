@@ -78,7 +78,7 @@ public class ClientInstructionHandler extends Thread{
                 else if(instrCode == PRINT_MESSAGE_ID) {
                     int numChar = messageSequence.getNextBits(16).getAsInt();
                     String outputStr = messageSequence.getNextBits(numChar * 16).getAsString();
-                    outputLog.printToLog(outputStr);
+                    outputLog.print(outputStr);
                 }
                 else if(instrCode == SET_STATS_ID) {
                     int health = messageSequence.getNextBits(8).getAsInt();
