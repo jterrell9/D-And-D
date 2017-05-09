@@ -16,7 +16,6 @@ public class HelpCommand extends CommandHandler {
 	@Override
 	public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException{
 		setGlobalOutput(output);
-    	updateState();
 		if(args[0] != null){
 			throw new InvalidArgumentException("The " + commandName + " command should not be followed by any arguments. ");
 		}
