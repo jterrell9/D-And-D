@@ -17,9 +17,8 @@ public class UseCommand extends CommandHandler {
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
     	setGlobalOutput(output);
-		updateState();
-    	if(dead){
-    		output.print(player.getTitle() + " is dead. ");
+    	if(isDead()){
+    		output.print(player().getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -28,12 +27,12 @@ public class UseCommand extends CommandHandler {
     	}
     	
     	Item item = null;
-    	if(player.getInventory().getInventoryMap().containsKey(args[0])) {
-    		item = player.getInventory().getInventoryMap().get(args[0]);
+    	if(player().getInventory().getInventoryMap().containsKey(args[0])) {
+    		item = player().getInventory().getInventoryMap().get(args[0]);
     	}
     	else {
-    		if(room.getItemMap().containsKey(args[0])) {
-        		item = room.getItemMap().get(args[0]);
+    		if(room().getItemMap().containsKey(args[0])) {
+        		item = room().getItemMap().get(args[0]);
         	}
         	else {
         		output.print("this room does not conatain \""
@@ -59,8 +58,8 @@ public class UseCommand extends CommandHandler {
 //    	}
     	if(item instanceof Potion) {
 			try {
-				player.usePotionFromInventory((Potion) item);
-				output.print(player.getTitle() + " has used " + item.getTitle() + ". ");
+				player().usePotionFromInventory((Potion) item);
+				output.print(player().getTitle() + " has used " + item.getTitle() + ". ");
 			} catch (EquipmentException EE) {
 				output.print(EE.getMessage());
 			}
