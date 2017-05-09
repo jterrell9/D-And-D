@@ -20,10 +20,7 @@ public class AttackCommand extends CommandHandler {
     		throw new InvalidArgumentException(commandName + " command does not require an argument. ");
     	}
 		
-		player().clearText();
 		player().attack(monster());
-		print(player().getText());
-		player().clearText();
 		if(monster().isDead()) {
 			room().removeMonster(monster());
 		}
