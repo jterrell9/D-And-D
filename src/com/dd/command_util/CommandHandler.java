@@ -24,9 +24,7 @@ public abstract class CommandHandler {
 	
 	public void monsterAttack() {
 		if(room().hasMonster() && monsterAttack && !isDead()) {
-    		monster().clearText();
 			monster().attack(player());
-			print(monster().getText() + "\n");
 			if(examineMonster) {
 				print(room().examineMonster());
 			}
