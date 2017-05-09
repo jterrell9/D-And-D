@@ -154,10 +154,4 @@ public class CommandParser {
     public void setOutputLog(CommandOutputLog outputLog){
         this.output = outputLog;
     }
-
-    public void setPlayer(Player player){
-    	for(CommandHandler cmdHandler : commandMap.values()){
-    		cmdHandler.setPlayer(player);
-		}
-	}
 }
