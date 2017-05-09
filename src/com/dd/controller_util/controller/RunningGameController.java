@@ -3,7 +3,7 @@ package com.dd.controller_util.controller;
 import com.dd.DandD;
 import com.dd.GameState;
 import com.dd.exceptions.InvalidCommandException;
-import com.dd.command_util.LocalCommandOutputLog;
+import com.dd.command_util.CommandOutputLog;
 import com.dd.command_util.CommandParser;
 import com.dd.command_util.command.*;
 import com.dd.controller_util.ControllerArgumentPackage;
@@ -35,6 +35,7 @@ public class RunningGameController extends GameSceneController{
 
 	private GameState gameState;
 	private CommandParser commandParser;
+	private CommandOutputLog log;
 	
 	/**
 	 * Event handler for "Enter" key.
@@ -158,10 +159,6 @@ public class RunningGameController extends GameSceneController{
 		return output.toString();
 	}
 
-	public void setGameState(GameState gameState){
-		this.gameState = gameState;
-	}
-
 	/**
 	 * Called when fxml document is loaded.
 	 */
@@ -172,8 +169,10 @@ public class RunningGameController extends GameSceneController{
 	@Override
 	public void setup(ControllerArgumentPackage args){
 		gameState = (GameState)args.getArgument("GameState");
-		GameState gameState = args.getArgument("GameState");
-		commandParser = new CommandParser(new LocalCommandOutputLog(output), gameState);
+		log = new CommandOutputLog(output);
+		
+		commandParser = new CommandParser(gameState);
+		
 		commandParser.registerCommand("move", new MoveCommand(gameState));
 	    commandParser.registerCommand("examine", new ExamineCommand(gameState));
 	    commandParser.registerCommand("drop", new DropCommand(gameState));

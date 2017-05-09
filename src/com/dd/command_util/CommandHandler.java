@@ -9,7 +9,6 @@ import com.dd.levels.Room;
 public abstract class CommandHandler {
 	
 	protected GameState gameState;
-	protected static CommandOutputLog globalOutput;
 	protected static boolean examineMonster;
 	protected static boolean monsterAttack = true;
 	
@@ -17,23 +16,19 @@ public abstract class CommandHandler {
     	initGameState(gameState);
 	}
 	
-	public abstract void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException;
+	public abstract void handleCommand(String commandName, String[] args) throws InvalidArgumentException;
 
 	protected void initGameState(GameState activeState) {
 		this.gameState = activeState;
-	}
-
-	public void setGlobalOutput(CommandOutputLog outputLog) {
-		globalOutput = outputLog;
 	}
 	
 	public void monsterAttack() {
 		if(room().hasMonster() && monsterAttack && !isDead()) {
     		monster().clearText();
 			monster().attack(player());
-			globalOutput.print(monster().getText() + "\n");
+			print(monster().getText() + "\n");
 			if(examineMonster) {
-				globalOutput.print(room().examineMonster());
+				print(room().examineMonster());
 			}
 		}
 		monsterAttack = true;
@@ -55,7 +50,11 @@ public abstract class CommandHandler {
 		return room().getMonster();
 	}
 
-	public boolean isDead() {
+	protected boolean isDead() {
 		return player().isDead();
 	}
+	
+	protected static void print(String text) {
+    	CommandOutputLog.print(text);
+    }
 }
