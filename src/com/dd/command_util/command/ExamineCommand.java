@@ -16,9 +16,8 @@ public class ExamineCommand extends CommandHandler {
     @Override
     public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
     	setGlobalOutput(output);
-    	updateState();
-    	if(dead){
-    		output.print(player.getTitle() + " is dead. ");
+    	if(isDead()){
+    		output.print(player().getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -28,22 +27,22 @@ public class ExamineCommand extends CommandHandler {
     	
     	switch(args[0].toLowerCase()) {
     	case "room":
-    		output.print(room.examineRoom());
+    		output.print(room().examineRoom());
     		examineMonster = false;
 			break;
     	case "monsters":
 		case "monster":
-			output.print(room.examineMonster());
+			output.print(room().examineMonster());
 			examineMonster = false;
 			break;
 		case "item":
 		case "items":
-			output.print(room.examineItems());
+			output.print(room().examineItems());
 			examineMonster = false;
 			break;
 		default:
 			try{
-				Item item = room.getItem(args[0]);
+				Item item = room().getItem(args[0]);
 				output.print(item.getTitle() + " "
 						+ item.examineToString() + "\n");
 				examineMonster = false;
