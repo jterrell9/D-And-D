@@ -58,8 +58,6 @@ public class DandD extends Application {
                                         generateSceneControllerTuple(getClass().getResource("/com/dd/fxml/AddServer.fxml")));
             addGameSceneControllerTuple("CharacterCreationScene",
                                         generateSceneControllerTuple(getClass().getResource("/com/dd/fxml/CharacterCreation.fxml")));
-            addGameSceneControllerTuple("JoinGameScene",
-                                        generateSceneControllerTuple(getClass().getResource("/com/dd/fxml/JoinMenu.fxml")));
             addGameSceneControllerTuple("LoadGameScene",
                                         generateSceneControllerTuple(getClass().getResource("/com/dd/fxml/LoadGame.fxml")));
             addGameSceneControllerTuple("MainMenuScene",
