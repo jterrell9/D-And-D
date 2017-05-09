@@ -4,6 +4,7 @@ import com.dd.GameState;
 import com.dd.controller_util.controller.RunningGameController;
 import com.dd.entities.*;
 import com.dd.exceptions.*;
+import com.dd.levels.Room;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,11 +14,13 @@ public class CommandParser {
     protected Map<String, CommandHandler> commandMap = new HashMap<String, CommandHandler>();
     protected String input;
     protected Player player;
+    protected Room room;
 
     public CommandParser(){}
     
     public CommandParser(GameState game) {
         this.player = game.getActivePlayer();
+        this.room = game.getMap().getRoom(player.getPostion());
     }
     
     public void parse(String userInput) throws InvalidCommandException{
@@ -90,7 +93,10 @@ public class CommandParser {
         }
     	try {
     		handler.handleCommand(command, args);
-    		if(!player.isDead()) {
+    		if(room.hasMonster() && CommandHandler.examineMonster){
+    			print(room.examineMonster());
+    		}
+    		if(!player.isDead() && CommandHandler.monsterAttack) {
     			handler.monsterAttack();
     		}
     	}

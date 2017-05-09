@@ -19,7 +19,6 @@ public class AttackCommand extends CommandHandler {
     	if(args[0] != null) {
     		throw new InvalidArgumentException(commandName + " command does not require an argument. ");
     	}
-		
 		player().attack(monster());
 		if(monster().isDead()) {
 			room().removeMonster(monster());

@@ -9,8 +9,8 @@ import com.dd.levels.Room;
 public abstract class CommandHandler {
 	
 	protected GameState gameState;
-	protected static boolean examineMonster;
-	protected static boolean monsterAttack = true;
+	public static boolean examineMonster;
+	public static boolean monsterAttack = true;
 	
 	public CommandHandler(GameState gameState) {
     	initGameState(gameState);
@@ -23,13 +23,7 @@ public abstract class CommandHandler {
 	}
 	
 	public void monsterAttack() {
-		if(room().hasMonster() && monsterAttack && !isDead()) {
-			monster().attack(player());
-			if(examineMonster) {
-				print(room().examineMonster());
-			}
-		}
-		monsterAttack = true;
+		monster().attack(player());
 	}
 	
 	protected Player player() {
