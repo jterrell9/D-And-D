@@ -25,7 +25,6 @@ public class ExamineCommand extends CommandHandler {
     	switch(args[0].toLowerCase()) {
     	case "room":
     		print(room().examineRoom());
-    		examineMonster = false;
 			break;
     	case "monsters":
 		case "monster":
@@ -35,14 +34,12 @@ public class ExamineCommand extends CommandHandler {
 		case "item":
 		case "items":
 			print(room().examineItems());
-			examineMonster = false;
 			break;
 		default:
 			try{
 				Item item = room().getItem(args[0]);
 				print(item.getTitle() + " "
 						+ item.examineToString() + "\n");
-				examineMonster = false;
 			}
 			catch(NullItemException UIE) {
 				print(UIE.getMessage());
