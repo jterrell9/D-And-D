@@ -15,10 +15,9 @@ public class PickupCommand extends CommandHandler {
 	}
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
-    	setGlobalOutput(output);
+    public void handleCommand(String commandName, String[] args) throws InvalidArgumentException {
     	if(isDead()){
-    		output.print(player().getTitle() + " is dead. ");
+    		print(player().getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -36,16 +35,16 @@ public class PickupCommand extends CommandHandler {
 					equippedItemNames.add(equippedItem.getName());
 				}
 				catch(NullItemException | EquipmentException E) {
-					output.print(E.getMessage());
+					print(E.getMessage());
 				}
 			}
 			for(String itemName : equippedItemNames) {
 	    		try {
 	    			room().removeItem(itemName);
-	    			output.print(player().getTitle() + " has equipped " + itemName + ". ");
+	    			print(player().getTitle() + " has equipped " + itemName + ". ");
 	    		}
 	    		catch (NullItemException UIE) {
-	    			output.print(UIE.getMessage());
+	    			print(UIE.getMessage());
 				}
 			}
 			break;
@@ -54,18 +53,18 @@ public class PickupCommand extends CommandHandler {
 				Item item = room().getItem(args[0]);
 				player().pickup(item);
 				room().removeItem(item.getName());
-				output.print(player().getTitle() + " has equipped " + item.getTitle() + ". ");
+				print(player().getTitle() + " has equipped " + item.getTitle() + ". ");
 			}
 			catch(NullItemException | EquipmentException E) {
-				output.print(E.getMessage());
+				print(E.getMessage());
 				return;
 			}
 		}
 		if(!room().hasItems()) {
-			output.print("This room now has no items. ");
+			print("This room now has no items. ");
 			return;
 		}
-		output.print("This room now contains the following items:\n");
-		output.print(room().examineItems());	
+		print("This room now contains the following items:\n");
+		print(room().examineItems());	
     }
 }

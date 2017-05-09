@@ -2,8 +2,6 @@ package com.dd.command_util.command;
 
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
-import com.dd.command_util.CommandOutputLog;
-import com.dd.command_util.LocalCommandOutputLog;
 import com.dd.exceptions.*;
 import com.dd.items.Item;
 import com.dd.items.Potion;
@@ -15,10 +13,9 @@ public class UseCommand extends CommandHandler {
     }
 
     @Override
-    public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
-    	setGlobalOutput(output);
+    public void handleCommand(String commandName, String[] args) throws InvalidArgumentException {
     	if(isDead()){
-    		output.print(player().getTitle() + " is dead. ");
+    		print(player().getTitle() + " is dead. ");
     		return;
     	}
     	if(args[0] == null) {
@@ -35,7 +32,7 @@ public class UseCommand extends CommandHandler {
         		item = room().getItemMap().get(args[0]);
         	}
         	else {
-        		output.print("this room does not conatain \""
+        		print("this room does not conatain \""
         				+ args[0] + "\". ");
         		return;
         	}
@@ -59,13 +56,13 @@ public class UseCommand extends CommandHandler {
     	if(item instanceof Potion) {
 			try {
 				player().usePotionFromInventory((Potion) item);
-				output.print(player().getTitle() + " has used " + item.getTitle() + ". ");
+				print(player().getTitle() + " has used " + item.getTitle() + ". ");
 			} catch (EquipmentException EE) {
-				output.print(EE.getMessage());
+				print(EE.getMessage());
 			}
     	}
     	else {
-    		output.print(item.getTitle() + " is not a Potion. ");
+    		print(item.getTitle() + " is not a Potion. ");
     		return;
     	}
     }

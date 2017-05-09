@@ -2,8 +2,6 @@ package com.dd.command_util.command;
 
 import com.dd.GameState;
 import com.dd.command_util.CommandHandler;
-import com.dd.command_util.CommandOutputLog;
-import com.dd.command_util.LocalCommandOutputLog;
 import com.dd.dataTypes.enums.Equip;
 import com.dd.exceptions.*;
 import com.dd.items.*;
@@ -17,10 +15,9 @@ public class DropCommand extends CommandHandler {
 	}
 
 	@Override
-	public void handleCommand(String commandName, String[] args, CommandOutputLog output) throws InvalidArgumentException {
-		setGlobalOutput(output);
+	public void handleCommand(String commandName, String[] args) throws InvalidArgumentException {
 		if(isDead()){
-    		output.print(player().getTitle() + " is dead. ");
+    		print(player().getTitle() + " is dead. ");
     		return;
     	}
 		if(args[0] == null) {
@@ -35,9 +32,9 @@ public class DropCommand extends CommandHandler {
 			try {
 				dropItem = player().getLeftHand();
 				player().drop(Equip.LEFTHAND);
-				output.print(player().getTitle() + " has dropped their left hand. ");
+				print(player().getTitle() + " has dropped their left hand. ");
 			} catch (EquipmentException EE) {
-				output.print(EE.getMessage());
+				print(EE.getMessage());
 			}
 			break;
 		case "right hand":
@@ -45,29 +42,29 @@ public class DropCommand extends CommandHandler {
 			try {
 				dropItem = player().getRightHand();
 				player().drop(Equip.RIGHTHAND);
-				output.print(player().getTitle() + " has dropped their right hand. ");
+				print(player().getTitle() + " has dropped their right hand. ");
 			} catch (EquipmentException EE) {
-				output.print(EE.getMessage());
+				print(EE.getMessage());
 			}
 			break;
 		case "hands":
 			try {
 				dropItem = player().get();
 				player().drop(Equip.HANDS);
-				output.print(player().getTitle() + " has dropped both hands. ");
+				print(player().getTitle() + " has dropped both hands. ");
 			}
 			catch (EquipmentException ee) {
-				output.print(ee.getMessage());
+				print(ee.getMessage());
 			}
 			break;
 		case "suit":
 			try {
 				dropItem = player().getSuitArea();
 				player().drop(Equip.SUIT);
-				output.print(player().getTitle() + " has dropped their suit. ");
+				print(player().getTitle() + " has dropped their suit. ");
 			}
 			catch (EquipmentException ee) {
-				output.print(ee.getMessage());
+				print(ee.getMessage());
 			}
 			break;
 		default:
@@ -79,11 +76,11 @@ public class DropCommand extends CommandHandler {
 						try {
 							dropItem = item;
 							player().removeFromInventory(dropItem);
-							output.print(player().getTitle() + " has dropped " + dropItem.getTitle() + " "
+							print(player().getTitle() + " has dropped " + dropItem.getTitle() + " "
 									+ "from their inventory. ");
 						}
 						catch (InventoryException IE) {
-							output.print(IE.getMessage());
+							print(IE.getMessage());
 						}
 					}
 					i++;
@@ -91,7 +88,7 @@ public class DropCommand extends CommandHandler {
 				break;
 			}
 			else {
-				output.print("The body area \"" + args[0] + "\" is not a valid entry. "
+				print("The body area \"" + args[0] + "\" is not a valid entry. "
 					+ "Type \"help\" for help using the examine command. ");
 				break;
 			}
@@ -101,14 +98,14 @@ public class DropCommand extends CommandHandler {
 				this.room().addItem(dropItem);
 			} 
 			catch (NullItemException UIE) {
-				output.print(UIE.getMessage());
+				print(UIE.getMessage());
 			}
 		}
 		if(!room().hasItems()) {
-			output.print("This room still has no items. ");
+			print("This room still has no items. ");
 			return;
 		}
-		output.print("This room now contains the following items:\n");
-		output.print(room().examineItems());	
+		print("This room now contains the following items:\n");
+		print(room().examineItems());	
 	}
 }
